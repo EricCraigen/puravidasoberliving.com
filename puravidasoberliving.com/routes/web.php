@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Forward_Facing_App\StaticPagesController;
+use App\Http\Controllers\Forward_Facing_App\RentalApplicationController;
+use App\Http\Controllers\Forward_Facing_App\ContactPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,34 @@ Route::prefix('/')->group(function () {
         '/à-la-carte-recovery',
         [StaticPagesController::class, 'getALaCarteRecoveryPage']
     )->name('a-la-carte-recovery');
+
+    Route::get(
+        '/apply-now',
+        [RentalApplicationController::class, 'getRentalApplicationPage']
+    )->name('apply-now');
+
+    Route::get(
+        '/contact-us',
+        [ContactPageController::class, 'getContactUsPage']
+    )->name('contact');
+});
+
+Route::prefix('/application')->group(function () {
+
+    Route::get(
+        '/step-one',
+        [RentalApplicationController::class, 'getRentalApplicationStepOne']
+    )->name('application.step-one');
+
+    Route::get(
+        '/step-two',
+        [RentalApplicationController::class, 'getRentalApplicationStepTwo']
+    )->name('application.step-two');
+
+    Route::get(
+        '/step-three',
+        [RentalApplicationController::class, 'getRentalApplicationStepThree']
+    )->name('application.step-three');
 });
 
 
