@@ -1,4 +1,16 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{
+    open: false
+    {{-- scrollTop: false, toggle() { this.scrollTop = ! this.scrollTop; console.log(scrollTop); }, --}}
+    {{-- scrollToReveal() {
+        let scrollPos = window.scrollY
+        if (scrollPos > 0) {
+            scrollTop = ! scrollTop
+        }
+        console.log(scrollTop)
+      } --}}
+    }"
+    x-on:scroll.window="minifyNavOnScroll(window.scrollY)"
+            class="bg-white border-b border-gray-100 navTopPadding sticky top-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -7,7 +19,8 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('welcome') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        {{-- <img class="flex w-full h-auto" src="/img/pvsl-logo.png" alt="Pura Vida Sober Living"> --}}
+                        <x-application-logo class="block h-10 w-auto text-gray-600" />
                     </a>
                 </div>
 
@@ -60,6 +73,12 @@
                     </div>
                 </div>
             </div>
+
+            {{-- <div class="flex items-center text-sm font-medium text-gray-500" x-data="{ count: $persist(0).as('page-visits') }">
+                <button x-on:click="count++">Increment</button>
+
+                <span x-text="count"></span>
+            </div> --}}
 
                 <!-- Settings Dropdown -->
                 <div class="hidden md:flex md:items-center md:ml-6">
@@ -190,3 +209,25 @@
 
     </div>
 </nav>
+
+<script type="text/javascript">
+    // let atTopOfPage = true;
+
+    function minifyNavOnScroll(scrollPos) {
+        if (scrollPos == 0) {
+            $('nav').addClass('navTopPadding').removeClass('navTopPaddingRemove');
+            // return atTopOfPage = true;
+            // console.log(atTopOfPage);
+            // console.log(scrollPos);
+        } else {
+            // return atTopOfPage = false;
+            $('nav').removeClass('navTopPadding').addClass('navTopPaddingRemove');
+            // console.log(atTopOfPage);
+            // console.log(scrollPos);
+        }
+
+        // if (scrollPos == 0) {
+        //     $('nav').addClass('navTopPadding').removeClass('sticky').removeClass('top-0');
+        // }
+    }
+</script>
