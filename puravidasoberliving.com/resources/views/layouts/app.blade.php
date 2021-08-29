@@ -28,8 +28,9 @@
 
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="relative min-h-screen bg-gray-100">
+    {{-- toggle darkMode here --}}
+    <body class="font-sans antialiased ">
+        <div class="relative min-h-screen bg-gray-100 dark:bg-gray-700">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -43,6 +44,7 @@
             <main>
                 {{ $slot }}
             </main>
+            @include('layouts.footer')
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

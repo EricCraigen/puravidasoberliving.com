@@ -8,7 +8,7 @@ module.exports = {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
     ],
-
+    darkMode: 'class',
     theme: {
         screens: {
             sm: "480px",
@@ -16,39 +16,7 @@ module.exports = {
             lg: "976px",
             xl: "1440px",
         },
-        // colors: {
-        //     transparent: "transparent",
-        //     current: "currentColor",
-        //     blue: {
-        //         light: "#85d7ff",
-        //         DEFAULT: "#1fb6ff",
-        //         dark: "#009eeb",
-        //     },
-        //     pink: {
-        //         light: "#ff7ce5",
-        //         DEFAULT: "#ff49db",
-        //         dark: "#ff16d1",
-        //     },
-        //     gray: {
-        //         darkest: "#17e34d",
-        //         dark: "#17e34d",
-        //         DEFAULT: "#17e34d",
-        //         light: "#17e34d",
-        //         lightest: "#17e34d",
-        //     },
-        // ...this.theme.colorsc,
-        // },
         extend: {
-            colors: {
-                transparent: "transparent",
-                current: "currentColor",
-                black: colors.black,
-                white: colors.white,
-                gray: colors.trueGray,
-                indigo: colors.indigo,
-                red: colors.rose,
-                yellow: colors.amber,
-            },
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },
