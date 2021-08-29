@@ -7,3 +7,15 @@
     padding: 0rem;
     transition: padding 1s ease;
 }
+
+.navTopSize {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    transition: all 1s ease;
+}
+
+.navTopSizeReduce {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    transition: all 1s ease;
+}
