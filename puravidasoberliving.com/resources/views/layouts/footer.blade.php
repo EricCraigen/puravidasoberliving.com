@@ -1,11 +1,11 @@
-<footer class="bg-white shadow" aria-labelledby="footer-heading">
+<footer class="bg-white" aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8 xl:col-span-1">
           <x-application-logo class="block h-10 w-auto text-gray-600" />
           <p class="text-gray-500 text-base">
-            Making the world a better place through constructing elegant hierarchies.
+            Making the world a better place through a mens transformational platform.
           </p>
           <div class="flex space-x-6">
             <a href="#" class="text-gray-400 hover:text-gray-500">
@@ -173,7 +173,7 @@
       </div>
       <div class="mt-12 border-t border-gray-200 pt-8">
         <p class="text-base text-gray-400 xl:text-center">
-          &copy; 2020 Workflow, Inc. All rights reserved.
+          &copy; 2021 Pura Vida Sober Living. All rights reserved.
         </p>
       </div>
     </div>

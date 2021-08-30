@@ -1,4 +1,3 @@
-{{-- <div class="flex">nav topbar</div> --}}
 <nav x-data="{
     open: false
     {{-- scrollTop: false, toggle() { this.scrollTop = ! this.scrollTop; console.log(scrollTop); }, --}}
@@ -9,11 +8,9 @@
         }
         console.log(scrollTop)
       } --}}
-    }" 
-    @scroll.window="minifyNavOnScroll(window.scrollY)"
-    class="contianer bg-white border-b border-gray-100 navTopPadding sticky top-0 z-50">
+    }" x-on:scroll.window="minifyNavOnScroll(window.scrollY)"
+    class="bg-gray-200 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 navTopPadding navTopSize sticky top-0 shadow">
     <!-- Primary Navigation Menu -->
-    
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -39,7 +36,7 @@
                         <x-dropdown align="right" width="auto">
                             <x-slot name="trigger">
                                 <button
-                                    class="flex items-center text-md font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                                    class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                                     <div>{{ __('Á La Carte Recovery') }}</div>
 
                                     <div class="ml-1">
@@ -77,7 +74,7 @@
                             @csrf
                             <x-button onclick="event.preventDefault();
                             this.closest('form').submit();" :active="request()->routeIs('apply-now')">
-                                {{ __('Apply Now') }}
+                                {{ __('Apply Today') }}
                             </x-button>
                         </form>
                     </div>
@@ -240,14 +237,14 @@
     function minifyNavOnScroll(scrollPos) {
         if (scrollPos == 0) {
             $('nav').addClass('navTopPadding').removeClass('navTopPaddingRemove');
-            $('.nav-scroll-toggle').addClass('navTopSize').removeClass('navTopSizeReduce');
+            $('nav').addClass('navTopSize').removeClass('navTopSizeReduce');
             // return atTopOfPage = true;
             // console.log(atTopOfPage);
             // console.log(scrollPos);
         } else {
             // return atTopOfPage = false;
             $('nav').removeClass('navTopPadding').addClass('navTopPaddingRemove');
-            $('.nav-scroll-toggle').addClass('navTopSizeReduce').removeClass('navTopSize');
+            $('nav').removeClass('navTopSize').addClass('navTopSizeReduce');
             // console.log(atTopOfPage);
             // console.log(scrollPos);
         }

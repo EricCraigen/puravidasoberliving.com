@@ -17,6 +17,9 @@ module.exports = {
             xl: "1440px",
         },
         extend: {
+            colors: {
+                
+            },
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },

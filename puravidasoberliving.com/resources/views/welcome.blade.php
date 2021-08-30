@@ -3,114 +3,156 @@
     <!--Hero
 style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
 -->
-  <div class="py-20 bg-cover bg-no-repeat bg-fixed" style="background-image: url(https://media.vanityfair.com/photos/5ce426151c0b0773cacd1121/master/pass/star-wars-feature-vf-2019-summer-embed-05.jpg)">
-    <div class="container m-auto text-center px-6 opacity-100">
-      <h2 class="text-4xl font-bold mb-2 text-white">Echo Base...I've got something!</h2>
-      <h3 class="text-2xl mb-8 text-gray-200">Not much, but it could be a life form. This is Rouge Two. this is Rouge Two. Captain Solo, so you copy?</h3>
-      <button class="bg-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:border-transparent hover:text-blue-500 hover:bg-gray-800">Commander Skywalker, do you copy?</button>
+    <div class="py-36 bg-cover bg-no-repeat bg-fixed bg-opacity-40"
+        style="background-image: url('/img/welcome/welcome-hero-1.jpg')">
+        <div class="container m-auto text-center px-6 opacity-100">
+            <h2 class="text-5xl font-bold mb-2 text-accent text-stroke">
+              {{ __('Pura Vida Sober Living') }}
+            </h2>
+            <h3 class="text-2xl mb-8 font-bold text-gray-200 text-stroke">
+              {{ __('A community of men dedicated to recovery through active, sober lifestyles.') }}
+            </h3>
+            <button class="bg-accent text-lg font-bold text-gray-200 rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:border-transparent hover:text-white bg-accent_hover">
+              {{ __('Apply Today') }} 
+            </button>
+        </div>
     </div>
-  </div>
 
-  <!-- Features -->
-  <section class="container mx-auto px-6 p-10">
-    <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Artoo!</h2>
-    <div class="flex items-center flex-wrap mb-20">
-      <div class="w-full md:w-1/2 pr-10">
-        <h4 class="text-3xl text-gray-800 font-bold mb-3">Vortex</h4>
-        <p class="text-gray-600 mb-8">Their primary target will be the power generators. Prepare to open the shield. Sir, Rebel ships are coming into our sector. Good. Our first catch of the day. Stand by, ion control....Fire! The first transport is away.</p>
-      </div>
-      <div class="w-full md:w-1/2">
-        <img class="rounded-lg" src="https://pbs.twimg.com/media/CR45LOXVEAADG5E.jpg" alt="Vortex" />
-      </div>
-    </div>
-    <div class="flex items-center flex-wrap mb-20">
-      <div class="w-full md:w-1/2">
-        <img class="rounded-lg" src="https://www.thesun.co.uk/wp-content/uploads/2019/06/SWJFO-EAPlay-08-1.jpg" alt="use the force" />
-      </div>
-      <div class="w-full md:w-1/2 pl-10">
-        <h4 class="text-3xl text-gray-800 font-bold mb-3">Use the Force!</h4>
-        <p class="text-gray-600 mb-8">We'll never get it out now. So certain are you. Always with you it cannot be done. Hear you nothing that I say? Master, moving stones around is one thing. This is totally different. No! No different!</p>
-      </div>
-    </div>
-    <div class="flex items-center flex-wrap mb-20">
-      <div class="w-full md:w-1/2 pr-10">
-        <h4 class="text-3xl text-gray-800 font-bold mb-3">Life creates it</h4>
-        <p class="text-gray-600 mb-8">There is no try. I can't. It's too big. Size matters not. Look at me. Judge me by my size, do you? Hm? Mmmm. And well you should not. For my ally in the Force. And a powerful ally it is.</p>
-      </div>
-      <div class="w-full md:w-1/2">
-        <img class="rounded-lg" src="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Ferikkain%2Ffiles%2F2018%2F01%2FRey-Luke.jpg" alt="Syncing" />
-      </div>
-    </div>
-  </section>
-  
-  <!-- Testimonials -->
-  <section class="bg-gray-100">
-    <div class="container mx-auto px-6 py-20">
-      <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Artoo expresses</h2>
-      <div class="flex flex-wrap">
-        
-        <div class="w-full h-auto md:w-1/3 px-2 mb-4">
-          <div class="flex flex-col justify-between h-full bg-white rounded shadow py-2">
-            <p class="text-gray-800 text-base px-6 mb-5">How are you feeling, kid? You don't look so bad to me. In fact, you look strong enough to pull the ears off a Gundark. Thanks to you.</p>
-            <p class="text-gray-500 text-xs md:text-sm px-6">Luke Skywalker</p>
-          </div>
+    <!-- Features -->
+    <section class="container mx-auto px-6 p-10">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
+          {{ __('A transformational platform for men just starting or continuing thier journey through recovery from addiction, homelessness, and criminality.') }}
+        </h2>
+        <div class="flex items-center flex-wrap mb-28">
+            <div class="w-full md:w-1/2 pr-10">
+                <h4 class="text-3xl text-gray-800 font-bold mb-3">
+                  {{ __('Modern, safe, affordable housing; lifestyle included') }}
+                </h4>
+                <p class="text-gray-600 mb-8">
+                  {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet 
+                  nisi culpa, nam illum deserunt, dolore incidunt debitis similique 
+                  beatae blanditiis quo. Sunt similique et magni maxime sint aliquid 
+                  provident aspernatur nostrum illum? In, ad delectus quaerat aliquid 
+                  repudiandae amet itaque sapiente accusamus iste impedit eaque corrupti 
+                  aliquam blanditiis laudantium exercitationem minima?') }}
+                </p>
+            </div>
+            <div class="w-full md:w-1/2">
+                <img class="w-full max-h-96 rounded-lg " src="/img/welcome/spokane-downtown_1.jpg" alt="Connection Through Comminuty" />
+            </div>
         </div>
-        
-        <div class="w-full h-auto md:w-1/3 px-2 mb-4">
-          <div class="flex flex-col justify-between h-full bg-white rounded shadow py-2">
-            <p class="text-gray-800 text-base px-6 mb-5">That's two you owe me, junior. Well your Worship, looks like you managed to keep me around for a little while longer. I had nothing to do with it.</p>
-            <p class="text-gray-500 text-xs md:text-sm px-6">Emperor's Royal Guards</p>
-          </div>
+        <div class="flex md:flex-row sm:flex-col-reverse items-center flex-wrap mb-28">
+            <div class="w-full md:w-1/2">
+                <img class="w-full max-h-96 rounded-lg" src="/img/welcome/welcome-martial-arts.jpg" alt="use the force" />
+            </div>
+            <div class="w-full  md:w-1/2 md:pl-10 sm:pl-0">
+                <h4 class="text-3xl text-gray-800 font-bold mb-3">
+                  {{ __('An active body is a happy body') }}
+                </h4>
+                <p class="text-gray-600 mb-8">
+                  {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet 
+                  nisi culpa, nam illum deserunt, dolore incidunt debitis similique 
+                  beatae blanditiis quo. Sunt similique et magni maxime sint aliquid 
+                  provident aspernatur nostrum illum? In, ad delectus quaerat aliquid 
+                  repudiandae amet itaque sapiente accusamus iste impedit eaque corrupti 
+                  aliquam blanditiis laudantium exercitationem minima?') }}
+                </p>
+            </div>
         </div>
-        
-        <div class="w-full h-auto md:w-1/3 px-2 mb-4">
-          <div class="flex flex-col justify-between h-full bg-white rounded shadow py-2">
-            <p class="text-gray-800 text-base px-6 mb-5">General Rieekan thinks it's dangerous for any ships to leave the system until we've activated the energy shield. That's a good story. I think you just can't bear to let a gorgeous guy like me out of your sight</p>
-            <p class="text-gray-500 text-xs md:text-sm px-6">Queen Mother Ta'a Chume</p>
-          </div>
+        <div class="flex items-center flex-wrap mb-28">
+            <div class="w-full md:w-1/2 pr-10">
+                <h4 class="text-3xl text-gray-800 font-bold mb-3">
+                  {{ __('Building solid connections through community') }}
+                </h4>
+                <p class="text-gray-600 mb-8">
+                  {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet 
+                  nisi culpa, nam illum deserunt, dolore incidunt debitis similique 
+                  beatae blanditiis quo. Sunt similique et magni maxime sint aliquid 
+                  provident aspernatur nostrum illum? In, ad delectus quaerat aliquid 
+                  repudiandae amet itaque sapiente accusamus iste impedit eaque corrupti 
+                  aliquam blanditiis laudantium exercitationem minima?') }}
+                </p>
+            </div>
+            <div class="w-full md:w-1/2">
+                <img class="w-full max-h-96 rounded-lg" src="/img/welcome/welcome-community.jpg" alt="Connection Through Comminuty" />
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-  
-  <!--Call to Action-->
-  <section style="background-color: #667eea">
-    <div class="container mx-auto px-6 text-center py-20">
-      <h2 class="mb-6 text-4xl font-bold text-center text-white">Headquarters personnel</h2>
-      <h3 class="my-4 text-2xl text-white">Report to command center. Take it easy.</h3>
-      <button class="bg-white font-bold rounded-full mt-6 py-4 px-8 shadow-lg uppercase tracking-wider hover:border-red hover:text-white hover:bg-red-600">Report</button>
-    </div>
-  </section>
+    </section>
 
-    {{-- <div class="relative ">
-        <section class="lg:relative">
-            <div class="mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left">
-                <div class="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
-                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-                    <span class="block xl:inline">Data to enrich your</span>
-                    <span class="block text-indigo-600 xl:inline">online business</span>
-                    </h1>
-                    <p class="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                        Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
+    <!-- Testimonials -->
+    <section class="">
+        <div class="container mx-auto px-6 py-20">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
+              {{ __('See what current and past PVSL members has to say') }}
+            </h2>
+            <div class="flex flex-wrap">
+
+              <div class="w-full h-auto md:w-1/3 px-2 mb-4">
+                <div class="flex flex-col justify-between h-full bg-white rounded shadow py-2">
+                  <p class="text-gray-800 text-base px-6 mb-5">
+                    {{ __('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta repellendus dicta dignissimos 
+                    perferendis ea eligendi corporis nesciunt totam, facere officiis eum hic alias optio quam minima odit 
+                    unde suscipit possimus aperiam! Quas, dolores qui eligendi tempora mollitia et nobis quos fuga incidunt 
+                    totam, possimus perspiciatis inventore dolore dolor, maxime neque!') }} 
+                  </p>
+                  <div class="flex px-6">
+                    <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <p class="text-gray-500 text-xs md:text-sm px-6">
+                      {{ __('Luke Skywalker - ') }} <span class="text-accent">{{ __('PVSL member') }}</span>
                     </p>
-                    <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
-                        <div class="rounded-md shadow">
-                            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
-                                    Get started
-                            </a>
-                        </div>
-                        <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
-                                Live demo
-                            </a>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+              </div>
+
+              <div class="w-full h-auto md:w-1/3 px-2 mb-4">
+                <div class="flex flex-col justify-between h-full bg-white rounded shadow py-2">
+                  <p class="text-gray-800 text-base px-6 mb-5">
+                    {{ __('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta repellendus dicta dignissimos 
+                    perferendis ea eligendi corporis nesciunt totam, facere officiis eum hic alias optio quam minima odit 
+                    unde suscipit possimus aperiam! Quas, dolores qui eligendi tempora mollitia et nobis quos fuga incidunt 
+                    totam, possimus perspiciatis inventore dolore dolor, maxime neque!') }} 
+                  </p>
+                  <div class="flex px-6">
+                    <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <p class="text-gray-500 text-xs md:text-sm px-6">
+                      {{ __('Luke Skywalker - ') }} <span class="text-accent">{{ __('PVSL member') }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-full h-auto md:w-1/3 px-2 mb-4">
+                <div class="flex flex-col justify-between h-full bg-white rounded shadow py-2">
+                  <p class="text-gray-800 text-base px-6 mb-5">
+                    {{ __('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta repellendus dicta dignissimos 
+                    perferendis ea eligendi corporis nesciunt totam, facere officiis eum hic alias optio quam minima odit 
+                    unde suscipit possimus aperiam! Quas, dolores qui eligendi tempora mollitia et nobis quos fuga incidunt 
+                    totam, possimus perspiciatis inventore dolore dolor, maxime neque!') }} 
+                  </p>
+                  <div class="flex px-6">
+                    <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <p class="text-gray-500 text-xs md:text-sm px-6">
+                      {{ __('Luke Skywalker - ') }} <span class="text-accent">{{ __('PVSL member') }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <div class="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-                <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80" alt="">
-            </div>
-        </section>
-    </div> --}}
+        </div>
+    </section>
+
+    <!--Call to Action-->
+    <section class="bg-gray-300">
+        <div class="container mx-auto px-6 text-center py-20">
+            <h2 class="mb-6 text-4xl font-bold text-center text-gray-800">
+              {{ __('Have a question not anwered ') }}
+              <a class="text-accent underline text-accent_hover" href="/about">{{ __('here') }}</a>{{ __('?') }}
+            </h2>
+            <button class="bg-accent text-gray-200 text-lg font-bold rounded-full mt-6 py-4 px-8 shadow-lg uppercase tracking-wider hover:border-red hover:text-white bg-accent_hover">
+              {{ __('Drop us a message.') }}
+            </button>
+        </div>
+    </section>
 
 </x-app-layout>

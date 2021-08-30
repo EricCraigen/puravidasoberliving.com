@@ -1,0 +1,30 @@
+:root {
+    --accent: rgba(8, 196, 235, 1);
+    --accent_hover: rgba(23, 154, 181);
+    /* text-stroke */
+    --text-stroke: 1px black;
+}
+
+.bg-accent {
+    background-color: var(--accent) !important;
+}
+
+.bg-accent_hover:hover {
+    background-color: var(--accent_hover) !important;
+}
+
+.border-accent {
+    border-color: var(--accent);
+}
+
+.text-accent {
+    color: var(--accent) !important;
+}
+
+.text-accent_hover:hover {
+    color: var(--accent_hover) !important;
+}
+
+.text-stroke {
+    -webkit-text-stroke: var(--text-stroke);
+}
