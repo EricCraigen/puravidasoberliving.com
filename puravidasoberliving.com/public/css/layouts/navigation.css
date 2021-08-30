@@ -19,3 +19,31 @@
     line-height: 1.25rem;
     transition: all 1s ease;
 }
+
+.show {
+    transform: scale(1);
+    animation: transform_scale_on_show 1s ease;
+}
+
+@keyframes transform_scale_on_show {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.hide {
+    transform: scale(0);
+    animation: transform_scale_on_hide 1s ease;
+}
+
+@keyframes transform_scale_on_hide {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}

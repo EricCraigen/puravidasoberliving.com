@@ -3,7 +3,9 @@
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8 xl:col-span-1">
-          <x-application-logo class="block h-10 w-auto text-gray-600" />
+            <a href="{{ route('welcome') }}">
+                <x-application-logo class="block h-10 w-auto text-gray-600" />
+            </a>
           <p class="text-gray-500 text-base">
             Making the world a better place through a mens transformational platform.
           </p>

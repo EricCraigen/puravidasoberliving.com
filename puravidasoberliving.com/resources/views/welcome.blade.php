@@ -6,7 +6,7 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
     <div class="py-36 bg-cover bg-no-repeat bg-fixed bg-opacity-40"
         style="background-image: url('/img/welcome/welcome-hero-1.jpg')">
         <div class="container m-auto text-center px-6 opacity-100">
-            <h2 class="text-5xl font-bold mb-2 text-accent text-stroke">
+            <h2 class="text-5xl font-black mb-2 text-accent text-stroke">
               {{ __('Pura Vida Sober Living') }}
             </h2>
             <h3 class="text-2xl mb-8 font-bold text-gray-200 text-stroke">
@@ -18,11 +18,64 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
         </div>
     </div>
 
+    {{-- <section class="text-gray-700 body-font">
+        <div class="container px-5 py-24 mx-auto">
+          <div>Loading</div>
+          <div class="flex flex-wrap -m-4">
+
+            <div class="p-4 md:w-1/3">
+              <div class="h-full border-2 border-gray-200 rounded-lg overflow-hidden">
+                <div class="lg:h-48 bg-gray-400 md:h-36 w-full object-cover object-center"></div>
+                <div class="p-6">
+                  <h2 class="bg-gray-400 animate-pulse h-4 w-1/4 mb-2"></h2>
+                  <h1 class="w-1/2 mb-4 h-6 animate-pulse bg-gray-500"></h1>
+                  <p class="leading-relaxed mb-3 w-full h-3 animate-pulse bg-gray-400"></p>
+                  <p class="leading-relaxed mb-3 w-2/3 h-3 animate-pulse bg-gray-400"></p>
+                  <p class="leading-relaxed mb-3 w-1/2 h-3 animate-pulse bg-gray-400"></p>
+                  <div class="flex items-center flex-wrap ">
+                    <a class="bg-indigo-300 h-4 animate-pulse mt-2 w-32 inline-flex items-center md:mb-2 lg:mb-0">
+                      
+                    </a>
+                    <span class="bg-indigo-300 w-16 mt-2 h-4 animate-pulse mr-3 px-2 inline-flex items-center ml-auto leading-none text-sm pr-5 py-1">
+                      
+                    </span>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+  
+          </div>
+        </div>
+      </section> --}}
+
     <!-- Features -->
     <section class="container mx-auto px-6 p-10">
-        <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
-          {{ __('A transformational platform for men just starting or continuing thier journey through recovery from addiction, homelessness, and criminality.') }}
-        </h2>
+        <x-lazy-loader>
+
+            <x-slot name="loading">
+                <div class="flex w-full justify-center flex-wrap loading mb-8">
+                    <h2 class="bg-gray-400 animate-pulse h-8 w-full mb-2"></h2>
+                    <h2 class="bg-gray-400 animate-pulse h-8 w-9/12 mb-2"></h2>
+                </div>
+            </x-slot>
+
+            <x-slot name="loaded">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-8 loaded hidden">
+                    {{ __('A transformational platform for men just starting or continuing thier journey through ') }}<span class="text-accent">{{ __('recovery ') }}</span>{{ __('from addiction, homelessness, and criminality.') }}
+                </h2>
+            </x-slot>
+
+        </x-lazy-loader>
+        {{-- <div class="flex w-full justify-center flex-wrap">
+            <h2 class="bg-gray-400 animate-pulse h-5 w-full mb-2"></h2>
+            <h2 class="bg-gray-400 animate-pulse h-5 w-9/12 mb-2"></h2>
+        </div> --}}
+        
+        {{-- <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
+          {{ __('A transformational platform for men just starting or continuing thier journey through ') }}<span class="text-accent">{{ __('recovery ') }}</span>{{ __('from addiction, homelessness, and criminality.') }}
+        </h2> --}}
         <div class="flex items-center flex-wrap mb-28">
             <div class="w-full md:w-1/2 pr-10">
                 <h4 class="text-3xl text-gray-800 font-bold mb-3">
@@ -83,7 +136,7 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
     <section class="">
         <div class="container mx-auto px-6 py-20">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
-              {{ __('See what current and past PVSL members has to say') }}
+              {{ __('See what current and past ') }}<span class="text-accent">{{ __('PVSL ') }}</span>{{ __('members have to say') }}
             </h2>
             <div class="flex flex-wrap">
 
@@ -156,3 +209,16 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
     </section>
 
 </x-app-layout>
+
+
+<script type="text/javascript">
+
+document.addEventListener('DOMContentLoaded', function() {
+    // alert('DOM ready!');
+    window.setTimeout(function() {
+        $('.loading').addClass('hidden');
+        $('.loaded').removeClass('hidden');
+    }, 1300);
+});
+
+</script>
