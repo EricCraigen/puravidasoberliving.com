@@ -10,7 +10,7 @@ class RentalApplicationController extends Controller
     public function getRentalApplicationPage()
     {
         view()->share('title', 'PVSL | Apply Now');
-        return view("Forward_Facing_app.application.application-page");
+        return view("Forward_Facing_App.application.application-page");
     }
 
     public function getRentalApplicationStepOne()

@@ -1,4 +1,4 @@
-<div class="flex w-full h-10 px-20 items-center justify-between bg-accent">
+<div class="flex w-full h-10 px-2 items-center justify-between bg-accent">
     <div class="flex">
         <div class="flex space-x-6">
             <a href="#" class="text-gray-800 text-accent_hover">
@@ -69,6 +69,31 @@
                 </form>
             </x-slot>
         </x-dropdown>
+
+    @else
+
+    <div class="">
+        <div class="inline-flex h-100 mr-3 items-center">
+            <form action="{{ route('login') }}" method="GET">
+                @csrf
+                <x-nav-button onclick="event.preventDefault();
+                this.closest('form').submit();" :active="request()->routeIs('login')">
+                    {{ __('Login') }}
+                </x-nav-button>
+            </form>
+        </div>
+
+        <div class="inline-flex h-100 items-center">
+            <form action="{{ route('register') }}" method="GET">
+                @csrf
+                <x-nav-button onclick="event.preventDefault();
+                this.closest('form').submit();" :active="request()->routeIs('register')">
+                    {{ __('Register') }}
+                </x-nav-button>
+            </form>
+        </div>
+    </div>
+    
     @endif
 </div>
 <nav x-data="{open: false}" 
@@ -155,10 +180,11 @@
                 <div class="hidden inline-flex h-100 items-center px-1 pt-1 mr-6 scale-100" id="apply_today_nav_btn">
                     <form action="{{ route('apply-now') }}" method="GET">
                         @csrf
-                        <x-button onclick="event.preventDefault();
-                        this.closest('form').submit();" :active="request()->routeIs('apply-now')">
+                        <x-nav-button onclick="event.preventDefault();
+                        // console.log(authBtn);
+                        this.closest('form').submit();" :active="request()->routeIs('apply-now')" >
                             {{ __('Apply Today') }}
-                        </x-button>
+                        </x-nav-button>
                     </form>
                 </div>
                 {{-- @if (Auth::check())
@@ -267,10 +293,10 @@
             <div class="hidden inline-flex h-100 items-center px-1 pt-1 mr-6 scale-100" id="apply_today_nav_btn_responsive">
                 <form action="{{ route('apply-now') }}" method="GET">
                     @csrf
-                    <x-button onclick="event.preventDefault();
+                    <x-nav-button onclick="event.preventDefault();
                     this.closest('form').submit();" :active="request()->routeIs('apply-now')">
                         {{ __('Apply Today') }}
-                    </x-button>
+                    </x-nav-button>
                 </form>
             </div>
         </div>

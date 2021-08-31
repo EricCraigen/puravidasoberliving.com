@@ -10,6 +10,6 @@ class ContactPageController extends Controller
     public function getContactUsPage()
     {
         view()->share('title', 'PVSL | Contact Us');
-        return view("Forward_Facing_app.contact");
+        return view("Forward_Facing_App.contact");
     }
 }
