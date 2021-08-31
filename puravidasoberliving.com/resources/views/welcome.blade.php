@@ -12,9 +12,16 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
             <h3 class="text-2xl mb-8 font-bold text-gray-200 text-stroke">
               {{ __('A community of men dedicated to recovery through active, sober lifestyles.') }}
             </h3>
-            <button class="bg-accent text-lg font-bold text-gray-200 rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:border-transparent hover:text-white bg-accent_hover">
+            <form action="{{ route('apply-now') }}" method="GET">
+                @csrf
+                <x-button onclick="event.preventDefault();
+                this.closest('form').submit();" :active="request()->routeIs('apply-now')">
+                    {{ __('Apply Today') }}
+                </x-button>
+            </form>
+            {{-- <button class="bg-accent text-lg font-bold text-gray-200 rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:border-transparent hover:text-white bg-accent_hover">
               {{ __('Apply Today') }} 
-            </button>
+            </button> --}}
         </div>
     </div>
 
@@ -52,8 +59,8 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
 
     <!-- Features -->
     <section class="container mx-auto px-6 p-10">
-        <x-lazy-loader>
 
+        <x-lazy-loader>
             <x-slot name="loading">
                 <div class="flex w-full justify-center flex-wrap loading mb-8">
                     <h2 class="bg-gray-400 animate-pulse h-8 w-full mb-2"></h2>
@@ -66,16 +73,8 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
                     {{ __('A transformational platform for men just starting or continuing thier journey through ') }}<span class="text-accent">{{ __('recovery ') }}</span>{{ __('from addiction, homelessness, and criminality.') }}
                 </h2>
             </x-slot>
-
         </x-lazy-loader>
-        {{-- <div class="flex w-full justify-center flex-wrap">
-            <h2 class="bg-gray-400 animate-pulse h-5 w-full mb-2"></h2>
-            <h2 class="bg-gray-400 animate-pulse h-5 w-9/12 mb-2"></h2>
-        </div> --}}
-        
-        {{-- <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
-          {{ __('A transformational platform for men just starting or continuing thier journey through ') }}<span class="text-accent">{{ __('recovery ') }}</span>{{ __('from addiction, homelessness, and criminality.') }}
-        </h2> --}}
+
         <div class="flex items-center flex-wrap mb-28">
             <div class="w-full md:w-1/2 pr-10">
                 <h4 class="text-3xl text-gray-800 font-bold mb-3">
@@ -94,6 +93,7 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
                 <img class="w-full max-h-96 rounded-lg " src="/img/welcome/spokane-downtown_1.jpg" alt="Connection Through Comminuty" />
             </div>
         </div>
+
         <div class="flex md:flex-row sm:flex-col-reverse items-center flex-wrap mb-28">
             <div class="w-full md:w-1/2">
                 <img class="w-full max-h-96 rounded-lg" src="/img/welcome/welcome-martial-arts.jpg" alt="use the force" />
@@ -112,6 +112,7 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
                 </p>
             </div>
         </div>
+
         <div class="flex items-center flex-wrap mb-28">
             <div class="w-full md:w-1/2 pr-10">
                 <h4 class="text-3xl text-gray-800 font-bold mb-3">
@@ -139,7 +140,6 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
               {{ __('See what current and past ') }}<span class="text-accent">{{ __('PVSL ') }}</span>{{ __('members have to say') }}
             </h2>
             <div class="flex flex-wrap">
-
               <div class="w-full h-auto md:w-1/3 px-2 mb-4">
                 <div class="flex flex-col justify-between h-full bg-white rounded shadow py-2">
                   <p class="text-gray-800 text-base px-6 mb-5">
@@ -190,8 +190,8 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
                   </div>
                 </div>
               </div>
-
             </div>
+
         </div>
     </section>
 
@@ -200,11 +200,15 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
         <div class="container mx-auto px-6 text-center py-20">
             <h2 class="mb-6 text-4xl font-bold text-center text-gray-800">
               {{ __('Have a question not anwered ') }}
-              <a class="text-accent underline text-accent_hover" href="/about">{{ __('here') }}</a>{{ __('?') }}
+              <a class="text-accent underline text-accent_hover" href="/à-la-carte-recovery">{{ __('here') }}</a>{{ __('?') }}
             </h2>
-            <button class="bg-accent text-gray-200 text-lg font-bold rounded-full mt-6 py-4 px-8 shadow-lg uppercase tracking-wider hover:border-red hover:text-white bg-accent_hover">
-              {{ __('Drop us a message.') }}
-            </button>
+            <form action="{{ route('contact') }}" method="GET">
+                @csrf
+                <x-button onclick="event.preventDefault();
+                this.closest('form').submit();" :active="request()->routeIs('contact')">
+                    {{ __('Drop us a message') }}
+                </x-button>
+            </form>
         </div>
     </section>
 
