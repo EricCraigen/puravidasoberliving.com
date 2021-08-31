@@ -4,7 +4,7 @@
 style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
 -->
     <div class="py-36 bg-cover bg-no-repeat bg-fixed bg-opacity-40"
-        style="background-image: url('/img/welcome/welcome-hero-1.jpg')">
+        style="background-image: url('/img/Forward_Facing_App/welcome/welcome-hero-1.jpg')">
         <div class="container m-auto text-center px-6 opacity-100">
             <h2 class="text-5xl font-black mb-2 text-accent text-stroke">
               {{ __('Pura Vida Sober Living') }}
@@ -90,13 +90,13 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
                 </p>
             </div>
             <div class="w-full md:w-1/2">
-                <img class="w-full max-h-96 rounded-lg " src="/img/welcome/spokane-downtown_1.jpg" alt="Connection Through Comminuty" />
+                <img class="w-full max-h-96 rounded-lg " src="/img/Forward_Facing_App/welcome/spokane-downtown_1.jpg" alt="Connection Through Comminuty" />
             </div>
         </div>
 
         <div class="flex md:flex-row sm:flex-col-reverse items-center flex-wrap mb-28">
             <div class="w-full md:w-1/2">
-                <img class="w-full max-h-96 rounded-lg" src="/img/welcome/welcome-martial-arts.jpg" alt="use the force" />
+                <img class="w-full max-h-96 rounded-lg" src="/img/Forward_Facing_App/welcome/welcome-martial-arts.jpg" alt="use the force" />
             </div>
             <div class="w-full  md:w-1/2 md:pl-10 sm:pl-0">
                 <h4 class="text-3xl text-gray-800 font-bold mb-3">
@@ -128,7 +128,7 @@ style="background: linear-gradient(90deg, #2b4554 0%, #767ba2 100%)"
                 </p>
             </div>
             <div class="w-full md:w-1/2">
-                <img class="w-full max-h-96 rounded-lg" src="/img/welcome/welcome-community.jpg" alt="Connection Through Comminuty" />
+                <img class="w-full max-h-96 rounded-lg" src="/img/Forward_Facing_App/welcome/welcome-community.jpg" alt="Connection Through Comminuty" />
             </div>
         </div>
     </section>
