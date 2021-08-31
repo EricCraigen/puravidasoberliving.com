@@ -41,7 +41,7 @@
         <x-dropdown align="right" width="48">
             <x-slot name="trigger">
                 <button
-                    class="flex items-center text-sm font-medium text-gray-800 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                    class="flex items-center text-sm font-bold text-gray-800 hover:text-white hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                     <div>{{ Auth::user()->name }}</div>
 
                     <div class="ml-1">
@@ -73,7 +73,7 @@
     @else
 
     <div class="">
-        <div class="inline-flex h-100 mr-3 items-center">
+        <div class="inline-flex h-100 items-center">
             <a class="font-bold text-black hover:text-white mr-2" href="{{ route('login') }}">
                 {{ __('Login') }}
             </a>
@@ -106,7 +106,7 @@
         x-on:scroll.window="minifyNavOnScroll(window.scrollY)"
         class="bg-gray-200 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 navTopPadding navTopSize sticky top-0 shadow z-40">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full px-2">
         <div class="flex justify-between h-16">
             <div class="flex">
 
@@ -183,7 +183,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden lg:flex lg:items-center lg:ml-6">
-                <div class="hidden inline-flex h-100 items-center px-1 pt-1 mr-6 scale-100" id="apply_today_nav_btn">
+                <div class="hidden inline-flex h-100 items-center px-1 pt-1 scale-100" id="apply_today_nav_btn">
                     <form action="{{ route('apply-now') }}" method="GET">
                         @csrf
                         <x-nav-button onclick="event.preventDefault();
