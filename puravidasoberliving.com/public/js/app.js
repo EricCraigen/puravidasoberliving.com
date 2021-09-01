@@ -5643,17 +5643,17 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // requir
 
 
 
+window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__.default;
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.plugin(_alpinejs_persist__WEBPACK_IMPORTED_MODULE_1__.default);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.plugin(_alpinejs_intersect__WEBPACK_IMPORTED_MODULE_2__.default);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.plugin(_alpinejs_trap__WEBPACK_IMPORTED_MODULE_3__.default); // Add any extra packages you want to install here
+// Alpine.store('darkMode', {
+//     on: false,
+//     toggle() {
+//         this.on = ! this.on
+//     }
+// });
 
-window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__.default;
-alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.store('darkMode', {
-  on: false,
-  toggle: function toggle() {
-    this.on = !this.on;
-  }
-});
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.start();
 
 /***/ }),
