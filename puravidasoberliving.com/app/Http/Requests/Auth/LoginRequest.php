@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
+// use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
@@ -56,9 +56,9 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
         // if ($this->boolean('remember-me') == true) {
-        User::where('email', $this->input('email'))->update([
-            'passwordRemembered' => $this->input('remember-me') == true ? true : false
-        ]);
+        // User::where('email', $this->input('email'))->update([
+        //     'passwordRemembered' => $this->input('remember-me') == true ? true : false
+        // ]);
         // }
     }
 

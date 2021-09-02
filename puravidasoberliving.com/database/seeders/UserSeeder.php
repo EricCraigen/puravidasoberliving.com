@@ -26,7 +26,6 @@ class UserSeeder extends Seeder
             'postalCode' => '99216',
             'email' => 'eric.craigen.cd@gmail.com',
             'password' => Hash::make('testtest'),
-            'passwordRemembered' => false,
             'email_verified_at' => now(),
 
         ]);
