@@ -1,9 +1,9 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            {{-- <a href="/">
+            <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a> --}}
+            </a>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
@@ -36,7 +36,7 @@
             </form>
         </div>
     </x-auth-card>
-</x-guest-layout>
+</x-guest-layout> --}}
 
 <x-app-layout>
 
@@ -62,28 +62,32 @@
                 {{-- <div class="flex items-center justify-center rounded-md border p-2 cursor-pointer font-black text-black">X</div> --}}
             </div>
 
-            <div class="mt-4 flex items-center justify-between">
+            <div class="mt-4 flex w-full items-center justify-between gap-2">
 
 
-                <div>
-                    <form method="POST" action="{{ route('verification.send') }}">
+                <div class="flex w-3/6 test2">
+                    <form class="w-full" method="POST" action="{{ route('verification.send') }}">
                         @csrf
                         <button type="submit"
-                        class="w-3/6 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500""
-                        onclick="e.preventDefault();
-                            this.closest('form').submit();
+                                class="flex w-full justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                onclick="e.preventDefault();
+                                this.closest('form').submit();
                         ">
                             {{ __('Resend Verification Email') }}
                         </button>
                     </form>
                 </div>
 
-                <div>
-                    <form method="POST" action="{{ route('logout') }}">
+                <div class="flex w-3/6 test3">
+                    <form class="w-full" method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-button>
+                        <button type="submit"
+                                class="flex w-full justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                onclick="e.preventDefault();
+                                this.closest('form').submit();
+                        ">>
                             {{ __('Logout') }}
-                        </x-button>
+                        </button>
                     </form>
                 </div>
 

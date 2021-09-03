@@ -17,7 +17,7 @@
                 <div class="flip-box">
 
                     <div class="flip-box-front flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10" id="flip_box_front">
-                        <div class="inner text-white">
+                        <div class="inner text-black">
 
                             <form class="space-y-6" method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -140,7 +140,7 @@
                     </div>
 
                     <div class="flip-box-back flip-box-back-height flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10" id="flip_box_back">
-                        <div class="inner color-white">
+                        <div class="inner text-black">
 
                             <form class="space-y-6" method="POST" action="{{ route('register') }}">
                                 @csrf
