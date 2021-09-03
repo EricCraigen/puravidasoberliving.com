@@ -1,4 +1,5 @@
 require('./bootstrap');
+// require('./plugins/bootstrap_tooltip');
 // require('./index');
 
 import Alpine from 'alpinejs';

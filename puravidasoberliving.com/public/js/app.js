@@ -5636,7 +5636,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _alpinejs_persist__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @alpinejs/persist */ "./node_modules/@alpinejs/persist/dist/module.esm.js");
 /* harmony import */ var _alpinejs_intersect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @alpinejs/intersect */ "./node_modules/@alpinejs/intersect/dist/module.esm.js");
 /* harmony import */ var _alpinejs_trap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @alpinejs/trap */ "./node_modules/@alpinejs/trap/dist/module.esm.js");
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // require('./index');
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // require('./plugins/bootstrap_tooltip');
+// require('./index');
 
 
 

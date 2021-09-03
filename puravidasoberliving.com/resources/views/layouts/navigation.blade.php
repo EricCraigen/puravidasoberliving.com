@@ -72,7 +72,7 @@
 
     @else
 
-    <div class="">
+    <div class="flex">
         <div class="inline-flex h-100 items-center">
             <a class="font-bold text-black hover:text-white mr-2" href="{{ route('login') }}">
                 {{ __('Login/Register') }}

@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/dev-classes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layouts/navigation.css') }}">
-    
+
     <!-- Scripts -->
     {{-- <!-- Alpine Plugins -->
     <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
@@ -36,7 +36,7 @@
 
 <body class="font-sans antialiased">
     <div class="relative min-h-screen bg-gray-200 dark:bg-gray-800">
-        
+
         @include('layouts.navigation')
 
         <!-- Page Heading -->
@@ -60,6 +60,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
+
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+
 </body>
 
 </html>

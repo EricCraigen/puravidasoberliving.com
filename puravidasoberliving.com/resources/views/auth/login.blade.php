@@ -121,12 +121,12 @@
                             <div class="flex w-full items-center justify-center my-5 text-black">
                                 <div class="switch-wrapper">
                                     <div class="switch-content-wrapper text-black">
-                                        <div class="switch-label-wrapper">
+                                        <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label active">
                                                 {{ __('Login') }}
                                             </p>
                                         </div>
-                                        <div class="switch-label-wrapper">
+                                        <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label">
                                                 {{ __('Register') }}
                                             </p>
@@ -250,12 +250,12 @@
                             <div class="flex w-full items-center justify-center my-5 text-black">
                                 <div class="switch-wrapper">
                                     <div class="switch-content-wrapper text-black">
-                                        <div class="switch-label-wrapper">
+                                        <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label active">
                                                 {{ __('Login') }}
                                             </p>
                                         </div>
-                                        <div class="switch-label-wrapper">
+                                        <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label">
                                                 {{ __('Register') }}
                                             </p>
@@ -277,38 +277,37 @@
 
 <script type="text/javascript">
 
-    $(".switch-label-wrapper").click(function() {
+function loginFormAnimation() {
 
-
-        if (!$('#flip_box_back').hasClass('flip-box-front-height')) {
+    if (!$('#flip_box_back').hasClass('flip-box-front-height')) {
             $('#login-register-notification').html('Sign in to your account');
         } else {
             $('#login-register-notification').html('Sign up for a new account');
         }
 
-
-        // if ($('.switch-pill').hasClass('active')) {
-        //     $('#login-register-notification').html('Sign in to your account');
-        // }
-
         $('.switch-pill').toggleClass('clicked');
         $('.switch-label').toggleClass('active');
 
         $('#flip_box_front').toggleClass('flip-box-front').toggleClass('flip-box-back');
-        // $('.flip-box').toggleClass('up');
-
         $('#flip_box_back').toggleClass('flip-box-back').toggleClass('flip-box-front').toggleClass('flip-box-front-height');
-        // $('.flip-box').toggleClass('down');/
 
-    });
+}
 
-    // window.Alpine.data('darkMode', {
-    // on: false,
+    // $(".switch-label-wrapper").click(function() {
 
-    // toggle() {
-    //     this.on = ! this.on
-    // }
-// });
+    //     if (!$('#flip_box_back').hasClass('flip-box-front-height')) {
+    //         $('#login-register-notification').html('Sign in to your account');
+    //     } else {
+    //         $('#login-register-notification').html('Sign up for a new account');
+    //     }
+
+    //     $('.switch-pill').toggleClass('clicked');
+    //     $('.switch-label').toggleClass('active');
+
+    //     $('#flip_box_front').toggleClass('flip-box-front').toggleClass('flip-box-back');
+    //     $('#flip_box_back').toggleClass('flip-box-back').toggleClass('flip-box-front').toggleClass('flip-box-front-height');
+
+    // });
 
 </script>
 
