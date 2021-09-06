@@ -22,13 +22,11 @@
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dev-classes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth/auth.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layouts/navigation.css') }}">
+    @livewireStyles
 
     <!-- Scripts -->
-    {{-- <!-- Alpine Plugins -->
-    <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
-        <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-        <script defer src="https://unpkg.com/@alpinejs/trap@3.x.x/dist/cdn.min.js"></script> --}}
 
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
@@ -67,7 +65,7 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
-
+    @livewireScripts
 </body>
 
 </html>
