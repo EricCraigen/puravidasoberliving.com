@@ -1,11 +1,19 @@
 :root {
     --accent: rgba(8, 196, 235, 1);
-    --accent_hover: rgba(23, 154, 181);
+    --accent_hover: rgba(23, 154, 181, 1);
     /* text-stroke */
     --text-stroke: 1px black;
 }
 
 .bg-accent {
+    background-color: var(--accent) !important;
+}
+
+.bg-accent_off {
+    background-color: var(--accent_hover) !important;
+}
+
+.bg-accent_off:hover {
     background-color: var(--accent) !important;
 }
 
