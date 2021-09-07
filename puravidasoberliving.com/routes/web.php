@@ -42,6 +42,11 @@ Route::prefix('/')->group(function () {
         '/contact-us',
         [ContactPageController::class, 'getContactUsPage']
     )->name('contact');
+
+    // Route::post(
+    //     '/contact-us',
+    //     [ContactPageController::class, 'store']
+    // )->name('contact.sent');
 });
 
 Route::prefix('/application')->group(function () {

@@ -148,7 +148,7 @@
 
 .switch-wrapper {
     border-radius: 16px;
-    border: 1px solid var(--accent);
+    border: 1px solid gray;
     height: 32px;
     width: 250px;
     /* margin: 256px auto; */

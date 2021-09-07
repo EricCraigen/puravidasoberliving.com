@@ -13,21 +13,38 @@
 
                 <div class="flip-box">
 
-                    <div class="flip-box-front flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10" id="flip_box_front">
-                        <div class="inner text-black">
+                    <div class="flip-box-front flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden" id="flip_box_front">
+                        <svg class="absolute -left-22 -top-32 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                                <defs>
+                                  <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                                  </pattern>
+                                </defs>
+                                <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                              </svg>
+                            <svg class="absolute -right-22 bottom-0 left-0 top-80 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                                <defs>
+                                    <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                                    </pattern>
+                                </defs>
+                                <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                            </svg><div class="inner text-black">
 
-                            <a class="inline-flex w-full justify-center" href="/">
+
+
+                            <a class="inline-flex w-full justify-center z-10" href="/">
                                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                             </a>
 
-                            <form class="space-y-6" method="POST" action="{{ route('login') }}">
+                            <form class="space-y-6 z-10" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">
+                                    <label for="email" class="block text-sm font-medium text-gray-700 z-20">
                                         {{ __('Email address') }}
                                     </label>
-                                    <div class="mt-1">
-                                        <input id="email_login" type="email" name="email" :value="old('email')" required autocomplete="email" autofocus placeholder="youremail@aol.com" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                    <div class="mt-1 z-10">
+                                        <input id="email_login" type="email" name="email" :value="old('email')" required autocomplete="email" autofocus placeholder="youremail@aol.com" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                     </div>
                                 </div>
 
@@ -35,8 +52,8 @@
                                     <label for="password" class="block text-sm font-medium text-gray-700">
                                         {{ __('Password') }}
                                     </label>
-                                    <div class="mt-1">
-                                        <input id="password_login" type="password" name="password" required autocomplete="current-password" autofocus placeholder="DaP@ssword1" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                    <div class="mt-1 z-10">
+                                        <input id="password_login" type="password" name="password" required autocomplete="current-password" autofocus placeholder="DaP@ssword1" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                     </div>
                                 </div>
 
@@ -120,7 +137,7 @@
                             </div>
 
                             <div class="flex w-full items-center justify-center my-5 text-black">
-                                <div class="switch-wrapper">
+                                <div class="switch-wrapper bg-white">
                                     <div class="switch-content-wrapper text-black">
                                         <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label active">
@@ -140,7 +157,24 @@
                         </div>
                     </div>
 
-                    <div class="flip-box-back flip-box-back-height flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10" id="flip_box_back">
+                    <div class="flip-box-back flip-box-back-height flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden" id="flip_box_back">
+                        <svg class="absolute -left-22 -top-24 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <defs>
+                              <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                              </pattern>
+                            </defs>
+                            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                          </svg>
+                        <svg class="absolute -right-22 bottom-0 left-0 top-105 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <defs>
+                                <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                                </pattern>
+                            </defs>
+                            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                        </svg>
+
                         <div class="inner text-black">
 
                             <a class="inline-flex w-full justify-center" href="/">
@@ -254,7 +288,7 @@
                             </div>
 
                             <div class="flex w-full items-center justify-center my-5 text-black">
-                                <div class="switch-wrapper">
+                                <div class="switch-wrapper bg-white">
                                     <div class="switch-content-wrapper text-black">
                                         <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label active">
