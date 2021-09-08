@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dev-classes.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/loading-blocks.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('css/contact/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layouts/navigation.css') }}">

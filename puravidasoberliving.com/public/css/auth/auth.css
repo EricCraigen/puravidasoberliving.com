@@ -1,10 +1,9 @@
 .box-container {
-    align-items: center;
+    position: relative;
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: space-around;
-    padding: 35px 15px;
-    width: 100%;
 }
 
 @media screen and (min-width: 1380px) {
@@ -14,12 +13,11 @@
 }
 
 .box-item {
+    display: flex;
     position: relative;
     -webkit-backface-visibility: hidden;
-    width: 430px;
-    min-height: 650px;
+    min-height: 700px;
     margin-bottom: 35px;
-    max-width: 100%;
 }
 
 .flip-box {
@@ -32,15 +30,13 @@
 
 .flip-box-front,
 .flip-box-back {
-    /* background-size: cover; */
-    /* background-position: center; */
     border-radius: 8px;
-    /* min-height: 520px; */
     -ms-transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
     transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
     -webkit-transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    width: 500px;
 }
 
 .flip-box-front {
@@ -53,11 +49,11 @@
 }
 
 .flip-box-front-height {
-    min-height: 630px;
+    min-height: 700px;
 }
 
 .flip-box-back-height {
-    min-height: 760px;
+    min-height: 840px;
 }
 
 .up {
@@ -77,24 +73,11 @@
     transform-style: preserve-3d;
 }
 
-/* .flip-box-flipper {
-    -ms-transform: rotateY(-180deg);
-    -webkit-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
-    -ms-transform: rotateY(0deg);
-    -webkit-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-    -webkit-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-} */
-
 .flip-box-back {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-
     -ms-transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
@@ -113,7 +96,6 @@
     -webkit-perspective: inherit;
     perspective: inherit;
     z-index: 2;
-
     transform: translateY(-50%) translateZ(60px) scale(0.94);
     -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
     -ms-transform: translateY(-50%) translateZ(60px) scale(0.94);
@@ -151,7 +133,6 @@
     border: 1px solid gray;
     height: 32px;
     width: 250px;
-    /* margin: 256px auto; */
 }
 
 .switch-content-wrapper {
@@ -166,17 +147,13 @@
 
 .switch-label-wrapper {
     width: 50%;
-    /* margin-top: 9px; */
 }
 
 .switch-label {
-    /* color: white; */
     font-size: 13px;
     font-weight: 500;
-    /* letter-spacing: 0.52px; */
     line-height: 15.6px;
     width: 100%;
-    /* font-family: Montserrat-Medium; */
     text-align: center;
     margin: 0;
 }
@@ -187,7 +164,6 @@
 }
 
 .switch-pill {
-    /* height: 24px; */
     width: 50%;
     border-radius: 12px;
     background-color: var(--accent);

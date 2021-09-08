@@ -3,7 +3,7 @@
     <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900" id="login-register-notification">
+            <h2 class="mt-6 text-center text-5xl font-extrabold text-gray-900" id="login-register-notification">
                 {{ __('Sign in to your account') }}
             </h2>
         </div>
@@ -14,7 +14,7 @@
                 <div class="flip-box">
 
                     <div class="flip-box-front flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden" id="flip_box_front">
-                        <svg class="absolute -left-22 -top-32 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                        <svg class="absolute left-28 -top-36 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                                 <defs>
                                   <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                     <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
@@ -22,7 +22,7 @@
                                 </defs>
                                 <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
                               </svg>
-                            <svg class="absolute -right-22 bottom-0 left-0 top-80 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <svg class="absolute right-0 bottom-0 -left-11 top-76 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                                 <defs>
                                     <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                     <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
@@ -40,20 +40,30 @@
                             <form class="space-y-6 z-10" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700 z-20">
+                                    <label for="email" class="block text-lg font-black text-gray-700">
                                         {{ __('Email address') }}
                                     </label>
                                     <div class="mt-1 z-10">
-                                        <input id="email_login" type="email" name="email" :value="old('email')" required autocomplete="email" autofocus placeholder="youremail@aol.com" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input id="email_login" type="email" name="email" :value="old('email')" required autocomplete="email" autofocus placeholder="youremail@aol.com" class="@error('email_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('email_login')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label for="password" class="block text-sm font-medium text-gray-700">
+                                    <label for="password" class="block text-lg font-black text-gray-700">
                                         {{ __('Password') }}
                                     </label>
                                     <div class="mt-1 z-10">
-                                        <input id="password_login" type="password" name="password" required autocomplete="current-password" autofocus placeholder="DaP@ssword1" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input id="password_login" type="password" name="password" required autocomplete="current-password" autofocus placeholder="DaP@ssword1" class="@error('password_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('password_login')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -63,8 +73,8 @@
                                         }"
                                         class="flex items-center"
                                     >
-                                        <input @click="isChecked = ! isChecked" x-bind:checked="isChecked" id="remember-me" name="remember-me" type="checkbox"  class="h-4 w-4 text-accent text-accent_hover shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                                        <label  for="remember-me" class="ml-2 block text-sm text-gray-900">
+                                        <input @click="isChecked = ! isChecked" x-bind:checked="isChecked" id="remember-me" name="remember-me" type="checkbox"  class="h-4 w-4 text-accent text-accent_hover shadow-lg focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                        <label  for="remember-me" class="ml-2 block text-md font-extrabold text-gray-900">
                                             {{ __('Remember me') }}
                                         </label>
                                     </div>
@@ -72,7 +82,7 @@
 
                                     <div class="text-sm">
                                         @if (Route::has('password.request'))
-                                            <a href="{{ route('password.request') }}" class="font-medium text-accent text-accent_hover">
+                                            <a href="{{ route('password.request') }}" class="text-md font-extrabold text-accent text-accent_hover">
                                                 {{ __('Forgot your password?') }}
                                             </a>
                                         @endif
@@ -80,7 +90,8 @@
                                 </div>
 
                                 <div>
-                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-black text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+
                                         {{ __('Sign in') }}
                                     </button>
                                 </div>
@@ -92,7 +103,7 @@
                                         <div class="w-full border-t border-gray-300"></div>
                                     </div>
                                     <div class="relative flex justify-center text-sm">
-                                        <span class="px-2 bg-white text-gray-500">
+                                        <span class="px-2 my-4 bg-white text-gray-500">
                                             {{ __('Or continue with') }}
                                         </span>
                                     </div>
@@ -100,7 +111,7 @@
 
                                 <div class="mt-6 grid grid-cols-3 gap-3">
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Facebook') }}
                                             </span>
@@ -111,7 +122,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Twitter') }}
                                             </span>
@@ -122,7 +133,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with GitHub') }}
                                             </span>
@@ -137,7 +148,7 @@
                             </div>
 
                             <div class="flex w-full items-center justify-center my-5 text-black">
-                                <div class="switch-wrapper bg-white">
+                                <div class="switch-wrapper bg-white shadow-lg">
                                     <div class="switch-content-wrapper text-black">
                                         <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label active">
@@ -158,7 +169,7 @@
                     </div>
 
                     <div class="flip-box-back flip-box-back-height flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden" id="flip_box_back">
-                        <svg class="absolute -left-22 -top-24 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                        <svg class="absolute left-28 top-4 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                             <defs>
                               <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                 <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
@@ -166,7 +177,7 @@
                             </defs>
                             <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
                           </svg>
-                        <svg class="absolute -right-22 bottom-0 left-0 top-105 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                        <svg class="absolute right-0 bottom-0 -left-11 top-105 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                             <defs>
                                 <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                 <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
@@ -186,53 +197,78 @@
                                 <div class="flex w-full gap-x-2">
 
                                     <div>
-                                        <label for="firstName" class="block text-sm font-medium text-gray-700">
+                                        <label for="firstName" class="block text-lg font-black text-gray-700">
                                             {{ __('First Name') }}
                                         </label>
                                         <div class="mt-1">
-                                            <input id="firstName" type="text" name="firstName" value="{{ old('firstName') }}" required autocomplete="given-name" autofocus placeholder="Issac" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                            <input id="firstName" type="text" name="firstName" value="{{ old('firstName') }}" required autocomplete="given-name" autofocus placeholder="Issac" class="@error('firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                            @error('firstName')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label for="lastName" class="block text-sm font-medium text-gray-700">
+                                        <label for="lastName" class="block text-lg font-black text-gray-700">
                                             {{ __('Last Name') }}
                                         </label>
                                         <div class="mt-1">
-                                            <input id="lastName" type="text" name="lastName" value="{{ old('lastName') }}" required autocomplete="family-name" autofocus placeholder="Newton" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                            <input id="lastName" type="text" name="lastName" value="{{ old('lastName') }}" required autocomplete="family-name" autofocus placeholder="Newton" class="@error('lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                            @error('lastName')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         </div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">
+                                    <label for="email" class="block text-lg font-black text-gray-700">
                                         {{ __('Email') }}
                                     </label>
                                     <div class="mt-1">
-                                        <input id="email" type="text" name="email" value="{{ old('email') }}"  required autocomplete="email" autofocus placeholder="theNEWT@aol.com" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                        <input id="email" type="text" name="email" value="{{ old('email') }}"  required autocomplete="email" autofocus placeholder="theNEWT@aol.com" class="@error('email') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label for="password" class="block text-sm font-medium text-gray-700">
+                                    <label for="password" class="block text-lg font-black text-gray-700">
                                         {{ __('Password') }}
                                     </label>
                                     <div class="mt-1">
-                                        <input id="password" type="password" name="password" value="{{ old('password') }}"  required autocomplete="password" autofocus placeholder="DaP@ssword1" class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                        <input id="password" type="password" name="password" value="{{ old('password') }}"  required autocomplete="password" autofocus placeholder="DaP@ssword1" class="@error('password') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
+                                    <label for="password_confirmation" class="block text-lg font-black text-gray-700">
                                         {{ __('Confirm Password') }}
                                     </label>
                                     <div class="mt-1">
-                                        <input id="password_confirmation" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" required autofocus class="px-3 py-2 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                        <input id="password_confirmation" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" required autofocus class="@error('password_confirmation') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                        @error('password_confirmation')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="flex items-center justify-center mt-4">
-                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-black text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
@@ -244,7 +280,7 @@
                                         <div class="w-full border-t border-gray-300"></div>
                                     </div>
                                     <div class="relative flex justify-center text-sm">
-                                        <span class="px-2 bg-white text-gray-500">
+                                        <span class="px-2 my-4 bg-white text-gray-500">
                                             {{ __('Or continue with') }}
                                         </span>
                                     </div>
@@ -252,7 +288,7 @@
 
                                 <div class="mt-6 grid grid-cols-3 gap-3">
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Facebook') }}
                                             </span>
@@ -263,7 +299,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Twitter') }}
                                             </span>
@@ -274,7 +310,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with GitHub') }}
                                             </span>

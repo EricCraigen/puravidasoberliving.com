@@ -1,8 +1,9 @@
 <x-app-layout>
-    <div class="">
-        <livewire:contact-form />
-    </div>
 
-    {{-- @livewire('contact-form') --}}
+    <div class="">
+
+        <livewire:contact-form />
+
+    </div>
 
 </x-app-layout>

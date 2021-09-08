@@ -1,15 +1,11 @@
 <?php
 
 namespace App\Http\Livewire;
-// namespace App\Http\Livewire/;
-// namespace App\Mail;
 
-use App\Mail\ContactFormSubmission;
-
-use App\Models\ContactMessage;
 use Livewire\Component;
-// use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactFormSubmission;
+use App\Models\ContactMessage;
 
 class ContactForm extends Component
 {
@@ -32,7 +28,6 @@ class ContactForm extends Component
         'phone' => 'required|max:14',
         'subject' => 'required|min:2|max:255',
         'messageContent' => 'required|min:5|max:500',
-        // 'agreeToPolices' => 'required',
     ];
 
     protected $messages = [
@@ -53,7 +48,6 @@ class ContactForm extends Component
         'messageContent.required' => 'A message is requiered.',
         'messageContent.min' => 'A message must contain at least 5 characters.',
         'messageContent.max' => 'A message cannot contain more than 500 characters.',
-        // 'agreeToPolices.required' => 'Please agree to our privacy and cookie policies to continue.',
     ];
 
     public function mount()
@@ -72,18 +66,8 @@ class ContactForm extends Component
 
     public function contactFormSubmit()
     {
-
+        sleep(2);
         $this->validate();
-        // ContactMessage::create([
-        //     'firstName' => $this->firstName,
-        //     'lastName' => $this->lastName,
-        //     'email' => $this->email,
-        //     'phoneType' => $this->phoneType,
-        //     'phone' => $this->phone,
-        //     'subject' => $this->subject,
-        //     'messageContent' => $this->messageContent,
-        //     'agreeToPolicies' => $this->agreeToPolicies,
-        // ]);
 
         $tempMessage = new ContactMessage([
             'firstName' => $this->firstName,
@@ -99,7 +83,7 @@ class ContactForm extends Component
 
         Mail::to('contact@puravidasoberliving.com')->send(new ContactFormSubmission($tempMessage));
 
-        $this->success = 'Thank you for reaching out to us!';
+        $this->success = 'Thank you for reaching out to us! We look forward to assisting with your questions or concerns.';
 
         $this->resetForm();
     }
@@ -118,7 +102,6 @@ class ContactForm extends Component
 
     public function render()
     {
-        // info($this->contactMessage);
         return view('livewire.contact-form');
     }
 }
