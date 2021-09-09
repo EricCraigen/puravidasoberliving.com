@@ -117,238 +117,374 @@
             <!-- Step Content -->
             <div class="py-5 mx-1 relative z-10">
 
+                <svg class="absolute -left-22 -top-6 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                    <defs>
+                    <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                    </pattern>
+                    </defs>
+                    <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                </svg>
+                <svg class="absolute -right-22 bottom-0 left-0 top-72 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                    <defs>
+                        <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                        </pattern>
+                    </defs>
+                    <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                </svg>
+
+                <div class="{{ $currentStep == 0 ? '' : 'hidden' }}">
+
+                    <div class="mt-12 relative">
+                        {{-- <svg class="absolute -left-22 -top-6 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <defs>
+                            <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                            </pattern>
+                            </defs>
+                            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                        </svg>
+                        <svg class="absolute -right-22 bottom-0 left-0 top-72 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <defs>
+                                <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                                </pattern>
+                            </defs>
+                            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                        </svg> --}}
+                        <form id="personalInformationForm" wire:submit.prevent="validateStep" action="/apply-now" method="POST" class="flex flex-col gap-6 relative z-10">
+                            @csrf
+                            {{-- FORM ROW 1 --}}
+                            <div class="flex md:flex-row flex-col">
+                                <div class="w-45 w-full">
+                                    <label for="firstName" class="block text-lg font-black text-gray-700">First name</label>
+                                    <div class="mt-1">
+                                        <input wire:model="personalInfo.firstName" type="text" name="firstName" id="firstName" required autocomplete="given-name" value="{{ old('firstName') }}" class="@error('personalInfo.firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('personalInfo.firstName')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-10per w-full md:px-2">
+                                    <label for="middleInitial" class="block text-lg font-black text-gray-700">Middle Init.</label>
+                                    <div class="mt-1">
+                                        <input wire:model="personalInfo.middleInitial" type="text" name="middleInitial" id="middleInitial" required autocomplete="additional-name" value="{{ old('middleInitial') }}" class="@error('personalInfo.middleInitial') is-invalid @enderror px-3 py-2 block md:w-full w-2/5 shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('personalInfo.middleInitial')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-45 w-full">
+                                    <label for="lastName" class="block text-lg font-black text-gray-700">Last name</label>
+                                    <div class="mt-1">
+                                        <input wire:model="personalInfo.lastName" type="text" name="lastName" id="lastName" required autocomplete="family-name" value="{{ old('lastName') }}" class="@error('personalInfo.lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('personalInfo.lastName')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- FORM ROW 2 --}}
+                            <div class="flex md:flex-row flex-col">
+                                <div class="w-full">
+                                    <label for="dateOfBirth" class="block text-lg font-black text-gray-700">Date of Birth</label>
+                                    <div class="mt-1">
+                                        @php
+                                            $birthDate = \Carbon\Carbon::now()->format('Y-m-d');
+                                        @endphp
+                                        <input wire:model="personalInfo.dateOfBirth" type="date" name="dateOfBirth" id="dateOfBirth" required autocomplete="bday" value="{{ $birthDate }}" class="@error('personalInfo.dateOfBirth') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('personalInfo.dateOfBirth')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full md:px-2">
+                                    <label for="socialNumber" class="block text-lg font-black text-gray-700">Social Security Number</label>
+                                    <div class="mt-1">
+                                        <input wire:model="personalInfo.socialNumber" type="text" name="socialNumber" id="socialNumber" required autocomplete="ssn" value="{{ old('socialNumber') }}" class="@error('personalInfo.socialNumber') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('personalInfo.socialNumber')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full">
+                                    <label for="phone" class="block text-lg font-black text-gray-700">Phone</label>
+                                    <div class="mt-1">
+                                        <input wire:model="personalInfo.phone" type="tel" name="phone" id="phone" required autocomplete="tel" value="{{ old('phone') }}" class="@error('personalInfo.phone') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('personalInfo.phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                        {{-- <div class="flex justify-center my-4 text-xl font-black text-indigo-600 relative z-10">
+                            {{ $success }}
+                        </div> --}}
+                    </div>
+
+                </div>
+
                 <div class="{{ $currentStep == 1 ? '' : 'hidden' }}">
 
                     <div class="mt-12 relative">
-            <svg class="absolute -left-22 -top-6 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-                <defs>
-                <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
-                </pattern>
-                </defs>
-                <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
-            </svg>
-            <svg class="absolute -right-22 bottom-0 left-0 top-72 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-                <defs>
-                    <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
-                    </pattern>
-                </defs>
-                <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
-            </svg>
-            <form wire:submit.prevent="personalInformationSubmit" action="/apply-now" method="POST" class="flex flex-col gap-6 relative z-10">
-                @csrf
-                {{-- FORM ROW 1 --}}
-                <div class="flex md:flex-row flex-col">
-                    <div class="w-45 w-full">
-                        <label for="firstName" class="block text-lg font-black text-gray-700">First name</label>
-                        <div class="mt-1">
-                            <input wire:model="personalInfo.firstName" type="text" name="firstName" id="firstName" required autocomplete="given-name" value="{{ old('firstName') }}" class="@error('firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                            @error('firstName')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="w-10per w-full md:px-2">
-                        <label for="middleInitial" class="block text-lg font-black text-gray-700">Middle Init.</label>
-                        <div class="mt-1">
-                            <input wire:model="personalInfo.middleInitial" type="text" name="middleInitial" id="middleInitial" required autocomplete="additional-name" value="{{ old('middleInitial') }}" class="@error('middleInitial') is-invalid @enderror px-3 py-2 block md:w-full w-2/5 shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                            @error('middleInitial')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="w-45 w-full">
-                        <label for="lastName" class="block text-lg font-black text-gray-700">Last name</label>
-                        <div class="mt-1">
-                            <input wire:model="personalInfo.lastName" type="text" name="lastName" id="lastName" required autocomplete="family-name" value="{{ old('lastName') }}" class="@error('lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                            @error('lastName')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
+                        {{-- <svg class="absolute -left-22 -top-6 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <defs>
+                            <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                            </pattern>
+                            </defs>
+                            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                        </svg>
+                        <svg class="absolute -right-22 bottom-0 left-0 top-72 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <defs>
+                                <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
+                                </pattern>
+                            </defs>
+                            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
+                        </svg> --}}
+                        <form id="emergencyContactForm" wire:submit.prevent="validateStep" action="/apply-now" method="POST" class="flex flex-col gap-6 relative z-10">
+                            @csrf
+                            {{-- FORM ROW 1 --}}
+                            <div class="flex md:flex-row flex-col">
+                                <div class="w-full">
+                                    <label for="firstNameEmContact" class="block text-lg font-black text-gray-700">First Name</label>
+                                    <div class="mt-1">
+                                        <input wire:model="emergencyContactInfo.firstNameEmContact" type="text" name="firstNameEmContact" id="firstNameEmContact" required autocomplete="given-name" value="{{ old('firstNameEmContact') }}" class="@error('emergencyContactInfo.firstNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('emergencyContactInfo.firstNameEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full md:px-2">
+                                    <label for="lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
+                                    <div class="mt-1">
+                                        <input wire:model="emergencyContactInfo.lastNameEmContact" type="text" name="lastNameEmContact" id="lastNameEmContact" required autocomplete="family-name" value="{{ old('lastNameEmContact') }}" class="@error('emergencyContactInfo.lastNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('emergencyContactInfo.lastNameEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full">
+                                    <label for="phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
+                                    <div class="mt-1">
+                                        <input wire:model="emergencyContactInfo.phoneEmContact" type="tel" name="phoneEmContact" id="phoneEmContact" required autocomplete="tel" value="{{ old('phoneEmContact') }}" class="@error('emergencyContactInfo.phoneEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('emergencyContactInfo.phoneEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
 
-                {{-- FORM ROW 2 --}}
-                <div class="flex md:flex-row flex-col">
-                    <div class="w-full">
-                        <label for="dateOfBirth" class="block text-lg font-black text-gray-700">Date of Birth</label>
-                        <div class="mt-1">
-                            @php
-                                $birthDate = \Carbon\Carbon::now()->format('Y-m-d');
-                            @endphp
-                            <input wire:model="personalInfo.dateOfBirth" type="date" name="dateOfBirth" id="dateOfBirth" required autocomplete="bday" value="{{ $birthDate }}" class="@error('dateOfBirth') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                            @error('dateOfBirth')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="w-full md:px-2">
-                        <label for="socialNumber" class="block text-lg font-black text-gray-700">Social Security Number</label>
-                        <div class="mt-1">
-                            <input wire:model="personalInfo.socialNumber" type="text" name="socialNumber" id="socialNumber" required autocomplete="ssn" value="{{ old('socialNumber') }}" class="@error('socialNumber') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                            @error('socialNumber')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <label for="phone" class="block text-lg font-black text-gray-700">Last name</label>
-                        <div class="mt-1">
-                            <input wire:model="personalInfo.phone" type="tel" name="phone" id="phone" required autocomplete="tel" value="{{ old('phone') }}" class="@error('phone') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                            @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
+                            {{-- FORM ROW 2 --}}
+                            <div class="flex md:flex-row flex-col">
+                                <div class="w-full">
+                                    <label for="cityEmContact" class="block text-lg font-black text-gray-700">City</label>
+                                    <div class="mt-1">
+                                        <input wire:model="emergencyContactInfo.cityEmContact" type="text" name="cityEmContact" id="cityEmContact" required autocomplete="city" value="{{ $birthDate }}" class="@error('emergencyContactInfo.cityEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('emergencyContactInfo.cityEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full md:px-2">
+                                    <label for="emergencyContactInfo.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
+                                    <div class="mt-1">
+                                        <label for="emergencyContactInfo.stateEmContact" class="sr-only">Phone Type</label>
+                                        <select wire:model="emergencyContactInfo.stateEmContact" id="emergencyContactInfo.stateEmContact" name="emergencyContactInfo.stateEmContact" value="{{ old("emergencyContactInfo.stateEmContact") }}" class="px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            <option  value="">Select</option>
+                                            @php
+                                                sort($us_state_abbrevs_names)
+                                            @endphp
+                                            @foreach ($us_state_abbrevs_names as $key => $state)
+                                                <option  value="{{ $key }}">{{ $state }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('emergencyContactInfo.stateEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full">
+                                    <label for="relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
+                                    <div class="mt-1">
+                                        <label for="emergencyContactInfo.relationshipEmContact" class="sr-only">Relationship</label>
+                                        <select wire:model="emergencyContactInfo.relationshipEmContact" id="emergencyContactInfo.relationshipEmContact" name="emergencyContactInfo.relationshipEmContact" value="{{ old("emergencyContactInfo.relationshipEmContact") }}" class="px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            <option  value="">Select</option>
+                                            @php
+                                                sort($relationalStatuses)
+                                            @endphp
+                                            @foreach ($relationalStatuses as $key => $relation)
+                                                <option  value="{{ $key . ': ' . $relation }}">{{ $relation }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('emergencyContactInfo.relationshipEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
 
-                {{-- <div class="sm:col-span-2 z-10">
-                    <label for="email" class="block text-lg font-black text-gray-700">Email</label>
-                    <div class="mt-1">
-                    <input wire:model="email" id="email" name="email" type="email" required autocomplete="email" value="{{ old('email') }}" class="@error('email') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        </form>
+                        {{-- <div class="flex justify-center my-4 text-xl font-black text-indigo-600 relative z-10">
+                            {{ $success }}
+                        </div> --}}
                     </div>
-                </div>
-                <div class="sm:col-span-2 z-10">
-                    <label for="phone" class="block text-lg font-black text-gray-700">Phone Number</label>
-                    <div class="mt-1 relative rounded-md shadow-sm">
-                    <div class="absolute inset-y-0 left-0 flex items-center">
-                        <label for="phoneType" class="sr-only">Phone Type</label>
-                        <select wire:model="phoneType" id="phoneType" name="phoneType" value="{{ old("phoneType") }}" class="h-full py-0 pl-4 pr-8 border-transparent bg-transparent text-gray-500 focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
-                        <option {{ $phoneType == 'Type' ? 'selected' : '' }} value="">Type</option>
-                        <option {{ $phoneType == 'Home' ? 'selected' : '' }} value="US">Home</option>
-                        <option {{ $phoneType == 'Office' ? 'selected' : '' }} value="US">Office</option>
-                        <option {{ $phoneType == 'Cell' ? 'selected' : '' }} value="US">Cell</option>
-                        </select>
-                    </div>
-                    <input wire:model="phone" type="text" name="phone" id="phone" value="{{ old('phone') }}" required autocomplete="tel" class="@error('phone') is-invalid @enderror py-3 block w-full pl-28 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" placeholder="+1 (555) 987-6543">
-                        @error('phone')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-2 z-10">
-                    <label for="subject" class="block text-lg font-black text-gray-700">Subject</label>
-                    <div class="mt-1">
-                    <input wire:model="subject" type="text" name="subject" id="subject" autocomplete="subject" value="{{ old('subject') }}" class="@error('subject') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                        @error('subject')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-2 z-10">
-                    <label for="messageContent" class="block text-lg font-black text-gray-700">Message</label>
-                    <div class="mt-1">
-                    <textarea wire:model="messageContent" id="messageContent" name="messageContent" rows="4" required value="{{ old('messageContent') }}" class="@error('messageContent') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10"></textarea>
-                        @error('messageContent')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="sm:col-span-2 z-10">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <button wire:click.prenvent="toggleAgreeToPolices" type="button" class="{{ $agreeToPolicies == null ? 'bg-accent-dark bg-accent-dark_hover' : 'bg-accent bg-accent_hover' }} relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md" role="switch" aria-checked="false">
-                                <span class="sr-only">
-                                Agree to policies
-                                </span>
-                                <input type="hidden" id="agreeToPolices" name="agreeToPolicies" value="{{ $agreeToPolicies }}">
-                                <span aria-hidden="true" class="{{ $agreeToPolicies == null ? 'translate-x-0 bg-gray-200' : 'translate-x-5 bg-white transition ease-in duration-200' }} inline-block h-5 w-5 rounded-full shadow transform ring-0"></span>
-                            </button>
-                        </div>
-                        <div class="ml-3 z-10">
-                            <p class="text-md font-semibold text-gray-500">
-                                By selecting this, you agree to the
-                                <a href="#" class="font-medium text-gray-700 underline"> Privacy Policy</a> and
-                                <a href="#" class="font-medium text-gray-700 underline"> Cookie Policy</a>.
-                            </p>
-                        </div>
-                    </div>
-                </div> --}}
-                {{-- <div class="sm:col-span-2 z-10">
-                    <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <div wire:loading wire:target="contactFormSubmit">
-                            <x-loading-blocks />
-                        </div>
-                        <div wire:loading.remove wire:target="contactFormSubmit">
-                            Let's talk
-                        </div>
-                        Let's talk
-                    </button>
-                </div> --}}
-            </form>
-            <div class="flex my-4 text-xl font-black text-indigo-600 relative z-10">
-                {{ $success }}
-            </div>
-        </div>
 
                 </div>
 
                 <div class="{{ $currentStep == 2 ? '' : 'hidden' }}">
 
-                    <div class="mb-5">
-                        <label for="password" class="font-bold mb-1 text-gray-700 block">Set up password</label>
-                        <div class="text-gray-600 mt-2 mb-4">
-                            Please create a secure password including the following criteria below.
+                    <div class="mt-12 relative">
 
-                            <ul class="list-disc text-sm ml-4 mt-2">
-                                <li>lowercase letters</li>
-                                <li>numbers</li>
-                                <li>capital letters</li>
-                                <li>special characters</li>
-                            </ul>
-                        </div>
-
-                        <div class="relative">
-                            <input
-                                {{-- :type="togglePassword ? 'text' : 'password'" --}}
-                                {{-- @keydown="checkPasswordStrength()" --}}
-                                {{-- x-model="password" --}}
-                                class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-                                placeholder="Your strong password...">
-
-                            <div class="absolute right-0 bottom-0 top-0 px-3 py-3 cursor-pointer"
-                                {{-- @click="togglePassword = !togglePassword" --}}
-                            >
-                                {{-- <svg :class="{'hidden': !togglePassword, 'block': togglePassword }" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current text-gray-500" viewBox="0 0 24 24"><path d="M12 19c.946 0 1.81-.103 2.598-.281l-1.757-1.757C12.568 16.983 12.291 17 12 17c-5.351 0-7.424-3.846-7.926-5 .204-.47.674-1.381 1.508-2.297L4.184 8.305c-1.538 1.667-2.121 3.346-2.132 3.379-.069.205-.069.428 0 .633C2.073 12.383 4.367 19 12 19zM12 5c-1.837 0-3.346.396-4.604.981L3.707 2.293 2.293 3.707l18 18 1.414-1.414-3.319-3.319c2.614-1.951 3.547-4.615 3.561-4.657.069-.205.069-.428 0-.633C21.927 11.617 19.633 5 12 5zM16.972 15.558l-2.28-2.28C14.882 12.888 15 12.459 15 12c0-1.641-1.359-3-3-3-.459 0-.888.118-1.277.309L8.915 7.501C9.796 7.193 10.814 7 12 7c5.351 0 7.424 3.846 7.926 5C19.624 12.692 18.76 14.342 16.972 15.558z"/></svg> --}}
-
-                                {{-- <svg :class="{'hidden': togglePassword, 'block': !togglePassword }" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current text-gray-500" viewBox="0 0 24 24"><path d="M12,9c-1.642,0-3,1.359-3,3c0,1.642,1.358,3,3,3c1.641,0,3-1.358,3-3C15,10.359,13.641,9,12,9z"/><path d="M12,5c-7.633,0-9.927,6.617-9.948,6.684L1.946,12l0.105,0.316C2.073,12.383,4.367,19,12,19s9.927-6.617,9.948-6.684 L22.054,12l-0.105-0.316C21.927,11.617,19.633,5,12,5z M12,17c-5.351,0-7.424-3.846-7.926-5C4.578,10.842,6.652,7,12,7 c5.351,0,7.424,3.846,7.926,5C19.422,13.158,17.348,17,12,17z"/></svg> --}}
+                        <form id="LegalInformationForm" wire:submit.prevent="validateStep" action="/apply-now" method="POST" class="flex flex-col gap-6 relative z-10">
+                            @csrf
+                            {{-- FORM ROW 1 --}}
+                            <div class="flex md:flex-row flex-col">
+                                <div class="grid lg:grid-cols-2 grid-cols-1 w-full">
+                                    <label for="sexOffender" class="inline-flex text-lg font-black text-red-500 md:mt-0 mt-2">Are you a registered sex offender?</label>
+                                    <fieldset class="mr-2 md:mt-0 mt-2" id="sexOffender">
+                                        <label class="inline-flex text-lg font-black text-red-500">Yes</label>
+                                        <input wire:model="legalInfo.sexOffender" type="radio" value="1" name="sexOffender">
+                                        <label class="inline-flex text-lg font-black text-red-500 ml-2">No</label>
+                                        <input wire:model="legalInfo.sexOffender" type="radio" value="0" name="sexOffender">
+                                    </fieldset>
+                                    <label for="arsonist" class="inline-flex text-lg font-black text-red-500 md:mt-0 mt-2">Have you ever be convicted of arson?</label>
+                                    <fieldset class="mr-2 md:mt-0 mt-2" id="arsonist">
+                                        <label class="inline-flex text-lg font-black text-red-500">Yes</label>
+                                        <input wire:model="legalInfo.arsonist" type="radio" value="1" name="arsonist">
+                                        <label class="inline-flex text-lg font-black text-red-500 ml-2">No</label>
+                                        <input wire:model="legalInfo.arsonist" type="radio" value="0" name="arsonist">
+                                    </fieldset>
+                                    <label for="kidnapper" class="inline-flex text-lg font-black text-red-500 md:mt-0 mt-2">Have you ever be convicted of kidnapping?</label>
+                                    <fieldset class="mr-2 md:mt-0 mt-2" id="kidnapper">
+                                        <label class="inline-flex text-lg font-black text-red-500">Yes</label>
+                                        <input wire:model="legalInfo.kidnapper" type="radio" value="1" name="kidnapper">
+                                        <label class="inline-flex text-lg font-black text-red-500 ml-2">No</label>
+                                        <input wire:model="legalInfo.kidnapper" type="radio" value="0" name="kidnapper">
+                                    </fieldset>
+                                </div>
+                                {{-- <div class="w-full md:px-2">
+                                    <label for="lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
+                                    <div class="mt-1">
+                                        <input wire:model="emergencyContactInfo.lastNameEmContact" type="text" name="lastNameEmContact" id="lastNameEmContact" required autocomplete="family-name" value="{{ old('lastNameEmContact') }}" class="@error('emergencyContactInfo.lastNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('emergencyContactInfo.lastNameEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full">
+                                    <label for="phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
+                                    <div class="mt-1">
+                                        <input wire:model="emergencyContactInfo.phoneEmContact" type="tel" name="phoneEmContact" id="phoneEmContact" required autocomplete="tel" value="{{ old('phoneEmContact') }}" class="@error('emergencyContactInfo.phoneEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('emergencyContactInfo.phoneEmContact')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div> --}}
                             </div>
-                        </div>
 
-                        <div class="flex items-center mt-4 h-3">
-                            <div class="w-2/3 flex justify-between h-2">
-                                {{-- <div :class="{ 'bg-red-400': passwordStrengthText == 'Too weak' ||  passwordStrengthText == 'Could be stronger' || passwordStrengthText == 'Strong password' }" class="h-2 rounded-full mr-1 w-1/3 bg-gray-300"></div> --}}
-                                {{-- <div :class="{ 'bg-orange-400': passwordStrengthText == 'Could be stronger' || passwordStrengthText == 'Strong password' }" class="h-2 rounded-full mr-1 w-1/3 bg-gray-300"></div> --}}
-                                {{-- <div :class="{ 'bg-green-400': passwordStrengthText == 'Strong password' }" class="h-2 rounded-full w-1/3 bg-gray-300"></div> --}}
+                            <div class="grid md:grid-cols-2 grid-cols-1 w-full">
+                                <label for="legalSupervision" class="inline-flex text-lg font-black text-gray-900">Are you on legal supervision?</label>
+                                <fieldset class="mr-2 md:mt-0 mt-2" id="legalSupervision">
+                                    <label class="inline-flex text-lg font-black text-gray-900">Yes</label>
+                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="1" name="legalSupervision" />
+                                    <label class="inline-flex text-lg font-black text-gray-900 ml-2">No</label>
+                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="0" name="legalSupervision" />
+                                </fieldset>
                             </div>
-                            {{-- <div x-text="passwordStrengthText" class="text-gray-500 font-medium text-sm ml-3 leading-none"></div> --}}
-                        </div>
 
-                        <p class="mt-5 text-gray-600">Inspired from dribbble shot: Exploration for a password strength meter by <a href="https://dribbble.com/OvertonGraphics" class="text-blue-500">Josh Overton</a>.</p>
+                            {{-- FORM ROW 2 --}}
+                            <div class="flex md:flex-row flex-col">
+
+                                <div class="w-full">
+                                    <label for="firstNameSupervisingOfficer" class="block text-lg font-black text-gray-700">First Name</label>
+                                    <div class="mt-1">
+                                        <input wire:model="legalInfo.firstNameSupervisingOfficer" type="text" name="firstNameSupervisingOfficer" id="firstNameSupervisingOfficer" required autocomplete="given-name" value="{{ old('firstNameSupervisingOfficer') }}" class="@error('legalInfo.firstNameSupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('legalInfo.firstNameSupervisingOfficer')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full md:pl-2">
+                                    <label for="lastNameSupervisingOfficer" class="block text-lg font-black text-gray-700">Last Name</label>
+                                    <div class="mt-1">
+                                        <input wire:model="legalInfo.lastNameSupervisingOfficer" type="text" name="lastNameSupervisingOfficer" id="lastNameSupervisingOfficer" required autocomplete="family-name" value="{{ old('lastNameSupervisingOfficer') }}" class="@error('legalInfo.lastNameSupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('legalInfo.lastNameSupervisingOfficer')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {{-- FORM ROW 3 --}}
+                            <div class="flex md:flex-row flex-col">
+                                <div class="w-full">
+                                    <label for="agencySupervisingOfficer" class="block text-lg font-black text-gray-700">Agency</label>
+                                    <div class="mt-1">
+                                        <input wire:model="legalInfo.agencySupervisingOfficer" type="text" name="agencySupervisingOfficer" id="agencySupervisingOfficer" required autocomplete="organization" value="{{ old('agencySupervisingOfficer') }}" class="@error('legalInfo.agencySupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('legalInfo.agencySupervisingOfficer')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-full md:pl-2">
+                                    <label for="phoneSupervisingOfficer" class="block text-lg font-black text-gray-700">Contact Number</label>
+                                    <div class="mt-1">
+                                        <input wire:model="legalInfo.phoneSupervisingOfficer" type="tel" name="phoneSupervisingOfficer" id="phoneSupervisingOfficer" required autocomplete="tel" value="{{ old('phoneSupervisingOfficer') }}" class="@error('legalInfo.phoneSupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('legalInfo.phoneSupervisingOfficer')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                        {{-- <div class="flex justify-center my-4 text-xl font-black text-indigo-600 relative z-10">
+                            {{ $success }}
+                        </div> --}}
                     </div>
 
                 </div>
@@ -658,13 +794,13 @@
 
                     <button type="button"
                             wire:click.prevent="prevStep"
-                            class="{{ $currentStep > 1 ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            class="{{ $currentStep > 0 ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         <div wire:loading wire:target="prevStep">
                             <x-loading-blocks />
                         </div>
                         <div class="flex w-full justify-between items-center p-2 text-white text-md font-bold" wire:loading.remove wire:target="prevStep">
                             <img class="flex" src="/svg/angle-double-left.svg" alt="Previous Step">
-                            {{ $stepTitles[$currentStep - 2 < 0 ? 0 : $currentStep - 2] }}
+                            {{ $stepTitles[$currentStep - 1 < 0 ? 0 : $currentStep - 1] }}
                         </div>
                     </button>
                 </div>
@@ -672,13 +808,14 @@
                 <div class="w-1/3 text-right">
 
                     <button type="button"
-                            wire:click.prevent="nextStep"
+
+                            wire:click.prevent="validateStep"
                             class="{{ $currentStep < $totalSteps ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <div wire:loading wire:target="nextStep">
+                        <div wire:loading wire:target="validateStep">
                             <x-loading-blocks />
                         </div>
-                        <div class="flex w-full justify-between items-center p-2 text-white text-md font-bold" wire:loading.remove wire:target="nextStep">
-                            {{ $stepTitles[$currentStep >= count($stepTitles) ? count($stepTitles) - 1 : $currentStep] }}
+                        <div class="flex w-full justify-between items-center p-2 text-white text-md font-bold" wire:loading.remove wire:target="validateStep">
+                            {{ $stepTitles[$currentStep + 1] }}
                             <img class="flex" src="/svg/angle-double-right.svg" alt="Next Step">
                         </div>
                     </button>

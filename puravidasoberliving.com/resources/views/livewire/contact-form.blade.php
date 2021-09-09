@@ -71,10 +71,10 @@
                     <div class="absolute inset-y-0 left-0 flex items-center">
                         <label for="phoneType" class="sr-only">Phone Type</label>
                         <select wire:model="phoneType" id="phoneType" name="phoneType" value="{{ old("phoneType") }}" class="h-full py-0 pl-4 pr-8 border-transparent bg-transparent text-gray-500 focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
-                        <option {{ $phoneType == 'Type' ? 'selected' : '' }} value="">Type</option>
-                        <option {{ $phoneType == 'Home' ? 'selected' : '' }} value="US">Home</option>
-                        <option {{ $phoneType == 'Office' ? 'selected' : '' }} value="US">Office</option>
-                        <option {{ $phoneType == 'Cell' ? 'selected' : '' }} value="US">Cell</option>
+                            <option {{ $phoneType == 'Type' ? 'selected' : '' }} value="">Type</option>
+                            <option {{ $phoneType == 'Home' ? 'selected' : '' }} value="US">Home</option>
+                            <option {{ $phoneType == 'Office' ? 'selected' : '' }} value="US">Office</option>
+                            <option {{ $phoneType == 'Cell' ? 'selected' : '' }} value="US">Cell</option>
                         </select>
                     </div>
                     <input wire:model="phone" type="text" name="phone" id="phone" value="{{ old('phone') }}" required autocomplete="tel" class="@error('phone') is-invalid @enderror py-3 block w-full pl-28 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" placeholder="+1 (555) 987-6543">
