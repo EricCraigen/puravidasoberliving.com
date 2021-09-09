@@ -13,7 +13,7 @@
 
                 <div class="flip-box">
 
-                    <div class="flip-box-front flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden" id="flip_box_front">
+                    <div class="flip-box-front flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden z-10" id="flip_box_front">
                         <svg class="absolute left-28 -top-36 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                                 <defs>
                                   <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -33,20 +33,20 @@
 
 
 
-                            <a class="inline-flex w-full justify-center z-10" href="/">
+                            <a class="inline-flex w-full justify-center relative z-10" href="/">
                                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                             </a>
 
-                            <form class="space-y-6 z-10" method="POST" action="{{ route('login') }}">
+                            <form class="space-y-6 relative z-10" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div>
                                     <label for="email" class="block text-lg font-black text-gray-700">
                                         {{ __('Email address') }}
                                     </label>
-                                    <div class="mt-1 z-10">
-                                        <input id="email_login" type="email" name="email" :value="old('email')" required autocomplete="email" autofocus placeholder="youremail@aol.com" class="@error('email_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                    <div class="mt-1 relative z-10">
+                                        <input id="email_login" type="email" name="email" :value="old('email')" required autocomplete="email" autofocus placeholder="youremail@aol.com" class="@error('email_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md relative z-10">
                                         @error('email_login')
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback relative z-10" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -57,17 +57,17 @@
                                     <label for="password" class="block text-lg font-black text-gray-700">
                                         {{ __('Password') }}
                                     </label>
-                                    <div class="mt-1 z-10">
-                                        <input id="password_login" type="password" name="password" required autocomplete="current-password" autofocus placeholder="DaP@ssword1" class="@error('password_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                    <div class="mt-1 relative z-10">
+                                        <input id="password_login" type="password" name="password" required autocomplete="current-password" autofocus placeholder="DaP@ssword1" class="@error('password_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md relative z-10">
                                         @error('password_login')
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback relative z-10" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="flex items-center justify-between">
+                                <div class="flex items-center justify-between relative z-10">
                                     <div x-data="{
                                             isChecked: $persist(false).as('remember_me_checker')
                                         }"
@@ -80,7 +80,7 @@
                                     </div>
 
 
-                                    <div class="text-sm">
+                                    <div class="text-sm relative z-10">
                                         @if (Route::has('password.request'))
                                             <a href="{{ route('password.request') }}" class="text-md font-extrabold text-accent text-accent_hover">
                                                 {{ __('Forgot your password?') }}
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
 
-                                <div>
+                                <div class="relative z-10">
                                     <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-black text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 
                                         {{ __('Sign in') }}
@@ -97,7 +97,7 @@
                                 </div>
                             </form>
 
-                            <div class="mt-6">
+                            <div class="mt-6 relative z-10">
                                 <div class="relative">
                                     <div class="absolute inset-0 flex items-center">
                                         <div class="w-full border-t border-gray-300"></div>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-6 grid grid-cols-3 gap-3">
+                                <div class="mt-6 grid grid-cols-3 gap-3 relative z-10">
                                     <div>
                                         <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
@@ -147,7 +147,7 @@
 
                             </div>
 
-                            <div class="flex w-full items-center justify-center my-5 text-black">
+                            <div class="flex w-full items-center justify-center my-5 text-black relative z-10">
                                 <div class="switch-wrapper bg-white shadow-lg">
                                     <div class="switch-content-wrapper text-black">
                                         <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
@@ -168,7 +168,7 @@
                         </div>
                     </div>
 
-                    <div class="flip-box-back flip-box-back-height flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden" id="flip_box_back">
+                    <div class="flip-box-back flip-box-back-height flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden z-10" id="flip_box_back">
                         <svg class="absolute left-28 top-4 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                             <defs>
                               <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -186,24 +186,24 @@
                             <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
                         </svg>
 
-                        <div class="inner text-black">
+                        <div class="inner text-black relative z-10">
 
-                            <a class="inline-flex w-full justify-center" href="/">
+                            <a class="inline-flex w-full justify-center relative z-10" href="/">
                                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                             </a>
 
-                            <form class="space-y-6" method="POST" action="{{ route('register') }}">
+                            <form class="space-y-6 relative z-10" method="POST" action="{{ route('register') }}">
                                 @csrf
-                                <div class="flex w-full gap-x-2">
+                                <div class="flex w-full gap-x-2 relative z-10">
 
                                     <div>
-                                        <label for="firstName" class="block text-lg font-black text-gray-700">
+                                        <label for="firstName" class="block text-lg font-black text-gray-700 relative z-10">
                                             {{ __('First Name') }}
                                         </label>
                                         <div class="mt-1">
                                             <input id="firstName" type="text" name="firstName" value="{{ old('firstName') }}" required autocomplete="given-name" autofocus placeholder="Issac" class="@error('firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                             @error('firstName')
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback relative z-10" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -211,13 +211,13 @@
                                     </div>
 
                                     <div>
-                                        <label for="lastName" class="block text-lg font-black text-gray-700">
+                                        <label for="lastName" class="block text-lg font-black text-gray-700 relative z-10">
                                             {{ __('Last Name') }}
                                         </label>
-                                        <div class="mt-1">
+                                        <div class="mt-1 relative z-10">
                                             <input id="lastName" type="text" name="lastName" value="{{ old('lastName') }}" required autocomplete="family-name" autofocus placeholder="Newton" class="@error('lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                             @error('lastName')
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback relative z-10" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -226,13 +226,13 @@
                                 </div>
 
                                 <div>
-                                    <label for="email" class="block text-lg font-black text-gray-700">
+                                    <label for="email" class="block text-lg font-black text-gray-700 relative z-10">
                                         {{ __('Email') }}
                                     </label>
-                                    <div class="mt-1">
+                                    <div class="mt-1 relative z-10">
                                         <input id="email" type="text" name="email" value="{{ old('email') }}"  required autocomplete="email" autofocus placeholder="theNEWT@aol.com" class="@error('email') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                         @error('email')
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback relative z-10" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -240,13 +240,13 @@
                                 </div>
 
                                 <div>
-                                    <label for="password" class="block text-lg font-black text-gray-700">
+                                    <label for="password" class="block text-lg font-black text-gray-700 relative z-10">
                                         {{ __('Password') }}
                                     </label>
-                                    <div class="mt-1">
+                                    <div class="mt-1 relative z-10">
                                         <input id="password" type="password" name="password" value="{{ old('password') }}"  required autocomplete="password" autofocus placeholder="DaP@ssword1" class="@error('password') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                         @error('password')
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback relative z-10" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -254,28 +254,28 @@
                                 </div>
 
                                 <div>
-                                    <label for="password_confirmation" class="block text-lg font-black text-gray-700">
+                                    <label for="password_confirmation" class="block text-lg font-black text-gray-700 relative z-10">
                                         {{ __('Confirm Password') }}
                                     </label>
-                                    <div class="mt-1">
+                                    <div class="mt-1 relative z-10">
                                         <input id="password_confirmation" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" required autofocus class="@error('password_confirmation') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                         @error('password_confirmation')
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback relative z-10" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="flex items-center justify-center mt-4">
-                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-black text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <div class="flex items-center justify-center mt-4 relative z-10">
+                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-black text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 relative z-10">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
                             </form>
 
-                            <div class="mt-6">
-                                <div class="relative">
+                            <div class="mt-6 relative z-10">
+                                <div class="relative z-10">
                                     <div class="absolute inset-0 flex items-center">
                                         <div class="w-full border-t border-gray-300"></div>
                                     </div>
@@ -286,8 +286,8 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-6 grid grid-cols-3 gap-3">
-                                    <div>
+                                <div class="mt-6 grid grid-cols-3 gap-3 relative z-10">
+                                    <div class="relative z-10">
                                         <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Facebook') }}
@@ -299,7 +299,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
+                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50 relative z-10">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Twitter') }}
                                             </span>
@@ -310,7 +310,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
+                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50 relative z-10">
                                             <span class="sr-only">
                                                 {{ __('Sign in with GitHub') }}
                                             </span>
@@ -323,7 +323,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex w-full items-center justify-center my-5 text-black">
+                            <div class="flex w-full items-center justify-center my-5 text-black relative z-10">
                                 <div class="switch-wrapper bg-white">
                                     <div class="switch-content-wrapper text-black">
                                         <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">

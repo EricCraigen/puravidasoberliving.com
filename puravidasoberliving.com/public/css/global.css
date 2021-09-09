@@ -1,23 +1,28 @@
 :root {
     --accent: rgba(8, 196, 235, 1);
     --accent_hover: rgba(23, 154, 181, 1);
+    --accent_dark-text: rgb(36, 46, 48);
+    --shadow-top: 0 -20px 25px -5px rgba(0, 0, 0, 0.1), 0 -10px 10px -5px rgba(0, 0, 0, 0.04);
     /* text-stroke */
     --text-stroke: 1px black;
+    --accent_dark: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+    --accent_dark-blend-mode: multiply,multiply;
 }
 
 .bg-accent {
     background-color: var(--accent) !important;
 }
 
-.bg-accent_off {
+.bg-accent_hover:hover {
     background-color: var(--accent_hover) !important;
 }
 
-.bg-accent_off:hover {
-    background-color: var(--accent) !important;
+.bg-accent-dark {
+    background: var(--accent_dark) !important;
+    background-blend-mode: var(--accent_dark-blend-mode) !important;
 }
 
-.bg-accent_hover:hover {
+.bg-accent-dark_hover:hover {
     background-color: var(--accent_hover) !important;
 }
 
@@ -33,6 +38,51 @@
     color: var(--accent_hover) !important;
 }
 
+.text-accent-dark {
+    color: var(--accent_dark-text) !important;
+}
+
+.text-accent-dark_hover:hover {
+    color: var(--accent_hover) !important;
+}
+
 .text-stroke {
     -webkit-text-stroke: var(--text-stroke);
+}
+
+.shadow-top-sm {
+    -webkit-box-shadow: var(--shadow-top);
+    -moz-box-shadow:    var(--shadow-top);
+    box-shadow:         var(--shadow-top);
+}
+
+.progress-bar-width {
+    width: calc(100% - 50px) !important;
+}
+
+.min-w-36 {
+    min-width: 9rem;
+}
+
+
+#application-portal-menu::-webkit-scrollbar {
+    display: flex;
+    width: 100%;
+    height: 7px;
+    background: rgba(238, 240, 242, 1);
+    /* background-blend-mode: var(--accent_dark-blend-mode); */
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    border: 1px solid rgba(216, 217, 221, 1);
+}
+
+#application-portal-menu::-webkit-scrollbar-thumb {
+    display: flex;
+    width: auto;
+    height: auto;
+    background: var(--accent);
+    /* background-blend-mode: var(--accent_dark-blend-mode); */
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    border: 1px solid rgba(216, 217, 221, 1);
 }

@@ -110,12 +110,12 @@
                 <div class="sm:col-span-2 z-10">
                     <div class="flex items-start">
                         <div class="flex-shrink-0">
-                            <button wire:click.prenvent="toggleAgreeToPolices" type="button" class="{{ $agreeToPolicies == null ? 'bg-accent_off' : 'bg-accent bg-accent_hover' }} relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md" role="switch" aria-checked="false">
+                            <button wire:click.prenvent="toggleAgreeToPolices" type="button" class="{{ $agreeToPolicies == null ? 'bg-accent-dark bg-accent-dark_hover' : 'bg-accent bg-accent_hover' }} relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md" role="switch" aria-checked="false">
                                 <span class="sr-only">
                                 Agree to policies
                                 </span>
                                 <input type="hidden" id="agreeToPolices" name="agreeToPolicies" value="{{ $agreeToPolicies }}">
-                                <span aria-hidden="true" class="{{ $agreeToPolicies == null ? 'translate-x-0' : 'translate-x-5' }} inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
+                                <span aria-hidden="true" class="{{ $agreeToPolicies == null ? 'translate-x-0 bg-gray-200' : 'translate-x-5 bg-white transition ease-in duration-200' }} inline-block h-5 w-5 rounded-full shadow transform ring-0"></span>
                             </button>
                         </div>
                         <div class="ml-3 z-10">

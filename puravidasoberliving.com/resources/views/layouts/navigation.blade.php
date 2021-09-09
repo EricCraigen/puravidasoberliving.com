@@ -103,8 +103,9 @@
     @endif
 </div>
 <nav x-data="{open: false}"
-        x-on:scroll.window="minifyNavOnScroll(window.scrollY)"
-        class="bg-gray-200 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 navTopPadding navTopSize sticky top-0 shadow z-40">
+     id="main-navigation"
+     x-on:scroll.window="minifyNavOnScroll(window.scrollY)"
+     class="bg-gray-200 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 navTopPadding navTopSize sticky top-0 shadow z-40">
     <!-- Primary Navigation Menu -->
     <div class="w-full px-2">
         <div class="flex justify-between h-16">
@@ -340,15 +341,15 @@
 
     function minifyNavOnScroll(scrollPos) {
         if (scrollPos == 0) {
-            $('nav').addClass('navTopPadding').removeClass('navTopPaddingRemove');
-            $('nav').addClass('navTopSize').removeClass('navTopSizeReduce');
+            $('#main-navigation').addClass('navTopPadding').removeClass('navTopPaddingRemove');
+            $('#main-navigation').addClass('navTopSize').removeClass('navTopSizeReduce');
             // return atTopOfPage = true;
             // console.log(atTopOfPage);
             // console.log(scrollPos);
         } else {
             // return atTopOfPage = false;
-            $('nav').removeClass('navTopPadding').addClass('navTopPaddingRemove');
-            $('nav').removeClass('navTopSize').addClass('navTopSizeReduce');
+            $('#main-navigation').removeClass('navTopPadding').addClass('navTopPaddingRemove');
+            $('#main-navigation').removeClass('navTopSize').addClass('navTopSizeReduce');
             // console.log(atTopOfPage);
             // console.log(scrollPos);
         }
