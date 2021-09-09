@@ -27,7 +27,15 @@
 }
 
 .border-accent {
-    border-color: var(--accent);
+    border-color: var(--accent) !important;
+}
+
+.border-accent-dark {
+    border-color: var(--accent_hover) !important;
+}
+
+.border-accent-dark_active {
+    border-color: var(--accent_dark-text) !important;
 }
 
 .text-accent {
@@ -86,3 +94,17 @@
     border-bottom-right-radius: 0.375rem;
     border: 1px solid rgba(216, 217, 221, 1);
 }
+
+@media (min-width: 768px) {
+
+    .w-45 {
+        width: 40%;
+    }
+
+    .w-10per {
+        width: 20%;
+    }
+
+}
+
+
