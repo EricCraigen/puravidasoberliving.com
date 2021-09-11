@@ -14,6 +14,8 @@ class RentalApplicationPortal extends Component
     public $totalSteps;
     public $personalInfo;
     public $emergencyContactInfo;
+    public $emergencyContactCounter;
+    public $additionalEmergencyContactInfo;
     public $legalInfo;
     public $medicalInfo;
     public $fundingInfo;
@@ -29,7 +31,7 @@ class RentalApplicationPortal extends Component
 
     public function mount()
     {
-        $this->currentStep = 0;
+        $this->currentStep = 1;
         $this->totalSteps = 10;
         $this->stepTitles = [
            'Personal Info',
@@ -121,6 +123,8 @@ class RentalApplicationPortal extends Component
         );
         $this->personalInfo = array();
         $this->emergencyContactInfo = array();
+        $this->additionalEmergencyContactInfo = array();
+        $this->emergencyContactCounter = 0;
         $this->legalInfo = array();
         $this->relationalStatuses = array(
             '1' => 'Sister-in-Law',
@@ -163,22 +167,40 @@ class RentalApplicationPortal extends Component
     //     $this->validateOnly($propertyName);
     // }
 
+    public function addEmergencyContact()
+    {
+        $this->emergencyContactCounter++;
+        // for($inputsToAdd = 4; $inputsToAdd >= 0;  $inputsToAdd--) {
+            array_push($this->additionalEmergencyContactInfo,
+                'firstNameEmContact' . $this->emergencyContactCounter,
+                'lastNameEmContact' . $this->emergencyContactCounter,
+                'phoneEmContact' . $this->emergencyContactCounter,
+                'cityEmContact' . $this->emergencyContactCounter,
+                'stateEmContact' . $this->emergencyContactCounter,
+                'relationshipEmContact' . $this->emergencyContactCounter,
+            );
+
+        sleep(1);
+        // }
+
+    }
+
     public function validateStep()
     {
         sleep(1);
         switch ($this->currentStep) {
             case (0):
-                $this->validateStep0();
+                // $this->validateStep0();
 
                 $this->toggleCompletedTaskIcon();
                 break;
             case (1):
-                $this->validateStep1();
+                // $this->validateStep1();
 
                 $this->toggleCompletedTaskIcon();
                 break;
             case (2):
-                $this->validateStep2();
+                // $this->validateStep2();
 
                 $this->toggleCompletedTaskIcon();
                 break;

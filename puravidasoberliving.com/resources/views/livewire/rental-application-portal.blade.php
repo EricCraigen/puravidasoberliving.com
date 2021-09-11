@@ -261,6 +261,8 @@
                         </svg> --}}
                         <form id="emergencyContactForm" wire:submit.prevent="validateStep" action="/apply-now" method="POST" class="flex flex-col gap-6 relative z-10">
                             @csrf
+
+
                             {{-- FORM ROW 1 --}}
                             <div class="flex md:flex-row flex-col">
                                 <div class="w-full">
@@ -351,6 +353,126 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                            </div>
+
+                            @php
+                                $inputCounter = 1;
+                            @endphp
+
+                            @foreach ($additionalEmergencyContactInfo as $emergencyContactInputGroup)
+                                {{-- FORM ROW 1 --}}
+                                <div class="flex md:flex-row flex-col">
+                                    <div class="w-full">
+                                        <label  class="block text-lg font-black text-gray-700">First Name</label>
+                                        <div class="mt-1">
+                                            <input wire:model="additionalEmergencyContactInfo.firstNameEmContact{{ $emergencyContactCounter }}" type="text" name="firstNameEmContact{{ $emergencyContactCounter }}" id="firstNameEmContact{{ $emergencyContactCounter }}" required autocomplete="given-name" value="{{ old('firstNameEmContact.emergencyContactCounter') }}" class="@error('additionalEmergencyContactInfo.firstNameEmContact.emergencyContactCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('additionalEmergencyContactInfo.firstNameEmContact.emergencyContactCounter }}')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="w-full md:px-2">
+                                        <label for="lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
+                                        <div class="mt-1">
+                                            <input wire:model="emergencyContactInfo.lastNameEmContact" type="text" name="lastNameEmContact" id="lastNameEmContact" required autocomplete="family-name" value="{{ old('lastNameEmContact') }}" class="@error('emergencyContactInfo.lastNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('emergencyContactInfo.lastNameEmContact')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
+                                        <div class="mt-1">
+                                            <input wire:model="emergencyContactInfo.phoneEmContact" type="tel" name="phoneEmContact" id="phoneEmContact" required autocomplete="tel" value="{{ old('phoneEmContact') }}" class="@error('emergencyContactInfo.phoneEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('emergencyContactInfo.phoneEmContact')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- FORM ROW 2 --}}
+                                <div class="flex md:flex-row flex-col">
+                                    <div class="w-full">
+                                        <label for="cityEmContact" class="block text-lg font-black text-gray-700">City</label>
+                                        <div class="mt-1">
+                                            <input wire:model="emergencyContactInfo.cityEmContact" type="text" name="cityEmContact" id="cityEmContact" required autocomplete="city" value="{{ $birthDate }}" class="@error('emergencyContactInfo.cityEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('emergencyContactInfo.cityEmContact')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="w-full md:px-2">
+                                        <label for="emergencyContactInfo.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
+                                        <div class="mt-1">
+                                            <label for="emergencyContactInfo.stateEmContact" class="sr-only">Phone Type</label>
+                                            <select wire:model="emergencyContactInfo.stateEmContact" id="emergencyContactInfo.stateEmContact" name="emergencyContactInfo.stateEmContact" value="{{ old("emergencyContactInfo.stateEmContact") }}" class="px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                <option  value="">Select</option>
+                                                @php
+                                                    sort($us_state_abbrevs_names)
+                                                @endphp
+                                                @foreach ($us_state_abbrevs_names as $key => $state)
+                                                    <option  value="{{ $key }}">{{ $state }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('emergencyContactInfo.stateEmContact')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full">
+                                        <label for="relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
+                                        <div class="mt-1">
+                                            <label for="emergencyContactInfo.relationshipEmContact" class="sr-only">Relationship</label>
+                                            <select wire:model="emergencyContactInfo.relationshipEmContact" id="emergencyContactInfo.relationshipEmContact" name="emergencyContactInfo.relationshipEmContact" value="{{ old("emergencyContactInfo.relationshipEmContact") }}" class="px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                <option  value="">Select</option>
+                                                @php
+                                                    sort($relationalStatuses)
+                                                @endphp
+                                                @foreach ($relationalStatuses as $key => $relation)
+                                                    <option  value="{{ $key . ': ' . $relation }}">{{ $relation }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('emergencyContactInfo.relationshipEmContact')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            @endforeach
+                                @php
+                                    $inputCounter += 1;
+                                @endphp
+                            <div class="flex w-full justify-end">
+
+                                <button type="button"
+                                        wire:click.prevent="addEmergencyContact"
+                                        class="inline-flex min-w-36 justify-center h-full items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <div wire:loading wire:target="addEmergencyContact">
+                                        <x-loading-blocks />
+                                    </div>
+                                    <div class="flex w-full justify-between items-center p-2 text-white text-md font-bold" wire:loading.remove wire:target="addEmergencyContact">
+                                        <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Emergency Contact">
+                                        Add Emergency Contact
+                                    </div>
+                                </button>
+
                             </div>
 
                         </form>
@@ -392,28 +514,6 @@
                                         <input wire:model="legalInfo.kidnapper" type="radio" value="0" name="kidnapper">
                                     </fieldset>
                                 </div>
-                                {{-- <div class="w-full md:px-2">
-                                    <label for="lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
-                                    <div class="mt-1">
-                                        <input wire:model="emergencyContactInfo.lastNameEmContact" type="text" name="lastNameEmContact" id="lastNameEmContact" required autocomplete="family-name" value="{{ old('lastNameEmContact') }}" class="@error('emergencyContactInfo.lastNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                        @error('emergencyContactInfo.lastNameEmContact')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="w-full">
-                                    <label for="phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
-                                    <div class="mt-1">
-                                        <input wire:model="emergencyContactInfo.phoneEmContact" type="tel" name="phoneEmContact" id="phoneEmContact" required autocomplete="tel" value="{{ old('phoneEmContact') }}" class="@error('emergencyContactInfo.phoneEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                        @error('emergencyContactInfo.phoneEmContact')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
                             </div>
 
                             <div class="grid md:grid-cols-2 grid-cols-1 w-full">

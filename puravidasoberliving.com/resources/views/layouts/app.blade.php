@@ -33,7 +33,7 @@
 </head>
 {{-- toggle darkMode here --}}
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased ">
     <div class="relative min-h-screen bg-gray-200 dark:bg-gray-800">
 
         @include('layouts.navigation')
