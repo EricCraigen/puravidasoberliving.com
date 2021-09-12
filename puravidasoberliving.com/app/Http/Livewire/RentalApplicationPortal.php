@@ -170,15 +170,17 @@ class RentalApplicationPortal extends Component
     public function addEmergencyContact()
     {
         $this->emergencyContactCounter++;
+        $inputsToAdd = array(
+            'firstNameEmContact' . $this->emergencyContactCounter => '',
+            'lastNameEmContact' . $this->emergencyContactCounter => '',
+            'phoneEmContact' . $this->emergencyContactCounter => '',
+            'cityEmContact' . $this->emergencyContactCounter => '',
+            'stateEmContact' . $this->emergencyContactCounter => '',
+            'relationshipEmContact' . $this->emergencyContactCounter => '',
+        );
+        json_encode($inputsToAdd);
         // for($inputsToAdd = 4; $inputsToAdd >= 0;  $inputsToAdd--) {
-            array_push($this->additionalEmergencyContactInfo,
-                'firstNameEmContact' . $this->emergencyContactCounter,
-                'lastNameEmContact' . $this->emergencyContactCounter,
-                'phoneEmContact' . $this->emergencyContactCounter,
-                'cityEmContact' . $this->emergencyContactCounter,
-                'stateEmContact' . $this->emergencyContactCounter,
-                'relationshipEmContact' . $this->emergencyContactCounter,
-            );
+            array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
 
         sleep(1);
         // }
