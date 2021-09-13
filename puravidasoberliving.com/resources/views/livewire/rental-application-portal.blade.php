@@ -330,14 +330,14 @@
                                 $inputCounter = 0;
                             @endphp
 
-                            @foreach ($additionalEmergencyContactInfo as $emergencyContactInputGroup)
+                            @foreach ($additionalEmergencyContactInfo as $key => $emergencyContactInputGroup)
                                 {{-- FORM ROW 1 --}}
                                 <div class="flex flex-col md:flex-row">
                                     <div class="w-full">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact{{ $emergencyContactCounter }}" class="block text-lg font-black text-gray-700">First Name</label>
+                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact{{ $inputCounter }}" class="block text-lg font-black text-gray-700">First Name</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.firstNameEmContact{{ $emergencyContactCounter }}" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact{{ $emergencyContactCounter }}" id="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact{{ $emergencyContactCounter }}" required autocomplete="given-name" value="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact.{{ $emergencyContactCounter }}" class="@error('emergencyContactInputGroup.inputCounter.firstNameEmContact.emergencyContactCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('emergencyContactInputGroup.inputCounter.firstNameEmContact.emergencyContactCounter')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.firstNameEmContact{{ $inputCounter }}" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact{{ $inputCounter }}" id="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact{{ $inputCounter }}" required autocomplete="given-name" value="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact.{{ $inputCounter }}" class="@error('emergencyContactInputGroup.inputCounter.firstNameEmContact.inputCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('emergencyContactInputGroup.inputCounter.firstNameEmContact.inputCounter')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -345,10 +345,10 @@
                                         </div>
                                     </div>
                                     <div class="w-full md:px-2">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.lastNameEmContact{{ $emergencyContactCounter }}" class="block text-lg font-black text-gray-700">Last Name</label>
+                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.lastNameEmContact{{ $inputCounter }}" class="block text-lg font-black text-gray-700">Last Name</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact{{ $emergencyContactCounter }}" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.lastNameEmContact{{ $emergencyContactCounter }}" id="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact{{ $emergencyContactCounter }}" required autocomplete="family-name" value="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact.{{ $emergencyContactCounter }}" class="@error('additionalEmergencyContactInfo.inputCounter.lastNameEmContact{{ $emergencyContactCounter }}') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('emergencyContactInputGroup.inputCounter.lastNameEmContact.emergencyContactCounter')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact{{ $inputCounter }}" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.lastNameEmContact{{ $inputCounter }}" id="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact{{ $inputCounter }}" required autocomplete="family-name" value="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact.{{ $inputCounter }}" class="@error('additionalEmergencyContactInfo.inputCounter.lastNameEmContact.inputCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('emergencyContactInputGroup.inputCounter.lastNameEmContact.inputCounter')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -356,10 +356,10 @@
                                         </div>
                                     </div>
                                     <div class="w-full">
-                                        <label for="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.phoneEmContact{{ $emergencyContactCounter }}" class="block text-lg font-black text-gray-700">Contact Number</label>
+                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact{{ $inputCounter }}" class="block text-lg font-black text-gray-700">Contact Number</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.phoneEmContact{{ $emergencyContactCounter }}" type="tel" name="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.phoneEmContact{{ $emergencyContactCounter }}" id="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.phoneEmContact{{ $emergencyContactCounter }}" required autocomplete="tel" value="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.phoneEmContact.{{ $emergencyContactCounter }}" class="@error('additionalEmergencyContactInfo.emergencyContactCounter - 1.phoneEmContact.emergencyContactCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('additionalEmergencyContactInfo.emergencyContactCounter - 1.phoneEmContact.emergencyContactCounter')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.phoneEmContact{{ $inputCounter }}" type="tel" name="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact{{ $inputCounter }}" id="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact{{ $inputCounter }}" required autocomplete="tel" value="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact.{{ $inputCounter }}" class="@error('emergencyContactInputGroup.inputCounter.phoneEmContact.inputCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('emergencyContactInputGroup.inputCounter.phoneEmContact.inputCounter')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -371,10 +371,10 @@
                                 {{-- FORM ROW 2 --}}
                                 <div class="flex flex-col md:flex-row">
                                     <div class="w-full">
-                                        <label for="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.cityEmContact{{ $emergencyContactCounter }}" class="block text-lg font-black text-gray-700">City</label>
+                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact{{ $inputCounter }}" class="block text-lg font-black text-gray-700">City</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.cityEmContact{{ $emergencyContactCounter }}" type="text" name="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.cityEmContact{{ $emergencyContactCounter }}" id="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.cityEmContact{{ $emergencyContactCounter }}" required autocomplete="ship-city" value="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.cityEmContact.{{ $emergencyContactCounter }}" class="@error('additionalEmergencyContactInfo.emergencyContactCounter - 1.cityEmContact.emergencyContactCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('additionalEmergencyContactInfo.emergencyContactCounter - 1.cityEmContact.emergencyContactCounter')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.cityEmContact{{ $inputCounter }}" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact{{ $inputCounter }}" id="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact{{ $inputCounter }}" required autocomplete="ship-city" value="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact.{{ $inputCounter }}" class="@error('emergencyContactInputGroup.inputCounter.cityEmContact.inputCounter') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error('emergencyContactInputGroup.inputCounter.cityEmContact.inputCounter')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -382,10 +382,10 @@
                                         </div>
                                     </div>
                                     <div class="w-full md:px-2">
-                                        <label for="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.stateEmContact{{ $emergencyContactCounter }}" class="block text-lg font-black text-gray-700">State</label>
+                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact{{ $inputCounter }}" class="block text-lg font-black text-gray-700">State</label>
                                         <div class="mt-1">
-                                            <label for="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.stateEmContact{{ $emergencyContactCounter }}" class="sr-only">Phone Type</label>
-                                            <select wire:model="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.stateEmContact{{ $emergencyContactCounter }}" id="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.stateEmContact{{ $emergencyContactCounter }}" name="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.stateEmContact{{ $emergencyContactCounter }}" value="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.stateEmContact.{{ $emergencyContactCounter }}" class="z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                            <label for="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact{{ $inputCounter }}" class="sr-only">State</label>
+                                            <select wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.stateEmContact{{ $inputCounter }}" id="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact{{ $inputCounter }}" name="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact{{ $inputCounter }}" value="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact.{{ $inputCounter }}" class="z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
                                                 <option  value="">Select</option>
                                                 @php
                                                     sort($us_state_abbrevs_names)
@@ -394,7 +394,7 @@
                                                     <option  value="{{ $key }}">{{ $state }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('additionalEmergencyContactInfo.emergencyContactCounter - 1.stateEmContact.emergencyContactCounter')
+                                            @error('emergencyContactInputGroup.inputCounter.stateEmContact.inputCounter')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -403,10 +403,10 @@
                                     </div>
 
                                     <div class="w-full">
-                                        <label for="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.relationshipEmContact{{ $emergencyContactCounter }}" class="block text-lg font-black text-gray-700">Relationship</label>
+                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact{{ $inputCounter }}" class="block text-lg font-black text-gray-700">Relationship</label>
                                         <div class="mt-1">
-                                            <label for="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.relationshipEmContact{{ $emergencyContactCounter }}" class="sr-only">Relationship</label>
-                                            <select wire:model="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.relationshipEmContact{{ $emergencyContactCounter }}" id="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.relationshipEmContact{{ $emergencyContactCounter }}" name="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.relationshipEmContact.{{ $emergencyContactCounter }}" value="additionalEmergencyContactInfo.{{ $emergencyContactCounter - 1 }}.relationshipEmContact.{{ $emergencyContactCounter }}" class="z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                            <label for="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact{{ $inputCounter }}" class="sr-only">Relationship</label>
+                                            <select wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.relationshipEmContact{{ $inputCounter }}" id="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact{{ $inputCounter }}" name="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact.{{ $inputCounter }}" value="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact.{{ $inputCounter }}" class="z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
                                                 <option  value="">Select</option>
                                                 @php
                                                     sort($relationalStatuses)
@@ -415,7 +415,7 @@
                                                     <option  value="{{ $key . ': ' . $relation }}">{{ $relation }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('additionalEmergencyContactInfo.emergencyContactCounter - 1.relationshipEmContact.emergencyContactCounter')
+                                            @error('emergencyContactInputGroup.inputCounter.relationshipEmContact.inputCounter')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -424,6 +424,24 @@
                                     </div>
 
                                 </div>
+
+                                <div class="flex justify-end w-full">
+
+                                    <button type="button"
+                                            {{-- wire:key="{{ $inputCounter }}" --}}
+                                            wire:click.prevent="removeEmergencyContact({{ $inputCounter }})"
+                                            class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        <div wire:loading wire:target="removeEmergencyContact({{ $inputCounter }})">
+                                            <x-loading-blocks />
+                                        </div>
+                                        <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="removeEmergencyContact({{ $inputCounter }})">
+                                            <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Emergency Contact">
+                                            Remove Emergency Contact
+                                        </div>
+                                    </button>
+
+                                </div>
+
                                 @php
                                     $inputCounter += 1;
                                 @endphp

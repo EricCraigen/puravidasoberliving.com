@@ -169,7 +169,7 @@ class RentalApplicationPortal extends Component
 
     public function addEmergencyContact()
     {
-        $this->emergencyContactCounter++;
+        // $this->emergencyContactCounter++;
         $inputsToAdd = array(
             'firstNameEmContact' . $this->emergencyContactCounter => '',
             'lastNameEmContact' . $this->emergencyContactCounter => '',
@@ -180,11 +180,17 @@ class RentalApplicationPortal extends Component
         );
         json_encode($inputsToAdd);
         // for($inputsToAdd = 4; $inputsToAdd >= 0;  $inputsToAdd--) {
-            array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
-
-        sleep(1);
+        array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
+        $this->emergencyContactCounter++;
+        // sleep(1);
         // }
 
+    }
+
+    public function removeEmergencyContact($index) {
+        unset($this->additionalEmergencyContactInfo[$index]);
+        // $this->additionalEmergencyContactInfo = array_values($this->additionalEmergencyContactInfo);
+        $this->emergencyContactCounter--;
     }
 
     public function validateStep()
