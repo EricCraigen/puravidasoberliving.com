@@ -240,9 +240,9 @@
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.firstNameEmContact" type="text" name="emergencyContactInfo.firstNameEmContact" id="emergencyContactInfo.firstNameEmContact" required autocomplete="given-name" value="emergencyContactInfo.firstNameEmContact" class="@error('emergencyContactInfo.firstNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.firstNameEmContact')
-                                            <span class="invalid-feedback" role="alert">
+                                            <div class="flex w-1/3 invalid-feedback test" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
@@ -251,9 +251,9 @@
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.lastNameEmContact" type="text" name="emergencyContactInfo.lastNameEmContact" id="emergencyContactInfo.lastNameEmContact" required autocomplete="family-name" value="emergencyContactInfo.lastNameEmContact" class="@error('emergencyContactInfo.lastNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.lastNameEmContact')
-                                            <span class="invalid-feedback" role="alert">
+                                            <div class="flex w-1/3 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
@@ -262,9 +262,9 @@
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.phoneEmContact" type="tel" name="emergencyContactInfo.phoneEmContact" id="emergencyContactInfo.phoneEmContact" required autocomplete="tel" value="emergencyContactInfo.phoneEmContact" class="@error('emergencyContactInfo.phoneEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.phoneEmContact')
-                                            <span class="invalid-feedback" role="alert">
+                                            <div class="flex w-1/3 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
@@ -272,18 +272,18 @@
 
                             {{-- FORM ROW 2 --}}
                             <div class="flex flex-col md:flex-row">
-                                <div class="w-full">
+                                <div class="w-1/3">
                                     <label for="emergencyContactInfo.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.cityEmContact" type="text" name="emergencyContactInfo.cityEmContact" id="emergencyContactInfo.cityEmContact" required autocomplete="ship-city" value="emergencyContactInfo.cityEmContact" class="@error('emergencyContactInfo.cityEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.cityEmContact')
-                                            <span class="invalid-feedback" role="alert">
+                                            <div class="flex w-1/3 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="w-full md:px-2">
+                                <div class="w-1/3 md:px-2">
                                     <label for="emergencyContactInfo.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
                                     <div class="mt-1">
                                         <label for="emergencyContactInfo.stateEmContact" class="sr-only">Phone Type</label>
@@ -293,17 +293,17 @@
                                                 sort($us_state_abbrevs_names)
                                             @endphp
                                             @foreach ($us_state_abbrevs_names as $key => $state)
-                                                <option  value="{{ $key }}">{{ $state }}</option>
+                                                <option  value="{{ $key . ': ' . $state }}">{{ $state }}</option>
                                             @endforeach
                                         </select>
                                         @error('emergencyContactInfo.stateEmContact')
-                                            <span class="invalid-feedback" role="alert">
+                                            <div class="flex w-1/3 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="w-full">
+                                <div class="w-1/3">
                                     <label for="emergencyContactInfo.relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
                                     <div class="mt-1">
                                         <label for="emergencyContactInfo.relationshipEmContact" class="sr-only">Relationship</label>
@@ -317,49 +317,49 @@
                                             @endforeach
                                         </select>
                                         @error('emergencyContactInfo.relationshipEmContact')
-                                            <span class="invalid-feedback" role="alert">
+                                            <div class="flex w-1/3 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
 
                             </div>
 
-                            @php
+                            {{-- @php
                                 $inputCounter = 0;
-                            @endphp
+                            @endphp --}}
 
                             @foreach ($additionalEmergencyContactInfo as $key => $emergencyContactInputGroup)
                                 {{-- FORM ROW 1 --}}
                                 <div class="flex flex-col md:flex-row">
-                                    <div class="w-full">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact" class="block text-lg font-black text-gray-700">First Name</label>
+                                    <div class="w-1/3">
+                                        <label for="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" class="block text-lg font-black text-gray-700">First Name</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.firstNameEmContact" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact" id="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact" required autocomplete="given-name" value="emergencyContactInputGroup.{{ $inputCounter }}.firstNameEmContact.{{ $inputCounter }}" class="@error('emergencyContactInputGroup.inputCounter.firstNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('emergencyContactInputGroup.inputCounter.firstNameEmContact')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" type="text" name="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" required autocomplete="given-name" value="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.firstNameEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error("additionalEmergencyContactInfo.{$loop->index}.firstNameEmContact")
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="w-full md:px-2">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
+                                    <div class="w-1/3 md:px-2">
+                                        <label for="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.lastNameEmContact" id="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact" required autocomplete="family-name" value="additionalEmergencyContactInfo.{{ $inputCounter }}.lastNameEmContact.{{ $inputCounter }}" class="@error('emergencyContactInputGroup.inputCounter.lastNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('emergencyContactInputGroup.inputCounter.lastNameEmContact')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" type="text" name="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" required autocomplete="family-name" value="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.lastNameEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error("additionalEmergencyContactInfo.{$loop->index}.lastNameEmContact")
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="w-full">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
+                                    <div class="w-1/3">
+                                        <label for="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.phoneEmContact" type="tel" name="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact" id="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact" required autocomplete="tel" value="emergencyContactInputGroup.{{ $inputCounter }}.phoneEmContact.{{ $inputCounter }}" class="@error('emergencyContactInputGroup.inputCounter.phoneEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('emergencyContactInputGroup.inputCounter.phoneEmContact')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" type="tel" name="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" required autocomplete="tel" value="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.phoneEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error("additionalEmergencyContactInfo.{$loop->index}.phoneEmContact")
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -371,10 +371,10 @@
                                 {{-- FORM ROW 2 --}}
                                 <div class="flex flex-col md:flex-row">
                                     <div class="w-full">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
+                                        <label for="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                         <div class="mt-1">
-                                            <input wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.cityEmContact" type="text" name="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact" id="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact" required autocomplete="ship-city" value="emergencyContactInputGroup.{{ $inputCounter }}.cityEmContact.{{ $inputCounter }}" class="@error('emergencyContactInputGroup.inputCounter.cityEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                            @error('emergencyContactInputGroup.inputCounter.cityEmContact')
+                                            <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" type="text" name="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" required autocomplete="ship-city" value="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                            @error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact")
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -382,10 +382,10 @@
                                         </div>
                                     </div>
                                     <div class="w-full md:px-2">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
+                                        <label for="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
                                         <div class="mt-1">
-                                            <label for="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact" class="sr-only">State</label>
-                                            <select wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.stateEmContact" id="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact" name="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact" value="emergencyContactInputGroup.{{ $inputCounter }}.stateEmContact.{{ $inputCounter }}" class="z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                            <label for="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" class="sr-only">State</label>
+                                            <select wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" name="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" value="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.stateEmContact") is-invalid @enderror z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
                                                 <option  value="">Select</option>
                                                 @php
                                                     sort($us_state_abbrevs_names)
@@ -394,7 +394,7 @@
                                                     <option  value="{{ $key }}">{{ $state }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('emergencyContactInputGroup.inputCounter.stateEmContact')
+                                            @error("additionalEmergencyContactInfo.{$loop->index}.stateEmContact")
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -403,10 +403,10 @@
                                     </div>
 
                                     <div class="w-full">
-                                        <label for="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
+                                        <label for="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
                                         <div class="mt-1">
-                                            <label for="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact" class="sr-only">Relationship</label>
-                                            <select wire:model="additionalEmergencyContactInfo.{{ $inputCounter }}.relationshipEmContact" id="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact" name="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact.{{ $inputCounter }}" value="emergencyContactInputGroup.{{ $inputCounter }}.relationshipEmContact.{{ $inputCounter }}" class="z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                            <label for="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" class="sr-only">Relationship</label>
+                                            <select wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" name="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" value="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.relationshipEmContact") is-invalid @enderror z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
                                                 <option  value="">Select</option>
                                                 @php
                                                     sort($relationalStatuses)
@@ -415,7 +415,7 @@
                                                     <option  value="{{ $key . ': ' . $relation }}">{{ $relation }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('emergencyContactInputGroup.inputCounter.relationshipEmContact')
+                                            @error("additionalEmergencyContactInfo.{$loop->index}.relationshipEmContact")
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -429,12 +429,12 @@
 
                                     <button type="button"
                                             {{-- wire:key="{{ $inputCounter }}" --}}
-                                            wire:click.prevent="removeEmergencyContact({{ $inputCounter }})"
+                                            wire:click.prevent="removeEmergencyContact({{ $loop->index }})"
                                             class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        <div wire:loading wire:target="removeEmergencyContact({{ $inputCounter }})">
+                                        <div wire:loading wire:target="removeEmergencyContact({{ $loop->index }})">
                                             <x-loading-blocks />
                                         </div>
-                                        <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="removeEmergencyContact({{ $inputCounter }})">
+                                        <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="removeEmergencyContact({{ $loop->index }})">
                                             <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Emergency Contact">
                                             Remove Emergency Contact
                                         </div>
@@ -442,9 +442,9 @@
 
                                 </div>
 
-                                @php
+                                {{-- @php
                                     $inputCounter += 1;
-                                @endphp
+                                @endphp --}}
                             @endforeach
 
                             <div class="flex justify-end w-full">
