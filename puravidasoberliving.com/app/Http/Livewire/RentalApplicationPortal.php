@@ -171,12 +171,12 @@ class RentalApplicationPortal extends Component
     {
         // $this->emergencyContactCounter++;
         $inputsToAdd = array(
-            'firstNameEmContact' . $this->emergencyContactCounter => '',
-            'lastNameEmContact' . $this->emergencyContactCounter => '',
-            'phoneEmContact' . $this->emergencyContactCounter => '',
-            'cityEmContact' . $this->emergencyContactCounter => '',
-            'stateEmContact' . $this->emergencyContactCounter => '',
-            'relationshipEmContact' . $this->emergencyContactCounter => '',
+            'firstNameEmContact' => '',
+            'lastNameEmContact' => '',
+            'phoneEmContact' => '',
+            'cityEmContact' => '',
+            'stateEmContact' => '',
+            'relationshipEmContact' => '',
         );
         json_encode($inputsToAdd);
         // for($inputsToAdd = 4; $inputsToAdd >= 0;  $inputsToAdd--) {
@@ -189,7 +189,7 @@ class RentalApplicationPortal extends Component
 
     public function removeEmergencyContact($index) {
         unset($this->additionalEmergencyContactInfo[$index]);
-        // $this->additionalEmergencyContactInfo = array_values($this->additionalEmergencyContactInfo);
+        $this->additionalEmergencyContactInfo = array_values($this->additionalEmergencyContactInfo);
         $this->emergencyContactCounter--;
     }
 
@@ -245,6 +245,21 @@ class RentalApplicationPortal extends Component
             'emergencyContactInfo.stateEmContact' => 'required',
             'emergencyContactInfo.relationshipEmContact' => 'required'
         ]);
+    }
+
+    private function validateStep1AdditionalEmergencyContacts()
+    {
+        foreach ($this->additionalEmergencyContactInfo as $this->additionalContactArray) {
+            $this->validate([
+                'emergencyContactInfo.' . $this->emergencyContactCounter . '.firstNameEmContact' => 'required|min:2|max:255',
+                'emergencyContactInfo.' . $this->emergencyContactCounter . '.lastNameEmContact' => 'required|min:2|max:255',
+                'emergencyContactInfo.' . $this->emergencyContactCounter . '.phoneEmContact' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+                'emergencyContactInfo.' . $this->emergencyContactCounter . '.cityEmContact' => 'required|min:2|max:255',
+                'emergencyContactInfo.' . $this->emergencyContactCounter . '.stateEmContact' => 'required',
+                'emergencyContactInfo.' . $this->emergencyContactCounter . '.relationshipEmContact' => 'required'
+            ]);
+        }
+
     }
 
     private function validateStep2()
