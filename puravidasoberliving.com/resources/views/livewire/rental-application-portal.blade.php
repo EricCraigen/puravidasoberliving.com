@@ -102,13 +102,13 @@
                     </div>
 
                     <!-- Progress Bar -->
-                    <div class="flex items-center justify-end w-full mt-2">
+                    {{-- <div class="flex items-center justify-end w-full mt-2">
                         <div class="relative mr-2 progress-bar-width">
                             <div class="absolute bottom-0 right-0 z-20 h-2 text-xs leading-none text-center text-white border-black rounded-full top-px left-px bg-accent border-1" style="width: {{ $currentStep / $totalSteps * 100 }}%;"></div>
                             <div class="rounded-full bg-accent-dark border-1 border-black text-xs leading-none h-2.5 text-center text-white relative z-10"></div>
                         </div>
                         <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($currentStep / $totalSteps * 100) }}%</div>
-                    </div>
+                    </div> --}}
 
                 </div>
 
@@ -138,14 +138,27 @@
 
                     <div class="relative mt-12">
 
-                        <form id="personalInformationForm" wire:submit.prevent="validateStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                        <form id="personalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
+
+                            <div class="flex justify-between items-center w-full">
+
+                                <div class="flex w-1/2">
+
+                                    <h3 class="font-black text-2xl text-gray-900">
+                                        Applicant Information
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
                             {{-- FORM ROW 1 --}}
                             <div class="flex flex-col md:flex-row">
                                 <div class="w-full w-45">
-                                    <label for="firstName" class="block text-lg font-black text-gray-700">First name</label>
+                                    <label for="personalInfo.firstName" class="block text-lg font-black text-gray-700">First name</label>
                                     <div class="mt-1">
-                                        <input wire:model="personalInfo.firstName" type="text" name="firstName" id="firstName" required autocomplete="given-name" value="{{ old('firstName') }}" class="@error('personalInfo.firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input wire:model="personalInfo.firstName" type="text" name="personalInfo.firstName" id="personalInfo.firstName" required autocomplete="given-name" value="personalInfo.firstName" class="@error('personalInfo.firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('personalInfo.firstName')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -154,9 +167,9 @@
                                     </div>
                                 </div>
                                 <div class="w-full w-10per md:px-2">
-                                    <label for="middleInitial" class="block text-lg font-black text-gray-700">Middle Init.</label>
+                                    <label for="personalInfo.middleInitial" class="block text-lg font-black text-gray-700">Middle Init.</label>
                                     <div class="mt-1">
-                                        <input wire:model="personalInfo.middleInitial" type="text" name="middleInitial" id="middleInitial" required autocomplete="additional-name" value="{{ old('middleInitial') }}" class="@error('personalInfo.middleInitial') is-invalid @enderror px-3 py-2 block md:w-full w-2/5 shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input wire:model="personalInfo.middleInitial" type="text" name="personalInfo.middleInitial" id="personalInfo.middleInitial" required autocomplete="additional-name" value="personalInfo.middleInitial" class="@error('personalInfo.middleInitial') is-invalid @enderror px-3 py-2 block md:w-full w-2/5 shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('personalInfo.middleInitial')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -165,9 +178,9 @@
                                     </div>
                                 </div>
                                 <div class="w-full w-45">
-                                    <label for="lastName" class="block text-lg font-black text-gray-700">Last name</label>
+                                    <label for="personalInfo.lastName" class="block text-lg font-black text-gray-700">Last name</label>
                                     <div class="mt-1">
-                                        <input wire:model="personalInfo.lastName" type="text" name="lastName" id="lastName" required autocomplete="family-name" value="{{ old('lastName') }}" class="@error('personalInfo.lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input wire:model="personalInfo.lastName" type="text" name="personalInfo.lastName" id="personalInfo.lastName" required autocomplete="family-name" value="personalInfo.lastName" class="@error('personalInfo.lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('personalInfo.lastName')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -180,12 +193,12 @@
                             {{-- FORM ROW 2 --}}
                             <div class="flex flex-col md:flex-row">
                                 <div class="w-full">
-                                    <label for="dateOfBirth" class="block text-lg font-black text-gray-700">Date of Birth</label>
+                                    <label for="personalInfo.dateOfBirth" class="block text-lg font-black text-gray-700">Date of Birth</label>
                                     <div class="mt-1">
                                         @php
-                                            $birthDate = \Carbon\Carbon::now()->format('Y-m-d');
+                                            $today = \Carbon\Carbon::now()->format('Y-m-d');
                                         @endphp
-                                        <input wire:model="personalInfo.dateOfBirth" type="date" name="dateOfBirth" id="dateOfBirth" required autocomplete="bday" value="{{ $birthDate }}" class="@error('personalInfo.dateOfBirth') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input wire:model="personalInfo.dateOfBirth" type="date" name="personalInfo.dateOfBirth" id="personalInfo.dateOfBirth" required autocomplete="bday" value="{{ $today }}" class="@error('personalInfo.dateOfBirth') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('personalInfo.dateOfBirth')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -194,9 +207,9 @@
                                     </div>
                                 </div>
                                 <div class="w-full md:px-2">
-                                    <label for="socialNumber" class="block text-lg font-black text-gray-700">Social Security Number</label>
+                                    <label for="personalInfo.socialNumber" class="block text-lg font-black text-gray-700">Social Security Number</label>
                                     <div class="mt-1">
-                                        <input wire:model="personalInfo.socialNumber" type="text" name="socialNumber" id="socialNumber" required autocomplete="ssn" value="{{ old('socialNumber') }}" class="@error('personalInfo.socialNumber') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input wire:model="personalInfo.socialNumber" type="text" name="personalInfo.socialNumber" id="personalInfo.socialNumber" required autocomplete="ssn" value="personalInfo.socialNumber" class="@error('personalInfo.socialNumber') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('personalInfo.socialNumber')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -205,9 +218,9 @@
                                     </div>
                                 </div>
                                 <div class="w-full">
-                                    <label for="phone" class="block text-lg font-black text-gray-700">Phone</label>
+                                    <label for="personalInfo.phone" class="block text-lg font-black text-gray-700">Phone</label>
                                     <div class="mt-1">
-                                        <input wire:model="personalInfo.phone" type="tel" name="phone" id="phone" required autocomplete="tel" value="{{ old('phone') }}" class="@error('personalInfo.phone') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        <input wire:model="personalInfo.phone" type="tel" name="personalInfo.phone" id="personalInfo.phone" required autocomplete="tel" value="personalInfo.phone" class="@error('personalInfo.phone') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('personalInfo.phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -218,9 +231,7 @@
                             </div>
 
                         </form>
-                        {{-- <div class="relative z-10 flex justify-center my-4 text-xl font-black text-indigo-600">
-                            {{ $success }}
-                        </div> --}}
+
                     </div>
 
                 </div>
@@ -229,18 +240,29 @@
 
                     <div class="relative mt-12">
 
-                        <form id="emergencyContactForm" wire:submit.prevent="validateStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                        <form id="emergencyContactForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
 
+                            <div class="flex justify-between items-center w-full">
+
+                                <div class="flex w-1/2">
+
+                                    <h3 class="font-black text-2xl text-gray-900">
+                                        Primary Contact
+                                    </h3>
+
+                                </div>
+
+                            </div>
 
                             {{-- FORM ROW 1 --}}
                             <div class="flex flex-col md:flex-row">
                                 <div class="w-full">
-                                    <label for="firstNameEmContact" class="block text-lg font-black text-gray-700">First Name</label>
+                                    <label for="emergencyContactInfo.firstNameEmContact" class="block text-lg font-black text-gray-700">First Name</label>
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.firstNameEmContact" type="text" name="emergencyContactInfo.firstNameEmContact" id="emergencyContactInfo.firstNameEmContact" required autocomplete="given-name" value="emergencyContactInfo.firstNameEmContact" class="@error('emergencyContactInfo.firstNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.firstNameEmContact')
-                                            <div class="flex w-1/3 invalid-feedback test" role="alert">
+                                            <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
@@ -251,7 +273,7 @@
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.lastNameEmContact" type="text" name="emergencyContactInfo.lastNameEmContact" id="emergencyContactInfo.lastNameEmContact" required autocomplete="family-name" value="emergencyContactInfo.lastNameEmContact" class="@error('emergencyContactInfo.lastNameEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.lastNameEmContact')
-                                            <div class="flex w-1/3 invalid-feedback" role="alert">
+                                            <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
@@ -262,7 +284,7 @@
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.phoneEmContact" type="tel" name="emergencyContactInfo.phoneEmContact" id="emergencyContactInfo.phoneEmContact" required autocomplete="tel" value="emergencyContactInfo.phoneEmContact" class="@error('emergencyContactInfo.phoneEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.phoneEmContact')
-                                            <div class="flex w-1/3 invalid-feedback" role="alert">
+                                            <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
@@ -271,19 +293,19 @@
                             </div>
 
                             {{-- FORM ROW 2 --}}
-                            <div class="flex flex-col md:flex-row">
-                                <div class="w-1/3">
+                            <div class="flex flex-col md:flex-row mb-5">
+                                <div class="w-full">
                                     <label for="emergencyContactInfo.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                     <div class="mt-1">
                                         <input wire:model="emergencyContactInfo.cityEmContact" type="text" name="emergencyContactInfo.cityEmContact" id="emergencyContactInfo.cityEmContact" required autocomplete="ship-city" value="emergencyContactInfo.cityEmContact" class="@error('emergencyContactInfo.cityEmContact') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                         @error('emergencyContactInfo.cityEmContact')
-                                            <div class="flex w-1/3 invalid-feedback" role="alert">
+                                            <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="w-1/3 md:px-2">
+                                <div class="w-full md:px-2">
                                     <label for="emergencyContactInfo.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
                                     <div class="mt-1">
                                         <label for="emergencyContactInfo.stateEmContact" class="sr-only">Phone Type</label>
@@ -297,13 +319,13 @@
                                             @endforeach
                                         </select>
                                         @error('emergencyContactInfo.stateEmContact')
-                                            <div class="flex w-1/3 invalid-feedback" role="alert">
+                                            <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="w-1/3">
+                                <div class="w-full">
                                     <label for="emergencyContactInfo.relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
                                     <div class="mt-1">
                                         <label for="emergencyContactInfo.relationshipEmContact" class="sr-only">Relationship</label>
@@ -317,7 +339,7 @@
                                             @endforeach
                                         </select>
                                         @error('emergencyContactInfo.relationshipEmContact')
-                                            <div class="flex w-1/3 invalid-feedback" role="alert">
+                                            <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
@@ -326,11 +348,37 @@
 
                             </div>
 
-                            {{-- @php
-                                $inputCounter = 0;
-                            @endphp --}}
+                            {{-- ADDITIONAL EMERGENCY CONTACTS --}}
+                            @foreach ($additionalEmergencyContactInfo as $emergencyContactInputGroup)
 
-                            @foreach ($additionalEmergencyContactInfo as $key => $emergencyContactInputGroup)
+                                <div class="flex justify-between items-center w-full mt-5">
+
+                                    <div class="flex w-1/2">
+
+                                        <h3 class="font-black text-2xl text-gray-900">
+                                            Alternative Contact #{{ $loop->index + 1 }}
+                                        </h3>
+
+                                    </div>
+
+                                    <div class="flex w-1/2 justify-content-end">
+
+                                        <button type="button"
+                                                wire:click.prevent="removeEmergencyContact({{ $loop->index }})"
+                                                class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            <div wire:loading wire:target="removeEmergencyContact({{ $loop->index }})">
+                                                <x-loading-blocks />
+                                            </div>
+                                            <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="removeEmergencyContact({{ $loop->index }})">
+                                                <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Add Another Emergency Contact">
+                                                Remove Emergency Contact
+                                            </div>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
                                 {{-- FORM ROW 1 --}}
                                 <div class="flex flex-col md:flex-row">
                                     <div class="w-1/3">
@@ -338,9 +386,9 @@
                                         <div class="mt-1">
                                             <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" type="text" name="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" required autocomplete="given-name" value="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.firstNameEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                             @error("additionalEmergencyContactInfo.{$loop->index}.firstNameEmContact")
-                                                <span class="invalid-feedback" role="alert">
+                                                <div class="flex w-full invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
-                                                </span>
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -349,9 +397,9 @@
                                         <div class="mt-1">
                                             <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" type="text" name="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" required autocomplete="family-name" value="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.lastNameEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                             @error("additionalEmergencyContactInfo.{$loop->index}.lastNameEmContact")
-                                                <span class="invalid-feedback" role="alert">
+                                                <div class="flex w-full invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
-                                                </span>
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -360,28 +408,28 @@
                                         <div class="mt-1">
                                             <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" type="tel" name="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" required autocomplete="tel" value="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.phoneEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                             @error("additionalEmergencyContactInfo.{$loop->index}.phoneEmContact")
-                                                <span class="invalid-feedback" role="alert">
+                                                <div class="flex w-full invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
-                                                </span>
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
                                 </div>
 
                                 {{-- FORM ROW 2 --}}
-                                <div class="flex flex-col md:flex-row">
-                                    <div class="w-full">
+                                <div class="flex flex-col md:flex-row mb-5">
+                                    <div class="w-1/3">
                                         <label for="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                         <div class="mt-1">
                                             <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" type="text" name="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" id="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" required autocomplete="ship-city" value="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" class="@error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                             @error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact")
-                                                <span class="invalid-feedback" role="alert">
+                                                <div class="flex w-full invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
-                                                </span>
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="w-full md:px-2">
+                                    <div class="w-1/3 md:px-2">
                                         <label for="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
                                         <div class="mt-1">
                                             <label for="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" class="sr-only">State</label>
@@ -395,14 +443,14 @@
                                                 @endforeach
                                             </select>
                                             @error("additionalEmergencyContactInfo.{$loop->index}.stateEmContact")
-                                                <span class="invalid-feedback" role="alert">
+                                                <div class="flex w-full invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
-                                                </span>
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
 
-                                    <div class="w-full">
+                                    <div class="w-1/3">
                                         <label for="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
                                         <div class="mt-1">
                                             <label for="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" class="sr-only">Relationship</label>
@@ -416,37 +464,18 @@
                                                 @endforeach
                                             </select>
                                             @error("additionalEmergencyContactInfo.{$loop->index}.relationshipEmContact")
-                                                <span class="invalid-feedback" role="alert">
+                                                <div class="flex w-full invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
-                                                </span>
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <div class="flex justify-end w-full">
-
-                                    <button type="button"
-                                            {{-- wire:key="{{ $inputCounter }}" --}}
-                                            wire:click.prevent="removeEmergencyContact({{ $loop->index }})"
-                                            class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        <div wire:loading wire:target="removeEmergencyContact({{ $loop->index }})">
-                                            <x-loading-blocks />
-                                        </div>
-                                        <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="removeEmergencyContact({{ $loop->index }})">
-                                            <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Emergency Contact">
-                                            Remove Emergency Contact
-                                        </div>
-                                    </button>
-
-                                </div>
-
-                                {{-- @php
-                                    $inputCounter += 1;
-                                @endphp --}}
                             @endforeach
 
+                            {{-- ADD EMERGENCY CONTACT --}}
                             <div class="flex justify-end w-full">
 
                                 <button type="button"
@@ -464,9 +493,7 @@
                             </div>
 
                         </form>
-                        {{-- <div class="relative z-10 flex justify-center my-4 text-xl font-black text-indigo-600">
-                            {{ $success }}
-                        </div> --}}
+
                     </div>
 
                 </div>
@@ -475,42 +502,75 @@
 
                     <div class="relative mt-12">
 
-                        <form id="LegalInformationForm" wire:submit.prevent="validateStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                        <form id="LegalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
+
+                            <div class="flex justify-between items-center w-full">
+
+                                <div class="flex w-1/2">
+
+                                    <h3 class="font-black text-2xl text-gray-900">
+                                        Legal Questions
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
                             {{-- FORM ROW 1 --}}
                             <div class="flex flex-col md:flex-row">
                                 <div class="grid w-full grid-cols-1 lg:grid-cols-2">
-                                    <label for="sexOffender" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Are you a registered sex offender?</label>
-                                    <fieldset class="mt-2 mr-2 md:mt-0" id="sexOffender">
+                                    <label for="legalInfo.sexOffender" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Are you a registered sex offender?</label>
+                                    <fieldset class="@error("legalInfo.sexOffender") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.sexOffender">
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                        <input wire:model="legalInfo.sexOffender" type="radio" value="1" name="sexOffender">
+                                        <input wire:model="legalInfo.sexOffender" type="radio" value="1" name="legalInfo.sexOffender">
                                         <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                        <input wire:model="legalInfo.sexOffender" type="radio" value="0" name="sexOffender">
+                                        <input wire:model="legalInfo.sexOffender" type="radio" value="0" name="legalInfo.sexOffender">
+                                        @error("legalInfo.sexOffender")
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </fieldset>
-                                    <label for="arsonist" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of arson?</label>
-                                    <fieldset class="mt-2 mr-2 md:mt-0" id="arsonist">
+                                    <label for="legalInfo.arsonist" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of arson?</label>
+                                    <fieldset class="@error("legalInfo.arsonist") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.arsonist">
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                        <input wire:model="legalInfo.arsonist" type="radio" value="1" name="arsonist">
+                                        <input wire:model="legalInfo.arsonist" type="radio" value="1" name="legalInfo.arsonist">
                                         <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                        <input wire:model="legalInfo.arsonist" type="radio" value="0" name="arsonist">
+                                        <input wire:model="legalInfo.arsonist" type="radio" value="0" name="legalInfo.arsonist">
+                                        @error("legalInfo.arsonist")
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </fieldset>
-                                    <label for="kidnapper" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of kidnapping?</label>
-                                    <fieldset class="mt-2 mr-2 md:mt-0" id="kidnapper">
+                                    <label for="legalInfo.kidnapper" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of kidnapping?</label>
+                                    <fieldset class="@error("legalInfo.kidnapper") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.kidnapper">
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                        <input wire:model="legalInfo.kidnapper" type="radio" value="1" name="kidnapper">
+                                        <input wire:model="legalInfo.kidnapper" type="radio" value="1" name="legalInfo.kidnapper">
                                         <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                        <input wire:model="legalInfo.kidnapper" type="radio" value="0" name="kidnapper">
+                                        <input wire:model="legalInfo.kidnapper" type="radio" value="0" name="legalInfo.kidnapper">
+                                        @error("legalInfo.kidnapper")
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </fieldset>
                                 </div>
                             </div>
 
                             <div class="grid w-full grid-cols-1 md:grid-cols-2">
-                                <label for="legalSupervision" class="inline-flex text-lg font-black text-gray-900">Are you on legal supervision?</label>
-                                <fieldset class="mt-2 mr-2 md:mt-0" id="legalSupervision">
+                                <label for="legalInfo.legalSupervision" class="inline-flex text-lg font-black text-gray-900">Are you on legal supervision?</label>
+                                <fieldset class="@error("legalInfo.legalSupervision") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.legalSupervision">
                                     <label class="inline-flex text-lg font-black text-gray-900">Yes</label>
-                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="1" name="legalSupervision" />
+                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="1" name="legalInfo.legalSupervision" />
                                     <label class="inline-flex ml-2 text-lg font-black text-gray-900">No</label>
-                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="0" name="legalSupervision" />
+                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="0" name="legalInfo.legalSupervision" />
+                                    @error("legalInfo.legalSupervision")
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
                                 </fieldset>
                             </div>
 
@@ -570,9 +630,7 @@
                             </div>
 
                         </form>
-                        {{-- <div class="relative z-10 flex justify-center my-4 text-xl font-black text-indigo-600">
-                            {{ $success }}
-                        </div> --}}
+
                     </div>
 
                 </div>
@@ -798,86 +856,24 @@
         </div>
 
         <!-- Bottom Navigation -->
-        <div x-data="{ isHidden: true }" class="sticky bottom-0 left-0 right-0 z-20 flex flex-col justify-center max-w-screen-lg mx-auto align-middle rounded-b-md">
+        <div class="sticky bottom-0 left-0 right-0 z-20 flex flex-col justify-center max-w-screen-lg mx-auto align-middle rounded-b-md">
 
             <!-- Bottom Navigation 1 -->
-            {{-- <div x-data @scroll.window="isHidden = (window.scrollY > 300) ? false : true" class="relative flex flex-col justify-center w-full py-1 bg-white px-14" :class="{'hidden' : isHidden}">
+            <div class="relative flex flex-col justify-center w-full py-1 bg-white px-14">
 
                 <!-- Progress Bar -->
-                <div class="flex items-center justify-end w-full mb-2">
+                <div class="flex items-center justify-end w-full mb-2 pt-2 border-t-2 border-gray-300">
                     <div class="relative mr-2 progress-bar-width">
-                        <div class="absolute bottom-0 right-0 z-20 h-2 text-xs leading-none text-center text-white border-black rounded-full top-px left-px bg-accent border-1" style="width: {{ $currentStep / $totalSteps * 100 }}%;"></div>
+                        <div class="absolute bottom-0 right-0 z-20 h-2 text-xs leading-none text-center text-white border-black rounded-full top-px left-px bg-accent border-1" style="width: {{ $currentStep + 1 / $totalSteps * 100 }}%;"></div>
                         <div class="rounded-full bg-accent-dark border-1 border-black text-xs leading-none h-2.5 text-center text-white relative z-10"></div>
                     </div>
-                    <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($currentStep / $totalSteps * 100) }}%</div>
+                    <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($currentStep + 1 / $totalSteps * 100) }}%</div>
                 </div>
 
-                <!-- Progress Navigation -->
-                <div class="flex flex-col-reverse w-full md:flex-row">
-
-                    <div class="flex flex-row items-center w-full">
-                        <nav class="flex w-full" aria-label="Progress">
-                            <ol role="list" class="flex flex-col w-full border border-gray-300 divide-y divide-gray-300 rounded-md md:flex-row md:flex md:divide-y-0">
-                              <li class="relative md:flex-1 md:flex">
-                                <!-- Completed Step -->
-                                <a href="#" class="flex items-center w-full group">
-                                  <span class="flex items-center px-6 py-4 text-sm font-medium">
-                                    <span class="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-indigo-600 rounded-full group-hover:bg-indigo-800">
-                                      <!-- Heroicon name: solid/check -->
-                                      <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                      </svg>
-                                    </span>
-                                    <span class="ml-4 text-sm font-medium text-gray-900">Job details</span>
-                                  </span>
-                                </a>
-
-                                <!-- Arrow separator for lg screens and up -->
-                                <div class="absolute top-0 right-0 hidden w-5 h-full md:block" aria-hidden="true">
-                                  <svg class="w-full h-full text-gray-300" viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
-                                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round" />
-                                  </svg>
-                                </div>
-                              </li>
-
-                              <li class="relative md:flex-1 md:flex">
-                                <!-- Current Step -->
-                                <a href="#" class="flex items-center px-6 py-4 text-sm font-medium" aria-current="step">
-                                  <span class="flex items-center justify-center flex-shrink-0 w-10 h-10 border-2 border-indigo-600 rounded-full">
-                                    <span class="text-indigo-600">02</span>
-                                  </span>
-                                  <span class="ml-4 text-sm font-medium text-indigo-600">Application form</span>
-                                </a>
-
-                                <!-- Arrow separator for lg screens and up -->
-                                <div class="absolute top-0 right-0 hidden w-5 h-full md:block" aria-hidden="true">
-                                  <svg class="w-full h-full text-gray-300" viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
-                                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round" />
-                                  </svg>
-                                </div>
-                              </li>
-
-                              <li class="relative md:flex-1 md:flex">
-                                <!-- Upcoming Step -->
-                                <a href="#" class="flex items-center group">
-                                  <span class="flex items-center px-6 py-4 text-sm font-medium">
-                                    <span class="flex items-center justify-center flex-shrink-0 w-10 h-10 border-2 border-gray-300 rounded-full group-hover:border-gray-400">
-                                      <span class="text-gray-500 group-hover:text-gray-900">03</span>
-                                    </span>
-                                    <span class="ml-4 text-sm font-medium text-gray-500 group-hover:text-gray-900">Preview</span>
-                                  </span>
-                                </a>
-                              </li>
-                            </ol>
-                        </nav>
-                    </div>
-
-                </div>
-
-            </div> --}}
+            </div>
 
             <!-- Bottom Navigation 2 -->
-            <div class="flex justify-between w-full py-2 shadow-lg px-14 bg-accent-dark rounded-b-md">
+            <div class="flex justify-between w-full py-2 shadow-lg px-14 bg-gray-600 rounded-b-md">
                 <div class="w-1/3">
 
                     <button type="button"
@@ -886,9 +882,9 @@
                         <div wire:loading wire:target="prevStep">
                             <x-loading-blocks />
                         </div>
-                        <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="prevStep">
-                            <img class="flex" src="/svg/angle-double-left.svg" alt="Previous Step">
-                            {{ $stepTitles[$currentStep - 1 < 0 ? 0 : $currentStep - 1] }}
+                        <div class="flex items-center justify-between p-2 w-full font-bold text-white text-md" wire:loading.remove wire:target="prevStep">
+                            <img class="flex mr-5" src="/svg/angle-double-left.svg" alt="Previous Step">
+                            Step {{ $currentStep - 1 < 0 ? 0 : $currentStep . ': ' . $stepTitles[$currentStep - 1 < 0 ? 0 : $currentStep - 1] }}
                         </div>
                     </button>
                 </div>
@@ -896,22 +892,21 @@
                 <div class="w-1/3 text-right">
 
                     <button type="button"
-
-                            wire:click.prevent="validateStep"
-                            class="{{ $currentStep < $totalSteps ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <div wire:loading wire:target="validateStep">
+                            wire:click.prevent="completeStep"
+                            class="{{ $currentStep < $totalSteps ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center py-1 px-2 border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <div wire:loading wire:target="completeStep">
                             <x-loading-blocks />
                         </div>
-                        <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="validateStep">
-                            {{ $stepTitles[$currentStep + 1] }}
-                            <img class="flex" src="/svg/angle-double-right.svg" alt="Next Step">
+                        <div class="flex items-center justify-between p-2 w-full font-bold text-white text-md" wire:loading.remove wire:target="completeStep">
+                            Step {{ $currentStep + 2 . ': ' . $stepTitles[$currentStep + 1] }}
+                            <img class="flex ml-5" src="/svg/angle-double-right.svg" alt="Next Step">
                         </div>
                     </button>
 
-                    <button
-                        wire:click.prevent="rentalAppFormSubmit"
-                        class="{{ $currentStep == $totalSteps ? '' : 'hidden' }} w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"
-                    >Complete</button>
+                    <button wire:click.prevent="rentalAppFormSubmit"
+                            class="{{ $currentStep == $totalSteps ? '' : 'hidden' }} w-32 focus:outline-none border border-transparent  rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium">
+                        Complete
+                    </button>
                 </div>
             </div>
         </div>

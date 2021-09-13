@@ -13,6 +13,7 @@ class RentalApplicationPortal extends Component
     public $currentStep;
     public $totalSteps;
     public $personalInfo;
+    // public $firstName, $middleInitial, $lastName, $dateOfBirth, $socialNumber, $phone;
     public $emergencyContactInfo;
     // public $emergencyContactCounter;
     public $additionalEmergencyContactInfo;
@@ -28,10 +29,74 @@ class RentalApplicationPortal extends Component
     public $newMessage;
     public $us_state_abbrevs_names;
     public $relationalStatuses;
+    protected $rules;
+    // protected $rules = [
+    //     'personalInfo.firstName' => 'required|min:2|max:255',
+    //     'personalInfo.middleInitial' => 'required|max:1',
+    //     'personalInfo.lastName' => 'required|min:2|max:255',
+    //     'personalInfo.dateOfBirth' => 'required|date|date_format:Y-m-d|before:today',
+    //     'personalInfo.socialNumber' => ['required', 'regex:/^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$/'],
+    //     'personalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+    // ];
+
+    protected $messages = [
+        // personalInfo
+        'personalInfo.firstName.required' => 'Your first name is required.',
+        'personalInfo.firstName.min' => 'Your first name must contain at least 2 characters.',
+        'personalInfo.firstName.max' => 'Your first name cannot contain more than 255 characters.',
+        'personalInfo.middleInitial.required' => 'Your middle initial is required.',
+        'personalInfo.middleInitial.max' => 'Your middle initial cannot contain more than 1 character.',
+        'personalInfo.lastName.required' => 'Your last name is required.',
+        'personalInfo.lastName.min' => 'Your last name must contain at least 2 characters.',
+        'personalInfo.lastName.max' => 'Your last name cannot contain more than 255 characters.',
+        'personalInfo.dateOfBirth.required' => 'Your birth date is required.',
+        'personalInfo.dateOfBirth.date' => 'Please select a valid birth date.',
+        'personalInfo.dateOfBirth.date' => 'Please select a valid birth date (YYYY-MM-DD).',
+        'personalInfo.dateOfBirth.before' => 'Your birth date must be before today.',
+        'personalInfo.socialNumber.required' => 'Your Social Security Number is required.',
+        'personalInfo.socialNumber.regex' => 'Your phone number must contain at least 14 characters.',
+        'personalInfo.phone.required' => 'Your phone number is required.',
+        'personalInfo.phone.regex' => 'Please enter a valid phone number.',
+        // emergencyContactInfo
+        'emergencyContactInfo.firstNameEmContact.required' => 'A first name is required.',
+        'emergencyContactInfo.firstNameEmContact.min' => 'A first name must contain at least 2 characters.',
+        'emergencyContactInfo.firstNameEmContact.max' => 'A first name cannot contain more than 255 characters.',
+        'emergencyContactInfo.lastNameEmContact.required' => 'A last name is required.',
+        'emergencyContactInfo.lastNameEmContact.min' => 'A last name must contain at least 2 characters.',
+        'emergencyContactInfo.lastNameEmContact.max' => 'A last name cannot contain more than 255 characters.',
+        'emergencyContactInfo.phoneEmContact.required' => 'A phone number is required.',
+        'emergencyContactInfo.phoneEmContact.min' => 'A phone number must contain at least 14 characters.',
+        'emergencyContactInfo.cityEmContact.required' => 'A city is required.',
+        'emergencyContactInfo.cityEmContact.min' => 'A city must contain at least 2 characters.',
+        'emergencyContactInfo.cityEmContact.max' => 'A city cannot contain more than 255 characters.',
+        'emergencyContactInfo.stateEmContact.required' => 'A state is required.',
+        'emergencyContactInfo.relationshipEmContact.required' => 'A kinship is required.',
+
+    ];
+
+    protected function rules()
+    {
+        return [
+            // personalInfo
+            'personalInfo.firstName' => 'required|min:2|max:255',
+            'personalInfo.middleInitial' => 'required|max:1',
+            'personalInfo.lastName' => 'required|min:2|max:255',
+            'personalInfo.dateOfBirth' => 'required|date|date_format:Y-m-d|before:'. Carbon::now()->format('Y-m-d'),
+            'personalInfo.socialNumber' => ['required', 'regex:/^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$/'],
+            'personalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+            // emergencyContactInfo
+            'emergencyContactInfo.firstNameEmContact' => 'required|min:2|max:255',
+            'emergencyContactInfo.lastNameEmContact' => 'required|min:2|max:255',
+            'emergencyContactInfo.phoneEmContact' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+            'emergencyContactInfo.cityEmContact' => 'required|min:2|max:255',
+            'emergencyContactInfo.stateEmContact' => 'required',
+            'emergencyContactInfo.relationshipEmContact' => 'required'
+        ];
+    }
 
     public function mount()
     {
-        $this->currentStep = 1;
+        $this->currentStep = 2;
         $this->totalSteps = 10;
         $this->stepTitles = [
            'Personal Info',
@@ -121,11 +186,6 @@ class RentalApplicationPortal extends Component
             'AA'=>'ARMED FORCES AMERICA (EXCEPT CANADA)',
             'AP'=>'ARMED FORCES PACIFIC'
         );
-        $this->personalInfo = array();
-        $this->emergencyContactInfo = array();
-        $this->additionalEmergencyContactInfo = array();
-        // $this->emergencyContactCounter = 0;
-        $this->legalInfo = array();
         $this->relationalStatuses = array(
             '1' => 'Sister-in-Law',
             '2' => 'Stepfather',
@@ -160,45 +220,51 @@ class RentalApplicationPortal extends Component
             'Y' => 'Father-in-Law',
             'Z' => 'Brother-in-Law'
         );
+        $this->clearPersonalInfo();
+        $this->clearEmergencyContactInfo();
+        $this->clearLegalInfo();
+        // $this->emergencyContactInfo = array();
+        // $this->additionalEmergencyContactInfo = array();
+        // $this->emergencyContactCounter = 0;
+        // $this->legalInfo = array();
+
     }
 
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName);
-    // }
-
-    public function addEmergencyContact()
+    public function updated($propertyName)
     {
-        // $this->emergencyContactCounter++;
-        $inputsToAdd = array(
-            'firstNameEmContact' => '',
-            'lastNameEmContact' => '',
-            'phoneEmContact' => '',
-            'cityEmContact' => '',
-            'stateEmContact' => '',
-            'relationshipEmContact' => '',
-        );
-        json_encode($inputsToAdd);
-        // for($inputsToAdd = 4; $inputsToAdd >= 0;  $inputsToAdd--) {
-        array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
-        // $this->emergencyContactCounter++;
-        // sleep(1);
-        // }
-
+        $this->validateOnly($propertyName);
     }
 
-    public function removeEmergencyContact($index) {
-        unset($this->additionalEmergencyContactInfo[$index]);
-        $this->additionalEmergencyContactInfo = array_values($this->additionalEmergencyContactInfo);
-        // $this->emergencyContactCounter--;
+    public function toggleCompletedTaskIcon()
+    {
+        $this->stepStatuses[$this->stepTitles[$this->currentStep]] = 'complete';
+        $this->stepStatuses[$this->stepTitles[$this->currentStep + 1]] = 'current';
     }
 
-    public function validateStep()
+    public function prevStep()
+    {
+        if ($this->currentStep == 0) {
+            return;
+        } else {
+            $this->currentStep--;
+        }
+    }
+
+    public function nextStep()
+    {
+        if ($this->currentStep == $this->totalSteps - 1) {
+            return;
+        } else {
+            $this->currentStep++;
+        }
+    }
+
+    public function completeStep()
     {
         sleep(1);
         switch ($this->currentStep) {
             case (0):
-                // $this->validateStep0();
+                $this->validateStep0();
 
                 $this->toggleCompletedTaskIcon();
                 break;
@@ -209,7 +275,7 @@ class RentalApplicationPortal extends Component
                 $this->toggleCompletedTaskIcon();
                 break;
             case (2):
-                // $this->validateStep2();
+                $this->validateStep2();
 
                 $this->toggleCompletedTaskIcon();
                 break;
@@ -226,6 +292,7 @@ class RentalApplicationPortal extends Component
 
     private function validateStep0()
     {
+        // $this->validate();
         $this->validate([
             'personalInfo.firstName' => 'required|min:2|max:255',
             'personalInfo.middleInitial' => 'required|max:1',
@@ -234,14 +301,49 @@ class RentalApplicationPortal extends Component
             'personalInfo.socialNumber' => ['required', 'regex:/^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$/'],
             'personalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
         ], [
-            'personalnfo.firstName.required' => 'Your first name is requiered.',
-            'personalnfo.firstName.min' => 'Your first name must contain at least 2 characters.',
-            'personalnfo.firstName.max' => 'Your first name cannot contain more than 255 characters.',
+            'personalInfo.firstName.required' => 'Your first name is required.',
+            'personalInfo.firstName.min' => 'Your first name must contain at least 2 characters.',
+            'personalInfo.firstName.max' => 'Your first name cannot contain more than 255 characters.',
+            'personalInfo.middleInitial.required' => 'Your middle initial is required.',
+            'personalInfo.middleInitial.max' => 'Your middle initial cannot contain more than 1 character.',
+            'personalInfo.lastName.required' => 'Your last name is required.',
+            'personalInfo.lastName.min' => 'Your last name must contain at least 2 characters.',
+            'personalInfo.lastName.max' => 'Your last name cannot contain more than 255 characters.',
+            'personalInfo.dateOfBirth.required' => 'Your birth date is required.',
+            'personalInfo.dateOfBirth.date' => 'Please select a valid birth date.',
+            'personalInfo.dateOfBirth.date' => 'Please select a valid birth date (YYYY-MM-DD).',
+            'personalInfo.dateOfBirth.before' => 'Your birth date must be before today.',
+            'personalInfo.socialNumber.required' => 'Your Social Security Number is required.',
+            'personalInfo.socialNumber.regex' => 'Your phone number must contain at least 14 characters.',
+            'personalInfo.phone.required' => 'Your phone number is required.',
+            'personalInfo.phone.regex' => 'Please enter a valid phone number.',
         ]);
+    }
+
+    public function addEmergencyContact()
+    {
+        $inputsToAdd = array(
+            'firstNameEmContact' => '',
+            'lastNameEmContact' => '',
+            'phoneEmContact' => '',
+            'cityEmContact' => '',
+            'stateEmContact' => '',
+            'relationshipEmContact' => '',
+        );
+        json_encode($inputsToAdd);
+        array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
+    }
+
+    public function removeEmergencyContact($index)
+    {
+        unset($this->additionalEmergencyContactInfo[$index]);
+        $this->additionalEmergencyContactInfo = array_values($this->additionalEmergencyContactInfo);
+        // $this->emergencyContactCounter--;
     }
 
     private function validateStep1()
     {
+        // $this->validate();
         $this->validate([
             'emergencyContactInfo.firstNameEmContact' => 'required|min:2|max:255',
             'emergencyContactInfo.lastNameEmContact' => 'required|min:2|max:255',
@@ -250,24 +352,25 @@ class RentalApplicationPortal extends Component
             'emergencyContactInfo.stateEmContact' => 'required',
             'emergencyContactInfo.relationshipEmContact' => 'required'
         ], [
-            'emergencyContactInfo.firstName.required' => 'Your first name is requiered.',
-            'emergencyContactInfo.firstName.min' => 'Your first name must contain at least 2 characters.',
-            'emergencyContactInfo.firstName.max' => 'Your first name cannot contain more than 255 characters.',
-            'emergencyContactInfo.lastName.required' => 'Your last name is requiered.',
-            'emergencyContactInfo.lastName.min' => 'Your last name must contain at least 2 characters.',
-            'emergencyContactInfo.lastName.max' => 'Your last name cannot contain more than 255 characters.',
-            'emergencyContactInfo.phone.required' => 'Your phone number is requiered.',
-            'emergencyContactInfo.phone.min' => 'Your phone number must contain at least 14 characters.',
-            'emergencyContactInfo.cityEmContact.required' => 'City is requiered.',
-            'emergencyContactInfo.cityEmContact.min' => 'City must contain at least 2 characters.',
-            'emergencyContactInfo.cityEmContact.max' => 'City cannot contain more than 255 characters.',
-            'emergencyContactInfo.stateEmContact.required' => 'State is requiered.',
-            'emergencyContactInfo.relationshipEmContact.required' => 'Kinship is requiered.',
+            'emergencyContactInfo.firstNameEmContact.required' => 'A first name is required.',
+            'emergencyContactInfo.firstNameEmContact.min' => 'A first name must contain at least 2 characters.',
+            'emergencyContactInfo.firstNameEmContact.max' => 'A first name cannot contain more than 255 characters.',
+            'emergencyContactInfo.lastNameEmContact.required' => 'A last name is required.',
+            'emergencyContactInfo.lastNameEmContact.min' => 'A last name must contain at least 2 characters.',
+            'emergencyContactInfo.lastNameEmContact.max' => 'A last name cannot contain more than 255 characters.',
+            'emergencyContactInfo.phoneEmContact.required' => 'A phone number is required.',
+            'emergencyContactInfo.phoneEmContact.min' => 'A phone number must contain at least 14 characters.',
+            'emergencyContactInfo.cityEmContact.required' => 'A city is required.',
+            'emergencyContactInfo.cityEmContact.min' => 'A city must contain at least 2 characters.',
+            'emergencyContactInfo.cityEmContact.max' => 'A city cannot contain more than 255 characters.',
+            'emergencyContactInfo.stateEmContact.required' => 'A state is required.',
+            'emergencyContactInfo.relationshipEmContact.required' => 'A kinship is required.',
         ]);
     }
 
     private function validateStep1AdditionalEmergencyContacts()
     {
+        // $this->validate();
         foreach ($this->additionalEmergencyContactInfo as $this->additionalContactArray) {
             $this->validate([
                 'additionalEmergencyContactInfo.*.firstNameEmContact' => 'required|min:2|max:255',
@@ -277,19 +380,19 @@ class RentalApplicationPortal extends Component
                 'additionalEmergencyContactInfo.*.stateEmContact' => 'required',
                 'additionalEmergencyContactInfo.*.relationshipEmContact' => 'required'
             ], [
-                '*.firstName.required' => 'Your first name is requiered.',
-                '*.firstName.min' => 'Your first name must contain at least 2 characters.',
-                '*.firstName.max' => 'Your first name cannot contain more than 255 characters.',
-                '*.lastName.required' => 'Your last name is requiered.',
-                '*.lastName.min' => 'Your last name must contain at least 2 characters.',
-                '*.lastName.max' => 'Your last name cannot contain more than 255 characters.',
-                '*.phone.required' => 'Your phone number is requiered.',
-                '*.phone.min' => 'Your phone number must contain at least 14 characters.',
-                '*.cityEmContact.required' => 'City is requiered.',
-                '*.cityEmContact.min' => 'City must contain at least 2 characters.',
-                '*.cityEmContact.max' => 'City cannot contain more than 255 characters.',
-                '*.stateEmContact.required' => 'State is requiered.',
-                '*.relationshipEmContact.required' => 'Kinship is requiered.',
+                'additionalEmergencyContactInfo.*.firstNameEmContact.required' => 'A first name is required.',
+                'additionalEmergencyContactInfo.*.firstNameEmContact.min' => 'A first name must contain at least 2 characters.',
+                'additionalEmergencyContactInfo.*.firstNameEmContact.max' => 'A first name cannot contain more than 255 characters.',
+                'additionalEmergencyContactInfo.*.lastNameEmContact.required' => 'A last name is required.',
+                'additionalEmergencyContactInfo.*.lastNameEmContact.min' => 'A last name must contain at least 2 characters.',
+                'additionalEmergencyContactInfo.*.lastNameEmContact.max' => 'A last name cannot contain more than 255 characters.',
+                'additionalEmergencyContactInfo.*.phoneEmContact.required' => 'A phone number is required.',
+                'additionalEmergencyContactInfo.*.phoneEmContact.min' => 'A phone number must contain at least 14 characters.',
+                'additionalEmergencyContactInfo.*.cityEmContact.required' => 'A city is required.',
+                'additionalEmergencyContactInfo.*.cityEmContact.min' => 'A city must contain at least 2 characters.',
+                'additionalEmergencyContactInfo.*.cityEmContact.max' => 'A city cannot contain more than 255 characters.',
+                'additionalEmergencyContactInfo.*.stateEmContact.required' => 'A state is required.',
+                'additionalEmergencyContactInfo.*.relationshipEmContact.required' => 'A kinship is required.',
             ]);
         }
 
@@ -306,36 +409,62 @@ class RentalApplicationPortal extends Component
             'legalInfo.lastNameSupervisingOfficer' => 'required|min:2|max:255',
             'legalInfo.agencySupervisingOfficer' => 'required|min:2|max:255',
             'legalInfo.phoneSupervisingOfficer' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+        ], [
+            'legalInfo.sexOffender.required' => 'REQUIRED!',
+            'legalInfo.arsonist.required' => 'REQUIRED!',
+            'legalInfo.kidnapper.required' => 'REQUIRED!',
+            'legalInfo.legalSupervision.required' => 'REQUIRED!',
+            'legalInfo.firstNameSupervisingOfficer.required' => 'A first name is required.',
+            'legalInfo.firstNameSupervisingOfficer.min' => 'A first name must contain at least 2 characters.',
+            'legalInfo.firstNameSupervisingOfficer.max' => 'A first name cannot contain more than 255 characters.',
+            'legalInfo.lastNameSupervisingOfficer.required' => 'A last name is required.',
+            'legalInfo.lastNameSupervisingOfficer.min' => 'A last name must contain at least 2 characters.',
+            'legalInfo.lastNameSupervisingOfficer.max' => 'A last name cannot contain more than 255 characters.',
+            'legalInfo.agencySupervisingOfficer.required' => 'An agency name is required.',
+            'legalInfo.agencySupervisingOfficer.min' => 'An agency name must contain at least 2 characters.',
+            'legalInfo.agencySupervisingOfficer.max' => 'An agency name cannot contain more than 255 characters.',
+            'legalInfo.phoneSupervisingOfficer.required' => 'A phone number is required.',
+            'legalInfo.phoneSupervisingOfficer.min' => 'A phone number must contain at least 14 characters.',
         ]);
     }
 
-    public function toggleCompletedTaskIcon()
+    private function clearPersonalInfo()
     {
-        $this->stepStatuses[$this->stepTitles[$this->currentStep]] = 'complete';
-        $this->stepStatuses[$this->stepTitles[$this->currentStep + 1]] = 'current';
+        $this->personalInfo = array(
+            'firstName' => '',
+            'middleInitial' => '',
+            'lastName' => '',
+            'dateOfBirth' => '',
+            'socialNumber' => '',
+            'phone' => '',
+        );
     }
 
-    public function prevStep()
+    private function clearEmergencyContactInfo()
     {
-
-        if ($this->currentStep == 0) {
-            return;
-        } else {
-            $this->currentStep--;
-        }
-
-
+        $this->emergencyContactInfo = array(
+            'firstNameEmContact' => '',
+            'lastNameEmContact' => '',
+            'phoneEmContact' => '',
+            'cityEmContact' => '',
+            'stateEmContact' => '',
+            'relationshipEmContact' => '',
+        );
+        $this->additionalEmergencyContactInfo = array();
     }
 
-    public function nextStep()
+    private function clearLegalInfo()
     {
-
-        if ($this->currentStep == $this->totalSteps - 1) {
-            return;
-        } else {
-            $this->currentStep++;
-        }
-
+        $this->legalInfo = array(
+            'sexOffender' => '',
+            'arsonist' => '',
+            'kidnapper' => '',
+            'legalSupervision' => '',
+            'firstNameSupervisingOfficer' => '',
+            'lastNameSupervisingOfficer' => '',
+            'agencySupervisingOfficer' => '',
+            'phoneSupervisingOfficer' => '',
+        );
     }
 
     public function render()
