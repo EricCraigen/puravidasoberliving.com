@@ -577,7 +577,7 @@
                                 </div>
 
                                 {{-- Legal Supervisor Info --}}
-                                <div class="flex flex-col {{ $legalInfo['onLegalSupervision'] == 0 ? 'hidden' : '' }}">
+                                <div class="flex flex-col {{ $legalInfo['onLegalSupervision'] == 0 || $legalInfo['onLegalSupervision'] == null ? 'hidden' : '' }}">
                                     {{-- ROW 1 --}}
                                     <div class="flex flex-col md:flex-row">
 
@@ -643,11 +643,11 @@
                                 <div class="flex justify-between items-center w-full">
 
                                     <div class="flex flex-col w-full">
-    
+
                                         <h3 class="font-black text-2xl text-gray-900">
                                             List all convictions in the past ten (10) years:
                                         </h3>
-                                        
+
                                         <div class="grid grid-cols-1 mb-5">
 
                                             @foreach ($legalInfo['convictions'] as $input)
@@ -655,10 +655,10 @@
                                                 <div class="w-full mt-4">
                                                     <div class="flex">
 
-                                                        
+
 
                                                         <div class="flex w-full justify-content-between">
-                                                            
+
                                                             <label for="legalInfo.convictions.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
                                                                 Conviction #{{ $loop->index + 1 }}
                                                             </label>
@@ -674,11 +674,11 @@
                                                                     Remove Conviction
                                                                 </div>
                                                             </button>
-                    
+
                                                         </div>
 
                                                     </div>
-                                                    
+
                                                     <div class="mt-1">
                                                         <input wire:model="legalInfo.convictions.{{ $loop->index }}" type="text" name="legalInfo.convictions.{{ $loop->index }}" id="legalInfo.convictions.{{ $loop->index }}" required autocomplete="given-name" value="legalInfo.convictions.{{ $loop->index }}" class="@error("legalInfo.convictions.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                                         @error("legalInfo.convictions.{$loop->index}")
@@ -687,7 +687,7 @@
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                </div> 
+                                                </div>
 
                                             @endforeach
 
@@ -709,9 +709,9 @@
                                             </button>
 
                                         </div>
-    
+
                                     </div>
-    
+
                                 </div>
 
                             </div>
@@ -723,7 +723,7 @@
                 </div>
 
                 <div class="{{ $currentStep == 3 ? '' : 'hidden' }}">
-                    
+
                     <div class="relative mt-12">
 
                         <form id="medicalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
@@ -744,7 +744,9 @@
                             {{-- FORM ROW 2 --}}
                             <div class="grid w-full grid-cols-1">
                                 <div class="grid grid-cols-2 content-center mb-4">
-                                    <label for="medicalInfo.hasScripts" class="inline-flex text-lg font-black text-red-500 md:mt-0">Are you prescribed any medications?</label>
+                                    <label for="medicalInfo.hasScripts" class="inline-flex text-lg font-black text-red-500 md:mt-0">
+                                        Are you currently prescribed any medications?
+                                    </label>
                                     <fieldset class="@error("medicalInfo.hasScripts") is-invalid @enderror" id="medicalInfo.hasScripts">
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
                                         <input wire:model="medicalInfo.hasScripts" type="radio" value="1" name="medicalInfo.hasScripts" />
@@ -759,37 +761,38 @@
                                 </div>
 
                                 {{-- Legal Supervisor Info --}}
-                               
+
 
                             </div>
 
                             {{-- FORM ROW 3 --}}
-                            <div class="{{ $medicalInfo['hasScripts'] == 0 ? 'hidden' : '' }} grid w-full grid-cols-1">
+                            <div class="{{ $medicalInfo['hasScripts'] == 0 || $medicalInfo['hasScripts'] == null ? 'hidden' : '' }} grid w-full grid-cols-1">
 
                                 <div class="flex justify-between items-center w-full">
 
                                     <div class="flex flex-col w-full">
-    
+
                                         <h3 class="font-black text-2xl text-gray-900">
                                             Please list all perscribed medications:
                                         </h3>
-                                        
+
                                         <div class="grid grid-cols-1 mb-5">
 
                                             @foreach ($medicalInfo['medications'] as $input)
 
                                                 <div class="w-full mt-4">
-                                                    <div class="flex">
+                                                    <div class="flex ">
 
                                                         <div class="flex w-full justify-content-between">
-                                                            
+
                                                             <label for="medicalInfo.medications.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
                                                                 Medication #{{ $loop->index + 1 }}
                                                             </label>
 
                                                             <button type="button"
+                                                                    wire:key="{{ $loop->index }}"
                                                                     wire:click.prevent="removeMedication({{ $loop->index }})"
-                                                                    class="inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                    class="{{ $loop->index == 0 ? 'hidden' : '' }} inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                                 <div wire:loading wire:target="removeMedication({{ $loop->index }})">
                                                                     <x-loading-blocks />
                                                                 </div>
@@ -798,11 +801,11 @@
                                                                     Remove Medication
                                                                 </div>
                                                             </button>
-                    
+
                                                         </div>
 
                                                     </div>
-                                                    
+
                                                     <div class="mt-1">
                                                         <input wire:model="medicalInfo.medications.{{ $loop->index }}" type="text" name="medicalInfo.medications.{{ $loop->index }}" id="medicalInfo.medications.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.medications.{{ $loop->index }}" class="@error("medicalInfo.medications.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                                         @error("medicalInfo.medications.{$loop->index}")
@@ -811,7 +814,7 @@
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                </div> 
+                                                </div>
 
                                             @endforeach
 
@@ -833,9 +836,9 @@
                                             </button>
 
                                         </div>
-    
+
                                     </div>
-    
+
                                 </div>
 
                             </div>
@@ -843,7 +846,7 @@
                         </form>
 
                     </div>
-                    
+
                 </div>
 
                 <div class="{{ $currentStep == 4 ? '' : 'hidden' }}">

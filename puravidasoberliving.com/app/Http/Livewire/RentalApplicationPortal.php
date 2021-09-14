@@ -87,21 +87,23 @@ class RentalApplicationPortal extends Component
         'legalInfo.agency.max' => 'An agency name cannot contain more than 255 characters.',
         'legalInfo.phone.required' => 'A phone number is required.',
         'legalInfo.phone.min' => 'A phone number must contain at least 14 characters.',
+        'legalInfo.convictions.*.min' => 'A conviction must contain at least 2 characters.',
+        'legalInfo.convictions.*.max' => 'A conviction cannot contain more than 255 characters.',
         // medicalInfo
         'medicalInfo.hasScripts.required' => 'REQUIRED!',
         'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
         'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
-        'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-        'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-        'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-        'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
-        'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
+        // 'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+        // 'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+        // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+        // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
+        // 'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
     ];
 
     protected function rules()
     {
         return [
-            
+
             // personalInfo
             'personalInfo.firstName' => 'required|min:2|max:255',
             'personalInfo.middleInitial' => 'required|max:1',
@@ -125,11 +127,12 @@ class RentalApplicationPortal extends Component
             'legalInfo.lastName' => 'required|min:2|max:255',
             'legalInfo.agency' => 'required|min:2|max:255',
             'legalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+            'legalInfo.convictions.*' => 'min:2|max:255',
             // medicalInfo
             'medicalInfo.hasScripts' => 'required',
-            'medicalInfo.medications' => 'min:2|max:255',
-            'medicalInfo.drugUse.drugOfChoice' => 'min:2|max:255',
-            'medicalInfo.drugUse.lastUse' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
+            'medicalInfo.medications.*' => 'min:2|max:255',
+            // 'medicalInfo.drugUse.drugOfChoice.*' => 'min:2|max:255',
+            // 'medicalInfo.drugUse.lastUse.*' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
         ];
     }
 
@@ -256,23 +259,23 @@ class RentalApplicationPortal extends Component
         array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
     }
 
-    public function addConviction() 
+    public function addConviction()
     {
         array_push($this->legalInfo['convictions'], '');
     }
 
-    public function removeConviction($index) 
+    public function removeConviction($index)
     {
         unset($this->legalInfo['convictions'][$index]);
         $this->legalInfo['convictions'] = array_values($this->legalInfo['convictions']);
     }
-    
-    public function addMedication() 
+
+    public function addMedication()
     {
         array_push($this->medicalInfo['medications'], '');
     }
 
-    public function removeMedication($index) 
+    public function removeMedication($index)
     {
         unset($this->medicalInfo['medications'][$index]);
         $this->medicalInfo['medications'] = array_values($this->medicalInfo['medications']);
@@ -390,29 +393,47 @@ class RentalApplicationPortal extends Component
                 'legalInfo.convictions.*.max' => 'A conviction cannot contain more than 255 characters.',
             ]);
         }
-        
+
     }
 
-    private function validateStep4() 
+    private function validateStep4()
     {
-        $this->validate([
-            'medicalInfo.hasScripts' => 'required',
-            'medicalInfo.medications' => 'min:2|max:255',
-            'medicalInfo.drugUse.drugOfChoice' => 'min:2|max:255',
-            'medicalInfo.drugUse.lastUse' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
-        ], [
-            'medicalInfo.hasScripts.required' => 'REQUIRED!',
-            'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
-            'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
-            'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-            'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-            'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-            'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
-            'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
-        ]);
+        if ($this->medicalInfo['hasScripts'] == null || $this->medicalInfo['hasScripts'] == 0) {
+            $this->validate([
+                'medicalInfo.hasScripts' => 'required',
+                // 'medicalInfo.medications' => 'min:2|max:255',
+                // 'medicalInfo.drugUse.drugOfChoice' => 'min:2|max:255',
+                // 'medicalInfo.drugUse.lastUse' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
+            ], [
+                'medicalInfo.hasScripts.required' => 'REQUIRED!',
+                // 'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
+                // 'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
+                // 'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                // 'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
+                // 'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
+            ]);
+        } else {
+            $this->validate([
+                'medicalInfo.hasScripts' => 'required',
+                'medicalInfo.medications.*' => 'min:2|max:255',
+                // 'medicalInfo.drugUse.drugOfChoice' => 'min:2|max:255',
+                // 'medicalInfo.drugUse.lastUse' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
+            ], [
+                'medicalInfo.hasScripts.required' => 'REQUIRED!',
+                'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
+                'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
+                // 'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                // 'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
+                // 'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
+            ]);
+        }
     }
 
-    private function clearStepTitles() 
+    private function clearStepTitles()
     {
         $this->stepTitles = [
             'Personal Info',
@@ -428,7 +449,7 @@ class RentalApplicationPortal extends Component
          ];
     }
 
-    private function clearStepStatuses() 
+    private function clearStepStatuses()
     {
         $this->stepStatuses = [
             'Personal Info' => 'current',
@@ -444,7 +465,7 @@ class RentalApplicationPortal extends Component
         ];
     }
 
-    private function clearUsStateAbbrevsNames() 
+    private function clearUsStateAbbrevsNames()
     {
         $this->us_state_abbrevs_names = array(
             'AL'=>'ALABAMA',
@@ -512,7 +533,7 @@ class RentalApplicationPortal extends Component
         );
     }
 
-    private function clearKinshipStatuses() 
+    private function clearKinshipStatuses()
     {
         $this->relationalStatuses = array(
             '1' => 'Sister-in-Law',
@@ -590,7 +611,7 @@ class RentalApplicationPortal extends Component
         );
     }
 
-    private function clearMedicalInfo() 
+    private function clearMedicalInfo()
     {
         $this->medicalInfo = array(
             'hasScripts' => '',

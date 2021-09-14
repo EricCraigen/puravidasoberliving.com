@@ -1,5 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
+const plugin = require("tailwindcss/plugin");
 
 module.exports = {
     // prefix: 'tw-',
@@ -18,7 +19,7 @@ module.exports = {
         },
         extend: {
             colors: {
-                
+
             },
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
@@ -29,11 +30,19 @@ module.exports = {
     variants: {
         extend: {
             opacity: ["disabled"],
+            display: ['first-of-type']
         },
     },
 
     plugins: [
         require("@tailwindcss/forms"),
-        require("@tailwindcss/aspect-ratio")
+        require("@tailwindcss/aspect-ratio"),
+        plugin(function ({ addVariant, e }) {
+            addVariant("first-of-type", ({ modifySelectors, separator }) => {
+              modifySelectors(({ className }) => {
+                return `.${e(`first-of-type${separator}${className}`)}:first-of-type`;
+              });
+            });
+          }),
     ],
 };
