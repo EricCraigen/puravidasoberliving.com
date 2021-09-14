@@ -807,7 +807,7 @@
                                                     </div>
 
                                                     <div class="mt-1">
-                                                        <input wire:model="medicalInfo.medications.{{ $loop->index }}" type="text" name="medicalInfo.medications.{{ $loop->index }}" id="medicalInfo.medications.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.medications.{{ $loop->index }}" class="@error("medicalInfo.medications.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                        <input wire:model="medicalInfo.medications.{{ $loop->index  }}" type="text" name="medicalInfo.medications.{{ $loop->index }}" id="medicalInfo.medications.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.medications.{{ $loop->index }}" class="@error("medicalInfo.medications.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
                                                         @error("medicalInfo.medications.{$loop->index}")
                                                             <div class="flex w-full invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -820,7 +820,7 @@
 
                                         </div>
 
-                                        {{-- ADD CONVICTION --}}
+                                        {{-- ADD MEDICATION --}}
                                         <div class="flex justify-end w-full">
 
                                             <button type="button"
@@ -837,6 +837,135 @@
 
                                         </div>
 
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {{-- FORM ROW 4 --}}
+                            <div class="grid grid-cols-1">
+
+                                <div class="flex justify-between items-center w-full">
+
+                                    <div class="flex flex-col w-full">
+
+                                        <h3 class="font-black text-2xl text-gray-900">
+                                            Please list drug(s) of choice:
+                                        </h3>
+
+                                        <div class="grid grid-cols-2 mb-5 gap-4">
+
+                                            {{-- <div class="flex w-1/2"> --}}
+                                                
+                                                @foreach ($medicalInfo['drugUse']['drugOfChoice'] as $input)
+
+                                                    <div class="w-full mt-4">
+                                                        <div class="flex ">
+
+                                                            <div class="flex w-full justify-content-between">
+
+                                                                <label for="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
+                                                                    Drug of choice #{{ $loop->index + 1 }}
+                                                                </label>
+
+                                                                {{-- <button type="button"
+                                                                        wire:key="{{ $loop->index }}"
+                                                                        wire:click.prevent="removeDrugOfChoice({{ $loop->index }})"
+                                                                        class="{{ $loop->index == 0 ? 'hidden' : '' }} inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                    <div wire:loading wire:target="removeDrugOfChoice({{ $loop->index }})">
+                                                                        <x-loading-blocks />
+                                                                    </div>
+                                                                    <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeDrugOfChoice({{ $loop->index }})">
+                                                                        <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Drug of Choice">
+                                                                        Remove Drug of Choice
+                                                                    </div>
+                                                                </button> --}}
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="mt-1">
+                                                            <input wire:model="medicalInfo.drugUse.drugOfChoice.{{ $loop->index  }}" type="text" name="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" id="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="@error("medicalInfo.drugUse.drugOfChoice.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                            @error("medicalInfo.drugUse.drugOfChoice.{$loop->index}")
+                                                                <div class="flex w-full invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    
+                                                @endforeach
+
+                                            {{-- </div> --}}
+
+                                            @foreach ($medicalInfo['drugUse']['lastUse'] as $input)
+                                            
+                                                    <div class="flex justify-between w-full mt-4">
+
+                                                            <div class="flex flex-col justify-between w-full">
+                                                                    <label for="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
+                                                                        Last use
+                                                                    </label>
+                                                                <div class="flex justify-between w-full">
+
+                                                                    
+
+                                                                    <div class="mt-1">
+                                                                        <input wire:model="medicalInfo.drugUse.drugOfChoice.{{ $loop->index  }}" type="text" name="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" id="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="@error("medicalInfo.drugUse.drugOfChoice.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                                        @error("medicalInfo.drugUse.drugOfChoice.{$loop->index}")
+                                                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </div>
+                                                                        @enderror
+
+                                                                    </div>
+                                                                    
+                                                                {{-- </div>
+
+                                                                <div class="w-1/2"> --}}
+                                                            
+                                                                    <button type="button"
+                                                                            wire:key="{{ $loop->index }}"
+                                                                            wire:click.prevent="removeDrugOfChoice({{ $loop->index }})"
+                                                                            class="inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md  text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                        <div wire:loading wire:target="removeDrugOfChoice({{ $loop->index }})">
+                                                                            <x-loading-blocks />
+                                                                        </div>
+                                                                        <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeDrugOfChoice({{ $loop->index }})">
+                                                                            <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Drug of Choice">
+                                                                            Remove
+                                                                        </div>
+                                                                    </button>
+                                                                
+                                                                </div>
+
+                                                            </div>
+
+                                                    </div>
+                                                    
+                                            @endforeach
+
+                                        </div>
+
+                                        {{-- ADD DRUG OF CHOICE --}}
+                                        <div class="flex justify-end w-full">
+
+                                            <button type="button"
+                                                    wire:click.prevent="addDrugOfChoice"
+                                                    class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                <div wire:loading wire:target="addDrugOfChoice">
+                                                    <x-loading-blocks />
+                                                </div>
+                                                <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="addDrugOfChoice">
+                                                    <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Drug of Choice">
+                                                    Add Drug of Choice
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                    
                                     </div>
 
                                 </div>
