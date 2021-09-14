@@ -520,111 +520,198 @@
                             {{-- FORM ROW 1 --}}
                             <div class="flex flex-col md:flex-row">
                                 <div class="grid w-full grid-cols-1 lg:grid-cols-2">
-                                    <label for="legalInfo.sexOffender" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Are you a registered sex offender?</label>
-                                    <fieldset class="@error("legalInfo.sexOffender") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.sexOffender">
+                                    <label for="legalInfo.isSexOffender" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Are you a registered sex offender?</label>
+                                    <fieldset class="@error("legalInfo.isSexOffender") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.isSexOffender">
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                        <input wire:model="legalInfo.sexOffender" type="radio" value="1" name="legalInfo.sexOffender">
+                                        <input wire:model="legalInfo.isSexOffender" type="radio" value="1" name="legalInfo.isSexOffender">
                                         <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                        <input wire:model="legalInfo.sexOffender" type="radio" value="0" name="legalInfo.sexOffender">
-                                        @error("legalInfo.sexOffender")
+                                        <input wire:model="legalInfo.isSexOffender" type="radio" value="0" name="legalInfo.isSexOffender">
+                                        @error("legalInfo.isSexOffender")
                                             <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
                                     </fieldset>
-                                    <label for="legalInfo.arsonist" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of arson?</label>
-                                    <fieldset class="@error("legalInfo.arsonist") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.arsonist">
+                                    <label for="legalInfo.isArsonist" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of arson?</label>
+                                    <fieldset class="@error("legalInfo.isArsonist") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.isArsonist">
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                        <input wire:model="legalInfo.arsonist" type="radio" value="1" name="legalInfo.arsonist">
+                                        <input wire:model="legalInfo.isArsonist" type="radio" value="1" name="legalInfo.isArsonist">
                                         <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                        <input wire:model="legalInfo.arsonist" type="radio" value="0" name="legalInfo.arsonist">
-                                        @error("legalInfo.arsonist")
+                                        <input wire:model="legalInfo.isArsonist" type="radio" value="0" name="legalInfo.isArsonist">
+                                        @error("legalInfo.isArsonist")
                                             <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
                                     </fieldset>
-                                    <label for="legalInfo.kidnapper" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of kidnapping?</label>
-                                    <fieldset class="@error("legalInfo.kidnapper") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.kidnapper">
+                                    <label for="legalInfo.isKidnapper" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of kidnapping?</label>
+                                    <fieldset class="@error("legalInfo.isKidnapper") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.isKidnapper">
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                        <input wire:model="legalInfo.kidnapper" type="radio" value="1" name="legalInfo.kidnapper">
+                                        <input wire:model="legalInfo.isKidnapper" type="radio" value="1" name="legalInfo.isKidnapper">
                                         <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                        <input wire:model="legalInfo.kidnapper" type="radio" value="0" name="legalInfo.kidnapper">
-                                        @error("legalInfo.kidnapper")
+                                        <input wire:model="legalInfo.isKidnapper" type="radio" value="0" name="legalInfo.isKidnapper">
+                                        @error("legalInfo.isKidnapper")
                                             <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
                                     </fieldset>
                                 </div>
-                            </div>
-
-                            <div class="grid w-full grid-cols-1 md:grid-cols-2">
-                                <label for="legalInfo.legalSupervision" class="inline-flex text-lg font-black text-gray-900">Are you on legal supervision?</label>
-                                <fieldset class="@error("legalInfo.legalSupervision") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.legalSupervision">
-                                    <label class="inline-flex text-lg font-black text-gray-900">Yes</label>
-                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="1" name="legalInfo.legalSupervision" />
-                                    <label class="inline-flex ml-2 text-lg font-black text-gray-900">No</label>
-                                    <input wire:model="legalInfo.legalSupervision" type="radio" value="0" name="legalInfo.legalSupervision" />
-                                    @error("legalInfo.legalSupervision")
-                                        <div class="flex w-full invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                    @enderror
-                                </fieldset>
                             </div>
 
                             {{-- FORM ROW 2 --}}
-                            <div class="flex flex-col md:flex-row">
-
-                                <div class="w-full">
-                                    <label for="firstNameSupervisingOfficer" class="block text-lg font-black text-gray-700">First Name</label>
-                                    <div class="mt-1">
-                                        <input wire:model="legalInfo.firstNameSupervisingOfficer" type="text" name="firstNameSupervisingOfficer" id="firstNameSupervisingOfficer" required autocomplete="given-name" value="{{ old('firstNameSupervisingOfficer') }}" class="@error('legalInfo.firstNameSupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                        @error('legalInfo.firstNameSupervisingOfficer')
-                                            <span class="invalid-feedback" role="alert">
+                            <div class="grid w-full grid-cols-1">
+                                <div class="grid grid-cols-2 content-center mb-4">
+                                    <label for="legalInfo.onLegalSupervision" class="inline-flex text-lg font-black text-gray-900">Are you on legal supervision?</label>
+                                    <fieldset class="@error("legalInfo.onLegalSupervision") is-invalid @enderror" id="legalInfo.onLegalSupervision">
+                                        <label class="inline-flex text-lg font-black text-gray-900">Yes</label>
+                                        <input wire:model="legalInfo.onLegalSupervision" type="radio" value="1" name="legalInfo.onLegalSupervision" />
+                                        <label class="inline-flex ml-2 text-lg font-black text-gray-900">No</label>
+                                        <input wire:model="legalInfo.onLegalSupervision" type="radio" value="0" name="legalInfo.onLegalSupervision" />
+                                        @error("legalInfo.onLegalSupervision")
+                                            <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                            </div>
                                         @enderror
-                                    </div>
+                                    </fieldset>
                                 </div>
-                                <div class="w-full md:pl-2">
-                                    <label for="lastNameSupervisingOfficer" class="block text-lg font-black text-gray-700">Last Name</label>
-                                    <div class="mt-1">
-                                        <input wire:model="legalInfo.lastNameSupervisingOfficer" type="text" name="lastNameSupervisingOfficer" id="lastNameSupervisingOfficer" required autocomplete="family-name" value="{{ old('lastNameSupervisingOfficer') }}" class="@error('legalInfo.lastNameSupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                        @error('legalInfo.lastNameSupervisingOfficer')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+
+                                {{-- Legal Supervisor Info --}}
+                                <div class="flex flex-col {{ $legalInfo['onLegalSupervision'] == 0 ? 'hidden' : '' }}">
+                                    {{-- ROW 1 --}}
+                                    <div class="flex flex-col md:flex-row">
+
+                                        <div class="w-full">
+                                            <label for="legalInfo.firstName" class="block text-lg font-black text-gray-700">First Name</label>
+                                            <div class="mt-1">
+                                                <input wire:model="legalInfo.firstName" type="text" name="legalInfo.firstName" id="firstName" required autocomplete="given-name" value="legalInfo.firstName" class="@error('legalInfo.firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                @error('legalInfo.firstName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="w-full md:pl-2">
+                                            <label for="legalInfo.lastName" class="block text-lg font-black text-gray-700">Last Name</label>
+                                            <div class="mt-1">
+                                                <input wire:model="legalInfo.lastName" type="text" name="legalInfo.lastName" id="legalInfo.lastName" required autocomplete="family-name" value="legalInfo.lastName" class="@error('legalInfo.lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                @error('legalInfo.lastName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                     </div>
+
+                                    {{-- FORM ROW 2 --}}
+                                    <div class="flex flex-col md:flex-row">
+                                        <div class="w-full">
+                                            <label for="legalInfo.agency" class="block text-lg font-black text-gray-700">Agency</label>
+                                            <div class="mt-1">
+                                                <input wire:model="legalInfo.agency" type="text" name="legalInfo.agency" id="legalInfo.agency" required autocomplete="organization" value="legalInfo.agency" class="@error('legalInfo.agency') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                @error('legalInfo.agency')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="w-full md:pl-2">
+                                            <label for="legalInfo.phone" class="block text-lg font-black text-gray-700">Contact Number</label>
+                                            <div class="mt-1">
+                                                <input wire:model="legalInfo.phone" type="tel" name="legalInfo.phone" id="legalInfo.phone" required autocomplete="tel" value="legalInfo.phone" class="@error('legalInfo.phone') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                @error('legalInfo.phone')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>
 
                             {{-- FORM ROW 3 --}}
-                            <div class="flex flex-col md:flex-row">
-                                <div class="w-full">
-                                    <label for="agencySupervisingOfficer" class="block text-lg font-black text-gray-700">Agency</label>
-                                    <div class="mt-1">
-                                        <input wire:model="legalInfo.agencySupervisingOfficer" type="text" name="agencySupervisingOfficer" id="agencySupervisingOfficer" required autocomplete="organization" value="{{ old('agencySupervisingOfficer') }}" class="@error('legalInfo.agencySupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                        @error('legalInfo.agencySupervisingOfficer')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                            <div class="grid w-full grid-cols-1">
+
+                                <div class="flex justify-between items-center w-full">
+
+                                    <div class="flex flex-col w-full">
+    
+                                        <h3 class="font-black text-2xl text-gray-900">
+                                            List all convictions in the past ten (10) years:
+                                        </h3>
+                                        
+                                        <div class="grid grid-cols-1 mb-5">
+
+                                            @foreach ($legalInfo['convictions'] as $input)
+
+                                                <div class="w-full mt-4">
+                                                    <div class="flex">
+
+                                                        
+
+                                                        <div class="flex w-full justify-content-between">
+                                                            
+                                                            <label for="legalInfo.convictions.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
+                                                                Conviction #{{ $loop->index + 1 }}
+                                                            </label>
+
+                                                            <button type="button"
+                                                                    wire:click.prevent="removeConviction({{ $loop->index }})"
+                                                                    class="inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                <div wire:loading wire:target="removeConviction({{ $loop->index }})">
+                                                                    <x-loading-blocks />
+                                                                </div>
+                                                                <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeConviction({{ $loop->index }})">
+                                                                    <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Conviction">
+                                                                    Remove Conviction
+                                                                </div>
+                                                            </button>
+                    
+                                                        </div>
+
+                                                    </div>
+                                                    
+                                                    <div class="mt-1">
+                                                        <input wire:model="legalInfo.convictions.{{ $loop->index }}" type="text" name="legalInfo.convictions.{{ $loop->index }}" id="legalInfo.convictions.{{ $loop->index }}" required autocomplete="given-name" value="legalInfo.convictions.{{ $loop->index }}" class="@error("legalInfo.convictions.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                        @error("legalInfo.convictions.{$loop->index}")
+                                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div> 
+
+                                            @endforeach
+
+                                        </div>
+
+                                        {{-- ADD CONVICTION --}}
+                                        <div class="flex justify-end w-full">
+
+                                            <button type="button"
+                                                    wire:click.prevent="addConviction"
+                                                    class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                <div wire:loading wire:target="addConviction">
+                                                    <x-loading-blocks />
+                                                </div>
+                                                <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="addConviction">
+                                                    <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Conviction">
+                                                    Add Conviction
+                                                </div>
+                                            </button>
+
+                                        </div>
+    
                                     </div>
-                                </div>
-                                <div class="w-full md:pl-2">
-                                    <label for="phoneSupervisingOfficer" class="block text-lg font-black text-gray-700">Contact Number</label>
-                                    <div class="mt-1">
-                                        <input wire:model="legalInfo.phoneSupervisingOfficer" type="tel" name="phoneSupervisingOfficer" id="phoneSupervisingOfficer" required autocomplete="tel" value="{{ old('phoneSupervisingOfficer') }}" class="@error('legalInfo.phoneSupervisingOfficer') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                        @error('legalInfo.phoneSupervisingOfficer')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+    
                                 </div>
 
                             </div>
@@ -636,34 +723,127 @@
                 </div>
 
                 <div class="{{ $currentStep == 3 ? '' : 'hidden' }}">
-                    <div class="mb-5">
-                        <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
+                    
+                    <div class="relative mt-12">
 
-                        <div class="flex">
-                            <label
-                                class="flex items-center justify-start py-3 pl-4 pr-6 mr-4 bg-white rounded-lg shadow-sm text-truncate">
-                                <div class="mr-3 text-teal-600">
-                                    <input type="radio" value="Male" class="form-radio focus:outline-none focus:shadow-outline" />
+                        <form id="medicalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                            @csrf
+
+                            <div class="flex justify-between items-center w-full">
+
+                                <div class="flex w-1/2">
+
+                                    <h3 class="font-black text-2xl text-gray-900">
+                                        Medical Questions
+                                    </h3>
+
                                 </div>
-                                <div class="text-gray-700 select-none">Male</div>
-                            </label>
 
-                            <label
-                                class="flex items-center justify-start py-3 pl-4 pr-6 bg-white rounded-lg shadow-sm text-truncate">
-                                <div class="mr-3 text-teal-600">
-                                    <input type="radio" value="Female" class="form-radio focus:outline-none focus:shadow-outline" />
+                            </div>
+
+                            {{-- FORM ROW 2 --}}
+                            <div class="grid w-full grid-cols-1">
+                                <div class="grid grid-cols-2 content-center mb-4">
+                                    <label for="medicalInfo.hasScripts" class="inline-flex text-lg font-black text-red-500 md:mt-0">Are you prescribed any medications?</label>
+                                    <fieldset class="@error("medicalInfo.hasScripts") is-invalid @enderror" id="medicalInfo.hasScripts">
+                                        <label class="inline-flex text-lg font-black text-red-500">Yes</label>
+                                        <input wire:model="medicalInfo.hasScripts" type="radio" value="1" name="medicalInfo.hasScripts" />
+                                        <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
+                                        <input wire:model="medicalInfo.hasScripts" type="radio" value="0" name="medicalInfo.hasScripts" />
+                                        @error("medicalInfo.hasScripts")
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </fieldset>
                                 </div>
-                                <div class="text-gray-700 select-none">Female</div>
-                            </label>
-                        </div>
-                    </div>
 
-                    <div class="mb-5">
-                        <label for="profession" class="block mb-1 font-bold text-gray-700">Profession</label>
-                        <input type="profession"
-                            class="w-full px-4 py-3 font-medium text-gray-600 rounded-lg shadow-sm focus:outline-none focus:shadow-outline"
-                            placeholder="eg. Web Developer">
+                                {{-- Legal Supervisor Info --}}
+                               
+
+                            </div>
+
+                            {{-- FORM ROW 3 --}}
+                            <div class="{{ $medicalInfo['hasScripts'] == 0 ? 'hidden' : '' }} grid w-full grid-cols-1">
+
+                                <div class="flex justify-between items-center w-full">
+
+                                    <div class="flex flex-col w-full">
+    
+                                        <h3 class="font-black text-2xl text-gray-900">
+                                            Please list all perscribed medications:
+                                        </h3>
+                                        
+                                        <div class="grid grid-cols-1 mb-5">
+
+                                            @foreach ($medicalInfo['medications'] as $input)
+
+                                                <div class="w-full mt-4">
+                                                    <div class="flex">
+
+                                                        <div class="flex w-full justify-content-between">
+                                                            
+                                                            <label for="medicalInfo.medications.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
+                                                                Medication #{{ $loop->index + 1 }}
+                                                            </label>
+
+                                                            <button type="button"
+                                                                    wire:click.prevent="removeMedication({{ $loop->index }})"
+                                                                    class="inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                <div wire:loading wire:target="removeMedication({{ $loop->index }})">
+                                                                    <x-loading-blocks />
+                                                                </div>
+                                                                <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeMedication({{ $loop->index }})">
+                                                                    <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Medication">
+                                                                    Remove Medication
+                                                                </div>
+                                                            </button>
+                    
+                                                        </div>
+
+                                                    </div>
+                                                    
+                                                    <div class="mt-1">
+                                                        <input wire:model="medicalInfo.medications.{{ $loop->index }}" type="text" name="medicalInfo.medications.{{ $loop->index }}" id="medicalInfo.medications.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.medications.{{ $loop->index }}" class="@error("medicalInfo.medications.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                        @error("medicalInfo.medications.{$loop->index}")
+                                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div> 
+
+                                            @endforeach
+
+                                        </div>
+
+                                        {{-- ADD CONVICTION --}}
+                                        <div class="flex justify-end w-full">
+
+                                            <button type="button"
+                                                    wire:click.prevent="addMedication"
+                                                    class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                <div wire:loading wire:target="addMedication">
+                                                    <x-loading-blocks />
+                                                </div>
+                                                <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="addMedication">
+                                                    <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Medication">
+                                                    Add Medication
+                                                </div>
+                                            </button>
+
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+
+                            </div>
+
+                        </form>
+
                     </div>
+                    
                 </div>
 
                 <div class="{{ $currentStep == 4 ? '' : 'hidden' }}">
