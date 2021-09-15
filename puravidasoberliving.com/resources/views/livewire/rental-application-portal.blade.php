@@ -114,7 +114,7 @@
 
             </div>
 
-            <!-- Step Content -->
+            <!-- FORM PAGES -->
             <div class="relative z-10 py-5 mx-1">
 
                 <svg class="absolute bottom-0 right-0 z-0 transform translate-x-1/2 -left-22 -top-6 opacity-30" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
@@ -134,6 +134,7 @@
                     <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
                 </svg>
 
+                <!-- STEP 1 - Personal Information -->
                 <div class="{{ $currentStep == 0 ? '' : 'hidden' }}">
 
                     <div class="relative mt-12">
@@ -141,6 +142,7 @@
                         <form id="personalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
 
+                            {{-- Section Label --}}
                             <div class="flex justify-between items-center w-full">
 
                                 <div class="flex w-1/2">
@@ -236,6 +238,7 @@
 
                 </div>
 
+                <!-- STEP 2 - Emergency Contacts -->
                 <div class="{{ $currentStep == 1 ? '' : 'hidden' }}">
 
                     <div class="relative mt-12">
@@ -243,6 +246,7 @@
                         <form id="emergencyContactForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
 
+                            {{-- Section Label --}}
                             <div class="flex justify-between items-center w-full">
 
                                 <div class="flex w-1/2">
@@ -308,7 +312,7 @@
                                 <div class="w-full md:px-2">
                                     <label for="emergencyContactInfo.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
                                     <div class="mt-1">
-                                        <label for="emergencyContactInfo.stateEmContact" class="sr-only">Phone Type</label>
+                                        <label for="emergencyContactInfo.stateEmContact" class="sr-only">State</label>
                                         <select wire:model="emergencyContactInfo.stateEmContact" id="emergencyContactInfo.stateEmContact" name="emergencyContactInfo.stateEmContact" value="emergencyContactInfo.stateEmContact" class="z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
                                             <option  value="">Select</option>
                                             @php
@@ -498,6 +502,7 @@
 
                 </div>
 
+                <!-- STEP 3 - Legal Information -->
                 <div class="{{ $currentStep == 2 ? '' : 'hidden' }}">
 
                     <div class="relative mt-12">
@@ -505,6 +510,7 @@
                         <form id="LegalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
 
+                            {{-- Section Label --}}
                             <div class="flex justify-between items-center w-full">
 
                                 <div class="flex w-1/2">
@@ -722,6 +728,7 @@
 
                 </div>
 
+                <!-- STEP 4 - Medical Information -->
                 <div class="{{ $currentStep == 3 ? '' : 'hidden' }}">
 
                     <div class="relative mt-12">
@@ -729,6 +736,7 @@
                         <form id="medicalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
 
+                            {{-- Section Label --}}
                             <div class="flex justify-between items-center w-full">
 
                                 <div class="flex w-1/2">
@@ -741,31 +749,36 @@
 
                             </div>
 
-                            {{-- FORM ROW 2 --}}
+                            {{-- FORM ROW 1 --}}
                             <div class="grid w-full grid-cols-1">
+
                                 <div class="grid grid-cols-2 content-center mb-4">
+
                                     <label for="medicalInfo.hasScripts" class="inline-flex text-lg font-black text-red-500 md:mt-0">
                                         Are you currently prescribed any medications?
                                     </label>
+
                                     <fieldset class="@error("medicalInfo.hasScripts") is-invalid @enderror" id="medicalInfo.hasScripts">
+
                                         <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                        <input wire:model="medicalInfo.hasScripts" type="radio" value="1" name="medicalInfo.hasScripts" />
+                                        <input wire:model="medicalInfo.hasScripts" wire:click="addMedicationOnYes" type="radio" value="1" name="medicalInfo.hasScripts" />
+
                                         <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
                                         <input wire:model="medicalInfo.hasScripts" type="radio" value="0" name="medicalInfo.hasScripts" />
+
                                         @error("medicalInfo.hasScripts")
                                             <div class="flex w-full invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
+
                                     </fieldset>
+
                                 </div>
-
-                                {{-- Legal Supervisor Info --}}
-
 
                             </div>
 
-                            {{-- FORM ROW 3 --}}
+                            {{-- FORM ROW 2 --}}
                             <div class="{{ $medicalInfo['hasScripts'] == 0 || $medicalInfo['hasScripts'] == null ? 'hidden' : '' }} grid w-full grid-cols-1">
 
                                 <div class="flex justify-between items-center w-full">
@@ -792,7 +805,7 @@
                                                             <button type="button"
                                                                     wire:key="{{ $loop->index }}"
                                                                     wire:click.prevent="removeMedication({{ $loop->index }})"
-                                                                    class="{{ $loop->index == 0 ? 'hidden' : '' }} inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                    class="inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                                 <div wire:loading wire:target="removeMedication({{ $loop->index }})">
                                                                     <x-loading-blocks />
                                                                 </div>
@@ -843,7 +856,7 @@
 
                             </div>
 
-                            {{-- FORM ROW 4 --}}
+                            {{-- FORM ROW 3 --}}
                             <div class="grid grid-cols-1">
 
                                 <div class="flex justify-between items-center w-full">
@@ -856,95 +869,69 @@
 
                                         <div class="grid grid-cols-2 mb-5 gap-4">
 
-                                            {{-- <div class="flex w-1/2"> --}}
-                                                
-                                                @foreach ($medicalInfo['drugUse']['drugOfChoice'] as $input)
+                                            @foreach ($medicalInfo['drugUse']['drugOfChoice'] as $input)
 
-                                                    <div class="w-full mt-4">
-                                                        <div class="flex ">
+                                                <div class="w-full mt-4">
 
-                                                            <div class="flex w-full justify-content-between">
+                                                    <div class="flex ">
 
-                                                                <label for="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
-                                                                    Drug of choice #{{ $loop->index + 1 }}
-                                                                </label>
+                                                        <div class="flex w-full justify-content-between">
 
-                                                                {{-- <button type="button"
-                                                                        wire:key="{{ $loop->index }}"
-                                                                        wire:click.prevent="removeDrugOfChoice({{ $loop->index }})"
-                                                                        class="{{ $loop->index == 0 ? 'hidden' : '' }} inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                                    <div wire:loading wire:target="removeDrugOfChoice({{ $loop->index }})">
-                                                                        <x-loading-blocks />
-                                                                    </div>
-                                                                    <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeDrugOfChoice({{ $loop->index }})">
-                                                                        <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Drug of Choice">
-                                                                        Remove Drug of Choice
-                                                                    </div>
-                                                                </button> --}}
-
-                                                            </div>
+                                                            <label for="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
+                                                                Drug of choice #{{ $loop->index + 1 }}
+                                                            </label>
 
                                                         </div>
 
-                                                        <div class="mt-1">
-                                                            <input wire:model="medicalInfo.drugUse.drugOfChoice.{{ $loop->index  }}" type="text" name="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" id="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="@error("medicalInfo.drugUse.drugOfChoice.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                                            @error("medicalInfo.drugUse.drugOfChoice.{$loop->index}")
+                                                    </div>
+
+                                                    <div class="mt-1">
+                                                        <input wire:model="medicalInfo.drugUse.drugOfChoice.{{ $loop->index  }}" type="text" name="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" id="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="@error("medicalInfo.drugUse.drugOfChoice.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                        @error("medicalInfo.drugUse.drugOfChoice.{$loop->index}")
+                                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="flex justify-between w-full mt-4">
+
+                                                    <div class="flex flex-col justify-between w-full">
+                                                            <label for="medicalInfo.drugUse.lastUse.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
+                                                                Last use
+                                                            </label>
+                                                        <div class="flex justify-between w-full">
+
+                                                            <div class="mt-1">
+                                                                <input wire:model="medicalInfo.drugUse.lastUse.{{ $loop->index  }}" type="date" name="medicalInfo.drugUse.lastUse.{{ $loop->index }}" id="medicalInfo.drugUse.lastUse.{{ $loop->index }}" required autocomplete="given-name" value="{{ $today }}" class="@error("medicalInfo.drugUse.lastUse.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                            </div>
+
+                                                            <button type="button"
+                                                                    wire:key="{{ $loop->index }}"
+                                                                    wire:click.prevent="removeDrugOfChoice({{ $loop->index }})"
+                                                                    class="inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md  text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                <div wire:loading wire:target="removeDrugOfChoice({{ $loop->index }})">
+                                                                    <x-loading-blocks />
+                                                                </div>
+                                                                <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeDrugOfChoice({{ $loop->index }})">
+                                                                    <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Drug of Choice">
+                                                                    Remove
+                                                                </div>
+                                                            </button>
+
+                                                        </div>
+                                                            @error("medicalInfo.drugUse.lastUse.{$loop->index}")
                                                                 <div class="flex w-full invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </div>
                                                             @enderror
-                                                        </div>
                                                     </div>
-                                                    
-                                                @endforeach
 
-                                            {{-- </div> --}}
+                                                </div>
 
-                                            @foreach ($medicalInfo['drugUse']['lastUse'] as $input)
-                                            
-                                                    <div class="flex justify-between w-full mt-4">
-
-                                                            <div class="flex flex-col justify-between w-full">
-                                                                    <label for="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="block text-lg font-black text-gray-700">
-                                                                        Last use
-                                                                    </label>
-                                                                <div class="flex justify-between w-full">
-
-                                                                    
-
-                                                                    <div class="mt-1">
-                                                                        <input wire:model="medicalInfo.drugUse.drugOfChoice.{{ $loop->index  }}" type="text" name="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" id="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" required autocomplete="given-name" value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" class="@error("medicalInfo.drugUse.drugOfChoice.{$loop->index}") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
-                                                                        @error("medicalInfo.drugUse.drugOfChoice.{$loop->index}")
-                                                                            <div class="flex w-full invalid-feedback" role="alert">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </div>
-                                                                        @enderror
-
-                                                                    </div>
-                                                                    
-                                                                {{-- </div>
-
-                                                                <div class="w-1/2"> --}}
-                                                            
-                                                                    <button type="button"
-                                                                            wire:key="{{ $loop->index }}"
-                                                                            wire:click.prevent="removeDrugOfChoice({{ $loop->index }})"
-                                                                            class="inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md  text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                                        <div wire:loading wire:target="removeDrugOfChoice({{ $loop->index }})">
-                                                                            <x-loading-blocks />
-                                                                        </div>
-                                                                        <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeDrugOfChoice({{ $loop->index }})">
-                                                                            <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Drug of Choice">
-                                                                            Remove
-                                                                        </div>
-                                                                    </button>
-                                                                
-                                                                </div>
-
-                                                            </div>
-
-                                                    </div>
-                                                    
                                             @endforeach
 
                                         </div>
@@ -965,7 +952,7 @@
                                             </button>
 
                                         </div>
-                                    
+
                                     </div>
 
                                 </div>
@@ -978,37 +965,296 @@
 
                 </div>
 
+                <!-- STEP 5 - Funding Information -->
                 <div class="{{ $currentStep == 4 ? '' : 'hidden' }}">
-                    <div class="mb-5">
-                        <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
 
-                        <div class="flex">
-                            <label
-                                class="flex items-center justify-start py-3 pl-4 pr-6 mr-4 bg-white rounded-lg shadow-sm text-truncate">
-                                <div class="mr-3 text-teal-600">
-                                    <input type="radio" value="Male" class="form-radio focus:outline-none focus:shadow-outline" />
-                                </div>
-                                <div class="text-gray-700 select-none">Male</div>
-                            </label>
+                    <div class="relative mt-12">
 
-                            <label
-                                class="flex items-center justify-start py-3 pl-4 pr-6 bg-white rounded-lg shadow-sm text-truncate">
-                                <div class="mr-3 text-teal-600">
-                                    <input type="radio" value="Female" class="form-radio focus:outline-none focus:shadow-outline" />
+                        <form id="medicalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                            @csrf
+
+                            {{-- Section Label --}}
+                            <div class="flex justify-between items-center w-full">
+
+                                <div class="flex w-1/2">
+
+                                    <h3 class="font-black text-2xl text-gray-900">
+                                        Funding Information
+                                    </h3>
+
                                 </div>
-                                <div class="text-gray-700 select-none">Female</div>
-                            </label>
-                        </div>
+
+                            </div>
+
+                            {{-- FORM ROW 1 --}}
+                            <div class="grid w-full grid-cols-1">
+
+                                <div class="grid grid-cols-2 content-center mb-4">
+
+                                    <label for="fundingInfo.hasLivedWithPVSL" class="inline-flex text-lg font-black text-red-500 md:mt-0">
+                                        Have you ever lived with Pura Vida Sober Living?
+                                    </label>
+
+                                    <fieldset class="@error("fundingInfo.hasLivedWithPVSL") is-invalid @enderror" id="fundingInfo.hasLivedWithPVSL">
+
+                                        <label class="inline-flex text-lg font-black text-red-500">Yes</label>
+                                        <input wire:model="fundingInfo.hasLivedWithPVSL" type="radio" value="1" name="fundingInfo.hasLivedWithPVSL" />
+
+                                        <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
+                                        <input wire:model="fundingInfo.hasLivedWithPVSL" type="radio" value="0" name="fundingInfo.hasLivedWithPVSL" />
+
+                                        @error("fundingInfo.hasLivedWithPVSL")
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+
+                                    </fieldset>
+
+                                </div>
+
+                            </div>
+
+                            {{-- FORM ROW 2 --}}
+                            <div class="{{ $fundingInfo['hasLivedWithPVSL'] == 0 || $fundingInfo['hasLivedWithPVSL'] == null ? 'hidden' : '' }} grid w-full grid-cols-1">
+
+                                <div class="flex justify-between items-center w-full">
+
+                                    <div class="flex flex-cols-2 gap-4 w-full">
+
+                                        <div class="w-full">
+                                            <label for="fundingInfo.moveOutDate" class="block text-lg font-black text-gray-700">Move Out Date</label>
+                                            <div class="mt-1">
+                                                <input wire:model="fundingInfo.moveOutDate" type="date" name="fundingInfo.moveOutDate" id="fundingInfo.moveOutDate" required autocomplete="" value="fundingInfo.moveOutDate" class="@error('fundingInfo.moveOutDate') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                @error('fundingInfo.moveOutDate')
+                                                    <div class="flex w-full invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="w-full">
+                                            <label for="fundingInfo.reasonForLeaving" class="block text-lg font-black text-gray-700">Reason For Leaving</label>
+                                            <div class="mt-1">
+                                                <label for="fundingInfo.reasonForLeaving" class="sr-only">Reason For Leaving</label>
+                                                <select wire:model="fundingInfo.reasonForLeaving" id="fundingInfo.reasonForLeaving" name="fundingInfo.reasonForLeaving" value="fundingInfo.reasonForLeaving" class="@error("fundingInfo.reasonForLeaving") is-invalid @enderror z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                                    <option  value="">Select</option>
+                                                    {{-- @php
+                                                        sort($reasonsForLeaving)
+                                                    @endphp --}}
+                                                    @foreach ($reasonsForLeaving as $key => $reason)
+                                                        <option  value="{{ $key . ': ' . $reason }}">{{ $reason }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error("fundingInfo.reasonForLeaving")
+                                                    <div class="flex w-full invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {{-- FORM ROW 3 --}}
+                            <div class="grid grid-cols-2 content-center my-4">
+
+                                <label for="fundingInfo.hasPaidAdminFee" class="inline-flex text-lg font-black text-red-500 md:mt-0">
+                                    Have you paid the Administration Fee ($250.00)?
+                                </label>
+
+                                <fieldset class="@error("fundingInfo.hasPaidAdminFee") is-invalid @enderror" id="fundingInfo.hasPaidAdminFee">
+
+                                    <label class="inline-flex text-lg font-black text-red-500">Yes</label>
+                                    <input wire:model="fundingInfo.hasPaidAdminFee" type="radio" value="1" name="fundingInfo.hasPaidAdminFee" />
+
+                                    <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
+                                    <input wire:model="fundingInfo.hasPaidAdminFee" type="radio" value="0" name="fundingInfo.hasPaidAdminFee" />
+
+                                    @error("fundingInfo.hasPaidAdminFee")
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+
+                                </fieldset>
+
+                            </div>
+
+                            {{-- FORM ROW 4 --}}
+                            <div class="grid w-full grid-cols-1">
+
+                                <div class="flex justify-between items-center w-full">
+
+                                    <div class="flex flex-col w-full">
+
+                                        <h3 class="font-black text-2xl text-gray-900">
+                                            What are your source(s) of funding?
+                                        </h3>
+
+                                            @foreach ($fundingInfo['sources'] as $source)
+
+                                                <div class="flex w-full justify-content-between">
+
+                                                    <h4 class="flex text-lg font-black text-gray-900 my-3">
+                                                        Source #{{ $loop->index + 1 }}
+                                                    </h4>
+
+                                                    <button type="button"
+                                                            wire:click.prevent="removeFundingSource({{ $loop->index }})"
+                                                            class="{{ $loop->index == 0 ? 'hidden' : '' }} inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                        <div wire:loading wire:target="removeFundingSource({{ $loop->index }})">
+                                                            <x-loading-blocks />
+                                                        </div>
+                                                        <div class="flex items-center justify-between w-full font-bold text-white text-md" wire:loading.remove wire:target="removeFundingSource({{ $loop->index }})">
+                                                            <img class="flex mr-2" src="/svg/remove-user-icon.svg" alt="Romove Conviction">
+                                                            Remove Source
+                                                        </div>
+                                                    </button>
+
+                                                </div>
+
+                                                {{-- SOURCE ROW 1 --}}
+                                                <div class="grid grid-cols-3 w-full gap-4 p-2">
+
+                                                    <div class="w-full">
+                                                        <label for="fundingInfo.sources.{{ $loop->index }}.name" class="block text-lg font-black text-gray-900">Name</label>
+                                                        <div class="mt-1">
+                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.name" type="text" name="fundingInfo.sources.{{ $loop->index }}.name" id="fundingInfo.sources.{{ $loop->index }}.name" required autocomplete="given-name" value="fundingInfo.sources.{{ $loop->index }}.name" class="@error("fundingInfo.sources.{$loop->index}.name") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                            @error("fundingInfo.sources.{$loop->index}.name")
+                                                                <div class="flex w-full invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="w-full">
+
+                                                        <label for="pricefundingInfo.sources.{{ $loop->index }}.amount" class="block text-lg font-black text-gray-900">Start Date</label>
+                                                        <div class="mt-1 relative rounded-md shadow-sm">
+                                                            <div class="absolute inset-y-0 left-0 px-3 flex items-center pointer-events-none">
+                                                                <span class="text-gray-500 sm:text-sm">
+                                                                    $
+                                                                </span>
+                                                            </div>
+                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.amount" type="text" name="fundingInfo.sources.{{ $loop->index }}.amount" id="fundingInfo.sources.{{ $loop->index }}.amount" required autocomplete="given-name" value="fundingInfo.sources.{{ $loop->index }}.amount" class="@error("fundingInfo.sources.{$loop->index}.amount") is-invalid @enderror block w-full text-center shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10" placeholder="0.00">
+                                                            <div class="absolute inset-y-0 right-0 flex items-center">
+                                                                <label for="pricefundingInfo.sources.{{ $loop->index }}.frequency" class="sr-only">Pay Frequency</label>
+                                                                <select wire:model="fundingInfo.sources.{{ $loop->index }}.frequency" id="fundingInfo.sources.{{ $loop->index }}.frequency" name="fundingInfo.sources.{{ $loop->index }}.frequency" required autocomplete="" value="fundingInfo.sources.{{ $loop->index }}.frequency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                                                                    <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="0">/Hr</option>
+                                                                    <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="1">/Mo</option>
+                                                                    <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="2">/Yr</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                            @error("fundingInfo.sources.{$loop->index}.amount")
+                                                                <div class="flex w-full invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </div>
+                                                            @enderror
+                                                    </div>
+
+                                                    <div class="w-full">
+                                                        <div class="w-full">
+                                                            <label for="fundingInfo.sources.{{ $loop->index }}.startDate" class="block text-lg font-black text-gray-900">Start Date</label>
+                                                            <div class="mt-1">
+                                                                <input wire:model="fundingInfo.sources.{{ $loop->index }}.startDate" type="date" name="fundingInfo.sources.{{ $loop->index }}.startDate" id="fundingInfo.sources.{{ $loop->index }}.startDate" required autocomplete="" value="{{ $today }}" class="@error("fundingInfo.sources.{$loop->index}.startDate") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                                @error("fundingInfo.sources.{$loop->index}.startDate")
+                                                                    <div class="flex w-full invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <h4 class="flex text-lg font-black text-gray-900 my-3">
+                                                    Reference
+                                                </h4>
+
+                                                {{-- SOURCE ROW 2 --}}
+                                                <div class="grid grid-cols-3 w-full gap-4 p-2 mb-5">
+
+                                                    <div class="w-full">
+                                                        <label for="fundingInfo.sources.{{ $loop->index }}.reference.firstName" class="block text-lg font-black text-gray-900">First Name</label>
+                                                        <div class="mt-1">
+                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.firstName" type="text" name="fundingInfo.sources.{{ $loop->index }}.reference.firstName" id="fundingInfo.sources.{{ $loop->index }}.reference.firstName" required autocomplete="given-name" value="fundingInfo.sources.{{ $loop->index }}.reference.firstName" class="@error("fundingInfo.sources.{$loop->index}.reference.firstName") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                            @error("fundingInfo.sources.{$loop->index}.reference.firstName")
+                                                                <div class="flex w-full invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="w-full">
+                                                        <label for="fundingInfo.sources.{{ $loop->index }}.reference.lastName" class="block text-lg font-black text-gray-900">Last Name</label>
+                                                        <div class="mt-1">
+                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.lastName" type="text" name="fundingInfo.sources.{{ $loop->index }}.reference.lastName" id="fundingInfo.sources.{{ $loop->index }}.reference.lastName" required autocomplete="given-name" value="fundingInfo.sources.{{ $loop->index }}.reference.lastName" class="@error("fundingInfo.sources.{$loop->index}.reference.lastName") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                            @error("fundingInfo.sources.{$loop->index}.reference.lastName")
+                                                                <div class="flex w-full invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="w-full">
+                                                        <div class="w-full">
+                                                            <label for="fundingInfo.sources.{{ $loop->index }}.reference.phone" class="block text-lg font-black text-gray-900">Phone</label>
+                                                            <div class="mt-1">
+                                                                <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.phone" type="text" name="fundingInfo.sources.{{ $loop->index }}.reference.phone" id="fundingInfo.sources.{{ $loop->index }}.reference.phone" required autocomplete="" value="fundingInfo.sources.{{ $loop->index }}.reference.phone" class="@error("fundingInfo.sources.{$loop->index}.reference.phone") is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                                                @error("fundingInfo.sources.{$loop->index}.reference.phone")
+                                                                    <div class="flex w-full invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            @endforeach
+
+                                        {{-- ADD FUNDING SOURCE --}}
+                                        <div class="flex justify-end w-full">
+
+                                            <button type="button"
+                                                    wire:click.prevent="addFundingSource"
+                                                    class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                <div wire:loading wire:target="addFundingSource">
+                                                    <x-loading-blocks />
+                                                </div>
+                                                <div class="flex items-center justify-between w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="addFundingSource">
+                                                    <img class="flex mr-2" src="/svg/register-icon.svg" alt="Add Another Funding Source">
+                                                    Add Source
+                                                </div>
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+
                     </div>
 
-                    <div class="mb-5">
-                        <label for="profession" class="block mb-1 font-bold text-gray-700">Profession</label>
-                        <input type="profession"
-                            class="w-full px-4 py-3 font-medium text-gray-600 rounded-lg shadow-sm focus:outline-none focus:shadow-outline"
-                            placeholder="eg. Web Developer">
-                    </div>
                 </div>
 
+                <!-- STEP 6 - Identification Information -->
                 <div class="{{ $currentStep == 5 ? '' : 'hidden' }}">
                     <div class="mb-5">
                         <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
@@ -1040,6 +1286,7 @@
                     </div>
                 </div>
 
+                <!-- STEP 7 - Recovery Information -->
                 <div class="{{ $currentStep == 6 ? '' : 'hidden' }}">
                     <div class="mb-5">
                         <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
@@ -1071,6 +1318,7 @@
                     </div>
                 </div>
 
+                <!-- STEP 8 - Review Application -->
                 <div class="{{ $currentStep == 7 ? '' : 'hidden' }}">
                     <div class="mb-5">
                         <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
@@ -1102,6 +1350,7 @@
                     </div>
                 </div>
 
+                <!-- STEP 9 - Consent Form -->
                 <div class="{{ $currentStep == 8 ? '' : 'hidden' }}">
                     <div class="mb-5">
                         <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
@@ -1133,6 +1382,7 @@
                     </div>
                 </div>
 
+                <!-- STEP 10 - Confirmation -->
                 <div class="{{ $currentStep == 9 ? '' : 'hidden' }}">
                     <div class="mb-5">
                         <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
@@ -1163,6 +1413,7 @@
                             placeholder="eg. Web Developer">
                     </div>
                 </div>
+
             </div>
 
         </div>

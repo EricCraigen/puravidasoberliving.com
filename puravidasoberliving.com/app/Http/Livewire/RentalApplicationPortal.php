@@ -12,6 +12,7 @@ class RentalApplicationPortal extends Component
     public $stepStatuses;
     public $currentStep;
     public $totalSteps;
+    public $today;
     public $personalInfo;
     // public $firstName, $middleInitial, $lastName, $dateOfBirth, $socialNumber, $phone;
     public $emergencyContactInfo;
@@ -29,15 +30,8 @@ class RentalApplicationPortal extends Component
     public $newMessage;
     public $us_state_abbrevs_names;
     public $relationalStatuses;
+    public $reasonsForLeaving;
     protected $rules;
-    // protected $rules = [
-    //     'personalInfo.firstName' => 'required|min:2|max:255',
-    //     'personalInfo.middleInitial' => 'required|max:1',
-    //     'personalInfo.lastName' => 'required|min:2|max:255',
-    //     'personalInfo.dateOfBirth' => 'required|date|date_format:Y-m-d|before:today',
-    //     'personalInfo.socialNumber' => ['required', 'regex:/^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$/'],
-    //     'personalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
-    // ];
 
     protected $messages = [
         // personalInfo
@@ -94,11 +88,37 @@ class RentalApplicationPortal extends Component
         'medicalInfo.medications.*.required' => 'Medication input must be completed or removed.',
         'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
         'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
-        // 'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-        // 'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-        // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-        // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
-        // 'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
+        'medicalInfo.drugUse.drugOfChoice.*.required' => 'Drug of choice input must be completed or removed.',
+        'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+        'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+        'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+        'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
+        'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
+        // fundingInfo
+        'fundingInfo.hasLivedWithPVSL.required' => 'REQUIRED!',
+        'fundingInfo.moveOutDate.required' => 'Please select a move out date.',
+        'fundingInfo.moveOutDate.date' => 'Please select a valid move out date (YYYY-MM-DD).',
+        'fundingInfo.moveOutDate.before_or_equal' => 'Your move out date must be before today.',
+        'fundingInfo.reasonForLeaving.required' => 'REQUIRED!',
+        'fundingInfo.hasPaidAdminFee.required' => 'REQUIRED!',
+        'fundingInfo.sources.*.name.required' => 'Funding source input must be completed or removed.',
+        'fundingInfo.sources.*.name.min:2' => 'Funding source must contain at least two (2) characters.',
+        'fundingInfo.sources.*.name.max:255' => 'Funding source input cannot contain 255 characters.',
+        'fundingInfo.sources.*.amount.required' => 'Please enter a funding amount.',
+        'fundingInfo.sources.*.amount.numeric' => 'Funding amount must be a number.',
+        'fundingInfo.sources.*.amount.min:1' => 'Funding amount cannot be below $1.00.',
+        'fundingInfo.sources.*.frequency.required' => 'REQUIRED!',
+        'fundingInfo.sources.*.startDate.required' => 'Please select a start date.',
+        'fundingInfo.sources.*.startDate.date' => 'Please select a valid start date (YYYY-MM-DD).',
+        'fundingInfo.sources.*.startDate.before_or_equal' => 'Your start date must be before today.',
+        'fundingInfo.sources.*.reference.firstName.required' => 'Please enter a first name.',
+        'fundingInfo.sources.*.reference.firstName.min:2' => 'Reference first name must contain at least two (2) characters.',
+        'fundingInfo.sources.*.reference.firstName.max:255' => 'Reference first name cannot contain 255 characters.',
+        'fundingInfo.sources.*.reference.lastName.required' => 'Please enter a last name.',
+        'fundingInfo.sources.*.reference.lastName.min:2' => 'Reference last name must contain at least two (2) characters.',
+        'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
+        'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
+        'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
     ];
 
     protected function rules()
@@ -132,15 +152,28 @@ class RentalApplicationPortal extends Component
             // medicalInfo
             'medicalInfo.hasScripts' => 'required',
             'medicalInfo.medications.*' => 'required|min:2|max:255',
-            // 'medicalInfo.drugUse.drugOfChoice.*' => 'min:2|max:255',
-            // 'medicalInfo.drugUse.lastUse.*' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
+            'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
+            'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            // fundingInfo
+            'fundingInfo.hasLivedWithPVSL' => 'required',
+            'fundingInfo.moveOutDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            'fundingInfo.reasonForLeaving' => 'required',
+            'fundingInfo.hasPaidAdminFee' => 'required',
+            'fundingInfo.sources.*.name' => 'required|min:2|max:255',
+            'fundingInfo.sources.*.amount' => 'required|numeric|min:1',
+            'fundingInfo.sources.*.frequency' => 'required',
+            'fundingInfo.sources.*.startDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            'fundingInfo.sources.*.reference.firstName' => 'required|min:2|max:255',
+            'fundingInfo.sources.*.reference.lastName' => 'required|min:2|max:255',
+            'fundingInfo.sources.*.reference.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
         ];
     }
 
     public function mount()
     {
-        $this->currentStep = 3;
+        $this->currentStep = 0;
         $this->totalSteps = 10;
+        // $this->today = Carbon::now()->format('Y-m-d');
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
@@ -149,6 +182,8 @@ class RentalApplicationPortal extends Component
         $this->clearEmergencyContactInfo();
         $this->clearLegalInfo();
         $this->clearMedicalInfo();
+        $this->clearFundingInfo();
+        $this->clearReasonsForLeaving();
     }
 
     public function updated($propertyName)
@@ -202,6 +237,11 @@ class RentalApplicationPortal extends Component
                 break;
             case (3):
                 $this->validateStep4();
+
+                $this->toggleCompletedTaskIcon();
+                break;
+            case (4):
+                $this->validateStep5();
 
                 $this->toggleCompletedTaskIcon();
                 break;
@@ -259,7 +299,7 @@ class RentalApplicationPortal extends Component
         json_encode($inputsToAdd);
         array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
     }
-    
+
     public function removeEmergencyContact($index)
     {
         unset($this->additionalEmergencyContactInfo[$index]);
@@ -277,10 +317,17 @@ class RentalApplicationPortal extends Component
         unset($this->legalInfo['convictions'][$index]);
         $this->legalInfo['convictions'] = array_values($this->legalInfo['convictions']);
     }
-    
+
     public function addMedication()
     {
         array_push($this->medicalInfo['medications'], '');
+    }
+
+    public function addMedicationOnYes()
+    {
+        if (count($this->medicalInfo['medications']) == 0) {
+            array_push($this->medicalInfo['medications'], '');
+        }
     }
 
     public function removeMedication($index)
@@ -302,6 +349,27 @@ class RentalApplicationPortal extends Component
         unset($this->medicalInfo['drugUse']['lastUse'][$index]);
         $this->medicalInfo['drugUse']['lastUse'] = array_values($this->medicalInfo['drugUse']['lastUse']);
 
+    }
+
+    public function addFundingSource()
+    {
+        array_push($this->fundingInfo['sources'], [
+            'name' => '',
+            'amount' => '',
+            'frequency' => '0',
+            'startDate' => '',
+            'reference' => [
+                'firstName' => '',
+                'lastName' => '',
+                'phone' => '',
+            ]
+        ]);
+    }
+
+    public function removeFundingSource($index)
+    {
+        unset($this->fundingInfo['sources'][$index]);
+        $this->fundingInfo['sources'] = array_values($this->fundingInfo['sources']);
     }
 
     private function validateStep2()
@@ -414,58 +482,95 @@ class RentalApplicationPortal extends Component
 
     private function validateStep4()
     {
-        if ($this->medicalInfo['hasScripts'] == null || $this->medicalInfo['hasScripts'] == 0) {
+        if ($this->medicalInfo['hasScripts'] == null) {
             $this->validate([
                 'medicalInfo.hasScripts' => 'required',
-                // 'medicalInfo.medications' => 'min:2|max:255',
-                // 'medicalInfo.drugUse.drugOfChoice' => 'min:2|max:255',
-                // 'medicalInfo.drugUse.lastUse' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
+                'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
+                'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
             ], [
                 'medicalInfo.hasScripts.required' => 'REQUIRED!',
-                // 'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
-                // 'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
-                // 'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-                // 'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-                // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-                // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
-                // 'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
+                'medicalInfo.drugUse.drugOfChoice.*.required' => 'Please input a drug name or remove this field.',
+                'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
+                'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
+            ]);
+        } else if ($this->medicalInfo['hasScripts'] == 0) {
+            $this->validate([
+                'medicalInfo.hasScripts' => 'required',
+                'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
+                'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            ], [
+                'medicalInfo.hasScripts.required' => 'REQUIRED!',
+                'medicalInfo.drugUse.drugOfChoice.*.required' => 'Drug of choice input must be completed or removed.',
+                'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
+                'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
             ]);
         } else {
-            // if (count($this->medicalInfo['medications']) <= 1) {
-                $this->validate([
-                    'medicalInfo.hasScripts' => 'required',
-                    'medicalInfo.medications.*' => 'required|min:2|max:255',
-                    // 'medicalInfo.drugUse.drugOfChoice' => 'min:2|max:255',
-                    // 'medicalInfo.drugUse.lastUse' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
-                ], [
-                    'medicalInfo.hasScripts.required' => 'REQUIRED!',
-                    'medicalInfo.medications.*.required' => 'Medication input must be completed or removed.',
-                    'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
-                    'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
-                    // 'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-                    // 'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-                    // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-                    // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
-                    // 'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
-                ]);
-            // } else if (count($this->medicalInfo['medications']) > 1) {
-            //     $this->validate([
-            //         'medicalInfo.hasScripts' => 'required',
-            //         'medicalInfo.medications.*' => 'min:2|max:255',
-            //         // 'medicalInfo.drugUse.drugOfChoice' => 'min:2|max:255',
-            //         // 'medicalInfo.drugUse.lastUse' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
-            //     ], [
-            //         'medicalInfo.hasScripts.required' => 'REQUIRED!',
-            //         'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
-            //         'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
-            //         // 'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-            //         // 'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-            //         // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-            //         // 'medicalInfo.drugUse.lastUse.*.required' => 'Please select a valid last use date (YYYY-MM-DD).',
-            //         // 'medicalInfo.drugUse.lastUse.*.required' => 'Your last use date must be before today.',
-            //     ]);
-            // }
+            $this->validate([
+                'medicalInfo.hasScripts' => 'required',
+                'medicalInfo.medications.*' => 'required|min:2|max:255',
+                'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
+                'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            ], [
+                'medicalInfo.hasScripts.required' => 'REQUIRED!',
+                'medicalInfo.medications.*.required' => 'Medication input must be completed or removed.',
+                'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
+                'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
+                'medicalInfo.drugUse.drugOfChoice.*.required' => 'Drug of choice input must be completed or removed.',
+                'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
+                'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
+            ]);
         }
+    }
+
+    private function validateStep5()
+    {
+        $this->validate([
+            'fundingInfo.hasLivedWithPVSL' => 'required',
+            'fundingInfo.moveOutDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            'fundingInfo.reasonForLeaving' => 'required',
+            'fundingInfo.hasPaidAdminFee' => 'required',
+            'fundingInfo.sources.*.name' => 'required|min:2|max:255',
+            'fundingInfo.sources.*.amount' => 'required|numeric|min:1',
+            'fundingInfo.sources.*.frequency' => 'required',
+            'fundingInfo.sources.*.startDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            'fundingInfo.sources.*.reference.firstName' => 'required|min:2|max:255',
+            'fundingInfo.sources.*.reference.lastName' => 'required|min:2|max:255',
+            'fundingInfo.sources.*.reference.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+        ], [
+            'fundingInfo.hasLivedWithPVSL.required' => 'REQUIRED!',
+            'fundingInfo.moveOutDate.required' => 'Please select a move out date.',
+            'fundingInfo.moveOutDate.date' => 'Please select a valid move out date (YYYY-MM-DD).',
+            'fundingInfo.moveOutDate.before_or_equal' => 'Your move out date must be before today.',
+            'fundingInfo.reasonForLeaving.required' => 'REQUIRED!',
+            'fundingInfo.hasPaidAdminFee.required' => 'REQUIRED!',
+            'fundingInfo.sources.*.name.required' => 'Funding source input must be completed or removed.',
+            'fundingInfo.sources.*.name.min:2' => 'Funding source must contain at least two (2) characters.',
+            'fundingInfo.sources.*.name.max:255' => 'Funding source input cannot contain 255 characters.',
+            'fundingInfo.sources.*.amount.required' => 'Please enter a funding amount.',
+            'fundingInfo.sources.*.amount.numeric' => 'Funding amount must be a number.',
+            'fundingInfo.sources.*.amount.min:1' => 'Funding amount cannot be below $1.00.',
+            'fundingInfo.sources.*.frequency.required' => 'REQUIRED!',
+            'fundingInfo.sources.*.startDate.required' => 'Please select a start date.',
+            'fundingInfo.sources.*.startDate.date' => 'Please select a valid start date (YYYY-MM-DD).',
+            'fundingInfo.sources.*.startDate.before_or_equal' => 'Your start date must be before today.',
+            'fundingInfo.sources.*.reference.firstName.required' => 'Please enter a first name.',
+            'fundingInfo.sources.*.reference.firstName.min:2' => 'Reference first name must contain at least two (2) characters.',
+            'fundingInfo.sources.*.reference.firstName.max:255' => 'Reference first name cannot contain 255 characters.',
+            'fundingInfo.sources.*.reference.lastName.required' => 'Please enter a last name.',
+            'fundingInfo.sources.*.reference.lastName.min:2' => 'Reference last name must contain at least two (2) characters.',
+            'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
+            'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
+            'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
+        ]);
     }
 
     private function clearStepTitles()
@@ -606,6 +711,17 @@ class RentalApplicationPortal extends Component
         );
     }
 
+    private function clearReasonsForLeaving()
+    {
+        $this->reasonsForLeaving = array(
+            '1' => 'Fulfilled rental agreement',
+            '2' => 'Permanent relocation',
+            '3' => 'Medical',
+            '4' => 'Terminated rental agreement early',
+            '5' => 'Eviction',
+        );
+    }
+
     private function clearPersonalInfo()
     {
         $this->personalInfo = array(
@@ -650,9 +766,7 @@ class RentalApplicationPortal extends Component
     {
         $this->medicalInfo = array(
             'hasScripts' => '',
-            'medications' => [
-                ''
-            ],
+            'medications' => [],
             'drugUse' => [
                 'drugOfChoice' => [
                     ''
@@ -660,6 +774,30 @@ class RentalApplicationPortal extends Component
                 'lastUse' => [
                     ''
                 ]
+            ],
+        );
+    }
+
+    private function clearFundingInfo()
+    {
+        $this->fundingInfo = array(
+            'hasLivedWithPVSL' => '',
+            'moveOutDate' => '',
+            'reasonForLeaving' => '',
+            'hasPaidAdminFee' => '',
+            'sources' => [
+                [
+                    'name' => '',
+                    'amount' => '',
+                    'frequency' => '0',
+                    'startDate' => '',
+                    'reference' => [
+                        'firstName' => '',
+                        'lastName' => '',
+                        'phone' => '',
+                    ]
+                ],
+
             ],
         );
     }
