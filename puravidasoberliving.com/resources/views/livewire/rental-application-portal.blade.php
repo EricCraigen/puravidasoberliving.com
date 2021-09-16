@@ -24,6 +24,7 @@
 
         <!-- Application Forms Container -->
         <div class="{{ $currentStep != $totalSteps ? '' : 'hidden' }} bg-white max-w-screen-lg mx-auto mt-8 p-5 pb-0 rounded-md rounded-b-none shadow-lg relative overflow-hidden">
+            
             <!-- Top Navigation 1 -->
             <div class="relative z-10 flex flex-col items-center justify-center mb-4 lg:flex-row lg:justify-between">
                 <a class="relative z-10 inline-flex sm:mb-4" href="/">
@@ -100,15 +101,6 @@
                         </div>
 
                     </div>
-
-                    <!-- Progress Bar -->
-                    {{-- <div class="flex items-center justify-end w-full mt-2">
-                        <div class="relative mr-2 progress-bar-width">
-                            <div class="absolute bottom-0 right-0 z-20 h-2 text-xs leading-none text-center text-white border-black rounded-full top-px left-px bg-accent border-1" style="width: {{ $currentStep / $totalSteps * 100 }}%;"></div>
-                            <div class="rounded-full bg-accent-dark border-1 border-black text-xs leading-none h-2.5 text-center text-white relative z-10"></div>
-                        </div>
-                        <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($currentStep / $totalSteps * 100) }}%</div>
-                    </div> --}}
 
                 </div>
 
@@ -970,7 +962,7 @@
 
                     <div class="relative mt-12">
 
-                        <form id="medicalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                        <form id="fundingInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
                             @csrf
 
                             {{-- Section Label --}}
@@ -1256,34 +1248,176 @@
 
                 <!-- STEP 6 - Identification Information -->
                 <div class="{{ $currentStep == 5 ? '' : 'hidden' }}">
-                    <div class="mb-5">
-                        <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
+                    
+                    <div class="relative mt-12">
 
-                        <div class="flex">
-                            <label
-                                class="flex items-center justify-start py-3 pl-4 pr-6 mr-4 bg-white rounded-lg shadow-sm text-truncate">
-                                <div class="mr-3 text-teal-600">
-                                    <input type="radio" value="Male" class="form-radio focus:outline-none focus:shadow-outline" />
-                                </div>
-                                <div class="text-gray-700 select-none">Male</div>
-                            </label>
+                        <form id="identificationInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                            @csrf
 
-                            <label
-                                class="flex items-center justify-start py-3 pl-4 pr-6 bg-white rounded-lg shadow-sm text-truncate">
-                                <div class="mr-3 text-teal-600">
-                                    <input type="radio" value="Female" class="form-radio focus:outline-none focus:shadow-outline" />
+                            {{-- Section Label --}}
+                            <div class="flex justify-between items-center w-full">
+
+                                <div class="flex w-1/2">
+
+                                    <h3 class="font-black text-2xl text-gray-900">
+                                        Identification Information
+                                    </h3>
+
                                 </div>
-                                <div class="text-gray-700 select-none">Female</div>
-                            </label>
-                        </div>
+
+                            </div>
+
+                            <div class="flex justify-between items-center w-full">
+
+                                <div class="flex w-1/2">
+
+                                    <h3 class="font-black text-xl text-gray-900">
+                                        Picture Identification
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+                            {{-- FORM ROW 1 --}}
+                            <div class="flex justify-between items-center">
+
+                                <div class="w-1/5 ml-2">
+                                    <label for="fundingInfo.reasonForLeaving" class="block text-lg font-black text-gray-700">Reason For Leaving</label>
+                                    <div class="mt-1">
+                                        <label for="fundingInfo.reasonForLeaving" class="sr-only">Reason For Leaving</label>
+                                        <select wire:model="fundingInfo.reasonForLeaving" id="fundingInfo.reasonForLeaving" name="fundingInfo.reasonForLeaving" value="fundingInfo.reasonForLeaving" class="@error("fundingInfo.reasonForLeaving") is-invalid @enderror z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option  value="">Select</option>
+                                            {{-- @php
+                                                sort($reasonsForLeaving)
+                                            @endphp --}}
+                                            @foreach ($reasonsForLeaving as $key => $reason)
+                                                <option  value="{{ $key . ': ' . $reason }}">{{ $reason }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error("fundingInfo.reasonForLeaving")
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="w-1/5 mx-2">
+                                    <label for="fundingInfo.reasonForLeaving" class="block text-lg font-black text-gray-700">Reason For Leaving</label>
+                                    <div class="mt-1">
+                                        <label for="fundingInfo.reasonForLeaving" class="sr-only">Reason For Leaving</label>
+                                        <select wire:model="fundingInfo.reasonForLeaving" id="fundingInfo.reasonForLeaving" name="fundingInfo.reasonForLeaving" value="fundingInfo.reasonForLeaving" class="@error("fundingInfo.reasonForLeaving") is-invalid @enderror z-10 block w-full px-3 py-2 text-gray-900 border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option  value="">Select</option>
+                                            {{-- @php
+                                                sort($reasonsForLeaving)
+                                            @endphp --}}
+                                            @foreach ($reasonsForLeaving as $key => $reason)
+                                                <option  value="{{ $key . ': ' . $reason }}">{{ $reason }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error("fundingInfo.reasonForLeaving")
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="w-2/5 mx-2">
+                                    <label for="fundingInfo.moveOutDate" class="block text-lg font-black text-gray-700">Move Out Date</label>
+                                    <div class="mt-1">
+                                        <input wire:model="fundingInfo.moveOutDate" type="date" name="fundingInfo.moveOutDate" id="fundingInfo.moveOutDate" required autocomplete="" value="fundingInfo.moveOutDate" class="@error('fundingInfo.moveOutDate') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('fundingInfo.moveOutDate')
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="w-1/5 mr-2">
+                                    <label for="fundingInfo.moveOutDate" class="block text-lg font-black text-gray-700">Move Out Date</label>
+                                    <div class="mt-1">
+                                        <input wire:model="fundingInfo.moveOutDate" type="date" name="fundingInfo.moveOutDate" id="fundingInfo.moveOutDate" required autocomplete="" value="fundingInfo.moveOutDate" class="@error('fundingInfo.moveOutDate') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
+                                        @error('fundingInfo.moveOutDate')
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {{-- FORM ROW 2 --}}
+                            <div class="grid w-full grid-cols-2 gap-4">
+
+                                {{-- FRONT OF ID --}}
+                                <div class="">
+                                    <label class="inline-block mb-2 font-black text-lg text-gray-900">
+                                        Identifiction - FRONT (jpg,png,svg,jpeg)
+                                    </label>
+                                    <div class="cursor-pointer p-4 bg-white border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                        
+                                        <div class="flex items-center justify-center w-full">
+                                            <label class="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                                                <div class="flex flex-col items-center justify-center pt-7">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="w-12 h-12 text-gray-300 group-hover:text-gray-900" viewBox="0 0 20 20"
+                                                        fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                    <p class="pt-1 text-sm tracking-wider text-gray-300 group-hover:text-gray-900">
+                                                        Select a photo</p>
+                                                </div>
+                                                <input type="file" class="opacity-0" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end p-2 space-x-4">
+                                    </div>
+                                </div>
+
+                                {{-- BACK OF ID --}}
+                                <div class="">
+                                    <label class="inline-block mb-2 font-black text-lg text-gray-900">
+                                        Identification - Back (jpg,png,svg,jpeg)
+                                    </label>
+                                    <div class="p-4 bg-white border-gray-300 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                        
+                                        <div class="flex items-center justify-center w-full">
+                                            <label class="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                                                <div class="flex flex-col items-center justify-center pt-7">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="w-12 h-12 text-gray-300 group-hover:text-gray-900" viewBox="0 0 20 20"
+                                                        fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                    <p class="pt-1 text-sm tracking-wider text-gray-300 group-hover:text-gray-900">
+                                                        Select a photo</p>
+                                                </div>
+                                                <input type="file" class="opacity-0" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end p-2 space-x-4">
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+
+    
+
+                        </form>
+
                     </div>
 
-                    <div class="mb-5">
-                        <label for="profession" class="block mb-1 font-bold text-gray-700">Profession</label>
-                        <input type="profession"
-                            class="w-full px-4 py-3 font-medium text-gray-600 rounded-lg shadow-sm focus:outline-none focus:shadow-outline"
-                            placeholder="eg. Web Developer">
-                    </div>
                 </div>
 
                 <!-- STEP 7 - Recovery Information -->

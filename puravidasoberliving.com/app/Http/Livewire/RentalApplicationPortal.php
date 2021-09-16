@@ -171,7 +171,7 @@ class RentalApplicationPortal extends Component
 
     public function mount()
     {
-        $this->currentStep = 0;
+        $this->currentStep = 5;
         $this->totalSteps = 10;
         // $this->today = Carbon::now()->format('Y-m-d');
         $this->clearStepTitles();
@@ -242,6 +242,11 @@ class RentalApplicationPortal extends Component
                 break;
             case (4):
                 $this->validateStep5();
+
+                $this->toggleCompletedTaskIcon();
+                break;
+            case (4):
+                $this->validateStep6();
 
                 $this->toggleCompletedTaskIcon();
                 break;
@@ -533,7 +538,41 @@ class RentalApplicationPortal extends Component
 
     private function validateStep5()
     {
-        $this->validate([
+        if ($this->fundingInfo['hasLivedWithPVSL'] == null || $this->fundingInfo['hasLivedWithPVSL'] == 0) {
+            $this->validate([
+                'fundingInfo.hasLivedWithPVSL' => 'required',
+                'fundingInfo.hasPaidAdminFee' => 'required',
+                'fundingInfo.sources.*.name' => 'required|min:2|max:255',
+                'fundingInfo.sources.*.amount' => 'required|numeric|min:1',
+                'fundingInfo.sources.*.frequency' => 'required',
+                'fundingInfo.sources.*.startDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+                'fundingInfo.sources.*.reference.firstName' => 'required|min:2|max:255',
+                'fundingInfo.sources.*.reference.lastName' => 'required|min:2|max:255',
+                'fundingInfo.sources.*.reference.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+            ], [
+                'fundingInfo.hasLivedWithPVSL.required' => 'REQUIRED!',
+                'fundingInfo.hasPaidAdminFee.required' => 'REQUIRED!',
+                'fundingInfo.sources.*.name.required' => 'Funding source input must be completed or removed.',
+                'fundingInfo.sources.*.name.min:2' => 'Funding source must contain at least two (2) characters.',
+                'fundingInfo.sources.*.name.max:255' => 'Funding source input cannot contain 255 characters.',
+                'fundingInfo.sources.*.amount.required' => 'Please enter a funding amount.',
+                'fundingInfo.sources.*.amount.numeric' => 'Funding amount must be a number.',
+                'fundingInfo.sources.*.amount.min:1' => 'Funding amount cannot be below $1.00.',
+                'fundingInfo.sources.*.frequency.required' => 'REQUIRED!',
+                'fundingInfo.sources.*.startDate.required' => 'Please select a start date.',
+                'fundingInfo.sources.*.startDate.date' => 'Please select a valid start date (YYYY-MM-DD).',
+                'fundingInfo.sources.*.startDate.before_or_equal' => 'Your start date must be before today.',
+                'fundingInfo.sources.*.reference.firstName.required' => 'Please enter a first name.',
+                'fundingInfo.sources.*.reference.firstName.min:2' => 'Reference first name must contain at least two (2) characters.',
+                'fundingInfo.sources.*.reference.firstName.max:255' => 'Reference first name cannot contain 255 characters.',
+                'fundingInfo.sources.*.reference.lastName.required' => 'Please enter a last name.',
+                'fundingInfo.sources.*.reference.lastName.min:2' => 'Reference last name must contain at least two (2) characters.',
+                'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
+                'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
+                'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
+            ]);
+        } else {
+            $this->validate([
             'fundingInfo.hasLivedWithPVSL' => 'required',
             'fundingInfo.moveOutDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
             'fundingInfo.reasonForLeaving' => 'required',
@@ -570,7 +609,13 @@ class RentalApplicationPortal extends Component
             'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
             'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
             'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
-        ]);
+            ]);
+        }
+    }
+
+    private function validateStep6()
+    {
+        
     }
 
     private function clearStepTitles()
