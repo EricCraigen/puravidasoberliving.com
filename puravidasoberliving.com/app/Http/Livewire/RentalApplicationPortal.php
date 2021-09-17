@@ -3,10 +3,13 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Carbon\Carbon;
 
 class RentalApplicationPortal extends Component
 {
+
+    use WithFileUploads;
 
     public $stepTitles;
     public $stepStatuses;
@@ -21,7 +24,7 @@ class RentalApplicationPortal extends Component
     public $legalInfo;
     public $medicalInfo;
     public $fundingInfo;
-    public $identicifationInfo;
+    public $identificationInfo;
     public $recoveryInfo;
     public $consentForm;
     public $messageContent;
@@ -31,9 +34,18 @@ class RentalApplicationPortal extends Component
     public $us_state_abbrevs_names;
     public $relationalStatuses;
     public $reasonsForLeaving;
+    public $identificationTypes;
+    public $hasIDCardUpload;
+    public $photoIdCardFront;
+    public $photoIdCardBack;
+    public $additionalDocumentation;
     protected $rules;
 
     protected $messages = [
+        'photoIdCardFront.image' => 'Image failed to upload. Valid file formats: .jpeg, .png, .jpg, .bmp, .gif',
+        'photoIdCardFront.max' => 'File size cannot exceed 1MB.',
+        'photoIdCardBack.image' => 'Image failed to upload. Valid file formats: .jpeg, .png, .jpg, .bmp, .gif',
+        'photoIdCardBack.max' => 'File size cannot exceed 1MB.',
         // personalInfo
         'personalInfo.firstName.required' => 'Your first name is required.',
         'personalInfo.firstName.min' => 'Your first name must contain at least 2 characters.',
@@ -125,6 +137,8 @@ class RentalApplicationPortal extends Component
     {
         return [
 
+            'photoIdCardFront' => 'image|max:1024',
+            'photoIdCardBack' => 'image|max:1024',
             // personalInfo
             'personalInfo.firstName' => 'required|min:2|max:255',
             'personalInfo.middleInitial' => 'required|max:1',
@@ -173,6 +187,8 @@ class RentalApplicationPortal extends Component
     {
         $this->currentStep = 5;
         $this->totalSteps = 10;
+        $this->hasIDCardUpload = false;
+        $this->additionalDocumentation = [];
         // $this->today = Carbon::now()->format('Y-m-d');
         $this->clearStepTitles();
         $this->clearStepStatuses();
@@ -184,7 +200,23 @@ class RentalApplicationPortal extends Component
         $this->clearMedicalInfo();
         $this->clearFundingInfo();
         $this->clearReasonsForLeaving();
+        $this->clearIdentificationInfo();
+        $this->clearIdentificationTypes();
     }
+
+    // public function updatedPhoto()
+    // {
+    //     if ($this->photoIdCardFront) {
+    //         $this->validate([
+    //             'photoIdCardFront' => 'image|uploaded|max:1024',
+    //         ]);
+    //     } else {
+    //         $this->validate([
+    //             'photoIdCardBack' => 'imag|uploaded|max:1024',
+    //         ]);
+    //     }
+
+    // }
 
     public function updated($propertyName)
     {
@@ -375,6 +407,12 @@ class RentalApplicationPortal extends Component
     {
         unset($this->fundingInfo['sources'][$index]);
         $this->fundingInfo['sources'] = array_values($this->fundingInfo['sources']);
+    }
+
+    public function toggleHasIDCardUpload()
+    {
+        // sleep(1);
+        $this->hasIDCardUpload = ! $this->hasIDCardUpload;
     }
 
     private function validateStep2()
@@ -615,7 +653,7 @@ class RentalApplicationPortal extends Component
 
     private function validateStep6()
     {
-        
+
     }
 
     private function clearStepTitles()
@@ -767,6 +805,17 @@ class RentalApplicationPortal extends Component
         );
     }
 
+    private function clearIdentificationTypes()
+    {
+        $this->identificationTypes = array(
+            '1' => 'Driver\'s License',
+            '2' => 'Government Issued ID',
+            '3' => 'Military ID',
+            '4' => 'Passport',
+            '5' => 'School ID card (with photo)',
+        );
+    }
+
     private function clearPersonalInfo()
     {
         $this->personalInfo = array(
@@ -845,6 +894,20 @@ class RentalApplicationPortal extends Component
 
             ],
         );
+    }
+
+    private function clearIdentificationInfo()
+    {
+        $this->identificationInfo = array(
+            'type' => '',
+            'state' => '',
+            'number' => '',
+            'expiration' => '',
+            // 'photoIdCardFront' => '',
+            // 'photoIdCardBack' => '',
+            'hasSocialCard' => '',
+            'additionalDocumentation' => [],
+         );
     }
 
     public function render()
