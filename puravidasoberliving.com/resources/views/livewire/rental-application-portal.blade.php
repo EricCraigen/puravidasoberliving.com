@@ -1539,7 +1539,20 @@
                         <div class="flex w-full justify-center items-center mt-2">
 
 
-                            <div wire:drop="$emit('file-dropped', $event)" class="flex justify-center bg-white shadow-lg rounded-md p-3 w-3/4">
+                            <div x-data="{ files: $wire.additionalDocumentation }" x-on:dragover="$el.classList.add('active')"
+                            x-on:dragleave="$el.classList.remove('active')"
+                            x-on:drop="$el.classList.remove('active')" id="additionalDocumentationDropZone" class="flex justify-center bg-white shadow-lg rounded-md p-3 w-3/4">
+
+                            <input multiple
+                                    x-data="files"
+                                    wire:model="additionalDocumentation"
+                                    name="additionalDocumentation"
+                                    id="additionalDocumentation"
+                                    value="additionalDocumentation"
+                                    type="file"
+                                    x-on:change="files = $event.target.files; console.log($event.target.files);"
+                                    class="@error("additionalDocumentation") is-invalid @enderror absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
+                                />
 
                                 <div class=" flex flex-col w-full items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
 
@@ -1551,7 +1564,7 @@
 
                                         <label for="additionalDocumentation" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                             <span>Upload a file</span>
-                                            <input multiple wire:model="additionalDocumentation" name="additionalDocumentation" id="additionalDocumentation" value="additionalDocumentation" type="file" class="@error("additionalDocumentation") is-invalid @enderror sr-only">
+
                                         </label>
 
                                         <p class="pl-1">

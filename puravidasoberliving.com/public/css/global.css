@@ -100,10 +100,10 @@
     border: 1px solid rgba(216, 217, 221, 1);
 }
 
-/* .additionalDocumentation.active {
-    box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45);
-    border-color: #a4cafe;
-} */
+#additionalDocumentationDropZone.active {
+    box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45) !important;
+    border-color: #a4cafe !important;
+}
 
 @media (min-width: 768px) {
 
