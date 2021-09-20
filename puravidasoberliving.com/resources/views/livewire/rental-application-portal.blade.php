@@ -1539,19 +1539,22 @@
                         <div class="flex w-full justify-center items-center mt-2">
 
 
-                            <div x-data="{ files: $wire.additionalDocumentation }" x-on:dragover="$el.classList.add('active')"
-                            x-on:dragleave="$el.classList.remove('active')"
-                            x-on:drop="$el.classList.remove('active')" id="additionalDocumentationDropZone" class="flex justify-center bg-white shadow-lg rounded-md p-3 w-3/4">
+                            <div x-data="{ additionalDocumentation: $wire.additionalDocumentation }" 
+                                 x-on:dragover="$el.classList.add('active')"
+                                 x-on:dragleave="$el.classList.remove('active')"
+                                 x-on:drop="$el.classList.remove('active')" 
+                                 id="additionalDocumentationDropZone" 
+                                 class="{{ $additionalDocumentation == null ? '' : 'hidden' }} flex justify-center bg-white shadow-lg rounded-md p-3 w-3/4 relative">
 
-                            <input multiple
-                                    x-data="files"
-                                    wire:model="additionalDocumentation"
-                                    name="additionalDocumentation"
-                                    id="additionalDocumentation"
-                                    value="additionalDocumentation"
-                                    type="file"
-                                    x-on:change="files = $event.target.files; console.log($event.target.files);"
-                                    class="@error("additionalDocumentation") is-invalid @enderror absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
+                                <input multiple
+                                       x-data="{ additionalDocumentation }"
+                                       wire:model="additionalDocumentation"
+                                       name="additionalDocumentation"
+                                       id="additionalDocumentation"
+                                       value="additionalDocumentation"
+                                       type="file"
+                                       x-on:change="additionalDocumentation = $event.target.files; console.log($event.target.files);"
+                                       class="@error("additionalDocumentation") is-invalid @enderror absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
                                 />
 
                                 <div class=" flex flex-col w-full items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -1580,40 +1583,85 @@
 
                             </div>
 
-                        </div>
+                            <div class="{{ $additionalDocumentation != null ? '' : 'hidden' }} flex flex-col w-full items-end">
 
-                            {{-- @foreach ($additionalDocumentation as $upload) --}}
+                                @foreach ($additionalDocumentation as $file)
 
-                                {{-- <div class="flex w-full justify-between items-center">
+                                    <div wire:loading.remove wire:target="additionalDocumentation" class="relative w-3/4 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 mb-4 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                        
+                                        <div class="flex w-1/3 justify-center items-center relative">
 
-                                    <label for="additionalDocumentation" class="text-xl font-black text-gray-900">
-                                        Document #1
-                                    </label>
-                                    <div class="mt-1 flex w-3/4 rounded-md shadow-sm">
+                                            @if (
+                                                    $additionalDocumentation[$loop->index]->getMimeType() == "image/jpeg" || 
+                                                    $additionalDocumentation[$loop->index]->getMimeType() == "image/png" || 
+                                                    $additionalDocumentation[$loop->index]->getMimeType() == "image/svg"
+                                                )
+                                                
+                                                <img class="w-1/2 h-1/2 rounded-sm hover:w-full hover:h-full" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}">
+                                            
+                                            @elseif (
+                                                        $additionalDocumentation[$loop->index]->getMimeType() == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+                                                        $additionalDocumentation[$loop->index]->getMimeType() == "text/rtf" ||
+                                                        $additionalDocumentation[$loop->index]->getMimeType() == "text/plain"
+                                                    )
 
-                                        <div class="relative flex items-stretch flex-grow rounded-md  bg-white border border-gray-300 z-10">
+                                                <img class="h-1/2 w-1/2 hover:w-full hover:h-full" src="/svg/file-icons/file-word-regular.svg" alt="Word Document">
+                                                
+                                            @endif
 
-                                            <input type="file" name="additionalDocumentation" id="additionalDocumentation" value="additionalDocumentation" class="@error("additionalDocumentation") is-invalid @enderror text-gray-900 h-32 focus:ring-indigo-500 focus:border-indigo-500 inline-flex w-full rounded-l-md pl-10 sm:text-sm border-gray-300 opacity-0" />
+                                        </div>
 
-                                            <h3 class="text-xl font-black text-gray-900">
+                                        <div class="flex w-full">
 
-                                            </h3> --}}
+                                            {{-- <a href="#" class="focus:outline-none"> --}}
+                                                <div class="flex flex-col w-3/4 justify-center items-start">
 
-                                            {{-- <button onClick="additionalDocumentation.click()" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-bold rounded-r-md text-gray-900 bg-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                   {{-- <span class="absolute inset-0" aria-hidden="true"></span> --}}
+                                                    <p class="text-lg font-black text-gray-900">
+                                                        {{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}
+                                                    </p>
+                                                    <p class="text-md text-gray-500 truncate">
+                                                        {{ number_format((float)($additionalDocumentation[$loop->index]->getSize() / 1024), 2, '.', '') . ' kb' }}
+                                                        {{-- {{ $additionalDocumentation[$loop->index]->getSize() / 1024 . ' KB' }} --}}
+                                                    </p> 
 
-                                                Choose File
+                                                </div>
+                                                
+                                                <div class="flex w-1/4 justify-center items-center">
 
-                                            </button> --}}
+                                                    <button type="button"
+                                                            wire:click.prevent="removeFileFromUploadQue({{ $loop->index }})"
+                                                            class="inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-max text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                        <div wire:loading wire:target="removeFileFromUploadQue({{ $loop->index }})">
+                                                            <x-loading-blocks />
+                                                        </div>
+                                                        <div class="flex items-center justify-center p-2" wire:loading.remove wire:target="removeFileFromUploadQue({{ $loop->index }})">
+                                                            <img class="w-5 h-5" src="/svg/trash-alt-regular.svg" alt="Remove File From Upload Queue">
+                                                        </div>
+                                                    </button>
+                        
+                                                </div>
 
-                                        {{-- </div>
+                                            {{-- </a> --}}
+
+                                        </div>
 
                                     </div>
 
-                                </div> --}}
+                                    <div wire:loading wire:target="additionalDocumentation" class="flex">
 
-                            {{-- @endforeach --}}
+                                        loading
 
-                        {{-- </div> --}}
+                                    </div>
+
+                                    {{-- {!! $additionalDocumentation[$loop->index]->getMimeType() !!} --}}
+                                    <!-- More people... -->
+
+                                @endforeach
+                                
+                            </div>
+
+                        </div>
 
                     </form>
 
@@ -1809,7 +1857,64 @@
         </div>
     </div>
 
+    
+
 </div>
+
+<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <!--
+        Background overlay, show/hide based on modal state.
+  
+        Entering: "ease-out duration-300"
+          From: "opacity-0"
+          To: "opacity-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100"
+          To: "opacity-0"
+      -->
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+  
+      <!-- This element is to trick the browser into centering the modal contents. -->
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+  
+      <!--
+        Modal panel, show/hide based on modal state.
+  
+        Entering: "ease-out duration-300"
+          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          To: "opacity-100 translate-y-0 sm:scale-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100 translate-y-0 sm:scale-100"
+          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      -->
+      <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+        <div>
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <!-- Heroicon name: outline/check -->
+            <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="mt-3 text-center sm:mt-5">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              Payment successful
+            </h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 sm:mt-6">
+          <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+            Go back to dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script type="text/javascript">
 

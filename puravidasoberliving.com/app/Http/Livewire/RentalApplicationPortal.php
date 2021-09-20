@@ -415,6 +415,12 @@ class RentalApplicationPortal extends Component
         $this->hasIDCardUpload = ! $this->hasIDCardUpload;
     }
 
+    public function removeFileFromUploadQue($index)
+    {
+        unset($this->additionalDocumentation[$index]);
+        $this->additionalDocumentation = array_values($this->additionalDocumentation);
+    }
+
     private function validateStep2()
     {
         // $this->validate();

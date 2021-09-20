@@ -28,6 +28,7 @@ module.exports = {
     },
 
     variants: {
+        width: ["responsive", "hover", "focus"],
         extend: {
             opacity: ["disabled"],
             display: ['first-of-type']
