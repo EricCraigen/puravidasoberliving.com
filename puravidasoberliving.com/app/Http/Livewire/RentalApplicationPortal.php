@@ -16,6 +16,8 @@ class RentalApplicationPortal extends Component
     public $currentStep;
     public $totalSteps;
     public $today;
+    public $modalActive;
+    public $modalFileToPreview;
     public $personalInfo;
     // public $firstName, $middleInitial, $lastName, $dateOfBirth, $socialNumber, $phone;
     public $emergencyContactInfo;
@@ -188,6 +190,8 @@ class RentalApplicationPortal extends Component
         $this->currentStep = 5;
         $this->totalSteps = 10;
         $this->hasIDCardUpload = false;
+        $this->modalActive = false;
+        $this->modalFileToPreview = '';
         $this->additionalDocumentation = [];
         // $this->today = Carbon::now()->format('Y-m-d');
         $this->clearStepTitles();
@@ -245,6 +249,26 @@ class RentalApplicationPortal extends Component
         } else {
             $this->currentStep++;
         }
+    }
+
+    public function activateFilePreviewModal($index)
+    {
+        $fileToPreview = $index;
+        
+        $modalFileToPreview = $index;
+        // dd($this->additionalDocumentation[$index]->temporaryUrl());
+        // array_push( $modalFilePreview, 
+        //     $fileTempUrl = $this->additionalDocumentation[$index]->temporaryUrl()
+        //     // $fileType = $this->additionalDocumentation[$index]->getMimeType(),
+        //     // $fileName= $this->additionalDocumentation[$index]->getClientOriginalName(),
+        //     // $fileSize = number_format((float)($this->additionalDocumentation[$index]->getSize() / 1024), 2, '.', '') . ' kb',
+        // );
+        $this->modalActive = ! $this->modalActive;
+    }
+
+    public function deactivateFilePreviewModal()
+    {
+        $this->modalActive = ! $this->modalActive;
     }
 
     public function completeStep()

@@ -1,3 +1,5 @@
+<div x-data="{ additionalDocumentation: $wire.additionalDocumentation }" class="flex w-full h-auto">
+    
 <div class="relative z-10 px-4 py-10 mx-auto max-w-7xl">
 
     <!-- Confirmation Container -->
@@ -1539,7 +1541,7 @@
                         <div class="flex w-full justify-center items-center mt-2">
 
 
-                            <div x-data="{ additionalDocumentation: $wire.additionalDocumentation }" 
+                            <div 
                                  x-on:dragover="$el.classList.add('active')"
                                  x-on:dragleave="$el.classList.remove('active')"
                                  x-on:drop="$el.classList.remove('active')" 
@@ -1589,7 +1591,7 @@
 
                                     <div wire:loading.remove wire:target="additionalDocumentation" class="relative w-3/4 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 mb-4 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                         
-                                        <div class="flex w-1/3 justify-center items-center relative">
+                                        <div wire:click="activateFilePreviewModal({{ $loop->index }})" class="flex w-1/3 justify-center items-center relative">
 
                                             @if (
                                                     $additionalDocumentation[$loop->index]->getMimeType() == "image/jpeg" || 
@@ -1597,7 +1599,7 @@
                                                     $additionalDocumentation[$loop->index]->getMimeType() == "image/svg"
                                                 )
                                                 
-                                                <img class="w-1/2 h-1/2 rounded-sm hover:w-full hover:h-full" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}">
+                                                <img @click="toggle" class="w-1/2 h-1/2 rounded-sm hover:w-full hover:h-full" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}">
                                             
                                             @elseif (
                                                         $additionalDocumentation[$loop->index]->getMimeType() == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
@@ -1857,66 +1859,169 @@
         </div>
     </div>
 
+    {{-- <div class="fixed z-50 inset-0 overflow-y-auto {{ $modalActive ? '' : 'hidden' }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!--
+            Background overlay, show/hide based on modal state.
+    
+            Entering: "ease-out duration-300"
+            From: "opacity-0"
+            To: "opacity-100"
+            Leaving: "ease-in duration-200"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+            <!-- This element is to trick the browser into centering the modal contents. -->
+        
+            <!--
+                Modal panel, show/hide based on modal state.
+        
+                Entering: "ease-out duration-300"
+                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                To: "opacity-100 translate-y-0 sm:scale-100"
+                Leaving: "ease-in duration-200"
+                From: "opacity-100 translate-y-0 sm:scale-100"
+                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            -->
+            <div class="absolute inset-10 flex flex-col justify-between bg-white rounded-lgtext-left overflow-hidden shadow-xl rounded-xl p-5 transform transition-all">
+                
+        
+    
+                <div class="flex w-full h-3/4 mt-3 justify-center">
+    
+                    @foreach ($additionalDocumentation as $files)
+    
+                        <img class="rounded-lg border-gray-300 shadow-lg {{ $loop->index != $modalFileToPreview ? 'hidden' : '' }}" src="{{ $modalFileToPreview == '' ? '' : $additionalDocumentation[$modalFileToPreview]->temporaryUrl() }}" alt="">
+                        
+                    @endforeach
+    
+    
+                </div>
+    
+                <div class="flex flex-col items-center mt-5 sm:mt-6">
+    
+                    <div class="my-3 text-center sm:mt-5">
+    
+                        <p class="text-sm text-gray-500">
+                            file info here
+                        </p>
+    
+                    </div>
+    
+                    <div wire:click="deactivateFilePreviewModal" class="flex w-1/2">
+    
+                        <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 mr-2 bg-red-500 text-base font-medium text-white hover:bg-red-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                            remove file
+                        </button>
+    
+                        <button @click="toggle" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 ml-2 bg-accent text-base font-medium text-white bg-accent_hover shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                            back
+                        </button>
+    
+                    </div>
+    
+                </div>
+    
+            </div>
+    
+        </div>
+        
+    </div> --}}
     
 
 </div>
 
-<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div class="fixed z-50 inset-0 overflow-y-auto {{ $modalActive ? '' : 'hidden' }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-      <!--
+    <!--
         Background overlay, show/hide based on modal state.
-  
+
         Entering: "ease-out duration-300"
-          From: "opacity-0"
-          To: "opacity-100"
+        From: "opacity-0"
+        To: "opacity-100"
         Leaving: "ease-in duration-200"
-          From: "opacity-100"
-          To: "opacity-0"
-      -->
-      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-  
-      <!-- This element is to trick the browser into centering the modal contents. -->
-      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-  
-      <!--
-        Modal panel, show/hide based on modal state.
-  
-        Entering: "ease-out duration-300"
-          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          To: "opacity-100 translate-y-0 sm:scale-100"
-        Leaving: "ease-in duration-200"
-          From: "opacity-100 translate-y-0 sm:scale-100"
-          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-      -->
-      <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-        <div>
-          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-            <!-- Heroicon name: outline/check -->
-            <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <div class="mt-3 text-center sm:mt-5">
-            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-              Payment successful
-            </h3>
-            <div class="mt-2">
-              <p class="text-sm text-gray-500">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.
-              </p>
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+    
+        <!-- This element is to trick the browser into centering the modal contents. -->
+    
+        <!--
+            Modal panel, show/hide based on modal state.
+    
+            Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+            Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div class="absolute inset-10 flex flex-col justify-between bg-white rounded-lgtext-left overflow-hidden shadow-xl rounded-xl p-5 transform transition-all">
+            
+    
+
+            <div class="flex w-full h-3/4 mt-3 justify-center">
+
+                @foreach ($additionalDocumentation as $files)
+
+                    <img class="rounded-lg border-gray-300 shadow-lg {{ $loop->index != $modalFileToPreview ? 'hidden' : '' }}" src="{{ $modalFileToPreview == '' ? '' : $additionalDocumentation[$modalFileToPreview] }}" alt="">
+                    
+                @endforeach
+
+
             </div>
-          </div>
+
+            <div class="flex flex-col items-center mt-5 sm:mt-6">
+
+                <div class="my-3 text-center sm:mt-5">
+
+                    <p class="text-sm text-gray-500">
+                        file info here
+                    </p>
+
+                </div>
+
+                <div wire:click="deactivateFilePreviewModal" class="flex w-1/2">
+
+                    <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 mr-2 bg-red-500 text-base font-medium text-white hover:bg-red-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                        remove file
+                    </button>
+
+                    <button @click="toggle" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 ml-2 bg-accent text-base font-medium text-white bg-accent_hover shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                        back
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="mt-5 sm:mt-6">
-          <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-            Go back to dashboard
-          </button>
-        </div>
-      </div>
+
     </div>
-  </div>
+    
+</div>
+
+</div>
+
+
 
 <script type="text/javascript">
+
+// document.addEventListener('alpine:init', () => {
+//     Alpine.data('modalActive', () => ({
+//         open: false,
+
+//         toggle() {
+//             console.log('toggling');
+//             this.open = ! this.open
+//         },
+//     }))
+// });
 
 // window.livewire.on(‘file-dropped’, (event) => {
 //     alert('working');
