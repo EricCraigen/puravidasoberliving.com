@@ -1,4 +1,7 @@
-<div class="flex w-full h-10 px-2 items-center justify-between bg-accent">
+@php
+    $isPreviewActive = isset($previewActive);
+@endphp
+<div class="flex w-full h-10 px-2 items-center justify-between bg-accent relative z-40">
     <div class="flex">
         <div class="flex space-x-6">
             <a href="#" class="text-black hover:text-white">

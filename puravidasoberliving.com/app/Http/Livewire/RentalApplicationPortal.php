@@ -16,8 +16,10 @@ class RentalApplicationPortal extends Component
     public $currentStep;
     public $totalSteps;
     public $today;
-    public $modalActive;
-    public $modalFileToPreview;
+    public $previewActive;
+    public $previewIDFrontActive;
+    public $previewIDBackActive;
+    public $fileToPreview;
     public $personalInfo;
     // public $firstName, $middleInitial, $lastName, $dateOfBirth, $socialNumber, $phone;
     public $emergencyContactInfo;
@@ -139,8 +141,8 @@ class RentalApplicationPortal extends Component
     {
         return [
 
-            'photoIdCardFront' => 'image|max:1024',
-            'photoIdCardBack' => 'image|max:1024',
+            'photoIdCardFront' => 'image|max:12288',
+            'photoIdCardBack' => 'image|max:12288',
             // personalInfo
             'personalInfo.firstName' => 'required|min:2|max:255',
             'personalInfo.middleInitial' => 'required|max:1',
@@ -190,10 +192,14 @@ class RentalApplicationPortal extends Component
         $this->currentStep = 5;
         $this->totalSteps = 10;
         $this->hasIDCardUpload = false;
-        $this->modalActive = false;
-        $this->modalFileToPreview = '';
+        $this->previewActive = false;
+        $this->previewIDFrontActive = false;
+        $this->previewIDBackActive = false;
+        $this->fileToPreview = '';
         $this->additionalDocumentation = [];
-        // $this->today = Carbon::now()->format('Y-m-d');
+        // $this->photoIdCardFront = [];
+        // $this->photoIdCardBack = [];
+        $this->today = Carbon::now()->format('Y-m-d');
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
@@ -251,25 +257,41 @@ class RentalApplicationPortal extends Component
         }
     }
 
-    public function activateFilePreviewModal($index)
+    public function toggleFilePreview($index)
     {
-        $fileToPreview = $index;
-        
-        $modalFileToPreview = $index;
+        $this->fileToPreview = $index;
+
+        // $modalIndexToPreview = $index;
         // dd($this->additionalDocumentation[$index]->temporaryUrl());
-        // array_push( $modalFilePreview, 
+        // $modalFileToPreview = $this->additionalDocumentation[$index]->temporaryUrl();
+        // array_push( $modalFilePreview,
         //     $fileTempUrl = $this->additionalDocumentation[$index]->temporaryUrl()
         //     // $fileType = $this->additionalDocumentation[$index]->getMimeType(),
         //     // $fileName= $this->additionalDocumentation[$index]->getClientOriginalName(),
         //     // $fileSize = number_format((float)($this->additionalDocumentation[$index]->getSize() / 1024), 2, '.', '') . ' kb',
         // );
-        $this->modalActive = ! $this->modalActive;
+        if ($this->previewActive == true) {
+            $this->fileToPreview = '';
+        }
+        $this->previewActive = ! $this->previewActive;
     }
 
-    public function deactivateFilePreviewModal()
+    public function toggleIDFrontPreview()
     {
-        $this->modalActive = ! $this->modalActive;
+
+        $this->previewIDFrontActive = ! $this->previewIDFrontActive;
     }
+
+    public function toggleIDBackPreview()
+    {
+
+        $this->previewIDBackActive = ! $this->previewIDBackActive;
+    }
+
+    // public function deactivateFilePreviewModal()
+    // {
+    //     $this->previewActive = ! $this->previewActive;
+    // }
 
     public function completeStep()
     {
@@ -933,10 +955,7 @@ class RentalApplicationPortal extends Component
             'state' => '',
             'number' => '',
             'expiration' => '',
-            // 'photoIdCardFront' => '',
-            // 'photoIdCardBack' => '',
             'hasSocialCard' => '',
-            'additionalDocumentation' => [],
          );
     }
 
