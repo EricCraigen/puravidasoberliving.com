@@ -1440,14 +1440,14 @@
                                                 <div x-data="{toggleCloseFrontPreview: false}"
                                                      x-on:mouseover="toggleCloseFrontPreview = true"
                                                      x-on:mouseleave="toggleCloseFrontPreview = false"
-                                                     class="{{ $previewIDFrontActive ? 'p-5' : '' }}"
+                                                     class="{{ $previewIDFrontActive ? 'p-5' : '' }} flex max-w-xl max-h-xl bg-gray-300 bg-opacity-50 rounded-lg"
                                                 >
 
-                                                    <div class="flex w-full relative cursor-pointer">
+                                                    <div class="relative cursor-pointer">
 
-                                                        <div :class="toggleCloseFrontPreview ? 'absolute inset-0 w-full h-full bg-gray-900 bg-opacity-25 z-10' : 'hidden'" class="{{ $previewIDFrontActive ? '' : 'hidden' }}"></div>
+                                                        <div :class="toggleCloseFrontPreview ? 'absolute inset-0 w-full h-full bg-gray-900 bg-opacity-25 rounded-lg z-10' : 'hidden'" class="{{ $previewIDFrontActive ? '' : 'hidden' }}"></div>
 
-                                                        <div :class="toggleCloseFrontPreview ? 'absolute text-7xl text-red-500 font-black text-stroke text-shadow-2 inset-1/2 z-20' : 'hidden'" class="{{ $previewIDFrontActive ? '' : 'hidden' }} ">X</div>
+                                                        <div :class="toggleCloseFrontPreview ? 'absolute text-7xl text-red-500 font-black text-stroke text-shadow-2 top-3 right-5 z-20' : 'hidden'" class="{{ $previewIDFrontActive ? '' : 'hidden' }} ">X</div>
 
                                                         <img wire:click="toggleIDFrontPreview()" class="w-full h-auto rounded-lg border-1 border-gray-600 shadow-md pointer-events-auto" src="{{ $photoIdCardFront->temporaryUrl() }}" alt="{{ $photoIdCardFront->getClientOriginalName() }}">
 
@@ -1557,7 +1557,7 @@
                                                 <div x-data="{toggleCloseBackPreview: false}"
                                                      x-on:mouseover="toggleCloseBackPreview = true"
                                                      x-on:mouseleave="toggleCloseBackPreview = false"
-                                                     class="{{ $previewIDBackActive ? 'p-5' : '' }}"
+                                                     class="{{ $previewIDBackActive ? 'm-5' : '' }} flex max-w-xl max-h-xl"
                                                 >
 
                                                     <div class="flex w-full relative cursor-pointer">
