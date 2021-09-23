@@ -1381,7 +1381,7 @@
 
                                 <label class="inline-block mb-2 font-black text-lg text-gray-900">
 
-                                    FRONT
+                                    FRONT{{ $identificationInfo['type'] ? ' of ' . $identificationInfo['type'] : '' }}
 
                                 </label>
 
@@ -1488,6 +1488,7 @@
                             </div>
 
                             {{-- BACK OF ID --}}
+
                             <div x-data="{ photoIdCardBack, isUploading: false, progress: 0 }"
                                  x-on:livewire-upload-start="isUploading = true"
                                  x-on:livewire-upload-finish="isUploading = false"
@@ -1498,7 +1499,7 @@
 
                                 <label class="inline-block mb-2 font-black text-lg text-gray-900">
 
-                                    BACK
+                                    BACK{{ $identificationInfo['type'] ? ' of ' . $identificationInfo['type'] : '' }}
 
                                 </label>
 
@@ -1557,14 +1558,14 @@
                                                 <div x-data="{toggleCloseBackPreview: false}"
                                                      x-on:mouseover="toggleCloseBackPreview = true"
                                                      x-on:mouseleave="toggleCloseBackPreview = false"
-                                                     class="{{ $previewIDBackActive ? 'm-5' : '' }} flex max-w-xl max-h-xl"
+                                                     class="{{ $previewIDBackActive ? 'p-5' : '' }} flex max-w-xl max-h-xl bg-gray-300 bg-opacity-50 rounded-lg"
                                                 >
 
-                                                    <div class="flex w-full relative cursor-pointer">
+                                                    <div class="relative cursor-pointer">
 
-                                                        <div :class="toggleCloseBackPreview ? 'absolute inset-0 w-full h-full bg-gray-900 bg-opacity-25 z-10' : 'hidden'" class="{{ $previewIDBackActive ? '' : 'hidden' }}"></div>
+                                                        <div :class="toggleCloseBackPreview ? 'absolute inset-0 w-full h-full bg-gray-900 bg-opacity-25 rounded-lg z-10' : 'hidden'" class="{{ $previewIDBackActive ? '' : 'hidden' }}"></div>
 
-                                                        <div :class="toggleCloseBackPreview ? 'absolute text-7xl text-red-500 font-black text-stroke text-shadow-2 inset-1/2 z-20' : 'hidden'" class="{{ $previewIDBackActive ? '' : 'hidden' }} ">X</div>
+                                                        <div :class="toggleCloseBackPreview ? 'absolute text-7xl text-red-500 font-black text-stroke text-shadow-2 top-3 right-5 z-20' : 'hidden'" class="{{ $previewIDBackActive ? '' : 'hidden' }} ">X</div>
 
                                                         <img wire:click="toggleIDBackPreview()" class="w-full h-auto rounded-lg border-1 border-gray-600 shadow-md pointer-events-auto" src="{{ $photoIdCardBack->temporaryUrl() }}" alt="{{ $photoIdCardBack->getClientOriginalName() }}">
 
@@ -1603,255 +1604,6 @@
                                 @enderror
 
                             </div>
-
-                            {{-- <div x-data="{ photoIdCardFront, isUploading: false, progress: 0 }"
-                                 x-on:livewire-upload-start="isUploading = true"
-                                 x-on:livewire-upload-finish="isUploading = false"
-                                 x-on:livewire-upload-error="isUploading = false"
-                                 x-on:livewire-upload-progress="progress = $event.detail.progress"
-                                 class="flex flex-col items-center w-1/2"
-                            >
-
-                                <label class="inline-block mb-2 font-black text-lg text-gray-900">
-
-                                    BACK
-
-                                </label>
-
-                                <div x-data="{ photoIdCardBack: $wire.photoIdCardBack }"
-                                     id="photoIdCardBackDropZone"
-                                     x-on:mouseover="$el.classList.add('active')"
-                                     x-on:mouseleave="$el.classList.remove('active')"
-                                     x-on:dragover="$el.classList.add('active')"
-                                     x-on:dragleave="$el.classList.remove('active')"
-                                     x-on:drop="$el.classList.remove('active')"
-                                     class="flex w-full max-h-max p-3 bg-white rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500 relative"
-                                >
-                                    <input x-data="{ photoIdCardBack }"
-                                           wire:model="photoIdCardBack"
-                                           x-on:change="photoIdCardBack = $event.target.files; console.log($event.target.files);"
-                                           id="photoIdCardBack"
-                                           name="photoIdCardBack"
-                                           value="photoIdCardBack"
-                                           type="file"
-                                           class="@error("photoIdCardBack") is-invalid @enderror absolute inset-0 opacity-0 w-full cursor-pointer" />
-
-                                    <div wire:loading.remove
-                                            wire:target="photoIdCardBack"
-                                            class="flex flex-col w-full items-center p-6 border-2 border-gray-300 border-dashed rounded-md"
-                                    >
-
-                                        <div class="{{ $photoIdCardBack ? 'hidden' : '' }} flex flex-col items-center w-full">
-
-                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-
-                                            <div class="flex text-sm text-gray-600">
-
-                                                <label for="photoIdCardBack" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                    <span>Upload a file</span>
-
-                                                </label>
-
-                                                <p class="pl-1">
-                                                    or drag and drop
-                                                </p>
-
-                                            </div>
-
-                                            <p class="text-xs text-gray-500">
-                                                PNG, JPG, GIF, DOC, DOCX, ZIP, TXT up to 10MB
-                                            </p>
-
-                                        </div>
-
-                                        <div class="{{ $photoIdCardBack ? '' : 'hidden' }} {{ $previewIDBackActive ? 'fixed inset-0 bg-gray-900 bg-opacity-95 pointer-events-none z-50' : 'relative' }} flex w-full justify-center items-center">
-
-                                            @if ($photoIdCardBack)
-                                                <img wire:click="toggleIDBackPreview()" class="w-full h-auto rounded-lg border-1 border-gray-600 shadow-md pointer-events-auto" src="{{ $photoIdCardBack->temporaryUrl() }}" alt="">
-                                            @endif
-
-                                        </div>
-
-                                        <div class="{{ !$previewIDBackActive ? 'hidden' : '' }} relative flex w-full justify-center items-center">
-
-                                            @if ($photoIdCardBack)
-                                                <img class="w-full h-auto rounded-lg border-1 border-gray-600 shadow-md pointer-events-auto" src="{{ $photoIdCardBack->temporaryUrl() }}" alt="{{ $photoIdCardBack->getClientOriginalName() }}">
-                                            @endif
-
-                                        </div>
-
-                                    </div>
-
-                                    <div wire:loading wire:target="photoIdCardBack" class="flex w-full h-full justify-center items-center shadow-xl">
-
-                                        <div class="flex w-full" x-show="isUploading">
-                                            <progress class="flex w-full" max="100" x-bind:value="progress"></progress>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                @error("photoIdCardBack")
-                                    <div class="flex w-full invalid-feedback pl-7" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
-
-                            </div> --}}
-
-                            {{-- <div x-data="{ photoIdCardBack, isUploading: false, progress: 0, previewIDBackActive: $wire.previewIDBackActive }"
-                                 x-on:livewire-upload-start="isUploading = true"
-                                 x-on:livewire-upload-finish="isUploading = false"
-                                 x-on:livewire-upload-error="isUploading = false"
-                                 x-on:livewire-upload-progress="progress = $event.detail.progress"
-                                 class="flex flex-col items-center w-1/2"
-                            >
-
-                                <label class="inline-block mb-2 font-black text-lg text-gray-900">
-
-                                    BACK
-
-                                </label>
-
-                                <div x-data="{ photoIdCardBack: $wire.photoIdCardBack }"
-                                     id="photoIdCardBackDropZone"
-                                     x-on:mouseover="$el.classList.add('active')"
-                                     x-on:mouseleave="$el.classList.remove('active')"
-                                     x-on:dragover="$el.classList.add('active')"
-                                     x-on:dragleave="$el.classList.remove('active')"
-                                     x-on:drop="$el.classList.remove('active')"
-                                     class="flex w-full max-h-max p-3 bg-white rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500 relative"
-                                >
-                                    <input x-data="{ photoIdCardBack }"
-                                           wire:model="photoIdCardBack"
-                                           x-on:change="photoIdCardBack = $event.target.files; console.log($event.target.files);"
-                                           id="photoIdCardBack"
-                                           name="photoIdCardBack"
-                                           value="photoIdCardBack"
-                                           type="file"
-                                           class="@error("photoIdCardBack") is-invalid @enderror absolute inset-0 opacity-0 w-full cursor-pointer" />
-
-                                    <div wire:loading.remove
-                                            wire:target="photoIdCardBack"
-                                            class="flex flex-col w-full items-center p-6 border-2 border-gray-300 border-dashed rounded-md"
-                                    >
-
-                                        <div class="{{ $photoIdCardBack ? 'hidden' : '' }} flex flex-col items-center w-full">
-
-                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-
-                                            <div class="flex text-sm text-gray-600">
-
-                                                <label for="photoIdCardBack" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                    <span>Upload a file</span>
-
-                                                </label>
-
-                                                <p class="pl-1">
-                                                    or drag and drop
-                                                </p>
-
-                                            </div>
-
-                                            <p class="text-xs text-gray-500">
-                                                PNG, JPG, GIF, DOC, DOCX, ZIP, TXT up to 10MB
-                                            </p>
-
-                                        </div>
-
-                                        <div x-data="{ previewIDBackActive }" x-on:click="previewIDBackActive = ! previewIDBackActive; console.log(previewIDBackActive);" class="{{ $photoIdCardBack ? '' : 'hidden' }} flex w-full justify-center items-center relative z-20">
-
-                                            @if ($photoIdCardBack)
-                                                <img class="w-full h-auto rounded-lg border-1 border-gray-600 shadow-md" src="{{ $photoIdCardBack->temporaryUrl() }}" alt="">
-                                            @endif
-
-                                        </div>
-
-                                    </div>
-
-                                    <div wire:loading wire:target="photoIdCardBack" class="flex w-full h-full justify-center items-center shadow-xl">
-
-                                        <div class="flex w-full" x-show="isUploading">
-                                            <progress class="flex w-full" max="100" x-bind:value="progress"></progress>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                @error("photoIdCardBack")
-                                    <div class="flex w-full invalid-feedback pl-7" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
-
-                            </div> --}}
-
-                            {{-- <div class="flex flex-col items-center w-1/2">
-
-                                <label class="inline-block mb-2 font-black text-lg text-gray-900">
-
-                                    BACK
-
-                                </label>
-
-                                <div class="flex w-full max-h-max p-3 bg-white rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500 relative">
-
-                                    <input wire:model="photoIdCardBack"
-                                           id="photoIdCardBack"
-                                           name="photoIdCardBack"
-                                           value="photoIdCardBack"
-                                           type="file"
-                                           class="@error("photoIdCardBack") is-invalid @enderror absolute inset-0 opacity-0" />
-
-                                    <div class="flex items-center justify-center w-full">
-
-                                        <label class="flex flex-col w-full min-h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
-
-                                            <div class="{{ $photoIdCardBack ? 'hidden' : '' }} flex flex-col items-center justify-center pt-7">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="w-12 h-12 text-gray-300" viewBox="0 0 20 20"
-                                                    fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-
-                                                <p class="pt-1 text-sm tracking-wider text-gray-300">
-                                                    Select a photo
-                                                </p>
-
-                                            </div>
-
-                                            <div class="{{ $photoIdCardBack ? '' : 'hidden' }} flex flex-col items-center justify-center pt-7">
-
-                                                @if ($photoIdCardBack)
-                                                    <img src="{{ $photoIdCardBack->temporaryUrl() }}" alt="">
-                                                @endif
-
-                                            </div>
-
-
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-                                @error("photoIdCardBack")
-                                    <div class="flex w-full invalid-feedback pl-7" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
-
-                            </div> --}}
 
                         </div>
 
@@ -1980,7 +1732,7 @@
 
                                     <div wire:loading.remove wire:target="additionalDocumentation" class="w-3/4 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 mb-4 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
 
-                                        <div class="flex w-1/3 relative">
+                                        <div class="flex w-1/3">
 
                                             @if (
                                                     $additionalDocumentation[$loop->index]->getMimeType() == "image/jpeg" ||
@@ -1989,13 +1741,60 @@
                                                     $additionalDocumentation[$loop->index]->getMimeType() == "image/svg+xml"
                                                 )
 
-                                                <div class="flex {{ !$previewActive ? 'relative inset-0' : 'fixed inset-0 bg-gray-900 bg-opacity-95 pointer-events-none z-50' }}  {{ $fileToPreview != '' ? ($fileToPreview == $loop->index && $previewActive ? '' : 'hidden transition-all ease-out duration-1000 opacity-0') : 'transition-all ease-in duration-1000 opacity-100' }}">
+                                                <div class="{{ $previewActive ? 'fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-95 z-50' : 'relative z-0' }} {{ $fileToPreview != '' ? ($fileToPreview == $loop->index ? '' : 'hidden') : '' }}">
 
-                                                    <img wire:click="toggleFilePreview({{ $loop->index }})" class="flex cursor-pointer rounded-lg my-auto mx-auto pointer-events-auto {{ $fileToPreview != '' ? ($fileToPreview == $loop->index && $previewActive ? '' : 'hidden') : 'border border-white w-full h-auto' }}" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}" />
+                                                    <div x-data="{closePreviewIndication: false}"
+                                                            x-on:mouseover="closePreviewIndication = true"
+                                                            x-on:mouseleave="closePreviewIndication = false"
+                                                            class="{{ $previewActive ? 'p-2 m-auto' : '' }} max-w-xl max-h-xl bg-gray-300 bg-opacity-50 rounded-lg"
+                                                    >
+
+                                                        <div class="relative w-full">
+
+                                                            {{-- <div :class="closePreviewIndication ? 'absolute inset-0 w-full h-full bg-gray-900 bg-opacity-25 rounded-lg z-10' : 'hidden'" class="{{ $previewActive ? '' : 'hidden' }}"></div> --}}
+
+                                                            {{-- <div :class="closePreviewIndication ? 'absolute text-7xl text-red-500 font-black text-stroke text-shadow-2 top-3 right-5 z-20' : 'hidden'" class="{{ $previewActive ? '' : 'hidden' }} ">X</div> --}}
+
+                                                            <img wire:click="toggleFilePreview({{ $loop->index }})" class="{{ $previewActive ? 'pointer-events-none' : '' }} w-full h-auto rounded-lg border-1 border-gray-600 shadow-xl bg-white bg-opacity-15" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}" />
+
+                                                        </div>
+
+                                                        <div class="{{ $previewActive ? 'relative' : 'hidden' }} flex flex-col items-center w-full mt-4">
+
+                                                            <h3 class="text-md text-gray-900 font-semibold text-center">
+                                                                Name: {{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}
+                                                            </h3>
+
+                                                            <p class="text-sm text-gray-600 font-bold text-center mt-1">
+                                                                @php
+                                                                    $fileSize = number_format((float)($additionalDocumentation[$loop->index]->getSize() / 1024), 2, '.', '');
+                                                                @endphp
+                                                                @if ($fileSize < 1024.0)
+                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($additionalDocumentation[$loop->index]->getSize() / 1024), 2, '.', '') . ' KB' }}
+                                                                @else
+                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($additionalDocumentation[$loop->index]->getSize() / (1024 * 1024)), 2, '.', '') . ' MB' }}
+                                                                @endif
+                                                            </p>
+
+                                                            <button type="button"
+                                                                    wire:click.prevent="toggleFilePreview({{ $loop->index }})"
+                                                                    class="w-full mt-3 font-medium text-white border border-transparent rounded-md shadow-xl text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                <div wire:loading wire:target="toggleFilePreview({{ $loop->index }})">
+                                                                    <x-loading-blocks />
+                                                                </div>
+                                                                <div class="flex items-center justify-center w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="toggleFilePreview({{ $loop->index }})">
+                                                                    {{-- <img class="flex mr-2" src="/svg/register-icon.svg" alt="Upload ID Card"> --}}
+                                                                    Close Preview
+                                                                </div>
+                                                            </button>
+
+                                                        </div>
+
+                                                    </div>
 
                                                 </div>
 
-                                                <div class="flex relative inset-0 {{ !$previewActive ? 'hidden transition-all ease-out duration-1000 opacity-0' : 'transition-all ease-in duration-1000 opacity-100' }}">
+                                                <div class="flex relative inset-0 {{ !$previewActive ? 'hidden' : '' }}">
 
                                                     <img class="rounded-md w-full h-auto" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}" />
 
@@ -2204,10 +2003,10 @@
     </div>
 
     <!-- Bottom Navigation -->
-    <div class="{{ $previewActive || $previewIDFrontActive || $previewIDBackActive ? 'z-0' : 'z-20' }} sticky bottom-0 left-0 right-0 flex flex-col justify-center max-w-screen-lg mx-auto align-middle rounded-b-md">
+    <div class="{{ $previewActive || $previewIDFrontActive || $previewIDBackActive ? 'z-0' : 'z-30' }} sticky bottom-0 left-0 right-0 flex flex-col justify-center max-w-screen-lg mx-auto align-middle rounded-b-md">
 
         <!-- Bottom Navigation 1 -->
-        <div class="relative flex flex-col justify-center w-full py-1 bg-white px-14">
+        <div class="relative flex flex-col justify-center w-full py-1 bg-white px-2">
 
             <!-- Progress Bar -->
             <div class="flex items-center justify-end w-full mb-2 pt-2 border-t-2 border-gray-300">
@@ -2221,7 +2020,7 @@
         </div>
 
         <!-- Bottom Navigation 2 -->
-        <div class="flex justify-between w-full py-2 shadow-lg px-14 bg-gray-600 rounded-b-md">
+        <div class="flex justify-between w-full p-2 shadow-lg bg-gray-600 rounded-b-md">
             <div class="w-1/3">
 
                 <button type="button"
@@ -2259,156 +2058,9 @@
         </div>
     </div>
 
-    {{-- <div class="fixed z-50 inset-0 overflow-y-auto {{ $modalActive ? '' : 'hidden' }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <!--
-            Background overlay, show/hide based on modal state.
-
-            Entering: "ease-out duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-            Leaving: "ease-in duration-200"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-            <!-- This element is to trick the browser into centering the modal contents. -->
-
-            <!--
-                Modal panel, show/hide based on modal state.
-
-                Entering: "ease-out duration-300"
-                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                To: "opacity-100 translate-y-0 sm:scale-100"
-                Leaving: "ease-in duration-200"
-                From: "opacity-100 translate-y-0 sm:scale-100"
-                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            -->
-            <div class="absolute inset-10 flex flex-col justify-between bg-white rounded-lgtext-left overflow-hidden shadow-xl rounded-xl p-5 transform transition-all">
-
-
-
-                <div class="flex w-full h-3/4 mt-3 justify-center">
-
-                    @foreach ($additionalDocumentation as $files)
-
-                        <img class="rounded-lg border-gray-300 shadow-lg {{ $loop->index != $modalFileToPreview ? 'hidden' : '' }}" src="{{ $modalFileToPreview == '' ? '' : $additionalDocumentation[$modalFileToPreview]->temporaryUrl() }}" alt="">
-
-                    @endforeach
-
-
-                </div>
-
-                <div class="flex flex-col items-center mt-5 sm:mt-6">
-
-                    <div class="my-3 text-center sm:mt-5">
-
-                        <p class="text-sm text-gray-500">
-                            file info here
-                        </p>
-
-                    </div>
-
-                    <div wire:click="deactivateFilePreviewModal" class="flex w-1/2">
-
-                        <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 mr-2 bg-red-500 text-base font-medium text-white hover:bg-red-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-                            remove file
-                        </button>
-
-                        <button @click="toggle" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 ml-2 bg-accent text-base font-medium text-white bg-accent_hover shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-                            back
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div> --}}
-
-
 </div>
 
-{{-- <div class="fixed z-50 inset-0 overflow-y-auto {{ $modalActive ? '' : 'hidden' }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <!--
-        Background overlay, show/hide based on modal state.
-
-        Entering: "ease-out duration-300"
-        From: "opacity-0"
-        To: "opacity-100"
-        Leaving: "ease-in duration-200"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-        <!-- This element is to trick the browser into centering the modal contents. -->
-
-        <!--
-            Modal panel, show/hide based on modal state.
-
-            Entering: "ease-out duration-300"
-            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            To: "opacity-100 translate-y-0 sm:scale-100"
-            Leaving: "ease-in duration-200"
-            From: "opacity-100 translate-y-0 sm:scale-100"
-            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-        -->
-        <div class="absolute inset-10 flex flex-col justify-between bg-white rounded-lgtext-left overflow-hidden shadow-xl rounded-xl p-5 transform transition-all">
+{{-- <script type="text/javascript">
 
 
-            <div id="imagePreviews" class="flex w-full h-3/4 mt-3 justify-center">
-
-                @foreach ($additionalDocumentation as $files)
-
-                    <img wire:target="additionalDocumentation" id="filePreview" class="{{ $loop->index != $modalIndexToPreview ? 'hidden' : '' }} rounded-lg border-gray-300 shadow-lg" src="{{ url($modalIndexToPreview != '' ? $filePreviews[$modalIndexToPreview]['fileUrl'] : '') }}" alt="{{ $modalIndexToPreview != '' ? $filePreviews[$modalIndexToPreview]['fileUrl'] : '' }}" />
-
-                @endforeach
-
-
-            </div>
-
-            <div class="flex flex-col items-center mt-5 sm:mt-6">
-
-                <div class="my-3 text-center sm:mt-5">
-
-                    <p class="text-sm text-gray-500">
-                        file info here
-                    </p>
-
-                </div>
-
-                <div  class="flex w-1/2">
-
-                    <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 mr-2 bg-red-500 text-base font-medium text-white hover:bg-red-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-                        remove file
-                    </button>
-
-                    <button wire:click="deactivateFilePreviewModal" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 ml-2 bg-accent text-base font-medium text-white bg-accent_hover shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-                        back
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div> --}}
-
-
-
-
-<script type="text/javascript">
-
-
-</script>
+</script> --}}

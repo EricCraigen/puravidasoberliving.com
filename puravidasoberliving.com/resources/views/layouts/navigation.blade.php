@@ -1,7 +1,7 @@
 @php
     $isPreviewActive = isset($previewActive);
 @endphp
-<div class="flex w-full h-10 px-2 items-center justify-between bg-accent relative z-40">
+<div class="flex w-full h-10 px-2 items-center justify-between bg-accent relative z-40 {{ $isPreviewActive ? $previewActive ? 'z-0' : '' : '' }}">
     <div class="flex">
         <div class="flex space-x-6">
             <a href="#" class="text-black hover:text-white">
@@ -108,7 +108,7 @@
 <nav x-data="{open: false}"
      id="main-navigation"
      x-on:scroll.window="minifyNavOnScroll(window.scrollY)"
-     class="bg-gray-200 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 navTopPadding navTopSize sticky top-0 shadow z-40">
+     class="bg-gray-200 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 navTopPadding navTopSize sticky top-0 shadow z-40 {{ $isPreviewActive ? $previewActive ? 'z-0' : '' : '' }}">
     <!-- Primary Navigation Menu -->
     <div class="w-full px-2">
         <div class="flex justify-between h-16">

@@ -45,7 +45,8 @@ class RentalApplicationPortal extends Component
     public $additionalDocumentation;
     protected $rules;
 
-    protected $messages = [
+    protected $messages =
+    [
         'photoIdCardFront.image' => 'Image failed to upload. Valid file formats: .jpeg, .png, .jpg, .bmp, .gif',
         'photoIdCardFront.max' => 'File size cannot exceed 1MB.',
         'photoIdCardBack.image' => 'Image failed to upload. Valid file formats: .jpeg, .png, .jpg, .bmp, .gif',
@@ -261,15 +262,6 @@ class RentalApplicationPortal extends Component
     {
         $this->fileToPreview = $index;
 
-        // $modalIndexToPreview = $index;
-        // dd($this->additionalDocumentation[$index]->temporaryUrl());
-        // $modalFileToPreview = $this->additionalDocumentation[$index]->temporaryUrl();
-        // array_push( $modalFilePreview,
-        //     $fileTempUrl = $this->additionalDocumentation[$index]->temporaryUrl()
-        //     // $fileType = $this->additionalDocumentation[$index]->getMimeType(),
-        //     // $fileName= $this->additionalDocumentation[$index]->getClientOriginalName(),
-        //     // $fileSize = number_format((float)($this->additionalDocumentation[$index]->getSize() / 1024), 2, '.', '') . ' kb',
-        // );
         if ($this->previewActive == true) {
             $this->fileToPreview = '';
         }
@@ -287,11 +279,6 @@ class RentalApplicationPortal extends Component
 
         $this->previewIDBackActive = ! $this->previewIDBackActive;
     }
-
-    // public function deactivateFilePreviewModal()
-    // {
-    //     $this->previewActive = ! $this->previewActive;
-    // }
 
     public function completeStep()
     {
@@ -330,8 +317,6 @@ class RentalApplicationPortal extends Component
                 break;
             default;
         }
-
-
 
         // write to database
 
