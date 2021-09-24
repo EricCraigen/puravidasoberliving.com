@@ -1280,9 +1280,9 @@
                         </div>
 
                         {{-- FORM ROW 1 --}}
-                        <div class="grid grid-cols-6 gap-2">
+                        <div class="grid grid-cols-8 gap-2">
 
-                            <div class="md:col-span-1 col-span-3 ">
+                            <div class="md:col-span-2 col-span-4 ">
                                 <label for="identificationInfo.type" class="block text-lg font-black text-gray-700">Type</label>
                                 <div class="mt-1">
                                     <label for="identificationInfo.type" class="sr-only">Type</label>
@@ -1303,7 +1303,7 @@
                                 </div>
                             </div>
 
-                            <div class="md:col-span-1 col-span-3 ">
+                            <div class="md:col-span-2 col-span-4 ">
                                 <label for="identificationInfo.state" class="block text-lg font-black text-gray-700">State</label>
                                 <div class="mt-1">
                                     <label for="identificationInfo.state" class="sr-only">State</label>
@@ -1324,7 +1324,7 @@
                                 </div>
                             </div>
 
-                            <div class="md:col-span-2 col-span-6 ">
+                            <div class="md:col-span-2 col-span-5 ">
                                 <label for="identificationInfo.number" class="block text-lg font-black text-gray-700">Number</label>
                                 <div class="mt-1">
                                     <input wire:model="identificationInfo.number" type="text" name="identificationInfo.number" id="identificationInfo.number" required autocomplete="" value="identificationInfo.number" class="@error('identificationInfo.number') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
@@ -1336,7 +1336,7 @@
                                 </div>
                             </div>
 
-                            <div class="md:col-span-2 col-span-4 ">
+                            <div class="md:col-span-2 col-span-3 ">
                                 <label for="identificationInfo.expiration" class="block text-lg font-black text-gray-700">Expiration Date</label>
                                 <div class="mt-1">
                                     <input wire:model="identificationInfo.expiration" type="date" name="identificationInfo.expiration" id="identificationInfo.expiration" required autocomplete="" value="identificationInfo.expiration" class="@error('identificationInfo.expiration') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10">
