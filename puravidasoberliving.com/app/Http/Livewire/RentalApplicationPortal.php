@@ -21,9 +21,7 @@ class RentalApplicationPortal extends Component
     public $previewIDBackActive;
     public $fileToPreview;
     public $personalInfo;
-    // public $firstName, $middleInitial, $lastName, $dateOfBirth, $socialNumber, $phone;
     public $emergencyContactInfo;
-    // public $emergencyContactCounter;
     public $additionalEmergencyContactInfo;
     public $legalInfo;
     public $medicalInfo;
@@ -136,6 +134,15 @@ class RentalApplicationPortal extends Component
         'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
         'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
         'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
+        // identificationInfo
+        'identificationInfo.type.required' => 'An identification type is required.',
+        'identificationInfo.state.required' => 'A state is required.',
+        'identificationInfo.number.required' => 'An identification number is required.',
+        'identificationInfo.number.min' => 'An identification number must contain at least 2 characters.',
+        'identificationInfo.number.max' => 'An identification number contain more than 50 characters.',
+        'identificationInfo.expiration.required' => 'An experiation date is required.',
+        'identificationInfo.expiration.date' => 'Please select a valid experiation date.',
+        'identificationInfo.hasSocialCard.required' => 'Please indicate if you possess a social security card.',
     ];
 
     protected function rules()
@@ -185,12 +192,18 @@ class RentalApplicationPortal extends Component
             'fundingInfo.sources.*.reference.firstName' => 'required|min:2|max:255',
             'fundingInfo.sources.*.reference.lastName' => 'required|min:2|max:255',
             'fundingInfo.sources.*.reference.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+            // identificationInfo
+            'identificationInfo.type' => 'required',
+            'identificationInfo.state' => 'required',
+            'identificationInfo.number' => 'required|min:2|max:50',
+            'identificationInfo.expiration' => 'required|date',
+            'identificationInfo.hasSocialCard' => 'required',
         ];
     }
 
     public function mount()
     {
-        $this->currentStep = 5;
+        $this->currentStep = 6;
         $this->totalSteps = 10;
         $this->hasIDCardUpload = false;
         $this->previewActive = false;
@@ -198,8 +211,6 @@ class RentalApplicationPortal extends Component
         $this->previewIDBackActive = false;
         $this->fileToPreview = '';
         $this->additionalDocumentation = [];
-        // $this->photoIdCardFront = [];
-        // $this->photoIdCardBack = [];
         $this->today = Carbon::now()->format('Y-m-d');
         $this->clearStepTitles();
         $this->clearStepStatuses();
@@ -215,6 +226,11 @@ class RentalApplicationPortal extends Component
         $this->clearIdentificationTypes();
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     // public function updatedPhoto()
     // {
     //     if ($this->photoIdCardFront) {
@@ -228,57 +244,6 @@ class RentalApplicationPortal extends Component
     //     }
 
     // }
-
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
-    public function toggleCompletedTaskIcon()
-    {
-        $this->stepStatuses[$this->stepTitles[$this->currentStep]] = 'complete';
-        $this->stepStatuses[$this->stepTitles[$this->currentStep + 1]] = 'current';
-    }
-
-    public function prevStep()
-    {
-        if ($this->currentStep == 0) {
-            return;
-        } else {
-            $this->currentStep--;
-        }
-    }
-
-    public function nextStep()
-    {
-        if ($this->currentStep == $this->totalSteps - 1) {
-            return;
-        } else {
-            $this->currentStep++;
-        }
-    }
-
-    public function toggleFilePreview($index)
-    {
-        $this->fileToPreview = $index;
-
-        if ($this->previewActive == true) {
-            $this->fileToPreview = '';
-        }
-        $this->previewActive = ! $this->previewActive;
-    }
-
-    public function toggleIDFrontPreview()
-    {
-
-        $this->previewIDFrontActive = ! $this->previewIDFrontActive;
-    }
-
-    public function toggleIDBackPreview()
-    {
-
-        $this->previewIDBackActive = ! $this->previewIDBackActive;
-    }
 
     public function completeStep()
     {
@@ -310,8 +275,13 @@ class RentalApplicationPortal extends Component
 
                 $this->toggleCompletedTaskIcon();
                 break;
-            case (4):
+            case (5):
                 $this->validateStep6();
+
+                $this->toggleCompletedTaskIcon();
+                break;
+            case (6):
+                $this->validateStep7();
 
                 $this->toggleCompletedTaskIcon();
                 break;
@@ -324,298 +294,330 @@ class RentalApplicationPortal extends Component
         // $this->success = 'Application Saved!';
     }
 
-    private function validateStep1()
-    {
-        // $this->validate();
-        $this->validate([
-            'personalInfo.firstName' => 'required|min:2|max:255',
-            'personalInfo.middleInitial' => 'required|max:1',
-            'personalInfo.lastName' => 'required|min:2|max:255',
-            'personalInfo.dateOfBirth' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
-            'personalInfo.socialNumber' => ['required', 'regex:/^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$/'],
-            'personalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
-        ], [
-            'personalInfo.firstName.required' => 'Your first name is required.',
-            'personalInfo.firstName.min' => 'Your first name must contain at least 2 characters.',
-            'personalInfo.firstName.max' => 'Your first name cannot contain more than 255 characters.',
-            'personalInfo.middleInitial.required' => 'Your middle initial is required.',
-            'personalInfo.middleInitial.max' => 'Your middle initial cannot contain more than 1 character.',
-            'personalInfo.lastName.required' => 'Your last name is required.',
-            'personalInfo.lastName.min' => 'Your last name must contain at least 2 characters.',
-            'personalInfo.lastName.max' => 'Your last name cannot contain more than 255 characters.',
-            'personalInfo.dateOfBirth.required' => 'Your birth date is required.',
-            'personalInfo.dateOfBirth.date' => 'Please select a valid birth date.',
-            'personalInfo.dateOfBirth.date' => 'Please select a valid birth date (YYYY-MM-DD).',
-            'personalInfo.dateOfBirth.before' => 'Your birth date must be before today.',
-            'personalInfo.socialNumber.required' => 'Your Social Security Number is required.',
-            'personalInfo.socialNumber.regex' => 'Your phone number must contain at least 14 characters.',
-            'personalInfo.phone.required' => 'Your phone number is required.',
-            'personalInfo.phone.regex' => 'Please enter a valid phone number.',
-        ]);
-    }
-
-    public function addEmergencyContact()
-    {
-        $inputsToAdd = array(
-            'firstNameEmContact' => '',
-            'lastNameEmContact' => '',
-            'phoneEmContact' => '',
-            'cityEmContact' => '',
-            'stateEmContact' => '',
-            'relationshipEmContact' => '',
-        );
-        json_encode($inputsToAdd);
-        array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
-    }
-
-    public function removeEmergencyContact($index)
-    {
-        unset($this->additionalEmergencyContactInfo[$index]);
-        $this->additionalEmergencyContactInfo = array_values($this->additionalEmergencyContactInfo);
-        // $this->emergencyContactCounter--;
-    }
-
-    public function addConviction()
-    {
-        array_push($this->legalInfo['convictions'], '');
-    }
-
-    public function removeConviction($index)
-    {
-        unset($this->legalInfo['convictions'][$index]);
-        $this->legalInfo['convictions'] = array_values($this->legalInfo['convictions']);
-    }
-
-    public function addMedication()
-    {
-        array_push($this->medicalInfo['medications'], '');
-    }
-
-    public function addMedicationOnYes()
-    {
-        if (count($this->medicalInfo['medications']) == 0) {
-            array_push($this->medicalInfo['medications'], '');
+        public function toggleCompletedTaskIcon()
+        {
+            $this->stepStatuses[$this->stepTitles[$this->currentStep]] = 'complete';
+            $this->stepStatuses[$this->stepTitles[$this->currentStep + 1]] = 'current';
         }
-    }
 
-    public function removeMedication($index)
-    {
-        unset($this->medicalInfo['medications'][$index]);
-        $this->medicalInfo['medications'] = array_values($this->medicalInfo['medications']);
-    }
+        public function prevStep()
+        {
+            if ($this->currentStep == 0) {
+                return;
+            } else {
+                $this->currentStep--;
+            }
+        }
 
-    public function addDrugOfChoice()
-    {
-        array_push($this->medicalInfo['drugUse']['drugOfChoice'], '');
-        array_push($this->medicalInfo['drugUse']['lastUse'], '');
-    }
+        public function nextStep()
+        {
+            if ($this->currentStep == $this->totalSteps - 1) {
+                return;
+            } else {
+                $this->currentStep++;
+            }
+        }
 
-    public function removeDrugOfChoice($index)
-    {
-        unset($this->medicalInfo['drugUse']['drugOfChoice'][$index]);
-        $this->medicalInfo['drugUse']['drugOfChoice'] = array_values($this->medicalInfo['drugUse']['drugOfChoice']);
-        unset($this->medicalInfo['drugUse']['lastUse'][$index]);
-        $this->medicalInfo['drugUse']['lastUse'] = array_values($this->medicalInfo['drugUse']['lastUse']);
-
-    }
-
-    public function addFundingSource()
-    {
-        array_push($this->fundingInfo['sources'], [
-            'name' => '',
-            'amount' => '',
-            'frequency' => '0',
-            'startDate' => '',
-            'reference' => [
-                'firstName' => '',
-                'lastName' => '',
-                'phone' => '',
-            ]
-        ]);
-    }
-
-    public function removeFundingSource($index)
-    {
-        unset($this->fundingInfo['sources'][$index]);
-        $this->fundingInfo['sources'] = array_values($this->fundingInfo['sources']);
-    }
-
-    public function toggleHasIDCardUpload()
-    {
-        // sleep(1);
-        $this->hasIDCardUpload = ! $this->hasIDCardUpload;
-    }
-
-    public function removeFileFromUploadQue($index)
-    {
-        unset($this->additionalDocumentation[$index]);
-        $this->additionalDocumentation = array_values($this->additionalDocumentation);
-    }
-
-    private function validateStep2()
-    {
-        // $this->validate();
-        $this->validate([
-            'emergencyContactInfo.firstNameEmContact' => 'required|min:2|max:255',
-            'emergencyContactInfo.lastNameEmContact' => 'required|min:2|max:255',
-            'emergencyContactInfo.phoneEmContact' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
-            'emergencyContactInfo.cityEmContact' => 'required|min:2|max:255',
-            'emergencyContactInfo.stateEmContact' => 'required',
-            'emergencyContactInfo.relationshipEmContact' => 'required'
-        ], [
-            'emergencyContactInfo.firstNameEmContact.required' => 'A first name is required.',
-            'emergencyContactInfo.firstNameEmContact.min' => 'A first name must contain at least 2 characters.',
-            'emergencyContactInfo.firstNameEmContact.max' => 'A first name cannot contain more than 255 characters.',
-            'emergencyContactInfo.lastNameEmContact.required' => 'A last name is required.',
-            'emergencyContactInfo.lastNameEmContact.min' => 'A last name must contain at least 2 characters.',
-            'emergencyContactInfo.lastNameEmContact.max' => 'A last name cannot contain more than 255 characters.',
-            'emergencyContactInfo.phoneEmContact.required' => 'A phone number is required.',
-            'emergencyContactInfo.phoneEmContact.min' => 'A phone number must contain at least 14 characters.',
-            'emergencyContactInfo.cityEmContact.required' => 'A city is required.',
-            'emergencyContactInfo.cityEmContact.min' => 'A city must contain at least 2 characters.',
-            'emergencyContactInfo.cityEmContact.max' => 'A city cannot contain more than 255 characters.',
-            'emergencyContactInfo.stateEmContact.required' => 'A state is required.',
-            'emergencyContactInfo.relationshipEmContact.required' => 'A kinship is required.',
-        ]);
-    }
-
-    private function validateStep2AdditionalEmergencyContacts()
-    {
-        // $this->validate();
-        foreach ($this->additionalEmergencyContactInfo as $this->additionalContactArray) {
+        // personalInfo
+        private function validateStep1()
+        {
+            // $this->validate();
             $this->validate([
-                'additionalEmergencyContactInfo.*.firstNameEmContact' => 'required|min:2|max:255',
-                'additionalEmergencyContactInfo.*.lastNameEmContact' => 'required|min:2|max:255',
-                'additionalEmergencyContactInfo.*.phoneEmContact' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
-                'additionalEmergencyContactInfo.*.cityEmContact' => 'required|min:2|max:255',
-                'additionalEmergencyContactInfo.*.stateEmContact' => 'required',
-                'additionalEmergencyContactInfo.*.relationshipEmContact' => 'required'
+                'personalInfo.firstName' => 'required|min:2|max:255',
+                'personalInfo.middleInitial' => 'required|max:1',
+                'personalInfo.lastName' => 'required|min:2|max:255',
+                'personalInfo.dateOfBirth' => 'required|date|before:'. Carbon::now()->format('Y-m-d'),
+                'personalInfo.socialNumber' => ['required', 'regex:/^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$/'],
+                'personalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
             ], [
-                'additionalEmergencyContactInfo.*.firstNameEmContact.required' => 'A first name is required.',
-                'additionalEmergencyContactInfo.*.firstNameEmContact.min' => 'A first name must contain at least 2 characters.',
-                'additionalEmergencyContactInfo.*.firstNameEmContact.max' => 'A first name cannot contain more than 255 characters.',
-                'additionalEmergencyContactInfo.*.lastNameEmContact.required' => 'A last name is required.',
-                'additionalEmergencyContactInfo.*.lastNameEmContact.min' => 'A last name must contain at least 2 characters.',
-                'additionalEmergencyContactInfo.*.lastNameEmContact.max' => 'A last name cannot contain more than 255 characters.',
-                'additionalEmergencyContactInfo.*.phoneEmContact.required' => 'A phone number is required.',
-                'additionalEmergencyContactInfo.*.phoneEmContact.min' => 'A phone number must contain at least 14 characters.',
-                'additionalEmergencyContactInfo.*.cityEmContact.required' => 'A city is required.',
-                'additionalEmergencyContactInfo.*.cityEmContact.min' => 'A city must contain at least 2 characters.',
-                'additionalEmergencyContactInfo.*.cityEmContact.max' => 'A city cannot contain more than 255 characters.',
-                'additionalEmergencyContactInfo.*.stateEmContact.required' => 'A state is required.',
-                'additionalEmergencyContactInfo.*.relationshipEmContact.required' => 'A kinship is required.',
+                'personalInfo.firstName.required' => 'Your first name is required.',
+                'personalInfo.firstName.min' => 'Your first name must contain at least 2 characters.',
+                'personalInfo.firstName.max' => 'Your first name cannot contain more than 255 characters.',
+                'personalInfo.middleInitial.required' => 'Your middle initial is required.',
+                'personalInfo.middleInitial.max' => 'Your middle initial cannot contain more than 1 character.',
+                'personalInfo.lastName.required' => 'Your last name is required.',
+                'personalInfo.lastName.min' => 'Your last name must contain at least 2 characters.',
+                'personalInfo.lastName.max' => 'Your last name cannot contain more than 255 characters.',
+                'personalInfo.dateOfBirth.required' => 'Your birth date is required.',
+                'personalInfo.dateOfBirth.date' => 'Please select a valid birth date.',
+                'personalInfo.dateOfBirth.date' => 'Please select a valid birth date (YYYY-MM-DD).',
+                'personalInfo.dateOfBirth.before' => 'Your birth date must be before today.',
+                'personalInfo.socialNumber.required' => 'Your Social Security Number is required.',
+                'personalInfo.socialNumber.regex' => 'Your phone number must contain at least 14 characters.',
+                'personalInfo.phone.required' => 'Your phone number is required.',
+                'personalInfo.phone.regex' => 'Please enter a valid phone number.',
             ]);
         }
 
-    }
-
-    private function validateStep3()
-    {
-        if ($this->legalInfo['onLegalSupervision'] == null || $this->legalInfo['onLegalSupervision'] == 0) {
+        // emergencyContantInfo
+        private function validateStep2()
+        {
+            // $this->validate();
             $this->validate([
-                'legalInfo.isSexOffender' => 'required',
-                'legalInfo.isArsonist' => 'required',
-                'legalInfo.isKidnapper' => 'required',
-                'legalInfo.onLegalSupervision' => 'required',
-                'legalInfo.convictions.*' => 'min:2|max:255',
+                'emergencyContactInfo.firstNameEmContact' => 'required|min:2|max:255',
+                'emergencyContactInfo.lastNameEmContact' => 'required|min:2|max:255',
+                'emergencyContactInfo.phoneEmContact' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+                'emergencyContactInfo.cityEmContact' => 'required|min:2|max:255',
+                'emergencyContactInfo.stateEmContact' => 'required',
+                'emergencyContactInfo.relationshipEmContact' => 'required'
             ], [
-                'legalInfo.isSexOffender.required' => 'REQUIRED!',
-                'legalInfo.isArsonist.required' => 'REQUIRED!',
-                'legalInfo.isKidnapper.required' => 'REQUIRED!',
-                'legalInfo.onLegalSupervision.required' => 'REQUIRED!',
-                'legalInfo.convictions.*.min' => 'A conviction must contain at least 2 characters.',
-                'legalInfo.convictions.*.max' => 'A conviction cannot contain more than 255 characters.',
-            ]);
-        } else {
-            $this->validate([
-                'legalInfo.isSexOffender' => 'required',
-                'legalInfo.isArsonist' => 'required',
-                'legalInfo.isKidnapper' => 'required',
-                'legalInfo.onLegalSupervision' => 'required',
-                'legalInfo.firstName' => 'required|min:2|max:255',
-                'legalInfo.lastName' => 'required|min:2|max:255',
-                'legalInfo.agency' => 'required|min:2|max:255',
-                'legalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
-                'legalInfo.convictions.*' => 'min:2|max:255',
-            ], [
-                'legalInfo.isSexOffender.required' => 'REQUIRED!',
-                'legalInfo.isArsonist.required' => 'REQUIRED!',
-                'legalInfo.isKidnapper.required' => 'REQUIRED!',
-                'legalInfo.onLegalSupervision.required' => 'REQUIRED!',
-                'legalInfo.firstName.required' => 'A first name is required.',
-                'legalInfo.firstName.min' => 'A first name must contain at least 2 characters.',
-                'legalInfo.firstName.max' => 'A first name cannot contain more than 255 characters.',
-                'legalInfo.lastName.required' => 'A last name is required.',
-                'legalInfo.lastName.min' => 'A last name must contain at least 2 characters.',
-                'legalInfo.lastName.max' => 'A last name cannot contain more than 255 characters.',
-                'legalInfo.agency.required' => 'An agency name is required.',
-                'legalInfo.agency.min' => 'An agency name must contain at least 2 characters.',
-                'legalInfo.agency.max' => 'An agency name cannot contain more than 255 characters.',
-                'legalInfo.phone.required' => 'A phone number is required.',
-                'legalInfo.phone.min' => 'A phone number must contain at least 14 characters.',
-                'legalInfo.convictions.*.min' => 'A conviction must contain at least 2 characters.',
-                'legalInfo.convictions.*.max' => 'A conviction cannot contain more than 255 characters.',
+                'emergencyContactInfo.firstNameEmContact.required' => 'A first name is required.',
+                'emergencyContactInfo.firstNameEmContact.min' => 'A first name must contain at least 2 characters.',
+                'emergencyContactInfo.firstNameEmContact.max' => 'A first name cannot contain more than 255 characters.',
+                'emergencyContactInfo.lastNameEmContact.required' => 'A last name is required.',
+                'emergencyContactInfo.lastNameEmContact.min' => 'A last name must contain at least 2 characters.',
+                'emergencyContactInfo.lastNameEmContact.max' => 'A last name cannot contain more than 255 characters.',
+                'emergencyContactInfo.phoneEmContact.required' => 'A phone number is required.',
+                'emergencyContactInfo.phoneEmContact.min' => 'A phone number must contain at least 14 characters.',
+                'emergencyContactInfo.cityEmContact.required' => 'A city is required.',
+                'emergencyContactInfo.cityEmContact.min' => 'A city must contain at least 2 characters.',
+                'emergencyContactInfo.cityEmContact.max' => 'A city cannot contain more than 255 characters.',
+                'emergencyContactInfo.stateEmContact.required' => 'A state is required.',
+                'emergencyContactInfo.relationshipEmContact.required' => 'A kinship is required.',
             ]);
         }
 
-    }
+                public function addEmergencyContact()
+                {
+                    $inputsToAdd = array(
+                        'firstNameEmContact' => '',
+                        'lastNameEmContact' => '',
+                        'phoneEmContact' => '',
+                        'cityEmContact' => '',
+                        'stateEmContact' => '',
+                        'relationshipEmContact' => '',
+                    );
+                    json_encode($inputsToAdd);
+                    array_push($this->additionalEmergencyContactInfo, $inputsToAdd);
+                }
 
-    private function validateStep4()
-    {
-        if ($this->medicalInfo['hasScripts'] == null) {
-            $this->validate([
-                'medicalInfo.hasScripts' => 'required',
-                'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
-                'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
-            ], [
-                'medicalInfo.hasScripts.required' => 'REQUIRED!',
-                'medicalInfo.drugUse.drugOfChoice.*.required' => 'Please input a drug name or remove this field.',
-                'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-                'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-                'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-                'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
-                'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
-            ]);
-        } else if ($this->medicalInfo['hasScripts'] == 0) {
-            $this->validate([
-                'medicalInfo.hasScripts' => 'required',
-                'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
-                'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
-            ], [
-                'medicalInfo.hasScripts.required' => 'REQUIRED!',
-                'medicalInfo.drugUse.drugOfChoice.*.required' => 'Drug of choice input must be completed or removed.',
-                'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-                'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-                'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-                'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
-                'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
-            ]);
-        } else {
-            $this->validate([
-                'medicalInfo.hasScripts' => 'required',
-                'medicalInfo.medications.*' => 'required|min:2|max:255',
-                'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
-                'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
-            ], [
-                'medicalInfo.hasScripts.required' => 'REQUIRED!',
-                'medicalInfo.medications.*.required' => 'Medication input must be completed or removed.',
-                'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
-                'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
-                'medicalInfo.drugUse.drugOfChoice.*.required' => 'Drug of choice input must be completed or removed.',
-                'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
-                'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
-                'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
-                'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
-                'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
-            ]);
+                public function removeEmergencyContact($index)
+                {
+                    unset($this->additionalEmergencyContactInfo[$index]);
+                    $this->additionalEmergencyContactInfo = array_values($this->additionalEmergencyContactInfo);
+                    // $this->emergencyContactCounter--;
+                }
+
+            // additionalEmergencyContacts
+            private function validateStep2AdditionalEmergencyContacts()
+            {
+                // $this->validate();
+                foreach ($this->additionalEmergencyContactInfo as $this->additionalContactArray) {
+                    $this->validate([
+                        'additionalEmergencyContactInfo.*.firstNameEmContact' => 'required|min:2|max:255',
+                        'additionalEmergencyContactInfo.*.lastNameEmContact' => 'required|min:2|max:255',
+                        'additionalEmergencyContactInfo.*.phoneEmContact' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+                        'additionalEmergencyContactInfo.*.cityEmContact' => 'required|min:2|max:255',
+                        'additionalEmergencyContactInfo.*.stateEmContact' => 'required',
+                        'additionalEmergencyContactInfo.*.relationshipEmContact' => 'required'
+                    ], [
+                        'additionalEmergencyContactInfo.*.firstNameEmContact.required' => 'A first name is required.',
+                        'additionalEmergencyContactInfo.*.firstNameEmContact.min' => 'A first name must contain at least 2 characters.',
+                        'additionalEmergencyContactInfo.*.firstNameEmContact.max' => 'A first name cannot contain more than 255 characters.',
+                        'additionalEmergencyContactInfo.*.lastNameEmContact.required' => 'A last name is required.',
+                        'additionalEmergencyContactInfo.*.lastNameEmContact.min' => 'A last name must contain at least 2 characters.',
+                        'additionalEmergencyContactInfo.*.lastNameEmContact.max' => 'A last name cannot contain more than 255 characters.',
+                        'additionalEmergencyContactInfo.*.phoneEmContact.required' => 'A phone number is required.',
+                        'additionalEmergencyContactInfo.*.phoneEmContact.min' => 'A phone number must contain at least 14 characters.',
+                        'additionalEmergencyContactInfo.*.cityEmContact.required' => 'A city is required.',
+                        'additionalEmergencyContactInfo.*.cityEmContact.min' => 'A city must contain at least 2 characters.',
+                        'additionalEmergencyContactInfo.*.cityEmContact.max' => 'A city cannot contain more than 255 characters.',
+                        'additionalEmergencyContactInfo.*.stateEmContact.required' => 'A state is required.',
+                        'additionalEmergencyContactInfo.*.relationshipEmContact.required' => 'A kinship is required.',
+                    ]);
+                }
+
+            }
+
+        // legalInfo
+        private function validateStep3()
+        {
+            if ($this->legalInfo['onLegalSupervision'] == null || $this->legalInfo['onLegalSupervision'] == 0) {
+                $this->validate([
+                    'legalInfo.isSexOffender' => 'required',
+                    'legalInfo.isArsonist' => 'required',
+                    'legalInfo.isKidnapper' => 'required',
+                    'legalInfo.onLegalSupervision' => 'required',
+                    'legalInfo.convictions.*' => 'min:2|max:255',
+                ], [
+                    'legalInfo.isSexOffender.required' => 'REQUIRED!',
+                    'legalInfo.isArsonist.required' => 'REQUIRED!',
+                    'legalInfo.isKidnapper.required' => 'REQUIRED!',
+                    'legalInfo.onLegalSupervision.required' => 'REQUIRED!',
+                    'legalInfo.convictions.*.min' => 'A conviction must contain at least 2 characters.',
+                    'legalInfo.convictions.*.max' => 'A conviction cannot contain more than 255 characters.',
+                ]);
+            } else {
+                $this->validate([
+                    'legalInfo.isSexOffender' => 'required',
+                    'legalInfo.isArsonist' => 'required',
+                    'legalInfo.isKidnapper' => 'required',
+                    'legalInfo.onLegalSupervision' => 'required',
+                    'legalInfo.firstName' => 'required|min:2|max:255',
+                    'legalInfo.lastName' => 'required|min:2|max:255',
+                    'legalInfo.agency' => 'required|min:2|max:255',
+                    'legalInfo.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+                    'legalInfo.convictions.*' => 'min:2|max:255',
+                ], [
+                    'legalInfo.isSexOffender.required' => 'REQUIRED!',
+                    'legalInfo.isArsonist.required' => 'REQUIRED!',
+                    'legalInfo.isKidnapper.required' => 'REQUIRED!',
+                    'legalInfo.onLegalSupervision.required' => 'REQUIRED!',
+                    'legalInfo.firstName.required' => 'A first name is required.',
+                    'legalInfo.firstName.min' => 'A first name must contain at least 2 characters.',
+                    'legalInfo.firstName.max' => 'A first name cannot contain more than 255 characters.',
+                    'legalInfo.lastName.required' => 'A last name is required.',
+                    'legalInfo.lastName.min' => 'A last name must contain at least 2 characters.',
+                    'legalInfo.lastName.max' => 'A last name cannot contain more than 255 characters.',
+                    'legalInfo.agency.required' => 'An agency name is required.',
+                    'legalInfo.agency.min' => 'An agency name must contain at least 2 characters.',
+                    'legalInfo.agency.max' => 'An agency name cannot contain more than 255 characters.',
+                    'legalInfo.phone.required' => 'A phone number is required.',
+                    'legalInfo.phone.min' => 'A phone number must contain at least 14 characters.',
+                    'legalInfo.convictions.*.min' => 'A conviction must contain at least 2 characters.',
+                    'legalInfo.convictions.*.max' => 'A conviction cannot contain more than 255 characters.',
+                ]);
+            }
+
         }
-    }
 
-    private function validateStep5()
-    {
-        if ($this->fundingInfo['hasLivedWithPVSL'] == null || $this->fundingInfo['hasLivedWithPVSL'] == 0) {
-            $this->validate([
+            public function addConviction()
+            {
+                array_push($this->legalInfo['convictions'], '');
+            }
+
+            public function removeConviction($index)
+            {
+                unset($this->legalInfo['convictions'][$index]);
+                $this->legalInfo['convictions'] = array_values($this->legalInfo['convictions']);
+            }
+
+        // medicalInfo
+        private function validateStep4()
+        {
+            if ($this->medicalInfo['hasScripts'] == null) {
+                $this->validate([
+                    'medicalInfo.hasScripts' => 'required',
+                    'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
+                    'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+                ], [
+                    'medicalInfo.hasScripts.required' => 'REQUIRED!',
+                    'medicalInfo.drugUse.drugOfChoice.*.required' => 'Please input a drug name or remove this field.',
+                    'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                    'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                    'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                    'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
+                    'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
+                ]);
+            } else if ($this->medicalInfo['hasScripts'] == 0) {
+                $this->validate([
+                    'medicalInfo.hasScripts' => 'required',
+                    'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
+                    'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+                ], [
+                    'medicalInfo.hasScripts.required' => 'REQUIRED!',
+                    'medicalInfo.drugUse.drugOfChoice.*.required' => 'Drug of choice input must be completed or removed.',
+                    'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                    'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                    'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                    'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
+                    'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
+                ]);
+            } else {
+                $this->validate([
+                    'medicalInfo.hasScripts' => 'required',
+                    'medicalInfo.medications.*' => 'required|min:2|max:255',
+                    'medicalInfo.drugUse.drugOfChoice.*' => 'required|min:2|max:255',
+                    'medicalInfo.drugUse.lastUse.*' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+                ], [
+                    'medicalInfo.hasScripts.required' => 'REQUIRED!',
+                    'medicalInfo.medications.*.required' => 'Medication input must be completed or removed.',
+                    'medicalInfo.medications.*.min' => 'A medication name must contain at least two (2) characters.',
+                    'medicalInfo.medications.*.max' => 'A medication name must cannot contain 255 characters.',
+                    'medicalInfo.drugUse.drugOfChoice.*.required' => 'Drug of choice input must be completed or removed.',
+                    'medicalInfo.drugUse.drugOfChoice.*.min' => 'A drug name must contain at least two (2) characters.',
+                    'medicalInfo.drugUse.drugOfChoice.*.max' => 'A drug name must cannot contain 255 characters.',
+                    'medicalInfo.drugUse.lastUse.*.required' => 'Please select a last use date.',
+                    'medicalInfo.drugUse.lastUse.*.date' => 'Please select a valid last use date (YYYY-MM-DD).',
+                    'medicalInfo.drugUse.lastUse.*.before_or_equal' => 'Your last use date must be before today.',
+                ]);
+            }
+        }
+
+            public function addMedicationOnYes()
+            {
+                if (count($this->medicalInfo['medications']) == 0) {
+                    array_push($this->medicalInfo['medications'], '');
+                }
+            }
+
+            public function addMedication()
+            {
+                array_push($this->medicalInfo['medications'], '');
+            }
+
+            public function removeMedication($index)
+            {
+                unset($this->medicalInfo['medications'][$index]);
+                $this->medicalInfo['medications'] = array_values($this->medicalInfo['medications']);
+            }
+
+            public function addDrugOfChoice()
+            {
+                array_push($this->medicalInfo['drugUse']['drugOfChoice'], '');
+                array_push($this->medicalInfo['drugUse']['lastUse'], '');
+            }
+
+            public function removeDrugOfChoice($index)
+            {
+                unset($this->medicalInfo['drugUse']['drugOfChoice'][$index]);
+                $this->medicalInfo['drugUse']['drugOfChoice'] = array_values($this->medicalInfo['drugUse']['drugOfChoice']);
+                unset($this->medicalInfo['drugUse']['lastUse'][$index]);
+                $this->medicalInfo['drugUse']['lastUse'] = array_values($this->medicalInfo['drugUse']['lastUse']);
+
+            }
+
+        // fundingInfo
+        private function validateStep5()
+        {
+            if ($this->fundingInfo['hasLivedWithPVSL'] == null || $this->fundingInfo['hasLivedWithPVSL'] == 0) {
+                $this->validate([
+                    'fundingInfo.hasLivedWithPVSL' => 'required',
+                    'fundingInfo.hasPaidAdminFee' => 'required',
+                    'fundingInfo.sources.*.name' => 'required|min:2|max:255',
+                    'fundingInfo.sources.*.amount' => 'required|numeric|min:1',
+                    'fundingInfo.sources.*.frequency' => 'required',
+                    'fundingInfo.sources.*.startDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+                    'fundingInfo.sources.*.reference.firstName' => 'required|min:2|max:255',
+                    'fundingInfo.sources.*.reference.lastName' => 'required|min:2|max:255',
+                    'fundingInfo.sources.*.reference.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
+                ], [
+                    'fundingInfo.hasLivedWithPVSL.required' => 'REQUIRED!',
+                    'fundingInfo.hasPaidAdminFee.required' => 'REQUIRED!',
+                    'fundingInfo.sources.*.name.required' => 'Funding source input must be completed or removed.',
+                    'fundingInfo.sources.*.name.min:2' => 'Funding source must contain at least two (2) characters.',
+                    'fundingInfo.sources.*.name.max:255' => 'Funding source input cannot contain 255 characters.',
+                    'fundingInfo.sources.*.amount.required' => 'Please enter a funding amount.',
+                    'fundingInfo.sources.*.amount.numeric' => 'Funding amount must be a number.',
+                    'fundingInfo.sources.*.amount.min:1' => 'Funding amount cannot be below $1.00.',
+                    'fundingInfo.sources.*.frequency.required' => 'REQUIRED!',
+                    'fundingInfo.sources.*.startDate.required' => 'Please select a start date.',
+                    'fundingInfo.sources.*.startDate.date' => 'Please select a valid start date (YYYY-MM-DD).',
+                    'fundingInfo.sources.*.startDate.before_or_equal' => 'Your start date must be before today.',
+                    'fundingInfo.sources.*.reference.firstName.required' => 'Please enter a first name.',
+                    'fundingInfo.sources.*.reference.firstName.min:2' => 'Reference first name must contain at least two (2) characters.',
+                    'fundingInfo.sources.*.reference.firstName.max:255' => 'Reference first name cannot contain 255 characters.',
+                    'fundingInfo.sources.*.reference.lastName.required' => 'Please enter a last name.',
+                    'fundingInfo.sources.*.reference.lastName.min:2' => 'Reference last name must contain at least two (2) characters.',
+                    'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
+                    'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
+                    'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
+                ]);
+            } else {
+                $this->validate([
                 'fundingInfo.hasLivedWithPVSL' => 'required',
+                'fundingInfo.moveOutDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+                'fundingInfo.reasonForLeaving' => 'required',
                 'fundingInfo.hasPaidAdminFee' => 'required',
                 'fundingInfo.sources.*.name' => 'required|min:2|max:255',
                 'fundingInfo.sources.*.amount' => 'required|numeric|min:1',
@@ -626,6 +628,10 @@ class RentalApplicationPortal extends Component
                 'fundingInfo.sources.*.reference.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
             ], [
                 'fundingInfo.hasLivedWithPVSL.required' => 'REQUIRED!',
+                'fundingInfo.moveOutDate.required' => 'Please select a move out date.',
+                'fundingInfo.moveOutDate.date' => 'Please select a valid move out date (YYYY-MM-DD).',
+                'fundingInfo.moveOutDate.before_or_equal' => 'Your move out date must be before today.',
+                'fundingInfo.reasonForLeaving.required' => 'REQUIRED!',
                 'fundingInfo.hasPaidAdminFee.required' => 'REQUIRED!',
                 'fundingInfo.sources.*.name.required' => 'Funding source input must be completed or removed.',
                 'fundingInfo.sources.*.name.min:2' => 'Funding source must contain at least two (2) characters.',
@@ -645,53 +651,103 @@ class RentalApplicationPortal extends Component
                 'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
                 'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
                 'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
-            ]);
-        } else {
+                ]);
+            }
+        }
+
+            public function addFundingSource()
+            {
+                array_push($this->fundingInfo['sources'], [
+                    'name' => '',
+                    'amount' => '',
+                    'frequency' => '0',
+                    'startDate' => '',
+                    'reference' => [
+                        'firstName' => '',
+                        'lastName' => '',
+                        'phone' => '',
+                    ]
+                ]);
+            }
+
+            public function removeFundingSource($index)
+            {
+                unset($this->fundingInfo['sources'][$index]);
+                $this->fundingInfo['sources'] = array_values($this->fundingInfo['sources']);
+            }
+
+        // identificationInfo
+        private function validateStep6()
+        {
             $this->validate([
-            'fundingInfo.hasLivedWithPVSL' => 'required',
-            'fundingInfo.moveOutDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
-            'fundingInfo.reasonForLeaving' => 'required',
-            'fundingInfo.hasPaidAdminFee' => 'required',
-            'fundingInfo.sources.*.name' => 'required|min:2|max:255',
-            'fundingInfo.sources.*.amount' => 'required|numeric|min:1',
-            'fundingInfo.sources.*.frequency' => 'required',
-            'fundingInfo.sources.*.startDate' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
-            'fundingInfo.sources.*.reference.firstName' => 'required|min:2|max:255',
-            'fundingInfo.sources.*.reference.lastName' => 'required|min:2|max:255',
-            'fundingInfo.sources.*.reference.phone' => ['required', 'regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/'],
-        ], [
-            'fundingInfo.hasLivedWithPVSL.required' => 'REQUIRED!',
-            'fundingInfo.moveOutDate.required' => 'Please select a move out date.',
-            'fundingInfo.moveOutDate.date' => 'Please select a valid move out date (YYYY-MM-DD).',
-            'fundingInfo.moveOutDate.before_or_equal' => 'Your move out date must be before today.',
-            'fundingInfo.reasonForLeaving.required' => 'REQUIRED!',
-            'fundingInfo.hasPaidAdminFee.required' => 'REQUIRED!',
-            'fundingInfo.sources.*.name.required' => 'Funding source input must be completed or removed.',
-            'fundingInfo.sources.*.name.min:2' => 'Funding source must contain at least two (2) characters.',
-            'fundingInfo.sources.*.name.max:255' => 'Funding source input cannot contain 255 characters.',
-            'fundingInfo.sources.*.amount.required' => 'Please enter a funding amount.',
-            'fundingInfo.sources.*.amount.numeric' => 'Funding amount must be a number.',
-            'fundingInfo.sources.*.amount.min:1' => 'Funding amount cannot be below $1.00.',
-            'fundingInfo.sources.*.frequency.required' => 'REQUIRED!',
-            'fundingInfo.sources.*.startDate.required' => 'Please select a start date.',
-            'fundingInfo.sources.*.startDate.date' => 'Please select a valid start date (YYYY-MM-DD).',
-            'fundingInfo.sources.*.startDate.before_or_equal' => 'Your start date must be before today.',
-            'fundingInfo.sources.*.reference.firstName.required' => 'Please enter a first name.',
-            'fundingInfo.sources.*.reference.firstName.min:2' => 'Reference first name must contain at least two (2) characters.',
-            'fundingInfo.sources.*.reference.firstName.max:255' => 'Reference first name cannot contain 255 characters.',
-            'fundingInfo.sources.*.reference.lastName.required' => 'Please enter a last name.',
-            'fundingInfo.sources.*.reference.lastName.min:2' => 'Reference last name must contain at least two (2) characters.',
-            'fundingInfo.sources.*.reference.lastName.max:255' => 'Reference last name cannot contain 255 characters.',
-            'fundingInfo.sources.*.reference.phone.required' => 'Please enter a contact number.',
-            'fundingInfo.sources.*.reference.phone.regex' => 'Please enter a valid contact number.',
+                'identificationInfo.type' => 'required',
+                'identificationInfo.state' => 'required',
+                'identificationInfo.number' => 'required|min:2|max:50',
+                'identificationInfo.expiration' => 'required|date',
+                'identificationInfo.hasSocialCard' => 'required',
+            ], [
+                'identificationInfo.type.required' => 'An identification type is required.',
+                'identificationInfo.state.required' => 'A state is required.',
+                'identificationInfo.number.required' => 'An identification number is required.',
+                'identificationInfo.number.min' => 'An identification number must contain at least 2 characters.',
+                'identificationInfo.number.max' => 'An identification number contain more than 50 characters.',
+                'identificationInfo.expiration.required' => 'An experiation date is required.',
+                'identificationInfo.expiration.date' => 'Please select a valid experiation date.',
+                'identificationInfo.hasSocialCard.required' => 'Please indicate if you possess a social security card.',
             ]);
         }
-    }
 
-    private function validateStep6()
-    {
+            public function toggleFilePreview($index)
+            {
+                $this->fileToPreview = $index;
+                if ($this->previewActive == true) {
+                    $this->fileToPreview = '';
+                }
+                $this->previewActive = ! $this->previewActive;
+            }
 
-    }
+            public function toggleIDFrontPreview()
+            {
+                $this->previewIDFrontActive = ! $this->previewIDFrontActive;
+            }
+
+            public function toggleIDBackPreview()
+            {
+                $this->previewIDBackActive = ! $this->previewIDBackActive;
+            }
+
+            public function toggleHasIDCardUpload()
+            {
+                // sleep(1);
+                $this->hasIDCardUpload = ! $this->hasIDCardUpload;
+            }
+
+            public function removeFileFromUploadQue($index)
+            {
+                unset($this->additionalDocumentation[$index]);
+                $this->additionalDocumentation = array_values($this->additionalDocumentation);
+            }
+
+        // recoveryInfo
+        private function validateStep7()
+        {
+            $this->validate([
+                'recoveryInfo.txtGoingWell' => 'required|min:10|max:5000',
+                // 'recoveryInfo.state' => 'required',
+                // 'recoveryInfo.number' => 'required|min:2|max:50',
+                // 'recoveryInfo.expiration' => 'required|date',
+                // 'recoveryInfo.hasSocialCard' => 'required',
+            ], [
+                'recoveryInfo.txtGoingWell.required' => 'Tell us what is going well in your recovery.',
+                'recoveryInfo.txtGoingWell.min' => 'This field must have at least 10 characters.',
+                'recoveryInfo.txtGoingWell.max' => 'This field cannot have at least 10 characters.',
+                // 'recoveryInfo.number.min' => 'An identification number must contain at least 2 characters.',
+                // 'recoveryInfo.number.max' => 'An identification number contain more than 50 characters.',
+                // 'recoveryInfo.expiration.required' => 'An experiation date is required.',
+                // 'recoveryInfo.expiration.date' => 'Please select a valid experiation date.',
+                // 'recoveryInfo.hasSocialCard.required' => 'Please indicate if you possess a social security card.',
+            ]);
+        }
 
     private function clearStepTitles()
     {
@@ -941,6 +997,15 @@ class RentalApplicationPortal extends Component
             'number' => '',
             'expiration' => '',
             'hasSocialCard' => '',
+         );
+    }
+
+    private function clearRecoveryInfo()
+    {
+        $this->identificationInfo = array(
+            'txtGoingWell' => '',
+            'txtGoingBad' => '',
+            'txtHopesGoals' => '',
          );
     }
 

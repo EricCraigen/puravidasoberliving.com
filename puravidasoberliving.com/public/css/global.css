@@ -120,8 +120,12 @@ progress::-webkit-progress-bar {
     animation: animate-stripes 5s linear infinite;
 }
 
-.z--1 {
-    z-index: -1 !important;
+.z-preview {
+    z-index: 0 !important;
+}
+
+.z-1 {
+    z-index: 1 !important;
 }
 
 /* progress::-webkit-progress-bar {
