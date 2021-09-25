@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class RentalApplicationPortal extends Component
 {
@@ -12,6 +14,10 @@ class RentalApplicationPortal extends Component
     use WithFileUploads;
 
     public $stepTitles;
+    public $user;
+    public $isAdmin;
+    public $isAdminEditing;
+    public $stepAdminIsEditing;
     public $stepStatuses;
     public $currentStep;
     public $totalSteps;
@@ -143,6 +149,16 @@ class RentalApplicationPortal extends Component
         'identificationInfo.expiration.required' => 'An experiation date is required.',
         'identificationInfo.expiration.date' => 'Please select a valid experiation date.',
         'identificationInfo.hasSocialCard.required' => 'Please indicate if you possess a social security card.',
+        // recoveryInfo
+        'recoveryInfo.txtGoingWell.required' => 'Tell us what is going well in your recovery.',
+        'recoveryInfo.txtGoingWell.min' => 'This field must have at least 10 characters.',
+        'recoveryInfo.txtGoingWell.max' => 'This field cannot have at least 10 characters.',
+        'recoveryInfo.txtGoingBad.required' => 'Tell us what is NOT going well in you recovery.',
+        'recoveryInfo.txtGoingBad.min' => 'This field must have at least 10 characters.',
+        'recoveryInfo.txtGoingBad.max' => 'This field cannot have at least 10 characters.',
+        'recoveryInfo.txtHopesGoals.required' => 'Tell us your hopes and goals for the future.',
+        'recoveryInfo.txtHopesGoals.min' => 'This field must have at least 10 characters.',
+        'recoveryInfo.txtHopesGoals.max' => 'This field cannot have at least 10 characters.',
     ];
 
     protected function rules()
@@ -198,12 +214,19 @@ class RentalApplicationPortal extends Component
             'identificationInfo.number' => 'required|min:2|max:50',
             'identificationInfo.expiration' => 'required|date',
             'identificationInfo.hasSocialCard' => 'required',
+            // recoveryInfo
+            'recoveryInfo.txtGoingWell' => 'required|min:10|max:5000',
+            'recoveryInfo.txtGoingBad' => 'required|min:10|max:5000',
+            'recoveryInfo.txtHopesGoals' => 'required|min:10|max:5000',
         ];
     }
 
     public function mount()
     {
-        $this->currentStep = 6;
+        $this->user = Auth::user();
+        $this->isAdminEditing = false;
+        $this->stepAdminIsEditing = -1;
+        $this->currentStep = 7;
         $this->totalSteps = 10;
         $this->hasIDCardUpload = false;
         $this->previewActive = false;
@@ -212,6 +235,7 @@ class RentalApplicationPortal extends Component
         $this->fileToPreview = '';
         $this->additionalDocumentation = [];
         $this->today = Carbon::now()->format('Y-m-d');
+        $this->setIsAdmin();
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
@@ -224,6 +248,8 @@ class RentalApplicationPortal extends Component
         $this->clearReasonsForLeaving();
         $this->clearIdentificationInfo();
         $this->clearIdentificationTypes();
+        $this->clearRecoveryInfo();
+        // dd($this->isAdmin);
     }
 
     public function updated($propertyName)
@@ -285,6 +311,12 @@ class RentalApplicationPortal extends Component
 
                 $this->toggleCompletedTaskIcon();
                 break;
+
+            case (7):
+                $this->validateStep8();
+
+                $this->toggleCompletedTaskIcon();
+                break;
             default;
         }
 
@@ -315,6 +347,57 @@ class RentalApplicationPortal extends Component
                 return;
             } else {
                 $this->currentStep++;
+            }
+        }
+
+        public function editThisStep($index)
+        {
+            $this->currentStep = $index;
+        }
+
+        public function validateThisStep($index)
+        {
+            switch ($index) {
+                case (0):
+                    $this->validateStep1();
+                    break;
+                case (1):
+                    $this->validateStep2();
+                    $this->validateStep2AdditionalEmergencyContacts();
+                    break;
+                case (2):
+                    $this->validateStep3();
+                    break;
+                case (3):
+                    $this->validateStep4();
+                    break;
+                case (4):
+                    $this->validateStep5();
+                    break;
+                case (5):
+                    $this->validateStep6();
+                    break;
+                case (6):
+                    $this->validateStep7();
+                    break;
+                default;
+            }
+            $this->isAdminEditing = false;
+            $this->stepAdminIsEditing = -1;
+        }
+
+        public function editAsAdmin($index)
+        {
+            $this->isAdminEditing = true;
+            $this->stepAdminIsEditing = $index;
+        }
+
+        private function setIsAdmin()
+        {
+            if ($this->user && $this->user['userType'] == 0) {
+               $this->isAdmin = true;
+            } else {
+                $this->isAdmin = false;
             }
         }
 
@@ -733,20 +816,41 @@ class RentalApplicationPortal extends Component
         {
             $this->validate([
                 'recoveryInfo.txtGoingWell' => 'required|min:10|max:5000',
-                // 'recoveryInfo.state' => 'required',
-                // 'recoveryInfo.number' => 'required|min:2|max:50',
-                // 'recoveryInfo.expiration' => 'required|date',
-                // 'recoveryInfo.hasSocialCard' => 'required',
+                'recoveryInfo.txtGoingBad' => 'required|min:10|max:5000',
+                'recoveryInfo.txtHopesGoals' => 'required|min:10|max:5000',
             ], [
                 'recoveryInfo.txtGoingWell.required' => 'Tell us what is going well in your recovery.',
                 'recoveryInfo.txtGoingWell.min' => 'This field must have at least 10 characters.',
                 'recoveryInfo.txtGoingWell.max' => 'This field cannot have at least 10 characters.',
-                // 'recoveryInfo.number.min' => 'An identification number must contain at least 2 characters.',
-                // 'recoveryInfo.number.max' => 'An identification number contain more than 50 characters.',
-                // 'recoveryInfo.expiration.required' => 'An experiation date is required.',
-                // 'recoveryInfo.expiration.date' => 'Please select a valid experiation date.',
-                // 'recoveryInfo.hasSocialCard.required' => 'Please indicate if you possess a social security card.',
+                'recoveryInfo.txtGoingBad.required' => 'Tell us what is NOT going well in you recovery.',
+                'recoveryInfo.txtGoingBad.min' => 'This field must have at least 10 characters.',
+                'recoveryInfo.txtGoingBad.max' => 'This field cannot have at least 10 characters.',
+                'recoveryInfo.txtHopesGoals.required' => 'Tell us your hopes and goals for the future.',
+                'recoveryInfo.txtHopesGoals.min' => 'This field must have at least 10 characters.',
+                'recoveryInfo.txtHopesGoals.max' => 'This field cannot have at least 10 characters.',
             ]);
+        }
+
+        private function validateStep8()
+        {
+
+            // $this->validate([
+            //     $this->personalInfo,
+            //     $this->emergencyContactInfo,
+            //     $this->legalInfo,
+            //     $this->medicalInfo,
+            //     $this->fundingInfo,
+            //     $this->identificationInfo,
+            //     $this->recoveryInfo,
+            // ]);
+
+            $this->validateStep1();
+            $this->validateStep2();
+            $this->validateStep3();
+            $this->validateStep4();
+            $this->validateStep5();
+            $this->validateStep6();
+            $this->validateStep7();
         }
 
     private function clearStepTitles()
@@ -909,6 +1013,8 @@ class RentalApplicationPortal extends Component
         );
     }
 
+
+
     private function clearPersonalInfo()
     {
         $this->personalInfo = array(
@@ -1002,7 +1108,7 @@ class RentalApplicationPortal extends Component
 
     private function clearRecoveryInfo()
     {
-        $this->identificationInfo = array(
+        $this->recoveryInfo = array(
             'txtGoingWell' => '',
             'txtGoingBad' => '',
             'txtHopesGoals' => '',

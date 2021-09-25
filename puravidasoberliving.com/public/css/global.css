@@ -1,6 +1,9 @@
 :root {
     --accent: rgba(8, 196, 235, 1);
     --accent_hover: rgba(23, 154, 181, 1);
+    --bg-input: rgba(103, 230, 255, 0.4);
+    --bg-input-disabled: rgba(18, 101, 117, 0.6);
+    --bg-edit-btn: rgba(247, 99, 0, 1);
     --accent_dark-text: rgb(36, 46, 48);
     --shadow-top: 0 -20px 25px -5px rgba(0, 0, 0, 0.1), 0 -10px 10px -5px rgba(0, 0, 0, 0.04);
     /* text-stroke */
@@ -21,17 +24,33 @@
     background-color: var(--accent_hover) !important;
 }
 
-.bg-accent-dark {
+.bg-form-progress-bar {
     background: var(--accent_dark) !important;
     background-blend-mode: var(--accent_dark-blend-mode) !important;
 }
 
-.bg-accent-dark_hover:hover {
+.bg-input {
+    background-color: var(--bg-input);
+}
+
+.bg-input-disabled {
+    background-color: var(--bg-input-disabled);
+}
+
+.bg-edit-btn {
+    background: var(--bg-edit-btn);
+}
+
+.bg-accent-dark {
     background-color: var(--accent_hover) !important;
 }
 
+.bg-accent-dark_hover:hover {
+    background-color: var(--accent) !important;
+}
+
 .border-accent {
-    border-color: var(--accent) !important;
+    border-color: var(--accent);
 }
 
 .border-accent-dark {
