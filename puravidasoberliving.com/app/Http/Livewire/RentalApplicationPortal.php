@@ -15,6 +15,10 @@ class RentalApplicationPortal extends Component
 
     public $stepTitles;
     public $user;
+    public $userInitials;
+    public $userSignature;
+    public $selectAllConsentForm;
+    public $selectAllAdditionalConsentForm;
     public $isAdmin;
     public $isAdminEditing;
     public $stepAdminIsEditing;
@@ -35,6 +39,7 @@ class RentalApplicationPortal extends Component
     public $identificationInfo;
     public $recoveryInfo;
     public $consentForm;
+    public $consentFormSignature;
     public $messageContent;
     public $success;
     public $agreeToPolicies;
@@ -224,6 +229,10 @@ class RentalApplicationPortal extends Component
     public function mount()
     {
         $this->user = Auth::user();
+        $this->userInitials = '';
+        $this->userSignature = '';
+        $this->selectAllConsentForm = false;
+        $this->selectAllAdditionalConsentForm = false;
         $this->isAdminEditing = false;
         $this->stepAdminIsEditing = -1;
         $this->currentStep = 8;
@@ -236,6 +245,8 @@ class RentalApplicationPortal extends Component
         $this->additionalDocumentation = [];
         $this->today = Carbon::now()->format('Y-m-d');
         $this->setIsAdmin();
+        $this->setUserInitials();
+        $this->setUserSignature();
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
@@ -249,6 +260,8 @@ class RentalApplicationPortal extends Component
         $this->clearIdentificationInfo();
         $this->clearIdentificationTypes();
         $this->clearRecoveryInfo();
+        $this->clearConsentForm();
+        // $this->clearConsentFormSignature();
         // dd($this->isAdmin);
     }
 
@@ -831,15 +844,46 @@ class RentalApplicationPortal extends Component
             ]);
         }
 
+        // applicationReview
         private function validateStep8()
         {
-            $this->validateStep1();
-            $this->validateStep2();
-            $this->validateStep3();
-            $this->validateStep4();
-            $this->validateStep5();
-            $this->validateStep6();
-            $this->validateStep7();
+            // $this->validateStep1();
+            // $this->validateStep2();
+            // $this->validateStep3();
+            // $this->validateStep4();
+            // $this->validateStep5();
+            // $this->validateStep6();
+            // $this->validateStep7();
+            $this->setUserInitials();
+        }
+
+        // applicationReview
+        private function validateStep9()
+        {
+            $this->validate([
+                'employmentSecurityDepartment' => 'required',
+                'socialSecurityAdministration' => 'required',
+                'departmentOfCorrections' => 'required',
+                'childSupportEnforcement' => 'required',
+                'healthCareProviders' => 'required',
+                'mentalHealthProviders' => 'required',
+                'chemicalDependencyProviders' => 'required',
+                'housingProgramProviders' => 'required',
+                'departmentOfSocialHealthServices' => 'required',
+                'collegesAndEducationProviders' => 'required',
+                'attachedLists' => 'required',
+                'others' => 'required',
+                'mentalHealthAC' => 'required',
+                'hivStdAC' => 'required',
+                'attachedListsAC' => 'required',
+                'signature' => 'required|min:2|max:255',
+                'date' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
+            ], [
+                '*.required' => 'Please acknowledge and initial this field.',
+                'signature.required' => 'A signature is required.',
+                'signature.min' => 'A signature must contain at least 2 characters.',
+                'signature.max' => 'A signature cannot be more than 255 characters.',
+            ]);
         }
 
     private function clearStepTitles()
@@ -1014,6 +1058,34 @@ class RentalApplicationPortal extends Component
         );
     }
 
+    public function setUserInitials()
+    {
+        if ($this->user) {
+            $first = mb_substr($this->user['firstName'], 0, 1, 'utf-8');
+            $middle = $this->personalInfo != null ? mb_substr($this->personalInfo['middleInitial'], 0, 1, 'utf-8') : '';
+            $last = mb_substr($this->user['lastName'], 0, 1, 'utf-8');
+        } else {
+            $first = mb_substr($this->personalInfo['firstName'], 0, 1, 'utf-8');
+            $middle = mb_substr($this->personalInfo['middleInitial'], 0, 1, 'utf-8');
+            $last = mb_substr($this->personalInfo['lastName'], 0, 1, 'utf-8');
+        }
+        $this->userInitials = $first.$middle.$last;
+    }
+
+    public function setUserSignature()
+    {
+        if ($this->user) {
+            $first = $this->user['firstName'];
+            $middle = $this->personalInfo != null ? $this->personalInfo['middleInitial'] : '';
+            $last = $this->user['lastName'];
+        } else {
+            $first = $this->personalInfo['firstName'];
+            $middle = $this->personalInfo['middleInitial'];
+            $last = $this->personalInfo['lastName'];
+        }
+        $this->userSignature = $first.' '.$middle.' '.$last;
+    }
+
     private function clearEmergencyContactInfo()
     {
         $this->emergencyContactInfo = array(
@@ -1100,6 +1172,97 @@ class RentalApplicationPortal extends Component
             'txtGoingBad' => '',
             'txtHopesGoals' => '',
          );
+    }
+
+    public function signConsentForm()
+    {
+        // if ($this->consentFormSignature['signed'] != false) {
+           foreach ($this->consentForm as $key) {
+                if ($this->consentForm[$key] == false) {
+                    $this->consentFormSignature['signed'] = false;
+                } else {
+                    $this->consentFormSignature['signed'] = true;
+                }
+            }
+        // } else {
+        //     $this->consentFormSignature['signed'] = false;
+        // }
+
+    }
+
+    public function selectAllConsentForm()
+    {
+        if ($this->selectAllConsentForm) {
+            $this->consentForm['employmentSecurityDepartment'] = true;
+            $this->consentForm['socialSecurityAdministration'] = true;
+            $this->consentForm['departmentOfCorrections'] = true;
+            $this->consentForm['childSupportEnforcement'] = true;
+            $this->consentForm['healthCareProviders'] = true;
+            $this->consentForm['mentalHealthProviders'] = true;
+            $this->consentForm['chemicalDependencyProviders'] = true;
+            $this->consentForm['housingProgramProviders'] = true;
+            $this->consentForm['departmentOfSocialHealthServices'] = true;
+            $this->consentForm['collegesAndEducationProviders'] = true;
+            $this->consentForm['attachedLists'] = true;
+            $this->consentForm['others'] = true;
+        } else {
+            $this->consentForm['employmentSecurityDepartment'] = false;
+            $this->consentForm['socialSecurityAdministration'] = false;
+            $this->consentForm['departmentOfCorrections'] = false;
+            $this->consentForm['childSupportEnforcement'] = false;
+            $this->consentForm['healthCareProviders'] = false;
+            $this->consentForm['mentalHealthProviders'] = false;
+            $this->consentForm['chemicalDependencyProviders'] = false;
+            $this->consentForm['housingProgramProviders'] = false;
+            $this->consentForm['departmentOfSocialHealthServices'] = false;
+            $this->consentForm['collegesAndEducationProviders'] = false;
+            $this->consentForm['attachedLists'] = false;
+            $this->consentForm['others'] = false;
+        }
+    }
+
+    public function selectAllAdditionalConsentForm()
+    {
+        if ($this->selectAllConsentForm) {
+            $this->consentForm['mentalHealthAC'] = true;
+            $this->consentForm['hivStdAC'] = true;
+            $this->consentForm['attachedListsAC'] = true;
+        } else {
+            $this->consentForm['mentalHealthAC'] = false;
+            $this->consentForm['hivStdAC'] = false;
+            $this->consentForm['attachedListsAC'] = false;
+        }
+    }
+
+    public function clearConsentFormSignature()
+    {
+        $this->consentFormSignature['signed'] = false;
+    }
+
+    private function clearConsentForm()
+    {
+        $this->consentForm = array(
+            'employmentSecurityDepartment' => false,
+            'socialSecurityAdministration' => false,
+            'departmentOfCorrections' => false,
+            'childSupportEnforcement' => false,
+            'healthCareProviders' => false,
+            'mentalHealthProviders' => false,
+            'chemicalDependencyProviders' => false,
+            'housingProgramProviders' => false,
+            'departmentOfSocialHealthServices' => false,
+            'collegesAndEducationProviders' => false,
+            'attachedLists' => false,
+            'others' => false,
+            'mentalHealthAC' => false,
+            'hivStdAC' => false,
+            'attachedListsAC' => false,
+        );
+
+        $this->consentFormSignature = array(
+            'signed' => false,
+            'date' => false,
+        );
     }
 
     public function render()

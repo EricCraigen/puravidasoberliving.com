@@ -2870,77 +2870,402 @@
                         {{-- CONSENT LIST --}}
                         <ul class="flex flex-col w-full gap-2">
 
-
+                            {{-- Employment Security Department --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Employment Security Department</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.employmentSecurityDepartment"
+                                           type="checkbox"
+                                           name="consentForm.employmentSecurityDepartment"
+                                           id="consentForm.employmentSecurityDepartment"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('consentForm.employmentSecurityDepartment') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['employmentSecurityDepartment'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.employmentSecurityDepartment')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.employmentSecurityDepartment" class="block text-lg font-black text-gray-700">Employment Security Department</label>
+
                             </li>
 
+                            {{-- Social Security Administration --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Social Security Administration</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.socialSecurityAdministration"
+                                           type="checkbox"
+                                           name="consentForm.socialSecurityAdministration"
+                                           id="consentForm.socialSecurityAdministration"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.socialSecurityAdministration') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['socialSecurityAdministration'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.socialSecurityAdministration')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.socialSecurityAdministration" class="block text-lg font-black text-gray-700">Social Security Administration</label>
+
                             </li>
 
+                            {{-- Department of Corrections --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Department of Corrections</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.departmentOfCorrections"
+                                           type="checkbox"
+                                           name="consentForm.departmentOfCorrections"
+                                           id="consentForm.departmentOfCorrections"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.departmentOfCorrections') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['departmentOfCorrections'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.departmentOfCorrections')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.departmentOfCorrections" class="block text-lg font-black text-gray-700">Department of Corrections</label>
+
                             </li>
 
+                            {{-- Child Support Enforcement --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Child Support Enforcement</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.childSupportEnforcement"
+                                           type="checkbox"
+                                           name="consentForm.childSupportEnforcement"
+                                           id="consentForm.childSupportEnforcement"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.childSupportEnforcement') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['childSupportEnforcement'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.childSupportEnforcement')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.childSupportEnforcement" class="block text-lg font-black text-gray-700">Child Support Enforcement</label>
+
                             </li>
 
+                            {{-- Health Care Providers --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Health Care Providers</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.healthCareProviders"
+                                           type="checkbox"
+                                           name="consentForm.healthCareProviders"
+                                           id="consentForm.healthCareProviders"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.healthCareProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['healthCareProviders'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.healthCareProviders')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.healthCareProviders" class="block text-lg font-black text-gray-700">Health Care Providers</label>
+
                             </li>
 
+                            {{-- Mental Health Providers --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Mental Health Providers</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.mentalHealthProviders"
+                                           type="checkbox"
+                                           name="consentForm.mentalHealthProviders"
+                                           id="consentForm.mentalHealthProviders"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.mentalHealthProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['mentalHealthProviders'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.mentalHealthProviders')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.mentalHealthProviders" class="block text-lg font-black text-gray-700">Mental Health Providers</label>
+
                             </li>
 
+                            {{-- Chemical Dependency Providers --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Chemical Dependency Providers</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.chemicalDependencyProviders"
+                                           type="checkbox"
+                                           name="consentForm.chemicalDependencyProviders"
+                                           id="consentForm.chemicalDependencyProviders"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.chemicalDependencyProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['chemicalDependencyProviders'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.chemicalDependencyProviders')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.chemicalDependencyProviders" class="block text-lg font-black text-gray-700">Chemical Dependency Providers</label>
+
                             </li>
 
+                            {{-- Housing Program Providers --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Housing Program Providers</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.housingProgramProviders"
+                                           type="checkbox"
+                                           name="consentForm.housingProgramProviders"
+                                           id="consentForm.housingProgramProviders"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.housingProgramProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['housingProgramProviders'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.housingProgramProviders')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.housingProgramProviders" class="block text-lg font-black text-gray-700">Housing Program Providers</label>
+
                             </li>
 
+                            {{-- Department of Social Health Services --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Department of Social Health Services</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.departmentOfSocialHealthServices"
+                                           type="checkbox"
+                                           name="consentForm.departmentOfSocialHealthServices"
+                                           id="consentForm.departmentOfSocialHealthServices"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.departmentOfSocialHealthServices') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['departmentOfSocialHealthServices'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.departmentOfSocialHealthServices')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.departmentOfSocialHealthServices" class="block text-lg font-black text-gray-700">Department of Social Health Services</label>
+
                             </li>
 
+                            {{-- Colleges and Education Providers --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Colleges and Education Providers</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.collegesAndEducationProviders"
+                                           type="checkbox"
+                                           name="consentForm.collegesAndEducationProviders"
+                                           id="consentForm.collegesAndEducationProviders"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.collegesAndEducationProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['collegesAndEducationProviders'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.collegesAndEducationProviders')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.collegesAndEducationProviders" class="block text-lg font-black text-gray-700">Colleges and Education Providers</label>
+
                             </li>
 
+                            {{-- Attached Lists --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Attached List</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.attachedLists"
+                                           type="checkbox"
+                                           name="consentForm.attachedLists"
+                                           id="consentForm.attachedLists"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.attachedLists') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['attachedLists'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.attachedLists')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.attachedLists" class="block text-lg font-black text-gray-700">Attached Lists</label>
+
                             </li>
 
+                            {{-- Others --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Others</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.others"
+                                           type="checkbox"
+                                           name="consentForm.others"
+                                           id="consentForm.others"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.others') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['others'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.others')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.others" class="block text-lg font-black text-gray-700">Others</label>
+
+                            </li>
+
+                            {{-- Select All Consent Form --}}
+                            <li class="flex justify-end items-center w-full">
+
+                                <input wire:model="selectAllConsentForm"
+                                    type="checkbox"
+                                    name="selectAllConsentForm"
+                                    id="selectAllConsentForm"
+                                    wire:click="selectAllConsentForm()"
+                                    class="h-6 w-6 mr-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
+
+                                <label for="selectAllConsentForm" class="block text-lg font-black text-gray-700 text-end">CONSENT TO ALL</label>
+
                             </li>
 
                         </ul>
@@ -2962,23 +3287,114 @@
                         {{-- ADDITIONAL CONSENT LIST --}}
                         <ul class="flex flex-col w-full gap-2">
 
-
+                            {{-- Mental Health AC --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Mental Health</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.mentalHealthAC"
+                                           type="checkbox"
+                                           name="consentForm.mentalHealthAC"
+                                           id="consentForm.mentalHealthAC"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.mentalHealthAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['mentalHealthAC'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.mentalHealthAC')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.mentalHealthAC" class="block text-lg font-black text-gray-700">Mental Health</label>
+
                             </li>
 
+                            {{-- HIV/AIDS and STD --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">HIV/AIDS and STD test (results, diagnosis, and/or treatment)</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                    <input wire:model="consentForm.hivStdAC"
+                                           type="checkbox"
+                                           name="consentForm.hivStdAC"
+                                           id="consentForm.hivStdAC"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                    <div class="@error('consentForm.hivStdAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['hivStdAC'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.hivStdAC')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.hivStdAC" class="block text-lg font-black text-gray-700">HIV/AIDS and STD test (results, diagnosis, and/or treatment)</label>
+
                             </li>
 
+                            {{-- Attached Lists --}}
                             <li class="flex justify-start items-center w-full">
-                                <input type="text"
-                                       class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
-                                <label for="">Attached Lists</label>
+
+                                <div class="w-1/12 min-h-28 mr-2 relative">
+                                    <input wire:model="consentForm.attachedListsAC"
+                                           type="checkbox"
+                                           name="consentForm.attachedListsAC"
+                                           id="consentForm.attachedListsAC"
+                                           required
+                                           wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                    <div class="@error('consentForm.attachedListsAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentForm['attachedListsAC'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('consentForm.attachedListsAC')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <label for="consentForm.attachedListsAC" class="block text-lg font-black text-gray-700">Attached Lists</label>
+
+                            </li>
+
+                            {{-- Select All Additional Consent Form --}}
+                            <li class="flex justify-end items-center w-full">
+
+                                <input wire:model="selectAllAdditionalConsentForm"
+                                    type="checkbox"
+                                    name="selectAllAdditionalConsentForm"
+                                    id="selectAllAdditionalConsentForm"
+                                    wire:click="selectAllAdditionalConsentForm()"
+                                    class="h-6 w-6 mr-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
+
+                                <label for="selectAllAdditionalConsentForm" class="block text-lg font-black text-gray-700 text-end">CONSENT TO ALL ADDITIONAL</label>
+
                             </li>
 
                         </ul>
@@ -2986,7 +3402,7 @@
                         {{-- CONSENT DATE NOTICE --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-center items-center w-full">
+                            <div class="flex justify-start items-center w-full">
 
                                 <p class="font-black text-lg text-gray-900">
                                     This consent is valid from the date below.
@@ -3009,45 +3425,104 @@
 
                             </div>
 
-                            <div class="flex justify-center items-center w-full gap-2 mt-4">
+                            <div class="flex w-full gap-2 mt-4">
 
-                                <div class="w-1/2">
-                                    <label for="identificationInfo.number" class="block text-lg font-black text-gray-700">Signature</label>
-                                    <div class="mt-1">
-                                        <input type="text"
-                                               name="identificationInfo.number"
-                                               id="identificationInfo.number"
-                                               required
-                                               autocomplete=""
-                                               value="identificationInfo.number"
-                                               class="@error('identificationInfo.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
-                                        @error('identificationInfo.number')
-                                            <div class="flex w-full invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                {{-- Signature --}}
+                                <div class="w-1/2 min-h-28 mr-2 relative">
+                                    <label for="consentFormSignature.signed" class="block text-lg font-black text-gray-700 text-end">Signature</label>
+
+                                    <input wire:model="consentFormSignature.signed"
+                                           type="checkbox"
+                                           name="consentFormSignature.signed"
+                                           id="consentFormSignature.signed"
+                                           required
+                                           autocomplete=""
+                                           wire:click="signConsentForm()"
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                    <div class="@error('consentFormSignature.signed') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentFormSignature['signed'])
+                                            <div class="text-md font-black text-gray-900">
+                                               {{ $userSignature }}
                                             </div>
-                                        @enderror
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to sign consent form">
+                                        @endif
                                     </div>
+                                            @error('consentFormSignature.signed')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
                                 </div>
 
-                                <div class="w-1/2">
-                                    <label for="identificationInfo.number" class="block text-lg font-black text-gray-700">Date</label>
-                                    <div class="mt-1">
-                                        <input type="date"
-                                               name="identificationInfo.number"
-                                               id="identificationInfo.number"
-                                               required
-                                               autocomplete=""
-                                               value="{{ $today }}"
-                                               class="@error('identificationInfo.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
-                                        @error('identificationInfo.number')
-                                            <div class="flex w-full invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                {{-- Date --}}
+                                <div class="w-1/2 min-h-28 mr-2 relative">
+                                    <label for="consentFormSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
+
+                                    <input wire:model="consentFormSignature.date"
+                                           type="checkbox"
+                                           name="consentFormSignature.date"
+                                           id="consentFormSignature.date"
+                                           required
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                    <div class="@error('consentFormSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentFormSignature['date'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $today }}
                                             </div>
-                                        @enderror
+                                        @else
+                                            <img src="/svg/calendar-alt-solid.svg" alt="Click to date consent form">
+                                        @endif
                                     </div>
+                                            @error('consentFormSignature.date')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
                                 </div>
 
                             </div>
+
+                            {{-- <div class="flex justify-center items-center w-full gap-2 mt-4">
+
+                                <div class="w-1/2">
+                                    <label for="consentForm.number" class="block text-lg font-black text-gray-700">Signature</label>
+                                    <div class="mt-1">
+                                        <input type="text"
+                                               name="consentForm.number"
+                                               id="consentForm.number"
+                                               required
+                                               autocomplete=""
+                                               value="consentForm.number"
+                                               class="@error('consentForm.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
+                                        @error('consentForm.number')
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="w-1/2">
+                                    <label for="consentForm.number" class="block text-lg font-black text-gray-700">Date</label>
+                                    <div class="mt-1">
+                                        <input type="date"
+                                               name="consentForm.number"
+                                               id="consentForm.number"
+                                               required
+                                               autocomplete=""
+                                               value="{{ $today }}"
+                                               class="@error('consentForm.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
+                                        @error('consentForm.number')
+                                            <div class="flex w-full invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            </div> --}}
 
                         </div>
 
