@@ -358,14 +358,14 @@
                             <div class="w-full">
                                 <label for="identificationInfo.firstNameEmContact" class="block text-lg font-black text-gray-700">First Name</label>
                                 <div class="mt-1">
-                                    <input wire:model="emergencyContactInfo.firstNameEmContact" 
-                                           type="text" name="emergencyContactInfo.firstNameEmContact" 
-                                           id="emergencyContactInfo.firstNameEmContact" 
-                                           required 
+                                    <input wire:model="emergencyContactInfo.firstNameEmContact"
+                                           type="text" name="emergencyContactInfo.firstNameEmContact"
+                                           id="emergencyContactInfo.firstNameEmContact"
+                                           required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                           autocomplete="given-name" 
-                                           value="emergencyContactInfo.firstNameEmContact" 
+                                           autocomplete="given-name"
+                                           value="emergencyContactInfo.firstNameEmContact"
                                            class="@error('emergencyContactInfo.firstNameEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('emergencyContactInfo.firstNameEmContact')
                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -377,15 +377,15 @@
                             <div class="w-full md:px-2">
                                 <label for="emergencyContactInfo.lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
                                 <div class="mt-1">
-                                    <input wire:model="emergencyContactInfo.lastNameEmContact" 
-                                           type="text" 
-                                           name="emergencyContactInfo.lastNameEmContact" 
-                                           id="emergencyContactInfo.lastNameEmContact" 
-                                           required 
+                                    <input wire:model="emergencyContactInfo.lastNameEmContact"
+                                           type="text"
+                                           name="emergencyContactInfo.lastNameEmContact"
+                                           id="emergencyContactInfo.lastNameEmContact"
+                                           required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                           autocomplete="family-name" 
-                                           value="emergencyContactInfo.lastNameEmContact" 
+                                           autocomplete="family-name"
+                                           value="emergencyContactInfo.lastNameEmContact"
                                            class="@error('emergencyContactInfo.lastNameEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('emergencyContactInfo.lastNameEmContact')
                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -397,15 +397,15 @@
                             <div class="w-full">
                                 <label for="emergencyContactInfo.phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
                                 <div class="mt-1">
-                                    <input wire:model="emergencyContactInfo.phoneEmContact" 
-                                           type="tel" 
-                                           name="emergencyContactInfo.phoneEmContact" 
-                                           id="emergencyContactInfo.phoneEmContact" 
+                                    <input wire:model="emergencyContactInfo.phoneEmContact"
+                                           type="tel"
+                                           name="emergencyContactInfo.phoneEmContact"
+                                           id="emergencyContactInfo.phoneEmContact"
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
-                                           {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }} 
-                                           autocomplete="tel" 
-                                           value="emergencyContactInfo.phoneEmContact" 
+                                           {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
+                                           autocomplete="tel"
+                                           value="emergencyContactInfo.phoneEmContact"
                                            class="@error('emergencyContactInfo.phoneEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('emergencyContactInfo.phoneEmContact')
                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -421,15 +421,15 @@
                             <div class="w-full">
                                 <label for="emergencyContactInfo.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                 <div class="mt-1">
-                                    <input wire:model="emergencyContactInfo.cityEmContact" 
-                                           type="text" 
-                                           name="emergencyContactInfo.cityEmContact" 
-                                           id="emergencyContactInfo.cityEmContact" 
-                                           required 
+                                    <input wire:model="emergencyContactInfo.cityEmContact"
+                                           type="text"
+                                           name="emergencyContactInfo.cityEmContact"
+                                           id="emergencyContactInfo.cityEmContact"
+                                           required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                           autocomplete="city" 
-                                           value="emergencyContactInfo.cityEmContact" 
+                                           autocomplete="city"
+                                           value="emergencyContactInfo.cityEmContact"
                                            class="@error('emergencyContactInfo.cityEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                     @error('emergencyContactInfo.cityEmContact')
                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -442,14 +442,14 @@
                                 <label for="emergencyContactInfo.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
                                 <div class="mt-1">
                                     <label for="emergencyContactInfo.stateEmContact" class="sr-only">State</label>
-                                    <select wire:model="emergencyContactInfo.stateEmContact" 
-                                            id="emergencyContactInfo.stateEmContact" 
+                                    <select wire:model="emergencyContactInfo.stateEmContact"
+                                            id="emergencyContactInfo.stateEmContact"
                                             name="emergencyContactInfo.stateEmContact"
                                             required
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
-                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }} 
-                                            autocomplete="state" 
-                                            value="emergencyContactInfo.stateEmContact" 
+                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
+                                            autocomplete="state"
+                                            value="emergencyContactInfo.stateEmContact"
                                             class="@error('emergencyContactInfo.stateEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} z-10 block w-full px-3 py-2 text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                         <option  value="">Select</option>
                                         @php
@@ -470,13 +470,13 @@
                                 <label for="emergencyContactInfo.relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
                                 <div class="mt-1">
                                     <label for="emergencyContactInfo.relationshipEmContact" class="sr-only">Relationship</label>
-                                    <select wire:model="emergencyContactInfo.relationshipEmContact" 
-                                            id="emergencyContactInfo.relationshipEmContact" 
-                                            name="emergencyContactInfo.relationshipEmContact" 
+                                    <select wire:model="emergencyContactInfo.relationshipEmContact"
+                                            id="emergencyContactInfo.relationshipEmContact"
+                                            name="emergencyContactInfo.relationshipEmContact"
                                             required
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                             {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                            value="emergencyContactInfo.relationshipEmContact" 
+                                            value="emergencyContactInfo.relationshipEmContact"
                                             class="@error('emergencyContactInfo.relationshipEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} z-10 block w-full px-3 py-2 text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                         <option  value="">Select</option>
                                         @php
@@ -532,15 +532,15 @@
                                 <div class="w-1/3">
                                     <label for="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" class="block text-lg font-black text-gray-700">First Name</label>
                                     <div class="mt-1">
-                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" 
-                                               type="text" 
-                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" 
-                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" 
-                                               required 
+                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact"
+                                               type="text"
+                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact"
+                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact"
+                                               required
                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                               autocomplete="given-name" 
-                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact" 
+                                               autocomplete="given-name"
+                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.firstNameEmContact"
                                                class="@error("additionalEmergencyContactInfo.{$loop->index}.firstNameEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                         @error("additionalEmergencyContactInfo.{$loop->index}.firstNameEmContact")
                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -552,15 +552,15 @@
                                 <div class="w-1/3 md:px-2">
                                     <label for="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" class="block text-lg font-black text-gray-700">Last Name</label>
                                     <div class="mt-1">
-                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" 
-                                               type="text" 
-                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" 
-                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" 
-                                               required 
+                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact"
+                                               type="text"
+                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact"
+                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact"
+                                               required
                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                               autocomplete="family-name" 
-                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact" 
+                                               autocomplete="family-name"
+                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.lastNameEmContact"
                                                class="@error("additionalEmergencyContactInfo.{$loop->index}.lastNameEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                         @error("additionalEmergencyContactInfo.{$loop->index}.lastNameEmContact")
                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -572,15 +572,15 @@
                                 <div class="w-1/3">
                                     <label for="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" class="block text-lg font-black text-gray-700">Contact Number</label>
                                     <div class="mt-1">
-                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" 
-                                               type="tel" 
-                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" 
-                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" 
-                                               required 
+                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact"
+                                               type="tel"
+                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact"
+                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact"
+                                               required
                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                               autocomplete="tel" 
-                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact" 
+                                               autocomplete="tel"
+                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.phoneEmContact"
                                                class="@error("additionalEmergencyContactInfo.{$loop->index}.phoneEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                         @error("additionalEmergencyContactInfo.{$loop->index}.phoneEmContact")
                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -596,15 +596,15 @@
                                 <div class="w-1/3">
                                     <label for="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                     <div class="mt-1">
-                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" 
-                                               type="text" 
-                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" 
-                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" 
-                                               required 
+                                        <input wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact"
+                                               type="text"
+                                               name="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact"
+                                               id="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact"
+                                               required
                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                               autocomplete="ship-city" 
-                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" 
+                                               autocomplete="ship-city"
+                                               value="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact"
                                                class="@error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                         @error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact")
                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -617,14 +617,14 @@
                                     <label for="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" class="block text-lg font-black text-gray-700">State</label>
                                     <div class="mt-1">
                                         <label for="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" class="sr-only">State</label>
-                                        <select wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" 
-                                                id="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" 
-                                                name="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" 
+                                        <select wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact"
+                                                id="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact"
+                                                name="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact"
                                                 required
                                                 {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                 {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
                                                 autocomplete="state"
-                                                value="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact" 
+                                                value="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact"
                                                 class="@error("additionalEmergencyContactInfo.{$loop->index}.stateEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} z-10 block w-full px-3 py-2 text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             <option  value="">Select</option>
                                             @php
@@ -646,13 +646,13 @@
                                     <label for="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" class="block text-lg font-black text-gray-700">Relationship</label>
                                     <div class="mt-1">
                                         <label for="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" class="sr-only">Relationship</label>
-                                        <select wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" 
-                                                id="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" 
-                                                name="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" 
+                                        <select wire:model="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact"
+                                                id="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact"
+                                                name="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact"
                                                 required
                                                 {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                 {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                                value="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact" 
+                                                value="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact"
                                                 class="@error("additionalEmergencyContactInfo.{$loop->index}.relationshipEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} z-10 block w-full px-3 py-2 text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             <option  value="">Select</option>
                                             @php
@@ -756,17 +756,17 @@
                                 <label for="legalInfo.isSexOffender" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Are you a registered sex offender?</label>
                                 <fieldset class="@error("legalInfo.isSexOffender") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.isSexOffender">
                                     <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                    <input wire:model="legalInfo.isSexOffender" 
-                                           type="radio" 
-                                           value="1" 
+                                    <input wire:model="legalInfo.isSexOffender"
+                                           type="radio"
+                                           value="1"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.isSexOffender"
                                            class="{{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }}" />
                                     <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                    <input wire:model="legalInfo.isSexOffender" 
-                                           type="radio" 
-                                           value="0" 
+                                    <input wire:model="legalInfo.isSexOffender"
+                                           type="radio"
+                                           value="0"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.isSexOffender"
@@ -780,17 +780,17 @@
                                 <label for="legalInfo.isArsonist" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of arson?</label>
                                 <fieldset class="@error("legalInfo.isArsonist") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.isArsonist">
                                     <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                    <input wire:model="legalInfo.isArsonist" 
-                                           type="radio" 
-                                           value="1" 
+                                    <input wire:model="legalInfo.isArsonist"
+                                           type="radio"
+                                           value="1"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.isArsonist"
                                            class=" {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }}" />
                                     <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                    <input wire:model="legalInfo.isArsonist" 
-                                           type="radio" 
-                                           value="0" 
+                                    <input wire:model="legalInfo.isArsonist"
+                                           type="radio"
+                                           value="0"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.isArsonist"
@@ -804,17 +804,17 @@
                                 <label for="legalInfo.isKidnapper" class="inline-flex mt-2 text-lg font-black text-red-500 md:mt-0">Have you ever be convicted of kidnapping?</label>
                                 <fieldset class="@error("legalInfo.isKidnapper") is-invalid @enderror mt-2 mr-2 md:mt-0" id="legalInfo.isKidnapper">
                                     <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                    <input wire:model="legalInfo.isKidnapper" 
-                                           type="radio" 
-                                           value="1" 
+                                    <input wire:model="legalInfo.isKidnapper"
+                                           type="radio"
+                                           value="1"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.isKidnapper"
                                            class=" {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }}" />
                                     <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                    <input wire:model="legalInfo.isKidnapper" 
-                                           type="radio" 
-                                           value="0" 
+                                    <input wire:model="legalInfo.isKidnapper"
+                                           type="radio"
+                                           value="0"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.isKidnapper"
@@ -834,17 +834,17 @@
                                 <label for="legalInfo.onLegalSupervision" class="inline-flex text-lg font-black text-gray-900">Are you on legal supervision?</label>
                                 <fieldset class="@error("legalInfo.onLegalSupervision") is-invalid  @enderror" id="legalInfo.onLegalSupervision">
                                     <label class="inline-flex text-lg font-black text-gray-900">Yes</label>
-                                    <input wire:model="legalInfo.onLegalSupervision" 
-                                           type="radio" 
-                                           value="1" 
+                                    <input wire:model="legalInfo.onLegalSupervision"
+                                           type="radio"
+                                           value="1"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.onLegalSupervision"
                                            class=" {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }}" />
                                     <label class="inline-flex ml-2 text-lg font-black text-gray-900">No</label>
-                                    <input wire:model="legalInfo.onLegalSupervision" 
-                                           type="radio" 
-                                           value="0" 
+                                    <input wire:model="legalInfo.onLegalSupervision"
+                                           type="radio"
+                                           value="0"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
                                            name="legalInfo.onLegalSupervision"
@@ -866,15 +866,15 @@
                                     <div class="w-full">
                                         <label for="legalInfo.firstName" class="block text-lg font-black text-gray-700">First Name</label>
                                         <div class="mt-1">
-                                            <input wire:model="legalInfo.firstName" 
-                                                   type="text" 
-                                                   name="legalInfo.firstName" 
-                                                   id="firstName" 
-                                                   required 
+                                            <input wire:model="legalInfo.firstName"
+                                                   type="text"
+                                                   name="legalInfo.firstName"
+                                                   id="firstName"
+                                                   required
                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
-                                                   autocomplete="given-name" 
-                                                   value="legalInfo.firstName" 
+                                                   autocomplete="given-name"
+                                                   value="legalInfo.firstName"
                                                    class="@error('legalInfo.firstName') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             @error('legalInfo.firstName')
                                                 <span class="invalid-feedback" role="alert">
@@ -886,15 +886,15 @@
                                     <div class="w-full md:pl-2">
                                         <label for="legalInfo.lastName" class="block text-lg font-black text-gray-700">Last Name</label>
                                         <div class="mt-1">
-                                            <input wire:model="legalInfo.lastName" 
-                                                   type="text" 
-                                                   name="legalInfo.lastName" 
-                                                   id="legalInfo.lastName" 
-                                                   required 
+                                            <input wire:model="legalInfo.lastName"
+                                                   type="text"
+                                                   name="legalInfo.lastName"
+                                                   id="legalInfo.lastName"
+                                                   required
                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
-                                                   autocomplete="family-name" 
-                                                   value="legalInfo.lastName" 
+                                                   autocomplete="family-name"
+                                                   value="legalInfo.lastName"
                                                    class="@error('legalInfo.lastName') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             @error('legalInfo.lastName')
                                                 <span class="invalid-feedback" role="alert">
@@ -911,15 +911,15 @@
                                     <div class="w-full">
                                         <label for="legalInfo.agency" class="block text-lg font-black text-gray-700">Agency</label>
                                         <div class="mt-1">
-                                            <input wire:model="legalInfo.agency" 
-                                                   type="text" 
-                                                   name="legalInfo.agency" 
-                                                   id="legalInfo.agency" 
-                                                   required 
+                                            <input wire:model="legalInfo.agency"
+                                                   type="text"
+                                                   name="legalInfo.agency"
+                                                   id="legalInfo.agency"
+                                                   required
                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
-                                                   autocomplete="organization" 
-                                                   value="legalInfo.agency" 
+                                                   autocomplete="organization"
+                                                   value="legalInfo.agency"
                                                    class="@error('legalInfo.agency') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             @error('legalInfo.agency')
                                                 <span class="invalid-feedback" role="alert">
@@ -931,15 +931,15 @@
                                     <div class="w-full md:pl-2">
                                         <label for="legalInfo.phone" class="block text-lg font-black text-gray-700">Contact Number</label>
                                         <div class="mt-1">
-                                            <input wire:model="legalInfo.phone" 
-                                                   type="tel" 
-                                                   name="legalInfo.phone" 
-                                                   id="legalInfo.phone" 
-                                                   required 
+                                            <input wire:model="legalInfo.phone"
+                                                   type="tel"
+                                                   name="legalInfo.phone"
+                                                   id="legalInfo.phone"
+                                                   required
                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
-                                                   autocomplete="tel" 
-                                                   value="legalInfo.phone" 
+                                                   autocomplete="tel"
+                                                   value="legalInfo.phone"
                                                    class="@error('legalInfo.phone') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             @error('legalInfo.phone')
                                                 <span class="invalid-feedback" role="alert">
@@ -962,7 +962,7 @@
 
                                 <div class="flex flex-col w-full">
 
-                                    <h3 class="font-black text-2xl text-gray-900 {{ $isAdminEditing && $stepAdminIsEditing == 2 ? '' : count($legalInfo['convictions']) == 0 ? 'hidden' : '' }}">
+                                    <h3 class="font-black text-2xl text-gray-900 {{ $isAdminEditing && $stepAdminIsEditing == 2 ? '' : (count($legalInfo['convictions']) == 0 ? 'hidden' : '') }}">
                                         List all convictions in the past ten (10) years:
                                     </h3>
 
@@ -996,15 +996,15 @@
                                                 </div>
 
                                                 <div class="mt-2">
-                                                    <input wire:model="legalInfo.convictions.{{ $loop->index }}" 
-                                                           type="text" 
-                                                           name="legalInfo.convictions.{{ $loop->index }}" 
-                                                           id="legalInfo.convictions.{{ $loop->index }}" 
-                                                           required 
+                                                    <input wire:model="legalInfo.convictions.{{ $loop->index }}"
+                                                           type="text"
+                                                           name="legalInfo.convictions.{{ $loop->index }}"
+                                                           id="legalInfo.convictions.{{ $loop->index }}"
+                                                           required
                                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
-                                                           autocomplete="given-name" 
-                                                           value="legalInfo.convictions.{{ $loop->index }}" 
+                                                           autocomplete="given-name"
+                                                           value="legalInfo.convictions.{{ $loop->index }}"
                                                            class="@error("legalInfo.convictions.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                     @error("legalInfo.convictions.{$loop->index}")
                                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -1116,19 +1116,19 @@
                                 <fieldset class="@error("medicalInfo.hasScripts") is-invalid bg-input-error @enderror" id="medicalInfo.hasScripts">
 
                                     <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                    <input wire:model="medicalInfo.hasScripts" 
-                                           wire:click="addMedicationOnYes" 
-                                           type="radio" 
-                                           value="1" 
+                                    <input wire:model="medicalInfo.hasScripts"
+                                           wire:click="addMedicationOnYes"
+                                           type="radio"
+                                           value="1"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
                                            name="medicalInfo.hasScripts"
                                            class="{{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? 'bg-input' : 'bg-input-disabled' }}" />
 
                                     <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                    <input wire:model="medicalInfo.hasScripts" 
-                                           type="radio" 
-                                           value="0" 
+                                    <input wire:model="medicalInfo.hasScripts"
+                                           type="radio"
+                                           value="0"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
                                            name="medicalInfo.hasScripts"
@@ -1188,15 +1188,15 @@
                                                 </div>
 
                                                 <div class="mt-1">
-                                                    <input wire:model="medicalInfo.medications.{{ $loop->index  }}" 
-                                                           type="text" 
-                                                           name="medicalInfo.medications.{{ $loop->index }}" 
-                                                           id="medicalInfo.medications.{{ $loop->index }}" 
-                                                           required 
+                                                    <input wire:model="medicalInfo.medications.{{ $loop->index  }}"
+                                                           type="text"
+                                                           name="medicalInfo.medications.{{ $loop->index }}"
+                                                           id="medicalInfo.medications.{{ $loop->index }}"
+                                                           required
                                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
-                                                           autocomplete="given-name" 
-                                                           value="medicalInfo.medications.{{ $loop->index }}" 
+                                                           autocomplete="given-name"
+                                                           value="medicalInfo.medications.{{ $loop->index }}"
                                                            class="@error("medicalInfo.medications.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                     @error("medicalInfo.medications.{$loop->index}")
                                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -1234,7 +1234,7 @@
                         </div>
 
                         {{-- FORM ROW 3 --}}
-                        <div class="grid grid-cols-1 {{ $isAdminEditing && $stepAdminIsEditing == 3 ? '' : $medicalInfo['drugUse']['drugOfChoice'][0] == '' && $currentStep == 7 && $stepAdminIsEditing != 3 ? 'hidden' : '' }}">
+                        <div class="grid grid-cols-1 {{ $isAdminEditing && $stepAdminIsEditing == 3 ? '' : ($medicalInfo['drugUse']['drugOfChoice'][0] == '' && $currentStep == 7 && $stepAdminIsEditing != 3 ? 'hidden' : '') }}">
 
                             <div class="flex justify-between items-center w-full">
 
@@ -1263,15 +1263,15 @@
                                                 </div>
 
                                                 <div class="mt-1">
-                                                    <input wire:model="medicalInfo.drugUse.drugOfChoice.{{ $loop->index  }}" 
-                                                           type="text" 
-                                                           name="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" 
-                                                           id="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" 
-                                                           required 
+                                                    <input wire:model="medicalInfo.drugUse.drugOfChoice.{{ $loop->index  }}"
+                                                           type="text"
+                                                           name="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}"
+                                                           id="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}"
+                                                           required
                                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
-                                                           autocomplete="given-name" 
-                                                           value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}" 
+                                                           autocomplete="given-name"
+                                                           value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}"
                                                            class="@error("medicalInfo.drugUse.drugOfChoice.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                     @error("medicalInfo.drugUse.drugOfChoice.{$loop->index}")
                                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -1292,15 +1292,15 @@
                                                     <div class="flex justify-between w-full">
 
                                                         <div class="mt-1">
-                                                            <input wire:model="medicalInfo.drugUse.lastUse.{{ $loop->index  }}" 
-                                                                   type="date" 
-                                                                   name="medicalInfo.drugUse.lastUse.{{ $loop->index }}" 
-                                                                   id="medicalInfo.drugUse.lastUse.{{ $loop->index }}" 
-                                                                   required 
+                                                            <input wire:model="medicalInfo.drugUse.lastUse.{{ $loop->index  }}"
+                                                                   type="date"
+                                                                   name="medicalInfo.drugUse.lastUse.{{ $loop->index }}"
+                                                                   id="medicalInfo.drugUse.lastUse.{{ $loop->index }}"
+                                                                   required
                                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
-                                                                   autocomplete="given-name" 
-                                                                   value="{{ $today }}" 
+                                                                   autocomplete="given-name"
+                                                                   value="{{ $today }}"
                                                                    class="@error("medicalInfo.drugUse.lastUse.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                         </div>
 
@@ -1429,18 +1429,18 @@
                                 <fieldset class="@error("fundingInfo.hasLivedWithPVSL") is-invalid bg-input-error @enderror" id="fundingInfo.hasLivedWithPVSL">
 
                                     <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                    <input wire:model="fundingInfo.hasLivedWithPVSL" 
-                                           type="radio" 
-                                           value="1" 
+                                    <input wire:model="fundingInfo.hasLivedWithPVSL"
+                                           type="radio"
+                                           value="1"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
                                            name="fundingInfo.hasLivedWithPVSL"
                                            class="{{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }}" />
 
                                     <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                    <input wire:model="fundingInfo.hasLivedWithPVSL" 
-                                           type="radio" 
-                                           value="0" 
+                                    <input wire:model="fundingInfo.hasLivedWithPVSL"
+                                           type="radio"
+                                           value="0"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
                                            name="fundingInfo.hasLivedWithPVSL"
@@ -1468,15 +1468,15 @@
                                     <div class="w-full">
                                         <label for="fundingInfo.moveOutDate" class="block text-lg font-black text-gray-700">Move Out Date</label>
                                         <div class="mt-1">
-                                            <input wire:model="fundingInfo.moveOutDate" 
-                                                   type="date" 
-                                                   name="fundingInfo.moveOutDate" 
-                                                   id="fundingInfo.moveOutDate" 
-                                                   required 
+                                            <input wire:model="fundingInfo.moveOutDate"
+                                                   type="date"
+                                                   name="fundingInfo.moveOutDate"
+                                                   id="fundingInfo.moveOutDate"
+                                                   required
                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                   autocomplete="" 
-                                                   value="fundingInfo.moveOutDate" 
+                                                   autocomplete=""
+                                                   value="fundingInfo.moveOutDate"
                                                    class="@error('fundingInfo.moveOutDate') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             @error('fundingInfo.moveOutDate')
                                                 <div class="flex w-full invalid-feedback" role="alert">
@@ -1490,13 +1490,13 @@
                                         <label for="fundingInfo.reasonForLeaving" class="block text-lg font-black text-gray-700">Reason For Leaving</label>
                                         <div class="mt-1">
                                             <label for="fundingInfo.reasonForLeaving" class="sr-only">Reason For Leaving</label>
-                                            <select wire:model="fundingInfo.reasonForLeaving" 
-                                                    id="fundingInfo.reasonForLeaving" 
-                                                    name="fundingInfo.reasonForLeaving" 
+                                            <select wire:model="fundingInfo.reasonForLeaving"
+                                                    id="fundingInfo.reasonForLeaving"
+                                                    name="fundingInfo.reasonForLeaving"
                                                     required
                                                     {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                     {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                    value="fundingInfo.reasonForLeaving" 
+                                                    value="fundingInfo.reasonForLeaving"
                                                     class="@error("fundingInfo.reasonForLeaving") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                 <option  value="">Select</option>
                                                 {{-- @php
@@ -1530,18 +1530,18 @@
                             <fieldset class="@error("fundingInfo.hasPaidAdminFee") is-invalid bg-input-error @enderror" id="fundingInfo.hasPaidAdminFee">
 
                                 <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                <input wire:model="fundingInfo.hasPaidAdminFee" 
-                                       type="radio" 
-                                       value="1" 
+                                <input wire:model="fundingInfo.hasPaidAdminFee"
+                                       type="radio"
+                                       value="1"
                                        {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                        {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
                                        name="fundingInfo.hasPaidAdminFee"
                                        class="{{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }}" />
 
                                 <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                <input wire:model="fundingInfo.hasPaidAdminFee" 
-                                       type="radio" 
-                                       value="0" 
+                                <input wire:model="fundingInfo.hasPaidAdminFee"
+                                       type="radio"
+                                       value="0"
                                        {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                        {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
                                        name="fundingInfo.hasPaidAdminFee"
@@ -1596,14 +1596,14 @@
                                                 <div class="w-full">
                                                     <label for="fundingInfo.sources.{{ $loop->index }}.name" class="block text-lg font-black text-gray-900">Name</label>
                                                     <div class="mt-1">
-                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.name" 
-                                                               type="text" name="fundingInfo.sources.{{ $loop->index }}.name" 
-                                                               id="fundingInfo.sources.{{ $loop->index }}.name" 
-                                                               required 
+                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.name"
+                                                               type="text" name="fundingInfo.sources.{{ $loop->index }}.name"
+                                                               id="fundingInfo.sources.{{ $loop->index }}.name"
+                                                               required
                                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                               autocomplete="given-name" 
-                                                               value="fundingInfo.sources.{{ $loop->index }}.name" 
+                                                               autocomplete="given-name"
+                                                               value="fundingInfo.sources.{{ $loop->index }}.name"
                                                                class="@error("fundingInfo.sources.{$loop->index}.name") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                         @error("fundingInfo.sources.{$loop->index}.name")
                                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -1622,27 +1622,27 @@
                                                                 $
                                                             </span>
                                                         </div>
-                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.amount" 
-                                                               type="text" 
-                                                               name="fundingInfo.sources.{{ $loop->index }}.amount" 
-                                                               id="fundingInfo.sources.{{ $loop->index }}.amount" 
-                                                               required 
+                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.amount"
+                                                               type="text"
+                                                               name="fundingInfo.sources.{{ $loop->index }}.amount"
+                                                               id="fundingInfo.sources.{{ $loop->index }}.amount"
+                                                               required
                                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                               autocomplete="given-name" 
-                                                               value="fundingInfo.sources.{{ $loop->index }}.amount" 
-                                                               class="@error("fundingInfo.sources.{$loop->index}.amount") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10 block text-center" 
+                                                               autocomplete="given-name"
+                                                               value="fundingInfo.sources.{{ $loop->index }}.amount"
+                                                               class="@error("fundingInfo.sources.{$loop->index}.amount") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10 block text-center"
                                                                placeholder="0.00" />
                                                         <div class="absolute inset-y-0 right-0 flex items-center">
                                                             <label for="pricefundingInfo.sources.{{ $loop->index }}.frequency" class="sr-only">Pay Frequency</label>
-                                                            <select wire:model="fundingInfo.sources.{{ $loop->index }}.frequency" 
-                                                                    id="fundingInfo.sources.{{ $loop->index }}.frequency" 
-                                                                    name="fundingInfo.sources.{{ $loop->index }}.frequency" 
-                                                                    required 
+                                                            <select wire:model="fundingInfo.sources.{{ $loop->index }}.frequency"
+                                                                    id="fundingInfo.sources.{{ $loop->index }}.frequency"
+                                                                    name="fundingInfo.sources.{{ $loop->index }}.frequency"
+                                                                    required
                                                                     {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                     {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                                    autocomplete="" 
-                                                                    value="fundingInfo.sources.{{ $loop->index }}.frequency" 
+                                                                    autocomplete=""
+                                                                    value="fundingInfo.sources.{{ $loop->index }}.frequency"
                                                                     class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-900 sm:text-sm rounded-md">
                                                                 <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="0">/Hr</option>
                                                                 <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="1">/Mo</option>
@@ -1661,15 +1661,15 @@
                                                     <div class="w-full">
                                                         <label for="fundingInfo.sources.{{ $loop->index }}.startDate" class="block text-lg font-black text-gray-900">Start Date</label>
                                                         <div class="mt-1">
-                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.startDate" 
-                                                                   type="date" 
-                                                                   name="fundingInfo.sources.{{ $loop->index }}.startDate" 
-                                                                   id="fundingInfo.sources.{{ $loop->index }}.startDate" 
-                                                                   required 
+                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.startDate"
+                                                                   type="date"
+                                                                   name="fundingInfo.sources.{{ $loop->index }}.startDate"
+                                                                   id="fundingInfo.sources.{{ $loop->index }}.startDate"
+                                                                   required
                                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                                   autocomplete="" 
-                                                                   value="{{ $today }}" 
+                                                                   autocomplete=""
+                                                                   value="{{ $today }}"
                                                                    class="@error("fundingInfo.sources.{$loop->index}.startDate") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                             @error("fundingInfo.sources.{$loop->index}.startDate")
                                                                 <div class="flex w-full invalid-feedback" role="alert">
@@ -1692,15 +1692,15 @@
                                                 <div class="w-full">
                                                     <label for="fundingInfo.sources.{{ $loop->index }}.reference.firstName" class="block text-lg font-black text-gray-900">First Name</label>
                                                     <div class="mt-1">
-                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.firstName" 
-                                                               type="text" 
-                                                               name="fundingInfo.sources.{{ $loop->index }}.reference.firstName" 
-                                                               id="fundingInfo.sources.{{ $loop->index }}.reference.firstName" 
-                                                               required 
+                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.firstName"
+                                                               type="text"
+                                                               name="fundingInfo.sources.{{ $loop->index }}.reference.firstName"
+                                                               id="fundingInfo.sources.{{ $loop->index }}.reference.firstName"
+                                                               required
                                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                               autocomplete="given-name" 
-                                                               value="fundingInfo.sources.{{ $loop->index }}.reference.firstName" 
+                                                               autocomplete="given-name"
+                                                               value="fundingInfo.sources.{{ $loop->index }}.reference.firstName"
                                                                class="@error("fundingInfo.sources.{$loop->index}.reference.firstName") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                         @error("fundingInfo.sources.{$loop->index}.reference.firstName")
                                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -1713,15 +1713,15 @@
                                                 <div class="w-full">
                                                     <label for="fundingInfo.sources.{{ $loop->index }}.reference.lastName" class="block text-lg font-black text-gray-900">Last Name</label>
                                                     <div class="mt-1">
-                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.lastName" 
-                                                               type="text" 
-                                                               name="fundingInfo.sources.{{ $loop->index }}.reference.lastName" 
-                                                               id="fundingInfo.sources.{{ $loop->index }}.reference.lastName" 
-                                                               required 
+                                                        <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.lastName"
+                                                               type="text"
+                                                               name="fundingInfo.sources.{{ $loop->index }}.reference.lastName"
+                                                               id="fundingInfo.sources.{{ $loop->index }}.reference.lastName"
+                                                               required
                                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                               autocomplete="given-name" 
-                                                               value="fundingInfo.sources.{{ $loop->index }}.reference.lastName" 
+                                                               autocomplete="given-name"
+                                                               value="fundingInfo.sources.{{ $loop->index }}.reference.lastName"
                                                                class="@error("fundingInfo.sources.{$loop->index}.reference.lastName") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                         @error("fundingInfo.sources.{$loop->index}.reference.lastName")
                                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -1735,15 +1735,15 @@
                                                     <div class="w-full">
                                                         <label for="fundingInfo.sources.{{ $loop->index }}.reference.phone" class="block text-lg font-black text-gray-900">Phone</label>
                                                         <div class="mt-1">
-                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.phone" 
-                                                                   type="text" 
-                                                                   name="fundingInfo.sources.{{ $loop->index }}.reference.phone" 
-                                                                   id="fundingInfo.sources.{{ $loop->index }}.reference.phone" 
-                                                                   required 
+                                                            <input wire:model="fundingInfo.sources.{{ $loop->index }}.reference.phone"
+                                                                   type="text"
+                                                                   name="fundingInfo.sources.{{ $loop->index }}.reference.phone"
+                                                                   id="fundingInfo.sources.{{ $loop->index }}.reference.phone"
+                                                                   required
                                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                                   autocomplete="" 
-                                                                   value="fundingInfo.sources.{{ $loop->index }}.reference.phone" 
+                                                                   autocomplete=""
+                                                                   value="fundingInfo.sources.{{ $loop->index }}.reference.phone"
                                                                    class="@error("fundingInfo.sources.{$loop->index}.reference.phone") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                             @error("fundingInfo.sources.{$loop->index}.reference.phone")
                                                                 <div class="flex w-full invalid-feedback" role="alert">
@@ -1851,13 +1851,13 @@
                                 <label for="identificationInfo.type" class="block text-lg font-black text-gray-700">Type</label>
                                 <div class="mt-1">
                                     <label for="identificationInfo.type" class="sr-only">Type</label>
-                                    <select wire:model="identificationInfo.type" 
-                                            id="identificationInfo.type" 
-                                            name="identificationInfo.type" 
+                                    <select wire:model="identificationInfo.type"
+                                            id="identificationInfo.type"
+                                            name="identificationInfo.type"
                                             required
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                             {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
-                                            value="identificationInfo.type" 
+                                            value="identificationInfo.type"
                                             class="@error("identificationInfo.type") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                         <option  value="">Select</option>
                                         @php
@@ -1879,13 +1879,13 @@
                                 <label for="identificationInfo.state" class="block text-lg font-black text-gray-700">State</label>
                                 <div class="mt-1">
                                     <label for="identificationInfo.state" class="sr-only">State</label>
-                                    <select wire:model="identificationInfo.state" 
-                                            id="identificationInfo.state" 
-                                            name="identificationInfo.state" 
+                                    <select wire:model="identificationInfo.state"
+                                            id="identificationInfo.state"
+                                            name="identificationInfo.state"
                                             required
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                             {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
-                                            value="identificationInfo.state" 
+                                            value="identificationInfo.state"
                                             class="@error("identificationInfo.state") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                         <option  value="">Select</option>
                                         @php
@@ -1906,15 +1906,15 @@
                             <div class="md:col-span-2 col-span-5 ">
                                 <label for="identificationInfo.number" class="block text-lg font-black text-gray-700">Number</label>
                                 <div class="mt-1">
-                                    <input wire:model="identificationInfo.number" 
-                                           type="text" 
-                                           name="identificationInfo.number" 
-                                           id="identificationInfo.number" 
-                                           required 
+                                    <input wire:model="identificationInfo.number"
+                                           type="text"
+                                           name="identificationInfo.number"
+                                           id="identificationInfo.number"
+                                           required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
-                                           autocomplete="" 
-                                           value="identificationInfo.number" 
+                                           autocomplete=""
+                                           value="identificationInfo.number"
                                            class="@error('identificationInfo.number') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('identificationInfo.number')
                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -1927,15 +1927,15 @@
                             <div class="md:col-span-2 col-span-3 ">
                                 <label for="identificationInfo.expiration" class="block text-lg font-black text-gray-700">Expiration Date</label>
                                 <div class="mt-1">
-                                    <input wire:model="identificationInfo.expiration" 
-                                           type="date" 
-                                           name="identificationInfo.expiration" 
-                                           id="identificationInfo.expiration" 
-                                           required 
+                                    <input wire:model="identificationInfo.expiration"
+                                           type="date"
+                                           name="identificationInfo.expiration"
+                                           id="identificationInfo.expiration"
+                                           required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
-                                           autocomplete="" 
-                                           value="identificationInfo.expiration" 
+                                           autocomplete=""
+                                           value="identificationInfo.expiration"
                                            class="@error('identificationInfo.expiration') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('identificationInfo.expiration')
                                         <div class="flex w-full invalid-feedback" role="alert">
@@ -2288,18 +2288,18 @@
                                 <fieldset class="@error("identificationInfo.hasSocialCard") is-invalid bg-input-error @enderror" id="identificationInfo.hasSocialCard">
 
                                     <label class="inline-flex text-lg font-black text-red-500">Yes</label>
-                                    <input wire:model="identificationInfo.hasSocialCard" 
-                                           type="radio" 
-                                           value="1" 
+                                    <input wire:model="identificationInfo.hasSocialCard"
+                                           type="radio"
+                                           value="1"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
                                            name="identificationInfo.hasSocialCard"
                                            class=" {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? 'bg-input' : 'bg-input-disabled' }}" />
 
                                     <label class="inline-flex ml-2 text-lg font-black text-red-500">No</label>
-                                    <input wire:model="identificationInfo.hasSocialCard" 
-                                           type="radio" 
-                                           value="0" 
+                                    <input wire:model="identificationInfo.hasSocialCard"
+                                           type="radio"
+                                           value="0"
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
                                            name="identificationInfo.hasSocialCard"
@@ -2842,7 +2842,7 @@
 
                                 <p class="font-black text-lg text-gray-900">
                                     <span class="text-xl">Notice to Clients:</span> Pura Vida Sober Living house's housing specialist will be able to help
-                                    you resolve issues you may have with the following items. Signing this form gives our professionals the right to share 
+                                    you resolve issues you may have with the following items. Signing this form gives our professionals the right to share
                                     information with corresponding agensices on your behalf. If you decline to sign this form, your confidential information
                                     can be shared to the extent Washington State law allows.
                                 </p>
@@ -2857,8 +2857,8 @@
                             <div class="flex justify-center items-center w-full">
 
                                 <p class="font-black text-lg text-gray-900">
-                                    <span class="text-xl">Consent:</span> I allow Pura Vida Sober Living (PVSL) LLC. housing specialist to use my confidential 
-                                    information to provide, and coordinate services, treatment, and benefits for me or for other purposes authorized by law. I 
+                                    <span class="text-xl">Consent:</span> I allow Pura Vida Sober Living (PVSL) LLC. housing specialist to use my confidential
+                                    information to provide, and coordinate services, treatment, and benefits for me or for other purposes authorized by law. I
                                     allow PVSL and the below listed agencies, providers, or persons to use my confidential information and disclose it to each
                                     other for these purposes. Information may be shared verbally or by computer, data transfer, mail, or hand delivery.
                                 </p>
@@ -2872,73 +2872,73 @@
 
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Employment Security Department</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Social Security Administration</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Department of Corrections</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Child Support Enforcement</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Health Care Providers</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Mental Health Providers</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Chemical Dependency Providers</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Housing Program Providers</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Department of Social Health Services</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Colleges and Education Providers</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Attached List</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Others</label>
                             </li>
@@ -2964,19 +2964,19 @@
 
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Mental Health</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">HIV/AIDS and STD test (results, diagnosis, and/or treatment)</label>
                             </li>
 
                             <li class="flex justify-start items-center w-full">
-                                <input type="text" 
+                                <input type="text"
                                        class="w-1/12 text-center px-3 py-2 mr-2 block shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                 <label for="">Attached Lists</label>
                             </li>
@@ -3003,8 +3003,8 @@
 
                                 <p class="font-black text-lg text-gray-900">
                                     I may revoke or withdraw this consent at any time in writing, but that will not affect any information
-                                    already shared. I understand that records shared under this consent may no longer be protected under 
-                                    the law set. A copy of this form is valid to give my permission to share records. 
+                                    already shared. I understand that records shared under this consent may no longer be protected under
+                                    the law set. A copy of this form is valid to give my permission to share records.
                                 </p>
 
                             </div>
@@ -3014,12 +3014,12 @@
                                 <div class="w-1/2">
                                     <label for="identificationInfo.number" class="block text-lg font-black text-gray-700">Signature</label>
                                     <div class="mt-1">
-                                        <input type="text" 
-                                               name="identificationInfo.number" 
-                                               id="identificationInfo.number" 
-                                               required 
-                                               autocomplete="" 
-                                               value="identificationInfo.number" 
+                                        <input type="text"
+                                               name="identificationInfo.number"
+                                               id="identificationInfo.number"
+                                               required
+                                               autocomplete=""
+                                               value="identificationInfo.number"
                                                class="@error('identificationInfo.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                         @error('identificationInfo.number')
                                             <div class="flex w-full invalid-feedback" role="alert">
@@ -3032,12 +3032,12 @@
                                 <div class="w-1/2">
                                     <label for="identificationInfo.number" class="block text-lg font-black text-gray-700">Date</label>
                                     <div class="mt-1">
-                                        <input type="date" 
-                                               name="identificationInfo.number" 
-                                               id="identificationInfo.number" 
-                                               required 
-                                               autocomplete="" 
-                                               value="{{ $today }}" 
+                                        <input type="date"
+                                               name="identificationInfo.number"
+                                               id="identificationInfo.number"
+                                               required
+                                               autocomplete=""
+                                               value="{{ $today }}"
                                                class="@error('identificationInfo.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                         @error('identificationInfo.number')
                                             <div class="flex w-full invalid-feedback" role="alert">
