@@ -226,7 +226,7 @@ class RentalApplicationPortal extends Component
         $this->user = Auth::user();
         $this->isAdminEditing = false;
         $this->stepAdminIsEditing = -1;
-        $this->currentStep = 7;
+        $this->currentStep = 8;
         $this->totalSteps = 10;
         $this->hasIDCardUpload = false;
         $this->previewActive = false;
@@ -833,17 +833,6 @@ class RentalApplicationPortal extends Component
 
         private function validateStep8()
         {
-
-            // $this->validate([
-            //     $this->personalInfo,
-            //     $this->emergencyContactInfo,
-            //     $this->legalInfo,
-            //     $this->medicalInfo,
-            //     $this->fundingInfo,
-            //     $this->identificationInfo,
-            //     $this->recoveryInfo,
-            // ]);
-
             $this->validateStep1();
             $this->validateStep2();
             $this->validateStep3();
@@ -1012,8 +1001,6 @@ class RentalApplicationPortal extends Component
             '5' => 'School ID card (with photo)',
         );
     }
-
-
 
     private function clearPersonalInfo()
     {

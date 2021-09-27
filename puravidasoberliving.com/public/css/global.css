@@ -1,8 +1,9 @@
 :root {
     --accent: rgba(8, 196, 235, 1);
     --accent_hover: rgba(23, 154, 181, 1);
-    --bg-input: rgba(103, 230, 255, 0.4);
-    --bg-input-disabled: rgba(18, 101, 117, 0.6);
+    --bg-input: rgba(119, 142, 146, 0.5);
+    --bg-input-disabled: rgba(119, 142, 146, 0.9);
+    --bg-input-error: rgba(255, 0, 0, 0.5);
     --bg-edit-btn: rgba(247, 99, 0, 1);
     --accent_dark-text: rgb(36, 46, 48);
     --shadow-top: 0 -20px 25px -5px rgba(0, 0, 0, 0.1), 0 -10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -37,6 +38,10 @@
     background-color: var(--bg-input-disabled);
 }
 
+.bg-input-error {
+    background-color: var(--bg-input-error);
+}
+
 .bg-edit-btn {
     background: var(--bg-edit-btn);
 }
@@ -54,7 +59,7 @@
 }
 
 .border-accent-dark {
-    border-color: var(--accent_hover) !important;
+    border-color: var(--accent_hover);
 }
 
 .border-accent-dark_active {
