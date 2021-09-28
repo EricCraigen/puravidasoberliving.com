@@ -3291,16 +3291,16 @@
                             <li class="flex justify-start items-center w-full">
 
                                 <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
-                                    <input wire:model="consentForm.mentalHealthAC"
+                                    <input wire:model="consentFormAdditional.mentalHealthAC"
                                            type="checkbox"
-                                           name="consentForm.mentalHealthAC"
-                                           id="consentForm.mentalHealthAC"
+                                           name="consentFormAdditional.mentalHealthAC"
+                                           id="consentFormAdditional.mentalHealthAC"
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
                                            class="absolute inset-0 w-full h-full opacity-0 z-10">
-                                    <div class="@error('consentForm.mentalHealthAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
-                                        @if ($consentForm['mentalHealthAC'])
+                                    <div class="@error('consentFormAdditional.mentalHealthAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentFormAdditional['mentalHealthAC'])
                                             <div class="text-md font-black text-gray-900">
                                                 {{ $userInitials }}
                                             </div>
@@ -3308,14 +3308,14 @@
                                             <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
                                         @endif
                                     </div>
-                                           @error('consentForm.mentalHealthAC')
+                                           @error('consentFormAdditional.mentalHealthAC')
                                         <div class="flex w-full invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </div>
                                     @enderror
                                 </div>
 
-                                <label for="consentForm.mentalHealthAC" class="block text-lg font-black text-gray-700">Mental Health</label>
+                                <label for="consentFormAdditional.mentalHealthAC" class="block text-lg font-black text-gray-700">Mental Health</label>
 
                             </li>
 
@@ -3323,16 +3323,16 @@
                             <li class="flex justify-start items-center w-full">
 
                                 <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
-                                    <input wire:model="consentForm.hivStdAC"
+                                    <input wire:model="consentFormAdditional.hivStdAC"
                                            type="checkbox"
-                                           name="consentForm.hivStdAC"
-                                           id="consentForm.hivStdAC"
+                                           name="consentFormAdditional.hivStdAC"
+                                           id="consentFormAdditional.hivStdAC"
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
                                            class="absolute inset-0 w-full h-full opacity-0 z-10">
-                                    <div class="@error('consentForm.hivStdAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
-                                        @if ($consentForm['hivStdAC'])
+                                    <div class="@error('consentFormAdditional.hivStdAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentFormAdditional['hivStdAC'])
                                             <div class="text-md font-black text-gray-900">
                                                 {{ $userInitials }}
                                             </div>
@@ -3340,14 +3340,14 @@
                                             <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
                                         @endif
                                     </div>
-                                           @error('consentForm.hivStdAC')
+                                           @error('consentFormAdditional.hivStdAC')
                                         <div class="flex w-full invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </div>
                                     @enderror
                                 </div>
 
-                                <label for="consentForm.hivStdAC" class="block text-lg font-black text-gray-700">HIV/AIDS and STD test (results, diagnosis, and/or treatment)</label>
+                                <label for="consentFormAdditional.hivStdAC" class="block text-lg font-black text-gray-700">HIV/AIDS and STD test (results, diagnosis, and/or treatment)</label>
 
                             </li>
 
@@ -3355,16 +3355,16 @@
                             <li class="flex justify-start items-center w-full">
 
                                 <div class="w-1/12 min-h-28 mr-2 relative">
-                                    <input wire:model="consentForm.attachedListsAC"
+                                    <input wire:model="consentFormAdditional.attachedListsAC"
                                            type="checkbox"
-                                           name="consentForm.attachedListsAC"
-                                           id="consentForm.attachedListsAC"
+                                           name="consentFormAdditional.attachedListsAC"
+                                           id="consentFormAdditional.attachedListsAC"
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
                                            class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
-                                    <div class="@error('consentForm.attachedListsAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
-                                        @if ($consentForm['attachedListsAC'])
+                                    <div class="@error('consentFormAdditional.attachedListsAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($consentFormAdditional['attachedListsAC'])
                                             <div class="text-md font-black text-gray-900">
                                                 {{ $userInitials }}
                                             </div>
@@ -3372,28 +3372,28 @@
                                             <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
                                         @endif
                                     </div>
-                                           @error('consentForm.attachedListsAC')
+                                           @error('consentFormAdditional.attachedListsAC')
                                         <div class="flex w-full invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </div>
                                     @enderror
                                 </div>
 
-                                <label for="consentForm.attachedListsAC" class="block text-lg font-black text-gray-700">Attached Lists</label>
+                                <label for="consentFormAdditional.attachedListsAC" class="block text-lg font-black text-gray-700">Attached Lists</label>
 
                             </li>
 
                             {{-- Select All Additional Consent Form --}}
                             <li class="flex justify-end items-center w-full">
 
-                                <input wire:model="selectAllAdditionalConsentForm"
+                                <input wire:model="initialAllAdditionalConsentForm"
                                     type="checkbox"
-                                    name="selectAllAdditionalConsentForm"
-                                    id="selectAllAdditionalConsentForm"
+                                    name="initialAllAdditionalConsentForm"
+                                    id="initialAllAdditionalConsentForm"
                                     wire:click="selectAllAdditionalConsentForm()"
                                     class="h-6 w-6 mr-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
 
-                                <label for="selectAllAdditionalConsentForm" class="block text-lg font-black text-gray-700 text-end">CONSENT TO ALL ADDITIONAL</label>
+                                <label for="initialAllAdditionalConsentForm" class="block text-lg font-black text-gray-700 text-end">CONSENT TO ALL ADDITIONAL</label>
 
                             </li>
 
@@ -3483,46 +3483,6 @@
                                 </div>
 
                             </div>
-
-                            {{-- <div class="flex justify-center items-center w-full gap-2 mt-4">
-
-                                <div class="w-1/2">
-                                    <label for="consentForm.number" class="block text-lg font-black text-gray-700">Signature</label>
-                                    <div class="mt-1">
-                                        <input type="text"
-                                               name="consentForm.number"
-                                               id="consentForm.number"
-                                               required
-                                               autocomplete=""
-                                               value="consentForm.number"
-                                               class="@error('consentForm.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
-                                        @error('consentForm.number')
-                                            <div class="flex w-full invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="w-1/2">
-                                    <label for="consentForm.number" class="block text-lg font-black text-gray-700">Date</label>
-                                    <div class="mt-1">
-                                        <input type="date"
-                                               name="consentForm.number"
-                                               id="consentForm.number"
-                                               required
-                                               autocomplete=""
-                                               value="{{ $today }}"
-                                               class="@error('consentForm.number') is-invalid bg-input-error @enderror px-3 py-2 block w-full shadow-lg text-gray-900 bg-input focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
-                                        @error('consentForm.number')
-                                            <div class="flex w-full invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                            </div> --}}
 
                         </div>
 

@@ -18,7 +18,7 @@ class RentalApplicationPortal extends Component
     public $userInitials;
     public $userSignature;
     public $selectAllConsentForm;
-    public $selectAllAdditionalConsentForm;
+    public $initialAllAdditionalConsentForm;
     public $isAdmin;
     public $isAdminEditing;
     public $stepAdminIsEditing;
@@ -39,6 +39,7 @@ class RentalApplicationPortal extends Component
     public $identificationInfo;
     public $recoveryInfo;
     public $consentForm;
+    public $consentFormAdditional;
     public $consentFormSignature;
     public $messageContent;
     public $success;
@@ -232,7 +233,7 @@ class RentalApplicationPortal extends Component
         $this->userInitials = '';
         $this->userSignature = '';
         $this->selectAllConsentForm = false;
-        $this->selectAllAdditionalConsentForm = false;
+        $this->initialAllAdditionalConsentForm = false;
         $this->isAdminEditing = false;
         $this->stepAdminIsEditing = -1;
         $this->currentStep = 8;
@@ -324,9 +325,13 @@ class RentalApplicationPortal extends Component
 
                 $this->toggleCompletedTaskIcon();
                 break;
-
             case (7):
                 $this->validateStep8();
+
+                $this->toggleCompletedTaskIcon();
+                break;
+            case (8):
+                $this->validateStep9();
 
                 $this->toggleCompletedTaskIcon();
                 break;
@@ -857,33 +862,15 @@ class RentalApplicationPortal extends Component
             $this->setUserInitials();
         }
 
-        // applicationReview
+        // consentForm
         private function validateStep9()
         {
-            $this->validate([
-                'employmentSecurityDepartment' => 'required',
-                'socialSecurityAdministration' => 'required',
-                'departmentOfCorrections' => 'required',
-                'childSupportEnforcement' => 'required',
-                'healthCareProviders' => 'required',
-                'mentalHealthProviders' => 'required',
-                'chemicalDependencyProviders' => 'required',
-                'housingProgramProviders' => 'required',
-                'departmentOfSocialHealthServices' => 'required',
-                'collegesAndEducationProviders' => 'required',
-                'attachedLists' => 'required',
-                'others' => 'required',
-                'mentalHealthAC' => 'required',
-                'hivStdAC' => 'required',
-                'attachedListsAC' => 'required',
-                'signature' => 'required|min:2|max:255',
-                'date' => 'required|date|before_or_equal:'. Carbon::now()->format('Y-m-d'),
-            ], [
-                '*.required' => 'Please acknowledge and initial this field.',
-                'signature.required' => 'A signature is required.',
-                'signature.min' => 'A signature must contain at least 2 characters.',
-                'signature.max' => 'A signature cannot be more than 255 characters.',
-            ]);
+            if ($this->consentFormSignature['signed']) {
+                return;
+            } else {
+                $this->nextStep();
+                $this->toggleCompletedTaskIcon();
+            }
         }
 
     private function clearStepTitles()
@@ -1176,18 +1163,13 @@ class RentalApplicationPortal extends Component
 
     public function signConsentForm()
     {
-        // if ($this->consentFormSignature['signed'] != false) {
-           foreach ($this->consentForm as $key) {
-                if ($this->consentForm[$key] == false) {
-                    $this->consentFormSignature['signed'] = false;
-                } else {
-                    $this->consentFormSignature['signed'] = true;
-                }
-            }
-        // } else {
-        //     $this->consentFormSignature['signed'] = false;
-        // }
-
+        $result = (bool) array_product($this->consentForm);
+        $result2 = (bool) array_product($this->consentFormAdditional);
+        if ($result && $result2) {
+            $this->consentFormSignature['signed'] = true;
+        } else {
+            $this->consentFormSignature['signed'] = false;
+        }
     }
 
     public function selectAllConsentForm()
@@ -1206,6 +1188,9 @@ class RentalApplicationPortal extends Component
             $this->consentForm['attachedLists'] = true;
             $this->consentForm['others'] = true;
         } else {
+            if ($this->consentFormSignature['signed']) {
+                $this->consentFormSignature['signed'] = false;
+            }
             $this->consentForm['employmentSecurityDepartment'] = false;
             $this->consentForm['socialSecurityAdministration'] = false;
             $this->consentForm['departmentOfCorrections'] = false;
@@ -1223,20 +1208,24 @@ class RentalApplicationPortal extends Component
 
     public function selectAllAdditionalConsentForm()
     {
-        if ($this->selectAllConsentForm) {
-            $this->consentForm['mentalHealthAC'] = true;
-            $this->consentForm['hivStdAC'] = true;
-            $this->consentForm['attachedListsAC'] = true;
+        if ($this->initialAllAdditionalConsentForm) {
+            $this->consentFormAdditional['mentalHealthAC'] = true;
+            $this->consentFormAdditional['hivStdAC'] = true;
+            $this->consentFormAdditional['attachedListsAC'] = true;
         } else {
-            $this->consentForm['mentalHealthAC'] = false;
-            $this->consentForm['hivStdAC'] = false;
-            $this->consentForm['attachedListsAC'] = false;
+            $this->consentFormAdditional['mentalHealthAC'] = false;
+            $this->consentFormAdditional['hivStdAC'] = false;
+            $this->consentFormAdditional['attachedListsAC'] = false;
         }
     }
 
     public function clearConsentFormSignature()
     {
+        // $result = (bool) array_product($this->consentForm);
         $this->consentFormSignature['signed'] = false;
+        // if (!$result) {
+
+        // }
     }
 
     private function clearConsentForm()
@@ -1254,6 +1243,9 @@ class RentalApplicationPortal extends Component
             'collegesAndEducationProviders' => false,
             'attachedLists' => false,
             'others' => false,
+        );
+
+        $this->consentFormAdditional = array(
             'mentalHealthAC' => false,
             'hivStdAC' => false,
             'attachedListsAC' => false,
