@@ -1,5 +1,3 @@
-{{-- <div x-data="{ additionalDocumentation: $wire.additionalDocumentation }" class="flex w-full h-auto"> --}}
-
 <div class="relative z-10 px-4 py-10 mx-auto max-w-7xl">
 
     <!-- Confirmation Container -->
@@ -23,7 +21,8 @@
     </div>
 
     <!-- Application Forms Container -->
-    <div class="{{ $currentStep != $totalSteps ? '' : 'hidden' }} bg-white max-w-screen-lg mx-auto mt-8 p-5 pb-0 rounded-md rounded-b-none shadow-lg relative overflow-hidden">
+    <div class="{{ $currentStep != $totalSteps ? '' : 'hidden' }} bg-white max-w-screen-lg mx-auto mt-8 p-5 pb-0 rounded-md rounded-b-none shadow-lg relative overflow-hidden"
+         wire:click="{{ $navMessageContent != '' ? 'clearNavMessageContent()' : '' }}">
 
         <!-- Top Navigation 1 -->
         <div class="{{ !$previewActive ? 'z-10' : 'z-0' }} relative flex flex-col items-center justify-center mb-4 lg:flex-row lg:justify-between">
@@ -53,7 +52,7 @@
 
                                 <li class="relative md:flex-1 md:flex">
                                 <!-- Completed Step -->
-                                    <a href="#" class="flex items-center w-full group">
+                                    <a href="#" wire:click.prevent="setCurrentStep({{ $loop->index }})" class="flex items-center w-full group">
                                         <span class="flex items-center px-6 py-2 text-sm font-medium">
 
                                             <span class="{{ $stepStatuses[$title] == 'complete' ? '' : 'hidden' }} flex-shrink-0 w-10 h-10 flex items-center justify-center bg-accent bg-accent_hover rounded-full">
@@ -104,9 +103,13 @@
 
             </div>
 
-        </div>
+            <h3 class="w-full text-lg text-red-500 font-black text-center mt-4">
 
-        {{-- x-data="{currentStep: 0}" x-init="currentStep = $wire.currentStep; console.log(currentStep);" --}}
+                {{ $navMessageContent ? $navMessageContent : '' }}
+
+            </h3>
+
+        </div>
 
         <!-- FORM PAGES -->
         <div class="relative z-10 py-5 mx-1">
@@ -136,8 +139,21 @@
                     <form id="personalInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6" autocomplete="on">
                         @csrf
 
+                        {{-- REVIEW Section Label --}}
+                        <div class="flex w-full {{ $currentStep == 7 ? '' : 'hidden' }} {{ $currentStep == 7 ? 'border-b-4 border-accent-dark pb-12' : '' }}">
+
+                            <div class="flex justify-start items-center w-full">
+
+                                <h3 class="font-black text-6xl text-accent">
+                                    Application Review
+                                </h3>
+
+                            </div>
+
+                        </div>
+
                         {{-- Section Label --}}
-                        <div class="flex w-full">
+                        <div class="flex w-full mt-4">
 
                             <div class="flex justify-start items-center w-full">
 
@@ -2669,7 +2685,7 @@
                         </div>
 
                         {{-- EDIT BUTTON --}}
-                        <div class="flex justify-end w-full {{ $currentStep != 7 ? 'hidden' : '' }}">
+                        <div class="flex justify-end w-full {{ $currentStep != 7 ? 'hidden' : '' }}  {{ $currentStep == 7 ? 'border-b-4 border-accent-dark pb-12' : '' }}">
 
                             <button type="button"
                                     wire:click.prevent="{{ $isAdminEditing ? 'validateThisStep(6)'  : ($isAdmin ? 'editAsAdmin(6)' : 'editThisStep(6)') }}"
@@ -2688,6 +2704,83 @@
                                 </div>
 
                             </button>
+
+                        </div>
+
+                        {{-- Application Signature Attestation --}}
+                        <div class="{{ $currentStep != 7 ? 'hidden' : '' }} flex flex-col w-full justify-center items-center mt-4">
+
+                            <h3 class="w-full text-2xl text-red-500 font-black text-center">
+                                * AUTHORIZATION OF HOUSING *
+                            </h3>
+
+                            <h4 class="w-full text-xl text-gray-900 font-black text-center mt-2">
+                                BY SIGNING BELOW:
+                            </h4>
+
+                            <p class="w-13/4 text-md text-gray-900 text-justify font-black mt-2">
+                                I AFFIRM ALL STATEMENTS I HAVE DISCLOSED ARE TRUTHFUL AND HONEST TO THE BEST OF MY RECOLLECTION AND KNOWLEDGE.
+                            </p>
+
+                        </div>
+
+                        {{-- SIGN & DATE --}}
+                        <div class="{{ $currentStep != 7 ? 'hidden' : '' }} flex w-full gap-2 mt-4">
+
+                            {{-- Signature --}}
+                            <div class="w-1/2 min-h-28 mr-2 relative">
+                                <label for="rentalApplicationSignature.signed" class="block text-lg font-black text-gray-700 text-end">Signature</label>
+
+                                <input wire:model="rentalApplicationSignature.signed"
+                                        type="checkbox"
+                                        name="rentalApplicationSignature.signed"
+                                        id="rentalApplicationSignature.signed"
+                                        required
+                                        autocomplete=""
+                                        wire:click="clearMessageContent()"
+                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                <div class="@error('rentalApplicationSignature.signed') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                    @if ($rentalApplicationSignature['signed'])
+                                        <div class="text-md font-black text-gray-900">
+                                            {{ $userSignature }}
+                                        </div>
+                                    @else
+                                        <img src="/svg/signature-solid.svg" alt="Click to sign consent form">
+                                    @endif
+                                </div>
+                                {{-- @error('rentalApplicationSignature.signed') --}}
+                                    <div class="{{ $messageContent ? '' : 'hidden' }} flex w-full invalid-feedback" role="alert">
+                                        <strong>{{ $messageContent }}</strong>
+                                    </div>
+                                {{-- @enderror --}}
+                            </div>
+
+                            {{-- Date --}}
+                            <div class="w-1/2 min-h-28 relative">
+                                <label for="rentalApplicationSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
+
+                                <input wire:model="rentalApplicationSignature.date"
+                                        type="checkbox"
+                                        name="rentalApplicationSignature.date"
+                                        id="rentalApplicationSignature.date"
+                                        required
+                                        autocomplete=""
+                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                <div class="@error('rentalApplicationSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                    @if ($rentalApplicationSignature['date'])
+                                        <div class="text-md font-black text-gray-900">
+                                            {{ $today }}
+                                        </div>
+                                    @else
+                                        <img src="/svg/calendar-alt-solid.svg" alt="Click to date consent form">
+                                    @endif
+                                </div>
+                                        @error('rentalApplicationSignature.date')
+                                    <div class="flex w-full invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @enderror
+                            </div>
 
                         </div>
 
@@ -2827,7 +2920,7 @@
 
                             <div class="flex justify-center items-center w-full">
 
-                                <h3 class="font-black text-3xl text-gray-900">
+                                <h3 class="font-black text-4xl text-accent">
                                     Client Release of Information Consent
                                 </h3>
 
@@ -2838,10 +2931,10 @@
                         {{-- NOTICE TO CLIENTS --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-center items-center w-full">
+                            <div class="flex justify-start items-center w-full">
 
                                 <p class="font-black text-lg text-gray-900">
-                                    <span class="text-xl">Notice to Clients:</span> Pura Vida Sober Living house's housing specialist will be able to help
+                                    <span class="text-xl text-accent">Notice to Clients:</span> Pura Vida Sober Living house's housing specialist will be able to help
                                     you resolve issues you may have with the following items. Signing this form gives our professionals the right to share
                                     information with corresponding agensices on your behalf. If you decline to sign this form, your confidential information
                                     can be shared to the extent Washington State law allows.
@@ -2857,9 +2950,9 @@
                             <div class="flex justify-center items-center w-full">
 
                                 <p class="font-black text-lg text-gray-900">
-                                    <span class="text-xl">Consent:</span> I allow Pura Vida Sober Living (PVSL) LLC. housing specialist to use my confidential
-                                    information to provide, and coordinate services, treatment, and benefits for me or for other purposes authorized by law. I
-                                    allow PVSL and the below listed agencies, providers, or persons to use my confidential information and disclose it to each
+                                    <span class="text-xl text-accent">Consent:</span> I allow Pura Vida Sober Living <span class="text-accent">(PVSL)</span> LLC. housing specialist
+                                    to use my confidential information to provide, and coordinate services, treatment, and benefits for me or for other purposes authorized
+                                    by law. I allow <span class="text-accent">PVSL</span> and the below listed agencies, providers, or persons to use my confidential information and disclose it to each
                                     other for these purposes. Information may be shared verbally or by computer, data transfer, mail, or hand delivery.
                                 </p>
 
@@ -3264,7 +3357,7 @@
                                     wire:click="selectAllConsentForm()"
                                     class="h-6 w-6 mr-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
 
-                                <label for="selectAllConsentForm" class="block text-lg font-black text-gray-700 text-end">CONSENT TO ALL</label>
+                                <label for="selectAllConsentForm" class="block text-lg font-black text-red-500 text-end">CONSENT TO ALL</label>
 
                             </li>
 
@@ -3276,8 +3369,8 @@
                             <div class="flex justify-center items-center w-full">
 
                                 <p class="font-black text-lg text-gray-900">
-                                    <span class="text-xl">Additional Consent:</span> If your confidential records include any of the following information, your
-                                    must also complete this section to include these records. I allow PVSL to share the following records:
+                                    <span class="text-xl text-accent">Additional Consent:</span> If your confidential records include any of the following information, your
+                                    must also complete this section to include these records. I allow <span class="text-accent">PVSL</span> to share the following records:
                                 </p>
 
                             </div>
@@ -3393,7 +3486,7 @@
                                     wire:click="selectAllAdditionalConsentForm()"
                                     class="h-6 w-6 mr-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
 
-                                <label for="initialAllAdditionalConsentForm" class="block text-lg font-black text-gray-700 text-end">CONSENT TO ALL ADDITIONAL</label>
+                                <label for="initialAllAdditionalConsentForm" class="block text-lg font-black text-red-500 text-end">CONSENT TO ALL ADDITIONAL</label>
 
                             </li>
 
@@ -3404,7 +3497,7 @@
 
                             <div class="flex justify-start items-center w-full">
 
-                                <p class="font-black text-lg text-gray-900">
+                                <p class="font-black text-xl text-gray-900">
                                     This consent is valid from the date below.
                                 </p>
 
@@ -3456,7 +3549,7 @@
                                 </div>
 
                                 {{-- Date --}}
-                                <div class="w-1/2 min-h-28 mr-2 relative">
+                                <div class="w-1/2 min-h-28 relative">
                                     <label for="consentFormSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
 
                                     <input wire:model="consentFormSignature.date"
@@ -3486,42 +3579,1759 @@
 
                         </div>
 
+                        {{-- NOTICE TO RECIPIENTS OF INFORMATION --}}
+                        <div class="flex flex-col w-full justify-center items-center mt-2 p-2 bg-input border-2 border-accent-dark">
+
+                            <h3 class="font-black text-lg text-red-500 mb-3">
+                                NOTICE TO RECIPIENTS OF INFORMATION
+                            </h3>
+
+                            <p class="font-black text-md text-red-500">
+                                If you have received information related to drug or alcohol abuse by the client, you must include the following statement when further disclosing
+                                infomration as required by 42 CFR 2.32. This information has been disclosed to you from records protected by Federal confidentiality rules (42 CFR part 2).
+                                The Federal rules prohibit you from making any further disclosure of this information ujnless further disclosure is expressly permitted by the written
+                                consent of the person to whom it pertains or as otherwise permitted by 42 CFR part 2. A general authorization for the release of medical or other information
+                                is NOT sufficient for this purpose. The Federal rules restrict any use of the information to criminally investigate or prosecute any alcohol or drug abuse
+                                patient.
+                            </p>
+
+                        </div>
+
                     </form>
 
                 </div>
 
             </div>
 
-            <!-- STEP 10 - Confirmation -->
+            <!-- STEP 10 - Rules & Regulations -->
             <div class="{{ $currentStep == 9 ? '' : 'hidden' }}">
-                <div class="mb-5">
-                    <label for="email" class="block mb-1 font-bold text-gray-700">Gender</label>
 
-                    <div class="flex">
-                        <label
-                            class="flex items-center justify-start py-3 pl-4 pr-6 mr-4 bg-white rounded-lg shadow-sm text-truncate">
-                            <div class="mr-3 text-teal-600">
-                                <input type="radio" value="Male" class="form-radio focus:outline-none focus:shadow-outline" />
-                            </div>
-                            <div class="text-gray-700 select-none">Male</div>
-                        </label>
+                <div class="relative mt-12">
 
-                        <label
-                            class="flex items-center justify-start py-3 pl-4 pr-6 bg-white rounded-lg shadow-sm text-truncate">
-                            <div class="mr-3 text-teal-600">
-                                <input type="radio" value="Female" class="form-radio focus:outline-none focus:shadow-outline" />
+                    <form id="consentForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6" autocomplete="on">
+                        @csrf
+
+                        {{-- SECTION LABEL --}}
+                        <div class="flex w-full">
+
+                            <div class="flex justify-center items-center w-full">
+
+                                <h3 class="font-black text-4xl text-accent">
+                                    Rules &amp; Regulations
+                                </h3>
+
                             </div>
-                            <div class="text-gray-700 select-none">Female</div>
-                        </label>
-                    </div>
+
+                        </div>
+
+                        {{-- NOTICE TO APPLICANT --}}
+                        <div class="flex flex-col w-full justify-center items-center mt-2 p-2 bg-input border-2 border-accent-dark">
+
+                            <p class="font-black text-lg text-gray-900 text-center">
+                                All policy violatoins will be documented. Policy violations in direct contravention of DOC guidelins will be reported
+                                to the appropriate administration.
+                            </p>
+
+                        </div>
+
+                        {{-- RULES & REGULATIONS LIST --}}
+                        <ul class="flex flex-col w-full gap-2">
+
+                            @php
+                                $ruleCounter = 1;
+                            @endphp
+
+                            {{-- 1 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule1" class="text-2xl font-black text-gray-700 mr-2">{{ $ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-red-500">
+                                            ANY physical contact, fight and/or verbal intimidation
+                                            or threat is subject to automatic eviction and appropriate legal recourse subject to the discretion of PVSL.
+                                        </span>
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule1"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule1"
+                                           id="rulesAndRegulations.rule1"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule1') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule1'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule1')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 2 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule2" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        ANY theft or possession of another person's property may result in immediate eviction.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule2"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule2"
+                                           id="rulesAndRegulations.rule2"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule2') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule2'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule2')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 3 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule3" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Do not eat or drink another individual's food. All personal food (i.e. items not considered part of the community
+                                        pantry) must be initialed by the purchaser of that item.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule3"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule3"
+                                           id="rulesAndRegulations.rule3"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule3') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule3'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule3')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 4 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule4" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        No one is allowed in another person's room unless you've been invited AND the other person is present in the room.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule4"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule4"
+                                           id="rulesAndRegulations.rule4"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule4') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule4'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule4')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 5 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule5" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Always keep both front and back doors locked when exiting the premises. All entries must be kept locked after dark.
+                                        All keys, entry codes, passwords, and other security media are the sole property of PVSL and are not to be shared,
+                                        loaned, disclosed, or transferred without the written consent of PVSL staff.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule5"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule5"
+                                           id="rulesAndRegulations.rule5"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule5') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule5'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule5')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 6 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule6" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        The member's room will remain locked at all times if not at the house. Members are financially responsible for personal padlocks
+                                        and locking devices. Members are not allowed to install a locking door knob. All doors must be secured with exterior clasp when available.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule6"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule6"
+                                           id="rulesAndRegulations.rule6"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule6') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule6'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule6')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 7 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule7" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Food and/or dishes are not allowed in your room. Rooms are to be kept clean and organized. All bedding must be washed
+                                        weekly. All dirty or soiled laundry must be stored in an appropriate receptacle in the member's room.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule7"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule7"
+                                           id="rulesAndRegulations.rule7"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule7') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule7'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule7')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 8 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule8" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        The member must participate in all house cleaning projects, procedures, tasks, and routines. This includes maintaining the cleanliness and safety
+                                        of all common rooms including but not limeited to: living areas, bathrooms, garages and/or storage areas, house exteriors including driveways,
+                                        walkways and yards, kitchen, and hallways.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule8"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule8"
+                                           id="rulesAndRegulations.rule8"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule8') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule8'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule8')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 9 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule9" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Dishes, silverware, and cooking implements must be wahed and put away immediately after use. The member is responsible for cleaning and
+                                        sanitizing all food preparation services, before and after cooking. This includes, but is not limited to: cutting boards, countertops,
+                                        stoves, microwaves, and any food storage areas such as refrigerators, cabinets, and freezers.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule9"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule9"
+                                           id="rulesAndRegulations.rule9"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule9') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule9'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule9')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 10 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule10" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        The member is required to store food in clean, hygienic, sealable, pest-resistant (i.e. mice) containers.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule10"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule10"
+                                           id="rulesAndRegulations.rule10"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule10') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule10'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule10')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 11 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule11" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-red-500 text-2xl">
+                                            Rent is due by the 5<sup>th</sup> of each month.
+                                        </span>
+                                        <span class="text-red-500">
+                                            Failure to pay rent by this date may result in immediate eviction. Rooms are rented month to month, no refunds or prorate if
+                                            the member is evicted or moves out before the end of the month. A $50.00 late fee will be assessed if rent is received after the 5<sup>th</sup>
+                                            of each month. Late payments are considered a policy violation and will be documented. I understand any late payments beyond the first may
+                                            result in termination from participation in the program and eviction from the premises.
+                                        </span>
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule11"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule11"
+                                           id="rulesAndRegulations.rule11"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule11') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule11'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule11')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 12 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule12" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Guests are permitted to stay no more than two nights in one week. Guests are NOT permitted to stay any consecutive nights. Nights must be "split up" during the week.
+                                        Guests must sleep in the member's room. If the member is funded by the Department of Corrections, guests of any type are NOT permitted.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule12"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule12"
+                                           id="rulesAndRegulations.rule12"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule12') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule12'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule12')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 13 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule13" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-red-500 text-xl">
+                                            UNUSUPERVISED GUESTS ARE NOT ALLOWED ON THE PREMISES AT ANY TIME.
+                                        </span>
+                                        If you are not present at the house with your guest, then your guest must vacate the premises immediately.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule13"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule13"
+                                           id="rulesAndRegulations.rule13"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule13') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule13'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule13')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 14 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule14" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        If I am being couched, I may NOT have overnight Guests.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule14"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule14"
+                                           id="rulesAndRegulations.rule14"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule14') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule14'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule14')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 15 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule15" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        No more than ONE Guest is allowed during any visit. All Guests must be approved by PVSL staff. PVSL is NOT responsible for the loss
+                                        or damage of any Guest's property. Them member will be responsible for the loss or damage of any property caused by the Guest.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule15"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule15"
+                                           id="rulesAndRegulations.rule15"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule15') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule15'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule15')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 16 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule16" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Visits are to be no longer than twelve consecutive hours (example, 6pm - 6am). Community spaces (defined as any space within a PVSL property other than the member's
+                                        private room or bathroom) may NOT be used by the Guest unless the member is present.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule16"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule16"
+                                           id="rulesAndRegulations.rule16"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule16') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule16'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule16')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 17 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule17" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-red-500">
+                                            ANY refusal of a drug test may result in immediate eviction.
+                                        </span>
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule17"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule17"
+                                           id="rulesAndRegulations.rule17"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule17') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule17'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule17')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 18 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule18" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-red-500">
+                                            ANY positive drug test may result in immediate eviction.
+                                        </span>
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule18"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule18"
+                                           id="rulesAndRegulations.rule18"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule18') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule18'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule18')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 19 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule19" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Personal items are not allowed in comminity spaces unless the member is present.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule19"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule19"
+                                           id="rulesAndRegulations.rule19"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule19') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule19'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule19')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 20 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule20" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Guests are required to be clean and sober. If they are suspected to be under the influence, a random drug test can be requested for the member's guest at any time.
+                                        If the guest is found to be under the influence of any substance, he/she will be asked to leave the premises and will not be permitted to return.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule20"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule20"
+                                           id="rulesAndRegulations.rule20"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule20') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule20'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule20')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 21 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule21" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        If an individual's guest is found to be under the influence of any substance, the individual must submit to an immediate drutg test
+                                        and may be subject to eviction.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule21"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule21"
+                                           id="rulesAndRegulations.rule21"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule21') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule21'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule21')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 22 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule22" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        If the member is going to be absent from the House for more than two (2) consecutive days, they must notify the director
+                                        or house manager 24 hours before leaving.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule22"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule22"
+                                           id="rulesAndRegulations.rule22"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule22') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule22'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule22')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 23 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule23" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Any medically prescribed medications must be reported to the director and house manager. All personal medications will be kept in a locked
+                                        receptable which the member must provide. Sharing or distributing personal medication is PROHIBITED and may result in eviction.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule23"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule23"
+                                           id="rulesAndRegulations.rule23"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule23') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule23'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule23')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 24 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule24" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Any unlawful activity may result in immediate eviction.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule24"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule24"
+                                           id="rulesAndRegulations.rule24"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule24') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule24'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule24')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 25 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule25" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Any disruptive behavior inside Pura Vida Sober Living or Revival General Contracting may result in immediate eviction from the program.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule25"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule25"
+                                           id="rulesAndRegulations.rule25"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule25') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule25'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule25')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 26 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule26" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Absolutely NO sleeping on couches if you are not being couched.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule26"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule26"
+                                           id="rulesAndRegulations.rule26"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule26') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule26'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule26')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 27 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule27" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        House members will NOT USE the following products: marijuana (with or without a prescription), spice, Kratom, alcohol-based Nyquil or Dayquil,
+                                        or ANY over-the-counter <i>mind altering substance.</i>
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule27"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule27"
+                                           id="rulesAndRegulations.rule27"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule27') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule27'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule27')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 28 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule28" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Program members will be highly encouraged to take all of their belongings with them. Members will be given thirty (30) minutes
+                                        to gather all belongings after being discharged from the program. The member will be supervised by PVSL staff and ALL items removed
+                                        from PVSL property will be examined to protect the property rights of PVSL and the member. Any remaining items will be stored for
+                                        sixty (60) days. After sixty (60) days, all unclaimed belongings will be donated to the Arc of Spokane.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule28"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule28"
+                                           id="rulesAndRegulations.rule28"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule28') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule28'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule28')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 29 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule29" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        All house members are required to pay a
+                                        <span class="text-red-500">
+                                            $250.00 NON-REFUNDABLE Administration Fee
+                                        </span>
+                                        in lieu of deposit. This fee will be used to help fund the cost of drug tests, paperwork and move-in/move-out expenses.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule29"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule29"
+                                           id="rulesAndRegulations.rule29"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule29') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule29'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule29')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 30 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule30" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        Pura Vida Sober Living is not responsible for the acceptance, storage, transmission, redirection, or destruction of digital
+                                        or physical mail. The member is encouraged to update personal address information as necessary, i.e., when entering the program,
+                                        moving to another address withing the program, or exiting the program.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule30"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule30"
+                                           id="rulesAndRegulations.rule30"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule30') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule30'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule30')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 31 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule31" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-2xl">NO WEAPONS</span>
+                                        of any type are allowed on PVSL property. Tools, implements, or any other item that could be used or defined as a weapon is NOT permitted.
+                                        PVSL staff have final approval on all such items. Example: Camping or sporting tools that could be used as a weapon are NOT permitted on
+                                        the property.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule31"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule31"
+                                           id="rulesAndRegulations.rule31"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule31') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule31'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule31')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 32 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule32" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        If the member is required to report address information to the Department of Corrections (D.O.C.), PVSL is obligated to inform
+                                        D.O.C. and all relevant ancillary agencies when the member leaves the housing program including failure to follow PVSL substance
+                                        abuse policies.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule32"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule32"
+                                           id="rulesAndRegulations.rule32"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule32') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule32'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule32')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 33 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule33" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        All house members are required to pay a
+                                        <span class="text-red-500">
+                                            The member will participate in
+                                        </span>
+                                        <span class="text-red-500 underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span class="text-red-500">
+                                            Reclaim Project program(s) per week.
+                                        </span>
+                                        A Reclaim Project program is defined as an amount of time determined by PVSL to facilitate, encourage, and strangthen the member's personal
+                                        recovery and the strength of the recovery community. This includes, but is not limited to, Integrated Men's Meetings and Community Engagement.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule33"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule33"
+                                           id="rulesAndRegulations.rule33"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule33') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule33'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule33')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 34 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule34" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        The member will be subject to a 30-day progress review. This review is a continuum of observations and metrics to record the member's
+                                        progress and participation in their own recovery. Non-compliance or failure to meet or exceed the criteria for the 30-day progrss review
+                                        may result in eviction.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule34"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule34"
+                                           id="rulesAndRegulations.rule34"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule34') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule34'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule34')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 35 GRAY TEXT ONLY --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="consentForm.rule35" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-2xl">NO PETS</span>
+                                        allowed on PVSL property without prior written consent from PVSL authority.
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule35"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule35"
+                                           id="rulesAndRegulations.rule35"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule35') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule35'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule35')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- 36 RED TEXT SPAN --}}
+                            <li class="flex justify-start items-center w-full mt-2">
+
+                                <div class="flex justify-start items-start w-11/12">
+
+                                    <label for="rulesAndRegulations.rule36" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+
+                                    <p class="text-lg text-gray-900 font-black">
+                                        <span class="text-2xl">I understand:</span>
+                                        <span class="text-red-500">
+                                            My personal property, including but not limited to, my room, my vehicle, and all other material may be searched at any time by PVSL staff.
+                                        </span>
+                                    </p>
+
+                                </div>
+
+                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                    <input wire:model="rulesAndRegulations.rule36"
+                                           type="checkbox"
+                                           name="rulesAndRegulations.rule36"
+                                           id="rulesAndRegulations.rule36"
+                                           required
+                                           wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
+                                           autocomplete=""
+                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                    <div class="@error('rulesAndRegulations.rule36') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                        @if ($rulesAndRegulations['rule36'])
+                                            <div class="text-md font-black text-gray-900">
+                                                {{ $userInitials }}
+                                            </div>
+                                        @else
+                                            <img src="/svg/signature-solid.svg" alt="Click to acknowledge">
+                                        @endif
+                                    </div>
+                                           @error('rulesAndRegulations.rule36')
+                                        <div class="flex w-full invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+                            </li>
+
+                            {{-- Select All Consent Form --}}
+                            <li class="flex justify-end items-center w-full mt-3">
+
+                                <label for="selectAllRulesAndRegulations" class="block text-lg font-black text-red-500 text-end mr-2">INITIAL ALL</label>
+
+                                <input wire:model="selectAllRulesAndRegulations"
+                                    type="checkbox"
+                                    name="selectAllRulesAndRegulations"
+                                    id="selectAllRulesAndRegulations"
+                                    wire:click="selectAllRulesAndRegulations()"
+                                    class="h-6 w-6 ml-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
+
+                            </li>
+
+                        </ul>
+
+                        {{-- SIGN & DATE --}}
+                        <div class="flex w-full gap-2 mt-4">
+
+                            {{-- Signature --}}
+                            <div class="w-1/2 min-h-28 mr-2 relative">
+                                <label for="rulesAndRegulationsSignature.signed" class="block text-lg font-black text-gray-700 text-end">Signature</label>
+
+                                <input wire:model="rulesAndRegulationsSignature.signed"
+                                        type="checkbox"
+                                        name="rulesAndRegulationsSignature.signed"
+                                        id="rulesAndRegulationsSignature.signed"
+                                        required
+                                        autocomplete=""
+                                        wire:click="signRulesAndRegulations()"
+                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                <div class="@error('rulesAndRegulationsSignature.signed') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                    @if ($rulesAndRegulationsSignature['signed'])
+                                        <div class="text-md font-black text-gray-900">
+                                            {{ $userSignature }}
+                                        </div>
+                                    @else
+                                        <img src="/svg/signature-solid.svg" alt="Click to sign consent form">
+                                    @endif
+                                </div>
+                                        @error('rulesAndRegulationsSignature.signed')
+                                    <div class="flex w-full invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @enderror
+                            </div>
+
+                            {{-- Date --}}
+                            <div class="w-1/2 min-h-28 relative">
+                                <label for="consentFormSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
+
+                                <input wire:model="consentFormSignature.date"
+                                        type="checkbox"
+                                        name="consentFormSignature.date"
+                                        id="consentFormSignature.date"
+                                        required
+                                        autocomplete=""
+                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                <div class="@error('consentFormSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                    @if ($consentFormSignature['date'])
+                                        <div class="text-md font-black text-gray-900">
+                                            {{ $today }}
+                                        </div>
+                                    @else
+                                        <img src="/svg/calendar-alt-solid.svg" alt="Click to date consent form">
+                                    @endif
+                                </div>
+                                        @error('consentFormSignature.date')
+                                    <div class="flex w-full invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @enderror
+                            </div>
+
+                        </div>
+
+                    </form>
+
                 </div>
 
-                <div class="mb-5">
-                    <label for="profession" class="block mb-1 font-bold text-gray-700">Profession</label>
-                    <input type="profession"
-                        class="w-full px-4 py-3 font-medium text-gray-600 rounded-lg shadow-sm focus:outline-none focus:shadow-outline"
-                        placeholder="eg. Web Developer">
-                </div>
             </div>
 
         </div>
@@ -3566,27 +5376,22 @@
 
                 <button type="button"
                         wire:click.prevent="completeStep"
-                        class="{{ $currentStep < $totalSteps ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center py-1 px-2 border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        class="{{ $currentStep < $totalSteps - 1 ? '' : 'hidden' }} {{ $currentStep == 9 && !$submitted ? 'hidden' : '' }} inline-flex min-w-36 justify-center h-full items-center py-1 px-2 border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <div wire:loading wire:target="completeStep">
                         <x-loading-blocks />
                     </div>
                     <div class="flex items-center justify-between p-2 w-full font-bold text-white text-md" wire:loading.remove wire:target="completeStep">
-                        Step {{ $currentStep + 2 . ': ' . $stepTitles[$currentStep + 1] }}
+                        Step {{ $currentStep + 2 . ': ' . $stepTitles[$currentStep + 1 < 11 ? $currentStep + 1 : 11] }}
                         <img class="flex ml-5" src="/svg/angle-double-right.svg" alt="Next Step">
                     </div>
                 </button>
 
                 <button wire:click.prevent="rentalAppFormSubmit"
-                        class="{{ $currentStep == $totalSteps ? '' : 'hidden' }} w-32 focus:outline-none border border-transparent  rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium">
-                    Complete
+                        class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center py-1 px-2 border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Submit Application
                 </button>
             </div>
         </div>
     </div>
 
 </div>
-
-{{-- <script type="text/javascript">
-
-
-</script> --}}
