@@ -46,13 +46,16 @@
 
                         <nav class="flex w-full" aria-label="Progress">
 
-                            <ol id="application-portal-menu" role="list" class="flex flex-col w-full overflow-x-scroll border border-gray-300 divide-y divide-gray-300 rounded-md md:flex-row md:flex md:divide-y-0">
+                            <ol x-data="{scroll: ($index) => {$el.scrollTo($index * 125, {axis:'x'});}}"
+                                id="application-portal-menu"
+                                role="list"
+                                class="flex flex-col w-full overflow-x-scroll border border-gray-300 divide-y divide-gray-300 rounded-md md:flex-row md:flex md:divide-y-0">
 
                                 @foreach ($stepTitles as $title)
 
                                 <li class="relative md:flex-1 md:flex">
                                 <!-- Completed Step -->
-                                    <a href="#" wire:click.prevent="setCurrentStep({{ $loop->index }})" class="flex items-center w-full group">
+                                    <a href="#" x-data x-on:click="scroll({{ $loop->index }})" wire:click.prevent="setCurrentStep({{ $loop->index }})" class="flex items-center w-full group">
                                         <span class="flex items-center px-6 py-2 text-sm font-medium">
 
                                             <span class="{{ $stepStatuses[$title] == 'complete' ? '' : 'hidden' }} flex-shrink-0 w-10 h-10 flex items-center justify-center bg-accent bg-accent_hover rounded-full">
@@ -153,25 +156,12 @@
                         </div>
 
                         {{-- Section Label --}}
-                        <div class="flex w-full mt-4">
+                        <div class="flex w-full">
 
                             <div class="flex justify-start items-center w-full">
 
-                                <h3 class="font-black text-5xl text-accent-dark">
+                                <h3 class="font-black text-5xl text-gray-900">
                                     Personal Information
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-                        {{-- Form Label --}}
-                        <div class="flex justify-between items-center w-full">
-
-                            <div class="flex w-1/2">
-
-                                <h3 class="font-black text-2xl text-gray-900">
-                                    Applicant Information
                                 </h3>
 
                             </div>
@@ -348,7 +338,7 @@
 
                             <div class="flex justify-start items-center w-full">
 
-                                <h3 class="font-black text-5xl text-accent-dark">
+                                <h3 class="font-black text-5xl text-gray-900">
                                     Emergency Contacts
                                 </h3>
 
@@ -361,7 +351,7 @@
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-gray-900">
+                                <h3 class="font-black text-2xl text-accent">
                                     Primary Contact
                                 </h3>
 
@@ -515,17 +505,9 @@
                         {{-- ADDITIONAL EMERGENCY CONTACTS --}}
                         @foreach ($additionalEmergencyContactInfo as $emergencyContactInputGroup)
 
-                            <div class="flex justify-between items-center w-full mt-5">
+                            <div class="flex {{ $loop->index % 2 ? 'flex-row-reverse' : '' }} justify-between items-center w-full mt-5">
 
-                                <div class="flex w-1/2">
-
-                                    <h3 class="font-black text-2xl text-gray-900">
-                                        Alternative Contact #{{ $loop->index + 1 }}
-                                    </h3>
-
-                                </div>
-
-                                <div class="flex w-1/2 justify-content-end">
+                                <div class="flex w-1/2 {{ $loop->index % 2 ? 'justify-end' : 'justify-start' }}">
 
                                     <button type="button"
                                             wire:click.prevent="removeEmergencyContact({{ $loop->index }})"
@@ -538,6 +520,14 @@
                                             Remove Emergency Contact
                                         </div>
                                     </button>
+
+                                </div>
+
+                                <div class="flex w-1/2 {{ $loop->index % 2 ? 'justify-start' : 'justify-end' }}">
+
+                                    <h3 class="font-black text-2xl text-accent">
+                                        Alternative Contact #{{ $loop->index + 1 }}
+                                    </h3>
 
                                 </div>
 
@@ -745,7 +735,7 @@
 
                             <div class="flex justify-start items-center w-full">
 
-                                <h3 class="font-black text-5xl text-accent-dark">
+                                <h3 class="font-black text-5xl text-gray-900">
                                     Legal Information
                                 </h3>
 
@@ -758,7 +748,7 @@
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-gray-900">
+                                <h3 class="font-black text-2xl text-accent">
                                     Legal Questions
                                 </h3>
 
@@ -1099,7 +1089,7 @@
 
                             <div class="flex justify-start items-center w-full">
 
-                                <h3 class="font-black text-5xl text-accent-dark">
+                                <h3 class="font-black text-5xl text-gray-900">
                                     Medical Information
                                 </h3>
 
@@ -1112,7 +1102,7 @@
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-gray-900">
+                                <h3 class="font-black text-2xl text-accent">
                                     Medical Questions
                                 </h3>
 
@@ -1412,7 +1402,7 @@
 
                             <div class="flex justify-start items-center w-full">
 
-                                <h3 class="font-black text-5xl text-accent-dark">
+                                <h3 class="font-black text-5xl text-gray-900">
                                     Funding Information
                                 </h3>
 
@@ -1425,7 +1415,7 @@
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-gray-900">
+                                <h3 class="font-black text-2xl text-accent">
                                     Funding Information
                                 </h3>
 
@@ -1839,7 +1829,7 @@
 
                             <div class="flex justify-start items-center w-full">
 
-                                <h3 class="font-black text-5xl text-accent-dark">
+                                <h3 class="font-black text-5xl text-gray-900">
                                     Identification Information
                                 </h3>
 
@@ -1852,7 +1842,7 @@
 
                             <div class="flex w-1/2 sm:w-full">
 
-                                <h3 class="font-black text-xl text-gray-900">
+                                <h3 class="font-black text-xl text-accent">
                                     Picture Identification
                                 </h3>
 
@@ -2580,7 +2570,7 @@
 
                             <div class="flex justify-start items-center w-full">
 
-                                <h3 class="font-black text-5xl text-accent-dark">
+                                <h3 class="font-black text-5xl text-gray-900">
                                     Recovery Information
                                 </h3>
 
@@ -2791,121 +2781,6 @@
             </div>
 
             <!-- STEP 8 - Review Application -->
-            {{-- <div class="{{ $currentStep == 7 ? '' : 'hidden' }}">
-
-                <div class="relative mt-12">
-
-                    <form id="recoveryInformationForm" wire:submit.prevent="completeStep" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
-                        @csrf --}}
-
-                        {{-- Section Label --}}
-                        {{-- <div class="flex justify-between items-center w-full">
-
-                            <div class="flex w-1/2">
-
-                                <h3 class="font-black text-2xl text-gray-900">
-                                    Application Review
-                                </h3>
-
-                            </div>
-
-                        </div> --}}
-
-                        {{-- FORM ROW 1 --}}
-                        {{-- <div class="grid w-full grid-cols-1">
-
-                            <div class="flex flex-col">
-
-                                <label for="recoveryInfo.txtGoingWell" class="block text-xl font-black text-accent">
-                                    What is going well in your recovery?
-                                </label>
-
-                                <textarea wire:model="recoveryInfo.txtGoingWell"
-                                          id="recoveryInfo.txtGoingWell"
-                                          name="recoveryInfo.txtGoingWell"
-                                          rows="4"
-                                          required
-                                          placeholder="Tell us what is going well in your recovery."
-                                          value="{{ old('recoveryInfo.txtGoingWell') }}"
-                                          class="@error('recoveryInfo.txtGoingWell') is-invalid bg-input-error @enderror px-3 py-2 mt-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10"
-                                >
-                                </textarea>
-
-                                @error('recoveryInfo.txtGoingWell')
-                                    <div class="flex w-full invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
-
-                            </div>
-
-                        </div> --}}
-
-                        {{-- FORM ROW 2 --}}
-                        {{-- <div class="grid w-full grid-cols-1">
-
-                            <div class="flex flex-col">
-
-                                <label for="recoveryInfo.txtGoingBad" class="block text-xl font-black text-red-500">
-                                    What is NOT going well in your recovery?
-                                </label>
-
-                                <textarea wire:model="recoveryInfo.txtGoingBad"
-                                          id="recoveryInfo.txtGoingBad"
-                                          name="recoveryInfo.txtGoingBad"
-                                          rows="4"
-                                          required
-                                          placeholder="Tell us what is NOT going well in you recovery."
-                                          value="{{ old('recoveryInfo.txtGoingBad') }}"
-                                          class="@error('recoveryInfo.txtGoingBad') is-invalid bg-input-error @enderror px-3 py-2 mt-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10"
-                                >
-                                </textarea>
-
-                                @error('recoveryInfo.txtGoingBad')
-                                    <div class="flex w-full invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
-
-                            </div>
-
-                        </div> --}}
-
-                        {{-- FORM ROW 3 --}}
-                        {{-- <div class="grid w-full grid-cols-1">
-
-                            <div class="flex flex-col">
-
-                                <label for="recoveryInfo.txtHopesGoals" class="block text-xl font-black text-green-600">
-                                    What are your hopes and goals for the future?
-                                </label>
-
-                                <textarea wire:model="recoveryInfo.txtHopesGoals"
-                                          id="recoveryInfo.txtHopesGoals"
-                                          name="recoveryInfo.txtHopesGoals"
-                                          rows="4"
-                                          required
-                                          placeholder="Tell us your hopes and goals for the future."
-                                          value="{{ old('recoveryInfo.txtHopesGoals') }}"
-                                          class="@error('recoveryInfo.txtHopesGoals') is-invalid bg-input-error @enderror mt-2 px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md z-10"
-                                >
-                                </textarea>
-
-                                @error('recoveryInfo.txtHopesGoals')
-                                    <div class="flex w-full invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
-
-                            </div>
-
-                        </div> --}}
-
-                    {{-- </form>
-
-                </div>
-
-            </div> --}}
 
             <!-- STEP 9 - Consent Form -->
             <div class="{{ $currentStep == 8 ? '' : 'hidden' }}">
@@ -5344,50 +5219,58 @@
         <!-- Bottom Navigation 1 -->
         <div class="relative flex flex-col justify-center w-full py-1 bg-white px-2">
 
+            @php
+                $progressBar = array();
+                foreach ($stepStatuses as $stepStatus) {
+                    if ($stepStatus == 'complete') $progressBar[] = $stepStatus;
+                }
+                $progressBarCompleted = count($progressBar);
+            @endphp
+
             <!-- Progress Bar -->
             <div class="flex items-center justify-end w-full mb-2 pt-2 border-t-2 border-gray-300">
                 <div class="relative mr-2 progress-bar-width">
-                    <div class="absolute bottom-0 right-0 h-2 text-xs leading-none text-center text-white border-black rounded-full top-px left-px bg-accent border-1" style="width: {{ $currentStep + 1 / $totalSteps * 100 }}%;"></div>
-                    <div class="rounded-full bg-form-progress-bar border-1 border-black text-xs leading-none h-2.5 text-center text-white relative z-10"></div>
+                    <div class="absolute bottom-0 right-0 h-2 text-xs leading-none text-center text-white border-gray-900 rounded-full top-px left-px bg-accent border-1 z-10" style="width: {{ $progressBarCompleted > 0 ? intval($progressBarCompleted / $totalSteps * 100) . '%' : '1%' }}"></div>
+                    <div class="rounded-full bg-form-progress-bar border-1 border-gray-300 text-xs leading-none h-2.5 text-center text-white relative z-0"></div>
                 </div>
-                <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($currentStep + 1 / $totalSteps * 100) }}%</div>
+                <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($progressBarCompleted / $totalSteps * 100) }}%</div>
             </div>
 
         </div>
 
         <!-- Bottom Navigation 2 -->
         <div class="flex justify-between w-full p-2 shadow-lg bg-gray-600 rounded-b-md">
-            <div class="w-1/3">
+            <div class="flex w-1/2 justify-start items-center test">
 
                 <button type="button"
                         wire:click.prevent="prevStep"
-                        class="{{ $currentStep > 0 ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        class="{{ $currentStep > 0 ? '' : 'hidden' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <div wire:loading wire:target="prevStep">
                         <x-loading-blocks />
                     </div>
-                    <div class="flex items-center justify-between p-2 w-full font-bold text-white text-md" wire:loading.remove wire:target="prevStep">
-                        <img class="flex mr-5" src="/svg/angle-double-left.svg" alt="Previous Step">
+                    <div class="flex items-center justify-between p-2 md:p-1 w-full font-bold text-white text-md md:text-sm md:font-semibold whitespace-nowrap" wire:loading.remove wire:target="prevStep">
+                        <img class="flex md:mr-2" src="/svg/angle-double-left.svg" alt="Previous Step">
                         Step {{ $currentStep - 1 < 0 ? 0 : $currentStep . ': ' . $stepTitles[$currentStep - 1 < 0 ? 0 : $currentStep - 1] }}
                     </div>
                 </button>
             </div>
 
-            <div class="w-1/3 text-right">
+            <div class="flex w-1/2 justify-end items-center test2">
 
                 <button type="button"
                         wire:click.prevent="completeStep"
-                        class="{{ $currentStep < $totalSteps - 1 ? '' : 'hidden' }} {{ $currentStep == 9 && !$submitted ? 'hidden' : '' }} inline-flex min-w-36 justify-center h-full items-center py-1 px-2 border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        class="{{ $currentStep < $totalSteps - 1 ? '' : 'hidden' }} {{ $currentStep == 9 && !$submitted ? 'hidden' : '' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <div wire:loading wire:target="completeStep">
                         <x-loading-blocks />
                     </div>
-                    <div class="flex items-center justify-between p-2 w-full font-bold text-white text-md" wire:loading.remove wire:target="completeStep">
+                    <div class="flex items-center justify-between md:p-2 p-1 w-full md:font-bold text-white md:text-md text-sm font-semibold whitespace-nowrap" wire:loading.remove wire:target="completeStep">
                         Step {{ $currentStep + 2 . ': ' . $stepTitles[$currentStep + 1 < 11 ? $currentStep + 1 : 11] }}
-                        <img class="flex ml-5" src="/svg/angle-double-right.svg" alt="Next Step">
+                        <img class="flex md:ml-2" src="/svg/angle-double-right.svg" alt="Next Step">
                     </div>
                 </button>
 
                 <button wire:click.prevent="rentalAppFormSubmit"
-                        class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} inline-flex min-w-36 justify-center h-full items-center py-1 px-2 border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
                     Submit Application
                 </button>
             </div>

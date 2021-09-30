@@ -363,11 +363,19 @@ class RentalApplicationPortal extends Component
 
         public function setCurrentStep($index)
         {
-            if ($this->stepStatuses[$this->stepTitles[$index]] == 'complete') {
+            if ($this->user ? $this->user['userType'] == 0 : $this->stepStatuses[$this->stepTitles[$index]] == 'complete') {
+                if ($this->stepStatuses[$this->stepTitles[$index]] != 'complete') {
+                    $this->stepStatuses[$this->stepTitles[$index]] = 'current';
+                }
+                if ($this->stepStatuses[$this->stepTitles[$this->currentStep]] != 'complete') {
+                    $this->stepStatuses[$this->stepTitles[$this->currentStep]] = 'pending';
+                }
                 $this->currentStep = $index;
+
             } else {
                 $this->navMessageContent = 'You must complete the previous steps in order to navigate to this page!';
             }
+
         }
 
         public function clearNavMessageContent()
