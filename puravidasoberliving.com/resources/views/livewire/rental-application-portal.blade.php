@@ -5240,7 +5240,7 @@
 
         <!-- Bottom Navigation 2 -->
         <div class="flex justify-between w-full p-2 shadow-lg bg-gray-600 rounded-b-md">
-            <div class="flex w-1/2 justify-start items-center test">
+            <div class="flex w-1/2 justify-start items-center">
 
                 <button type="button"
                         wire:click.prevent="prevStep"
@@ -5248,14 +5248,14 @@
                     <div wire:loading wire:target="prevStep">
                         <x-loading-blocks />
                     </div>
-                    <div class="flex items-center justify-between p-2 md:p-1 w-full font-bold text-white text-md md:text-sm md:font-semibold whitespace-nowrap" wire:loading.remove wire:target="prevStep">
+                    <div class="flex items-center justify-between md:p-2 p-1 md:text-lg text-sm w-full md:font-bold font-normal text-white whitespace-nowrap" wire:loading.remove wire:target="prevStep">
                         <img class="flex md:mr-2" src="/svg/angle-double-left.svg" alt="Previous Step">
                         Step {{ $currentStep - 1 < 0 ? 0 : $currentStep . ': ' . $stepTitles[$currentStep - 1 < 0 ? 0 : $currentStep - 1] }}
                     </div>
                 </button>
             </div>
 
-            <div class="flex w-1/2 justify-end items-center test2">
+            <div class="flex w-1/2 justify-end items-center">
 
                 <button type="button"
                         wire:click.prevent="completeStep"
@@ -5263,15 +5263,17 @@
                     <div wire:loading wire:target="completeStep">
                         <x-loading-blocks />
                     </div>
-                    <div class="flex items-center justify-between md:p-2 p-1 w-full md:font-bold text-white md:text-md text-sm font-semibold whitespace-nowrap" wire:loading.remove wire:target="completeStep">
+                    <div class="flex items-center justify-between md:p-2 p-1 md:text-lg text-sm w-full md:font-bold font-normal text-white whitespace-nowrap" wire:loading.remove wire:target="completeStep">
                         Step {{ $currentStep + 2 . ': ' . $stepTitles[$currentStep + 1 < 11 ? $currentStep + 1 : 11] }}
                         <img class="flex md:ml-2" src="/svg/angle-double-right.svg" alt="Next Step">
                     </div>
                 </button>
 
                 <button wire:click.prevent="rentalAppFormSubmit"
-                        class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
-                    Submit Application
+                        class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <div class="flex items-center justify-between md:p-2 p-1 md:text-lg text-sm w-full md:font-bold font-normal text-white whitespace-nowrap">
+                        Submit Application
+                    </div>
                 </button>
             </div>
         </div>

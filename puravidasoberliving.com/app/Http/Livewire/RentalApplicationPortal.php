@@ -254,8 +254,8 @@ class RentalApplicationPortal extends Component
         $this->additionalDocumentation = [];
         $this->today = Carbon::now()->format('Y-m-d');
         $this->setIsAdmin();
-        // $this->setUserInitials();
-        // $this->setUserSignature();
+        $this->setUserInitials();
+        $this->setUserSignature();
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
