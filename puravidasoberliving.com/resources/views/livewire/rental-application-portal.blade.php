@@ -177,6 +177,7 @@
                                            type="text"
                                            name="personalInfo.firstName"
                                            id="personalInfo.firstName"
+                                           maxlength="255"
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 0 || $currentStep == 0 ? '' : 'disabled' }}
@@ -197,6 +198,7 @@
                                            type="text"
                                            name="personalInfo.middleInitial"
                                            id="personalInfo.middleInitial"
+                                           maxlength="1"
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 0 || $currentStep == 0 ? '' : 'disabled' }}
@@ -217,6 +219,7 @@
                                            type="text"
                                            name="personalInfo.lastName"
                                            id="personalInfo.lastName"
+                                           maxlength="255"
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 0 || $currentStep == 0 ? '' : 'disabled' }}
@@ -264,7 +267,7 @@
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 0 || $currentStep == 0 ? '' : 'disabled' }}
-                                           autocomplete="ssn"
+                                           autocomplete="on"
                                            value="personalInfo.socialNumber"
                                            class="@error('personalInfo.socialNumber') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 0 || $currentStep == 0 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('personalInfo.socialNumber')
@@ -434,7 +437,7 @@
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                           autocomplete="city"
+                                           autocomplete="shipping-city"
                                            value="emergencyContactInfo.cityEmContact"
                                            class="@error('emergencyContactInfo.cityEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                     @error('emergencyContactInfo.cityEmContact')
@@ -454,7 +457,7 @@
                                             required
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                             {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                            autocomplete="state"
+                                            autocomplete="shipping-state"
                                             value="emergencyContactInfo.stateEmContact"
                                             class="@error('emergencyContactInfo.stateEmContact') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} z-10 block w-full px-3 py-2 text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                         <option  value="">Select</option>
@@ -480,6 +483,7 @@
                                             id="emergencyContactInfo.relationshipEmContact"
                                             name="emergencyContactInfo.relationshipEmContact"
                                             required
+                                            autocomplete="on"
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                             {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
                                             value="emergencyContactInfo.relationshipEmContact"
@@ -609,7 +613,7 @@
                                                required
                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                               autocomplete="ship-city"
+                                               autocomplete="shipping-city"
                                                value="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact"
                                                class="@error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10" />
                                         @error("additionalEmergencyContactInfo.{$loop->index}.cityEmContact")
@@ -629,7 +633,7 @@
                                                 required
                                                 {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                 {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
-                                                autocomplete="state"
+                                                autocomplete="shipping-state"
                                                 value="additionalEmergencyContactInfo.{{ $loop->index }}.stateEmContact"
                                                 class="@error("additionalEmergencyContactInfo.{$loop->index}.stateEmContact") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? 'bg-input' : 'bg-input-disabled' }} z-10 block w-full px-3 py-2 text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             <option  value="">Select</option>
@@ -656,6 +660,7 @@
                                                 id="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact"
                                                 name="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact"
                                                 required
+                                                autocomplete="on"
                                                 {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                 {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 1 || $currentStep == 1 ? '' : 'disabled' }}
                                                 value="additionalEmergencyContactInfo.{{ $loop->index }}.relationshipEmContact"
@@ -1009,7 +1014,7 @@
                                                            required
                                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? '' : 'disabled' }}
-                                                           autocomplete="given-name"
+                                                           {{-- autocomplete="on" --}}
                                                            value="legalInfo.convictions.{{ $loop->index }}"
                                                            class="@error("legalInfo.convictions.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 2 || $currentStep == 2 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                     @error("legalInfo.convictions.{$loop->index}")
@@ -1201,7 +1206,7 @@
                                                            required
                                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
-                                                           autocomplete="given-name"
+                                                           autocomplete="on"
                                                            value="medicalInfo.medications.{{ $loop->index }}"
                                                            class="@error("medicalInfo.medications.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                     @error("medicalInfo.medications.{$loop->index}")
@@ -1276,7 +1281,7 @@
                                                            required
                                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
-                                                           autocomplete="given-name"
+                                                           autocomplete="on"
                                                            value="medicalInfo.drugUse.drugOfChoice.{{ $loop->index }}"
                                                            class="@error("medicalInfo.drugUse.drugOfChoice.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                     @error("medicalInfo.drugUse.drugOfChoice.{$loop->index}")
@@ -1305,7 +1310,7 @@
                                                                    required
                                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? '' : 'disabled' }}
-                                                                   autocomplete="given-name"
+                                                                   autocomplete="on"
                                                                    value="{{ $today }}"
                                                                    class="@error("medicalInfo.drugUse.lastUse.{$loop->index}") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 3 || $currentStep == 3 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                         </div>
@@ -1313,7 +1318,7 @@
                                                         <button type="button"
                                                                 wire:key="{{ $loop->index }}"
                                                                 wire:click.prevent="removeDrugOfChoice({{ $loop->index }})"
-                                                                class="{{ $currentStep == 7 && !$isAdminEditing ? 'hidden' : '' }} inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md  text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                class="{{ $currentStep == 7 && !$isAdminEditing ? 'hidden' : '' }} {{ $loop->index == 0 ? 'hidden' : '' }} inline-flex items-center justify-center h-full p-2 font-medium text-white border border-transparent rounded-md shadow-md  text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                             <div wire:loading wire:target="removeDrugOfChoice({{ $loop->index }})">
                                                                 <x-loading-blocks />
                                                             </div>
@@ -1342,7 +1347,7 @@
 
                                         <button type="button"
                                                 wire:click.prevent="addDrugOfChoice"
-                                                class="{{ $currentStep == 7 ? 'hidden' : '' }} inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                class="{{ $currentStep == 7 ? 'hidden' && !$isAdminEditing : '' }} inline-flex items-center justify-center h-full font-medium text-white border border-transparent rounded-md shadow-md min-w-36 text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                             <div wire:loading wire:target="addDrugOfChoice">
                                                 <x-loading-blocks />
                                             </div>
@@ -1481,7 +1486,7 @@
                                                    required
                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                   autocomplete=""
+                                                   autocomplete="on"
                                                    value="fundingInfo.moveOutDate"
                                                    class="@error('fundingInfo.moveOutDate') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                             @error('fundingInfo.moveOutDate')
@@ -1503,6 +1508,7 @@
                                                     {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                     {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
                                                     value="fundingInfo.reasonForLeaving"
+                                                    autocomplete="on"
                                                     class="@error("fundingInfo.reasonForLeaving") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                 <option  value="">Select</option>
                                                 {{-- @php
@@ -1608,7 +1614,7 @@
                                                                required
                                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                               autocomplete="given-name"
+                                                               autocomplete="organization"
                                                                value="fundingInfo.sources.{{ $loop->index }}.name"
                                                                class="@error("fundingInfo.sources.{$loop->index}.name") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                         @error("fundingInfo.sources.{$loop->index}.name")
@@ -1635,7 +1641,7 @@
                                                                required
                                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                               autocomplete="given-name"
+                                                               autocomplete="on"
                                                                value="fundingInfo.sources.{{ $loop->index }}.amount"
                                                                class="@error("fundingInfo.sources.{$loop->index}.amount") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10 block text-center"
                                                                placeholder="0.00" />
@@ -1647,7 +1653,7 @@
                                                                     required
                                                                     {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                     {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                                    autocomplete=""
+                                                                    autocomplete="on"
                                                                     value="fundingInfo.sources.{{ $loop->index }}.frequency"
                                                                     class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-900 sm:text-sm rounded-md">
                                                                 <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="0">/Hr</option>
@@ -1674,7 +1680,7 @@
                                                                    required
                                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                                   autocomplete=""
+                                                                   autocomplete="on"
                                                                    value="{{ $today }}"
                                                                    class="@error("fundingInfo.sources.{$loop->index}.startDate") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                             @error("fundingInfo.sources.{$loop->index}.startDate")
@@ -1726,7 +1732,7 @@
                                                                required
                                                                {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                               autocomplete="given-name"
+                                                               autocomplete="family-name"
                                                                value="fundingInfo.sources.{{ $loop->index }}.reference.lastName"
                                                                class="@error("fundingInfo.sources.{$loop->index}.reference.lastName") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                         @error("fundingInfo.sources.{$loop->index}.reference.lastName")
@@ -1748,7 +1754,7 @@
                                                                    required
                                                                    {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                                                    {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
-                                                                   autocomplete=""
+                                                                   autocomplete="tel"
                                                                    value="fundingInfo.sources.{{ $loop->index }}.reference.phone"
                                                                    class="@error("fundingInfo.sources.{$loop->index}.reference.phone") is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                                             @error("fundingInfo.sources.{$loop->index}.reference.phone")
@@ -1842,7 +1848,7 @@
 
                             <div class="flex w-1/2 sm:w-full">
 
-                                <h3 class="font-black text-xl text-accent">
+                                <h3 class="font-black text-2xl text-accent">
                                     Picture Identification
                                 </h3>
 
@@ -1861,6 +1867,7 @@
                                             id="identificationInfo.type"
                                             name="identificationInfo.type"
                                             required
+                                            autocomplete="on"
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                             {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
                                             value="identificationInfo.type"
@@ -1889,6 +1896,7 @@
                                             id="identificationInfo.state"
                                             name="identificationInfo.state"
                                             required
+                                            autocomplete="shipping-state"
                                             {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                             {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
                                             value="identificationInfo.state"
@@ -1919,7 +1927,7 @@
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
-                                           autocomplete=""
+                                           autocomplete="tel"
                                            value="identificationInfo.number"
                                            class="@error('identificationInfo.number') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('identificationInfo.number')
@@ -1940,7 +1948,7 @@
                                            required
                                            {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                            {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? '' : 'disabled' }}
-                                           autocomplete=""
+                                           autocomplete="on"
                                            value="identificationInfo.expiration"
                                            class="@error('identificationInfo.expiration') is-invalid bg-input-error @enderror {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing != -1 ? 'bg-input-disabled' : 'bg-input' }} {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 5 || $currentStep == 5 ? 'bg-input' : 'bg-input-disabled' }} px-3 py-2 block w-full shadow-lg text-gray-900 focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-accent-dark rounded-md z-10">
                                     @error('identificationInfo.expiration')
@@ -2507,7 +2515,7 @@
 
                                                 <button type="button"
                                                         wire:click.prevent="removeFileFromUploadQue({{ $loop->index }})"
-                                                        class="{{ $currentStep == 7 ? 'hidden' : '' }} inline-flex items-center justify-center min-w-max h-full px-2 text-md text-white font-medium border border-transparent rounded-md shadow-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                        class="{{ $currentStep == 7 && !$isAdminEditing ? 'hidden' : '' }} inline-flex items-center justify-center min-w-max h-full px-2 text-md text-white font-medium border border-transparent rounded-md shadow-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                     <div wire:loading wire:target="removeFileFromUploadQue({{ $loop->index }})">
                                                         <x-loading-blocks />
                                                     </div>
@@ -2592,6 +2600,7 @@
                                           name="recoveryInfo.txtGoingWell"
                                           rows="4"
                                           required
+                                          autocomplete="on"
                                           {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                           {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 6 || $currentStep == 6 ? '' : 'disabled' }}
                                           placeholder="Tell us what is going well in your recovery."
@@ -2624,6 +2633,7 @@
                                           name="recoveryInfo.txtGoingBad"
                                           rows="4"
                                           required
+                                          autocomplete="on"
                                           {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                           {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 6 || $currentStep == 6 ? '' : 'disabled' }}
                                           placeholder="Tell us what is NOT going well in you recovery."
@@ -2656,6 +2666,7 @@
                                           name="recoveryInfo.txtHopesGoals"
                                           rows="4"
                                           required
+                                          autocomplete="on"
                                           {{ $currentStep == 7 && !$isAdminEditing && $stepAdminIsEditing == -1 ? 'disabled' : '' }}
                                           {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 6 || $currentStep == 6 ? '' : 'disabled' }}
                                           placeholder="Tell us your hopes and goals for the future."
@@ -5176,17 +5187,17 @@
 
                             {{-- Date --}}
                             <div class="w-1/2 min-h-28 relative">
-                                <label for="consentFormSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
+                                <label for="rulesAndRegulationsSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
 
-                                <input wire:model="consentFormSignature.date"
+                                <input wire:model="rulesAndRegulationsSignature.date"
                                         type="checkbox"
-                                        name="consentFormSignature.date"
-                                        id="consentFormSignature.date"
+                                        name="rulesAndRegulationsSignature.date"
+                                        id="rulesAndRegulationsSignature.date"
                                         required
                                         autocomplete=""
                                         class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
-                                <div class="@error('consentFormSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
-                                    @if ($consentFormSignature['date'])
+                                <div class="@error('rulesAndRegulationsSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
+                                    @if ($rulesAndRegulationsSignature['date'])
                                         <div class="text-md font-black text-gray-900">
                                             {{ $today }}
                                         </div>
@@ -5194,7 +5205,7 @@
                                         <img src="/svg/calendar-alt-solid.svg" alt="Click to date consent form">
                                     @endif
                                 </div>
-                                        @error('consentFormSignature.date')
+                                        @error('rulesAndRegulationsSignature.date')
                                     <div class="flex w-full invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </div>

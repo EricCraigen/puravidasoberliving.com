@@ -343,6 +343,14 @@ class RentalApplicationPortal extends Component
             }
         }
 
+        public function toggleCompletedTaskIconAsAdmin($index)
+        {
+            $this->stepStatuses[$this->stepTitles[$index]] = 'complete';
+            // if ($this->currentStep < 11) {
+            //     $this->stepStatuses[$this->stepTitles[$index + 1]] = 'current';
+            // }
+        }
+
         public function prevStep()
         {
             if ($this->currentStep == 0) {
@@ -415,6 +423,7 @@ class RentalApplicationPortal extends Component
                     break;
                 default;
             }
+            $this->toggleCompletedTaskIconAsAdmin($index);
             $this->isAdminEditing = false;
             $this->stepAdminIsEditing = -1;
         }
@@ -1087,10 +1096,12 @@ class RentalApplicationPortal extends Component
 
         public function removeDrugOfChoice($index)
         {
-            unset($this->medicalInfo['drugUse']['drugOfChoice'][$index]);
+            if ($index != 0) {
+                unset($this->medicalInfo['drugUse']['drugOfChoice'][$index]);
             $this->medicalInfo['drugUse']['drugOfChoice'] = array_values($this->medicalInfo['drugUse']['drugOfChoice']);
             unset($this->medicalInfo['drugUse']['lastUse'][$index]);
             $this->medicalInfo['drugUse']['lastUse'] = array_values($this->medicalInfo['drugUse']['lastUse']);
+            }
         }
 
     // fundingInfo
@@ -1276,7 +1287,7 @@ class RentalApplicationPortal extends Component
         {
             $result = (bool) array_product($this->consentForm);
             $result2 = (bool) array_product($this->consentFormAdditional);
-            if ($result && $result2) {
+            if ($result ) {
                 $this->consentFormSignature['signed'] = true;
             } else {
                 $this->consentFormSignature['signed'] = false;
