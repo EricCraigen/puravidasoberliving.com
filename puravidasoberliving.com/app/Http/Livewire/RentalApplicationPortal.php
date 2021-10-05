@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\PersonalInformation;
 
 class RentalApplicationPortal extends Component
 {
@@ -254,8 +255,8 @@ class RentalApplicationPortal extends Component
         $this->additionalDocumentation = [];
         $this->today = Carbon::now()->format('Y-m-d');
         $this->setIsAdmin();
-        $this->setUserInitials();
-        $this->setUserSignature();
+        // $this->setUserInitials();
+        // $this->setUserSignature();
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
@@ -286,7 +287,7 @@ class RentalApplicationPortal extends Component
         switch ($this->currentStep) {
             case (0):
                 $this->validateStep1();
-
+                $this->postPersonalInfo();
                 $this->toggleCompletedTaskIcon();
                 break;
             case (1):
@@ -333,6 +334,20 @@ class RentalApplicationPortal extends Component
             default;
         }
         $this->nextStep();
+    }
+
+    public function postPersonalInfo() 
+    {
+        // $personalInfo = new \App\Models\PersonalInformation([
+        //     'application_id' => 1,
+        //     'firstName' => 'James',
+        //     'middleInitial' => 'D',
+        //     'lastName' => 'Halstead',
+        //     'dob' => date('1989-12-19'),
+        //     'ssn' => '432534325',
+        //     'phone' => '5094535234',
+        // ]);
+        // $personalInfo->save();
     }
 
         public function toggleCompletedTaskIcon()
@@ -982,13 +997,14 @@ class RentalApplicationPortal extends Component
     // personalInfo
     private function clearPersonalInfo()
     {
+        $this->personalInfoLoad = PersonalInformation::where("application_id", 1)->first()->get();
         $this->personalInfo = array(
-            'firstName' => '',
-            'middleInitial' => '',
-            'lastName' => '',
-            'dateOfBirth' => '',
-            'socialNumber' => '',
-            'phone' => '',
+            'firstName' => $this->personalInfoLoad[0]['firstName'],
+            'middleInitial' => $this->personalInfoLoad[0]['middleInitial'],
+            'lastName' => $this->personalInfoLoad[0]['lastName'],
+            'dateOfBirth' => $this->personalInfoLoad[0]['dateOfBirth'],
+            'socialNumber' => $this->personalInfoLoad[0]['socialNumber'],
+            'phone' => $this->personalInfoLoad[0]['phone'],
         );
     }
 

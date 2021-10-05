@@ -28,6 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'postalCode',
         'email',
         'password',
+        'renterStatus',
+        'applicationId',
     ];
 
     protected $attributes = [

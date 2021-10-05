@@ -52,23 +52,23 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .bg-input {
-    background-color: var(--bg-input);
+    background-color: var(--bg-input) !important;
 }
 
 .bg-input_hover:hover {
-    background-color: var(--accent_hover);
+    background-color: var(--accent_hover) !important;
 }
 
 .bg-input-disabled {
-    background-color: var(--bg-input-disabled);
+    background-color: var(--bg-input-disabled) !important;
 }
 
 .bg-input-error {
-    background-color: var(--bg-input-error);
+    background-color: var(--bg-input-error) !important;
 }
 
 .bg-edit-btn {
-    background: var(--bg-edit-btn);
+    background: var(--bg-edit-btn) !important;
 }
 
 .bg-accent-dark {
