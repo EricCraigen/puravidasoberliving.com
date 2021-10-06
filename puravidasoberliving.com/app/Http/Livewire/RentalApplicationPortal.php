@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PersonalInformation;
+use App\Models\RentalApplication;
 
 class RentalApplicationPortal extends Component
 {
@@ -46,6 +47,7 @@ class RentalApplicationPortal extends Component
     public $consentFormSignature;
     public $rulesAndRegulationsSignature;
     public $rulesAndRegulations;
+    public $rentalApplication;
     public $rentalApplicationSignature;
     public $messageContent;
     public $navMessageContent;
@@ -255,8 +257,13 @@ class RentalApplicationPortal extends Component
         $this->additionalDocumentation = [];
         $this->today = Carbon::now()->format('Y-m-d');
         $this->setIsAdmin();
-        // $this->setUserInitials();
-        // $this->setUserSignature();
+        if ($this->user) {
+            $this->rentalApplication = RentalApplication::firstOrCreate([
+                'user_id' => Auth::user()->id,
+            ]);
+            $this->setUserInitials();
+            $this->setUserSignature();
+        }
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
@@ -273,7 +280,7 @@ class RentalApplicationPortal extends Component
         $this->clearConsentForm();
         $this->clearRulesAndRegulations();
         // $this->clearConsentFormSignature();
-        // dd($this->isAdmin);
+        // dd($this->rentalApplication);
     }
 
     public function updated($propertyName)
@@ -336,7 +343,7 @@ class RentalApplicationPortal extends Component
         $this->nextStep();
     }
 
-    public function postPersonalInfo() 
+    public function postPersonalInfo()
     {
         // $personalInfo = new \App\Models\PersonalInformation([
         //     'application_id' => 1,

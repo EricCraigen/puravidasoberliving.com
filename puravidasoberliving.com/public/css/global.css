@@ -38,6 +38,10 @@ body::-webkit-scrollbar-thumb:hover {
     /* width: 13px; */
 }
 
+.form-dots {
+    background: url('#85737c0e-0916-41d7-917f-596dc7edfa27');
+}
+
 .bg-accent {
     background-color: var(--accent) !important;
 }

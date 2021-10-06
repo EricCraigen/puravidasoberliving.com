@@ -1,6 +1,6 @@
 <div class="relative z-10 px-4 py-10 mx-auto max-w-7xl">
 
-    {{-- <div class="absolute w-full h-full inset-0 bg-gray-600 bg-opacity-60 z-50"></div> --}}
+    {{-- <div class="absolute inset-0 z-50 w-full h-full bg-gray-600 bg-opacity-60"></div> --}}
 
     <!-- Application Forms Container -->
     <div class="{{ $currentStep != $totalSteps ? '' : 'hidden' }} bg-white max-w-screen-lg mx-auto mt-8 p-5 pb-0 rounded-md rounded-b-none shadow-lg relative overflow-hidden"
@@ -88,7 +88,7 @@
 
             </div>
 
-            <h3 class="w-full text-lg text-red-500 font-black text-center mt-4">
+            <h3 class="w-full mt-4 text-lg font-black text-center text-red-500">
 
                 {{ $navMessageContent ? $navMessageContent : '' }}
 
@@ -96,25 +96,11 @@
 
         </div>
 
+
         <!-- FORM PAGES -->
         <div class="relative z-10 py-5 mx-1">
 
-            <svg class="absolute bottom-0 right-0 z-0 transform translate-x-1/2 -left-22 -top-6 opacity-30" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-                <defs>
-                <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
-                </pattern>
-                </defs>
-                <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
-            </svg>
-            <svg class="absolute bottom-0 left-0 z-0 transform -translate-x-1/2 -right-22 top-72 opacity-30" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-                <defs>
-                    <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
-                    </pattern>
-                </defs>
-                <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
-            </svg>
+            <x-rental-application-portal.form-dots-svg-absolute />
 
             <!-- STEP 1 - Personal Information -->
             <div class="{{ $currentStep == 0 || $currentStep == 7 ? '' : 'hidden' }} {{ $currentStep == 7 ? 'border-b-4 border-accent-dark pb-12' : '' }}">
@@ -127,9 +113,9 @@
                         {{-- REVIEW Section Label --}}
                         <div class="flex w-full {{ $currentStep == 7 ? '' : 'hidden' }} {{ $currentStep == 7 ? 'border-b-4 border-accent-dark pb-12' : '' }}">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-6xl text-accent">
+                                <h3 class="text-6xl font-black text-accent">
                                     Application Review
                                 </h3>
 
@@ -141,9 +127,9 @@
                         {{-- Section Label --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-5xl text-gray-900">
+                                <h3 class="text-5xl font-black text-gray-900">
                                     Personal Information
                                 </h3>
 
@@ -322,9 +308,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-5xl text-gray-900">
+                                <h3 class="text-5xl font-black text-gray-900">
                                     Emergency Contacts
                                 </h3>
 
@@ -333,11 +319,11 @@
                         </div>
 
                         {{-- FORM LABEL --}}
-                        <div class="flex justify-between items-center w-full">
+                        <div class="flex items-center justify-between w-full">
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-accent">
+                                <h3 class="text-2xl font-black text-accent">
                                     Primary Contact
                                 </h3>
 
@@ -409,7 +395,7 @@
                         </div>
 
                         {{-- FORM ROW 2 --}}
-                        <div class="flex flex-col md:flex-row mb-5">
+                        <div class="flex flex-col mb-5 md:flex-row">
                             <div class="w-full">
                                 <label for="emergencyContactInfo.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                 <div class="mt-1">
@@ -512,7 +498,7 @@
 
                                 <div class="flex w-1/2 {{ $loop->index % 2 ? 'justify-start' : 'justify-end' }}">
 
-                                    <h3 class="font-black text-2xl text-accent">
+                                    <h3 class="text-2xl font-black text-accent">
                                         Alternative Contact #{{ $loop->index + 1 }}
                                     </h3>
 
@@ -585,7 +571,7 @@
                             </div>
 
                             {{-- FORM ROW 2 --}}
-                            <div class="flex flex-col md:flex-row mb-5">
+                            <div class="flex flex-col mb-5 md:flex-row">
                                 <div class="w-1/3">
                                     <label for="additionalEmergencyContactInfo.{{ $loop->index }}.cityEmContact" class="block text-lg font-black text-gray-700">City</label>
                                     <div class="mt-1">
@@ -721,9 +707,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-5xl text-gray-900">
+                                <h3 class="text-5xl font-black text-gray-900">
                                     Legal Information
                                 </h3>
 
@@ -732,11 +718,11 @@
                         </div>
 
                         {{-- FORM LABEL --}}
-                        <div class="flex justify-between items-center w-full">
+                        <div class="flex items-center justify-between w-full">
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-accent">
+                                <h3 class="text-2xl font-black text-accent">
                                     Legal Questions
                                 </h3>
 
@@ -824,7 +810,7 @@
 
                         {{-- FORM ROW 2 --}}
                         <div class="grid w-full grid-cols-1">
-                            <div class="grid grid-cols-2 content-center mb-4">
+                            <div class="grid content-center grid-cols-2 mb-4">
                                 <label for="legalInfo.onLegalSupervision" class="inline-flex text-lg font-black text-gray-900">Are you on legal supervision?</label>
                                 <fieldset class="@error("legalInfo.onLegalSupervision") is-invalid  @enderror" id="legalInfo.onLegalSupervision">
                                     <label class="inline-flex text-lg font-black text-gray-900">Yes</label>
@@ -952,7 +938,7 @@
                         {{-- FORM ROW 3 --}}
                         <div class="grid w-full grid-cols-1">
 
-                            <div class="flex justify-between items-center w-full">
+                            <div class="flex items-center justify-between w-full">
 
                                 <div class="flex flex-col w-full">
 
@@ -1075,9 +1061,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-5xl text-gray-900">
+                                <h3 class="text-5xl font-black text-gray-900">
                                     Medical Information
                                 </h3>
 
@@ -1086,11 +1072,11 @@
                         </div>
 
                         {{-- FORM LABEL --}}
-                        <div class="flex justify-between items-center w-full">
+                        <div class="flex items-center justify-between w-full">
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-accent">
+                                <h3 class="text-2xl font-black text-accent">
                                     Medical Questions
                                 </h3>
 
@@ -1101,7 +1087,7 @@
                         {{-- FORM ROW 1 --}}
                         <div class="grid w-full grid-cols-1">
 
-                            <div class="grid grid-cols-2 content-center mb-4">
+                            <div class="grid content-center grid-cols-2 mb-4">
 
                                 <label for="medicalInfo.hasScripts" class="inline-flex text-lg font-black text-red-500 md:mt-0">
                                     Are you currently prescribed any medications?
@@ -1143,7 +1129,7 @@
                         {{-- FORM ROW 2 --}}
                         <div class="{{ $medicalInfo['hasScripts'] == 0 || $medicalInfo['hasScripts'] == null ? 'hidden' : '' }} grid w-full grid-cols-1">
 
-                            <div class="flex justify-between items-center w-full">
+                            <div class="flex items-center justify-between w-full">
 
                                 <div class="flex flex-col w-full">
 
@@ -1230,15 +1216,15 @@
                         {{-- FORM ROW 3 --}}
                         <div class="grid grid-cols-1 {{ $isAdminEditing && $stepAdminIsEditing == 3 ? '' : ($medicalInfo['drugUse']['drugOfChoice'][0] == '' && $currentStep == 7 && $stepAdminIsEditing != 3 ? 'hidden' : '') }}">
 
-                            <div class="flex justify-between items-center w-full">
+                            <div class="flex items-center justify-between w-full">
 
                                 <div class="flex flex-col w-full">
 
-                                    <h3 class="font-black text-2xl text-gray-900">
+                                    <h3 class="text-2xl font-black text-gray-900">
                                         Please list drug(s) of choice:
                                     </h3>
 
-                                    <div class="grid grid-cols-2 mb-5 gap-4">
+                                    <div class="grid grid-cols-2 gap-4 mb-5">
 
                                         @foreach ($medicalInfo['drugUse']['drugOfChoice'] as $input)
 
@@ -1388,9 +1374,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-5xl text-gray-900">
+                                <h3 class="text-5xl font-black text-gray-900">
                                     Funding Information
                                 </h3>
 
@@ -1399,11 +1385,11 @@
                         </div>
 
                         {{-- Section Label --}}
-                        <div class="flex justify-between items-center w-full">
+                        <div class="flex items-center justify-between w-full">
 
                             <div class="flex w-1/2">
 
-                                <h3 class="font-black text-2xl text-accent">
+                                <h3 class="text-2xl font-black text-accent">
                                     Funding Information
                                 </h3>
 
@@ -1414,7 +1400,7 @@
                         {{-- FORM ROW 1 --}}
                         <div class="grid w-full grid-cols-1">
 
-                            <div class="grid grid-cols-2 content-center mb-4">
+                            <div class="grid content-center grid-cols-2 mb-4">
 
                                 <label for="fundingInfo.hasLivedWithPVSL" class="inline-flex text-lg font-black text-red-500 md:mt-0">
                                     Have you ever lived with Pura Vida Sober Living?
@@ -1455,9 +1441,9 @@
                         {{-- FORM ROW 2 --}}
                         <div class="{{ $fundingInfo['hasLivedWithPVSL'] == 0 || $fundingInfo['hasLivedWithPVSL'] == null ? 'hidden' : '' }} grid w-full grid-cols-1">
 
-                            <div class="flex justify-between items-center w-full">
+                            <div class="flex items-center justify-between w-full">
 
-                                <div class="flex flex-cols-2 gap-4 w-full">
+                                <div class="flex w-full gap-4 flex-cols-2">
 
                                     <div class="w-full">
                                         <label for="fundingInfo.moveOutDate" class="block text-lg font-black text-gray-700">Move Out Date</label>
@@ -1516,7 +1502,7 @@
                         </div>
 
                         {{-- FORM ROW 3 --}}
-                        <div class="grid grid-cols-2 content-center my-4">
+                        <div class="grid content-center grid-cols-2 my-4">
 
                             <label for="fundingInfo.hasPaidAdminFee" class="inline-flex text-lg font-black text-red-500 md:mt-0">
                                 Have you paid the Administration Fee ($250.00)?
@@ -1555,11 +1541,11 @@
                         {{-- FORM ROW 4 --}}
                         <div class="grid w-full grid-cols-1">
 
-                            <div class="flex justify-between items-center w-full">
+                            <div class="flex items-center justify-between w-full">
 
                                 <div class="flex flex-col w-full">
 
-                                    <h3 class="font-black text-2xl text-gray-900">
+                                    <h3 class="text-2xl font-black text-gray-900">
                                         What are your source(s) of funding?
                                     </h3>
 
@@ -1586,7 +1572,7 @@
                                             </div>
 
                                             {{-- SOURCE ROW 1 --}}
-                                            <div class="grid grid-cols-3 w-full gap-4 p-2">
+                                            <div class="grid w-full grid-cols-3 gap-4 p-2">
 
                                                 <div class="w-full">
                                                     <label for="fundingInfo.sources.{{ $loop->index }}.name" class="block text-lg font-black text-gray-900">Name</label>
@@ -1611,8 +1597,8 @@
                                                 <div class="w-full">
 
                                                     <label for="pricefundingInfo.sources.{{ $loop->index }}.amount" class="block text-lg font-black text-gray-900">Start Date</label>
-                                                    <div class="mt-1 relative rounded-md shadow-sm">
-                                                        <div class="absolute inset-y-0 left-0 px-3 flex items-center pointer-events-none">
+                                                    <div class="relative mt-1 rounded-md shadow-sm">
+                                                        <div class="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none">
                                                             <span class="text-gray-900 sm:text-sm">
                                                                 $
                                                             </span>
@@ -1638,7 +1624,7 @@
                                                                     {{ $currentStep == 7 && $isAdminEditing && $stepAdminIsEditing == 4 || $currentStep == 4 ? '' : 'disabled' }}
                                                                     autocomplete="on"
                                                                     value="fundingInfo.sources.{{ $loop->index }}.frequency"
-                                                                    class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-900 sm:text-sm rounded-md">
+                                                                    class="h-full py-0 pl-2 text-gray-900 bg-transparent border-transparent rounded-md focus:ring-indigo-500 focus:border-indigo-500 pr-7 sm:text-sm">
                                                                 <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="0">/Hr</option>
                                                                 <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="1">/Mo</option>
                                                                 <option wire:key="fundingInfo.sources.{{ $loop->index }}.frequency" value="2">/Yr</option>
@@ -1677,12 +1663,12 @@
 
                                             </div>
 
-                                            <h4 class="flex text-lg font-black text-gray-900 my-3">
+                                            <h4 class="flex my-3 text-lg font-black text-gray-900">
                                                 Reference
                                             </h4>
 
                                             {{-- SOURCE ROW 2 --}}
-                                            <div class="grid grid-cols-3 w-full gap-4 p-2 mb-5">
+                                            <div class="grid w-full grid-cols-3 gap-4 p-2 mb-5">
 
                                                 <div class="w-full">
                                                     <label for="fundingInfo.sources.{{ $loop->index }}.reference.firstName" class="block text-lg font-black text-gray-900">First Name</label>
@@ -1816,9 +1802,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-5xl text-gray-900">
+                                <h3 class="text-5xl font-black text-gray-900">
                                     Identification Information
                                 </h3>
 
@@ -1827,11 +1813,11 @@
                         </div>
 
                         {{-- FORM LABEL --}}
-                        <div class="flex justify-between items-center w-full">
+                        <div class="flex items-center justify-between w-full">
 
                             <div class="flex w-1/2 sm:w-full">
 
-                                <h3 class="font-black text-2xl text-accent">
+                                <h3 class="text-2xl font-black text-accent">
                                     Picture Identification
                                 </h3>
 
@@ -1842,7 +1828,7 @@
                         {{-- FORM ROW 1 --}}
                         <div class="grid grid-cols-8 gap-2">
 
-                            <div class="md:col-span-2 col-span-4 ">
+                            <div class="col-span-4 md:col-span-2 ">
                                 <label for="identificationInfo.type" class="block text-lg font-black text-gray-700">Type</label>
                                 <div class="mt-1">
                                     <label for="identificationInfo.type" class="sr-only">Type</label>
@@ -1871,7 +1857,7 @@
                                 </div>
                             </div>
 
-                            <div class="md:col-span-2 col-span-4 ">
+                            <div class="col-span-4 md:col-span-2 ">
                                 <label for="identificationInfo.state" class="block text-lg font-black text-gray-700">State</label>
                                 <div class="mt-1">
                                     <label for="identificationInfo.state" class="sr-only">State</label>
@@ -1900,7 +1886,7 @@
                                 </div>
                             </div>
 
-                            <div class="md:col-span-2 col-span-5 ">
+                            <div class="col-span-5 md:col-span-2 ">
                                 <label for="identificationInfo.number" class="block text-lg font-black text-gray-700">Number</label>
                                 <div class="mt-1">
                                     <input wire:model="identificationInfo.number"
@@ -1921,7 +1907,7 @@
                                 </div>
                             </div>
 
-                            <div class="md:col-span-2 col-span-3 ">
+                            <div class="col-span-3 md:col-span-2 ">
                                 <label for="identificationInfo.expiration" class="block text-lg font-black text-gray-700">Expiration Date</label>
                                 <div class="mt-1">
                                     <input wire:model="identificationInfo.expiration"
@@ -1953,7 +1939,7 @@
                                     <div wire:loading wire:target="toggleHasIDCardUpload">
                                         <x-loading-blocks />
                                     </div>
-                                    <div class="flex items-center md:justify-between justify-center w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="toggleHasIDCardUpload">
+                                    <div class="flex items-center justify-center w-full p-2 font-bold text-white md:justify-between text-md" wire:loading.remove wire:target="toggleHasIDCardUpload">
                                         <img class="flex mr-2" src="/svg/register-icon.svg" alt="Upload ID Card">
                                         Upload ID Card
                                     </div>
@@ -1973,7 +1959,7 @@
                                  class="flex flex-col items-center md:w-1/2 w-full relative {{ $currentStep == 7 && !isset($photoIdCardFront) && $stepAdminIsEditing != 5 ? 'hidden' : '' }}"
                             >
 
-                                <label class="inline-block mb-2 font-black text-lg text-gray-900">
+                                <label class="inline-block mb-2 text-lg font-black text-gray-900">
 
                                     FRONT{{ $identificationInfo['type'] ? ' of ' . $identificationInfo['type'] : '' }}
 
@@ -1986,7 +1972,7 @@
                                      x-on:dragover="$el.classList.add('active')"
                                      x-on:dragleave="$el.classList.remove('active')"
                                      x-on:drop="$el.classList.remove('active')"
-                                     class="flex w-full max-h-max p-3 bg-white rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500 relative z-10"
+                                     class="relative z-10 flex w-full p-3 bg-white rounded-md shadow-lg max-h-max focus:ring-indigo-500 focus:border-indigo-500"
                                 >
                                     <input x-data="{ photoIdCardFront }"
                                            wire:model="photoIdCardFront"
@@ -2006,13 +1992,13 @@
 
                                         <div class="{{ $photoIdCardFront ? 'hidden' : '' }} flex flex-col items-center w-full">
 
-                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                            <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
 
                                             <div class="flex text-sm text-gray-600">
 
-                                                <label for="photoIdCardFront" class="relative bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                <label for="photoIdCardFront" class="relative font-medium text-indigo-600 bg-white rounded-md hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                     <span>Upload a file</span>
 
                                                 </label>
@@ -2041,24 +2027,24 @@
 
                                                         <div class="{{ $previewIDFrontActive ? 'relative' : 'hidden' }} flex flex-col items-center w-full mt-4">
 
-                                                            <h3 class="text-md text-gray-900 font-semibold text-center">
+                                                            <h3 class="font-semibold text-center text-gray-900 text-md">
                                                                 Name: {{ $photoIdCardFront->getClientOriginalName() }}
                                                             </h3>
 
-                                                            <p class="text-sm text-gray-600 font-bold text-center mt-1">
+                                                            <p class="mt-1 text-sm font-bold text-center text-gray-600">
                                                                 @php
                                                                     $fileSize = number_format((float)($photoIdCardFront->getSize() / 1024), 2, '.', '');
                                                                 @endphp
                                                                 @if ($fileSize < 1024.0)
-                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($photoIdCardFront->getSize() / 1024), 2, '.', '') . ' KB' }}
+                                                                    <span class="font-semibold text-gray-900 text-md">Size:</span> {{ number_format((float)($photoIdCardFront->getSize() / 1024), 2, '.', '') . ' KB' }}
                                                                 @else
-                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($photoIdCardFront->getSize() / (1024 * 1024)), 2, '.', '') . ' MB' }}
+                                                                    <span class="font-semibold text-gray-900 text-md">Size:</span> {{ number_format((float)($photoIdCardFront->getSize() / (1024 * 1024)), 2, '.', '') . ' MB' }}
                                                                 @endif
                                                             </p>
 
                                                             <button type="button"
                                                                     wire:click.prevent.stop="toggleIDFrontPreview()"
-                                                                    class="w-full mt-3 font-medium text-white border border-transparent rounded-md shadow-xl text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                                    class="w-full mt-3 font-medium text-white bg-red-500 border border-transparent rounded-md shadow-xl text-md hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                                             >
 
                                                                 <div wire:loading wire:target="toggleIDFrontPreview()">
@@ -2084,14 +2070,14 @@
                                         <div class="{{ !$previewIDFrontActive ? 'hidden' : '' }} relative flex w-full justify-center items-center">
 
                                             @if ($photoIdCardFront)
-                                                <img class="w-full h-auto rounded-lg border-1 border-gray-600 shadow-md pointer-events-auto" src="{{ $photoIdCardFront->temporaryUrl() }}" alt="{{ $photoIdCardFront->getClientOriginalName() }}">
+                                                <img class="w-full h-auto border-gray-600 rounded-lg shadow-md pointer-events-auto border-1" src="{{ $photoIdCardFront->temporaryUrl() }}" alt="{{ $photoIdCardFront->getClientOriginalName() }}">
                                             @endif
 
                                         </div>
 
                                     </div>
 
-                                    <div wire:loading wire:target="photoIdCardFront" class="flex w-full h-full justify-center items-center shadow-xl">
+                                    <div wire:loading wire:target="photoIdCardFront" class="flex items-center justify-center w-full h-full shadow-xl">
 
                                         <div class="flex w-full" x-show="isUploading">
                                             <progress class="flex w-full" max="100" x-bind:value="progress"></progress>
@@ -2118,7 +2104,7 @@
                                  class="flex flex-col items-center md:w-1/2 w-full relative {{ $currentStep == 7 && !isset($photoIdCardFront) && $stepAdminIsEditing != 5 ? 'hidden' : '' }}"
                             >
 
-                                <label class="inline-block mb-2 font-black text-lg text-gray-900">
+                                <label class="inline-block mb-2 text-lg font-black text-gray-900">
 
                                     BACK{{ $identificationInfo['type'] ? ' of ' . $identificationInfo['type'] : '' }}
 
@@ -2151,13 +2137,13 @@
 
                                         <div class="{{ $photoIdCardBack ? 'hidden' : '' }} flex flex-col items-center w-full">
 
-                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                            <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
 
                                             <div class="flex text-sm text-gray-600">
 
-                                                <label for="photoIdCardBack" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                <label for="photoIdCardBack" class="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                     <span>Upload a file</span>
 
                                                 </label>
@@ -2186,24 +2172,24 @@
 
                                                         <div class="{{ $previewIDBackActive ? 'relative' : 'hidden' }} flex flex-col items-center w-full mt-4">
 
-                                                            <h3 class="text-md text-gray-900 font-semibold text-center">
+                                                            <h3 class="font-semibold text-center text-gray-900 text-md">
                                                                 Name: {{ $photoIdCardBack->getClientOriginalName() }}
                                                             </h3>
 
-                                                            <p class="text-sm text-gray-600 font-bold text-center mt-1">
+                                                            <p class="mt-1 text-sm font-bold text-center text-gray-600">
                                                                 @php
                                                                     $fileSize = number_format((float)($photoIdCardBack->getSize() / 1024), 2, '.', '');
                                                                 @endphp
                                                                 @if ($fileSize < 1024.0)
-                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($photoIdCardBack->getSize() / 1024), 2, '.', '') . ' KB' }}
+                                                                    <span class="font-semibold text-gray-900 text-md">Size:</span> {{ number_format((float)($photoIdCardBack->getSize() / 1024), 2, '.', '') . ' KB' }}
                                                                 @else
-                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($photoIdCardBack->getSize() / (1024 * 1024)), 2, '.', '') . ' MB' }}
+                                                                    <span class="font-semibold text-gray-900 text-md">Size:</span> {{ number_format((float)($photoIdCardBack->getSize() / (1024 * 1024)), 2, '.', '') . ' MB' }}
                                                                 @endif
                                                             </p>
 
                                                             <button type="button"
                                                                     wire:click.prevent.stop="toggleIDBackPreview()"
-                                                                    class="w-full mt-3 font-medium text-white border border-transparent rounded-md shadow-xl text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                                    class="w-full mt-3 font-medium text-white bg-red-500 border border-transparent rounded-md shadow-xl text-md hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                                             >
 
                                                                 <div wire:loading wire:target="toggleIDBackPreview()">
@@ -2229,14 +2215,14 @@
                                         <div class="{{ !$previewIDBackActive ? 'hidden' : '' }} relative flex w-full justify-center items-center">
 
                                             @if ($photoIdCardBack)
-                                                <img class="w-full h-auto rounded-lg border-1 border-gray-600 shadow-md pointer-events-auto" src="{{ $photoIdCardBack->temporaryUrl() }}" alt="{{ $photoIdCardBack->getClientOriginalName() }}">
+                                                <img class="w-full h-auto border-gray-600 rounded-lg shadow-md pointer-events-auto border-1" src="{{ $photoIdCardBack->temporaryUrl() }}" alt="{{ $photoIdCardBack->getClientOriginalName() }}">
                                             @endif
 
                                         </div>
 
                                     </div>
 
-                                    <div wire:loading wire:target="photoIdCardBack" class="flex w-full h-full justify-center items-center shadow-xl">
+                                    <div wire:loading wire:target="photoIdCardBack" class="flex items-center justify-center w-full h-full shadow-xl">
 
                                         <div class="flex w-full" x-show="isUploading">
                                             <progress class="flex w-full" max="100" x-bind:value="progress"></progress>
@@ -2265,7 +2251,7 @@
                                 <div wire:loading wire:target="toggleHasIDCardUpload">
                                     <x-loading-blocks />
                                 </div>
-                                <div class="flex items-center md:justify-between justify-center w-full p-2 font-bold text-white text-md" wire:loading.remove wire:target="toggleHasIDCardUpload">
+                                <div class="flex items-center justify-center w-full p-2 font-bold text-white md:justify-between text-md" wire:loading.remove wire:target="toggleHasIDCardUpload">
                                     <img class="flex mr-2" src="/svg/register-icon.svg" alt="Upload ID Card">
                                     Cancel
                                 </div>
@@ -2276,7 +2262,7 @@
                         {{-- FORM ROW 4 --}}
                         <div class="grid w-full grid-cols-1 mt-4">
 
-                            <div class="grid grid-cols-2 content-center my-4">
+                            <div class="grid content-center grid-cols-2 my-4">
 
                                 <label for="identificationInfo.hasSocialCard" class="inline-flex text-lg font-black text-red-500 md:mt-0">
                                     Do you have a Social Security Card?
@@ -2317,7 +2303,7 @@
                         {{-- FORM ROW 5 LABEL --}}
                         <div class="flex w-full md:justify-end justify-center items-center mt-2 {{ $currentStep == 7 && $additionalDocumentation == null && $stepAdminIsEditing != 5 ? 'hidden' : '' }}">
 
-                            <h3 class="font-black text-xl text-gray-900">
+                            <h3 class="text-xl font-black text-gray-900">
                                 Additional Documentation
                             </h3>
 
@@ -2355,15 +2341,15 @@
                                        class="@error("additionalDocumentation") is-invalid bg-input-error @enderror absolute inset-0 z-10 m-0 p-0 w-full h-full outline-none opacity-0"
                                 />
 
-                                <div wire:loading.remove wire:target="additionalDocumentation" class=" flex flex-col w-full items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                <div wire:loading.remove wire:target="additionalDocumentation" class="flex flex-col items-center w-full px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md ">
 
-                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                    <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
 
                                     <div class="flex text-sm text-gray-600">
 
-                                        <label for="additionalDocumentation" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                        <label for="additionalDocumentation" class="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                             <span>Upload a file</span>
 
                                         </label>
@@ -2379,7 +2365,7 @@
 
                                 </div>
 
-                                <div wire:loading wire:target="additionalDocumentation" class="flex w-full h-full justify-center items-center shadow-xl my-5">
+                                <div wire:loading wire:target="additionalDocumentation" class="flex items-center justify-center w-full h-full my-5 shadow-xl">
 
                                     <div class="flex w-full" x-show="isUploading">
                                         <progress class="flex w-full" max="100" x-bind:value="progress"></progress>
@@ -2393,9 +2379,9 @@
 
                                 @foreach ($additionalDocumentation as $file)
 
-                                    <div wire:loading.remove wire:target="additionalDocumentation" class="md:w-3/4 w-full rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex md:flex-row flex-col items-center space-x-3 mb-4 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                    <div wire:loading.remove wire:target="additionalDocumentation" class="flex flex-col items-center w-full px-6 py-5 mb-4 space-x-3 bg-white border border-gray-300 rounded-lg shadow-sm md:w-3/4 md:flex-row hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
 
-                                        <div class="flex md:w-1/3 w-full">
+                                        <div class="flex w-full md:w-1/3">
 
                                             @if (
                                                     $additionalDocumentation[$loop->index]->getMimeType() == "image/jpeg" ||
@@ -2416,24 +2402,24 @@
 
                                                         <div class="{{ $previewActive ? 'relative' : 'hidden' }} flex flex-col items-center w-full mt-4">
 
-                                                            <h3 class="text-md text-gray-900 font-semibold text-center">
+                                                            <h3 class="font-semibold text-center text-gray-900 text-md">
                                                                 Name: {{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}
                                                             </h3>
 
-                                                            <p class="text-sm text-gray-600 font-bold text-center mt-1">
+                                                            <p class="mt-1 text-sm font-bold text-center text-gray-600">
                                                                 @php
                                                                     $fileSize = number_format((float)($additionalDocumentation[$loop->index]->getSize() / 1024), 2, '.', '');
                                                                 @endphp
                                                                 @if ($fileSize < 1024.0)
-                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($additionalDocumentation[$loop->index]->getSize() / 1024), 2, '.', '') . ' KB' }}
+                                                                    <span class="font-semibold text-gray-900 text-md">Size:</span> {{ number_format((float)($additionalDocumentation[$loop->index]->getSize() / 1024), 2, '.', '') . ' KB' }}
                                                                 @else
-                                                                    <span class="text-gray-900 text-md font-semibold">Size:</span> {{ number_format((float)($additionalDocumentation[$loop->index]->getSize() / (1024 * 1024)), 2, '.', '') . ' MB' }}
+                                                                    <span class="font-semibold text-gray-900 text-md">Size:</span> {{ number_format((float)($additionalDocumentation[$loop->index]->getSize() / (1024 * 1024)), 2, '.', '') . ' MB' }}
                                                                 @endif
                                                             </p>
 
                                                             <button type="button"
                                                                     wire:click.prevent.stop="toggleFilePreview({{ $loop->index }})"
-                                                                    class="w-full mt-3 font-medium text-white border border-transparent rounded-md shadow-xl text-md bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                    class="w-full mt-3 font-medium text-white bg-red-500 border border-transparent rounded-md shadow-xl text-md hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                                 <div wire:loading wire:target="toggleFilePreview({{ $loop->index }})">
                                                                     <x-loading-blocks />
                                                                 </div>
@@ -2451,7 +2437,7 @@
 
                                                 <div class="flex relative inset-0 {{ !$previewActive ? 'hidden' : '' }}">
 
-                                                    <img class="rounded-md w-full h-auto" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}" />
+                                                    <img class="w-full h-auto rounded-md" src="{{ $additionalDocumentation[$loop->index]->temporaryUrl() }}" alt="{{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}" />
 
                                                 </div>
 
@@ -2461,27 +2447,27 @@
                                                         $additionalDocumentation[$loop->index]->getMimeType() == "text/plain"
                                                     )
 
-                                                    <img class="h-1/2 w-1/2" src="/svg/file-icons/file-word-regular.svg" alt="Word Document">
+                                                    <img class="w-1/2 h-1/2" src="/svg/file-icons/file-word-regular.svg" alt="Word Document">
 
                                             @elseif (
                                                         $additionalDocumentation[$loop->index]->getMimeType() == "application/zip"
                                                     )
 
-                                                    <img class="h-1/2 w-1/2" src="/svg/file-icons/file-archive-regular.svg" alt="Word Document">
+                                                    <img class="w-1/2 h-1/2" src="/svg/file-icons/file-archive-regular.svg" alt="Word Document">
 
                                             @endif
 
                                         </div>
 
-                                        <div class="flex w-full md:mt-0 mt-4">
+                                        <div class="flex w-full mt-4 md:mt-0">
 
-                                            <div class="flex flex-col w-3/4 justify-center items-start">
+                                            <div class="flex flex-col items-start justify-center w-3/4">
 
                                                 <p class="text-lg font-black text-gray-900">
                                                     {{ $additionalDocumentation[$loop->index]->getClientOriginalName() }}
                                                 </p>
 
-                                                <p class="text-md text-gray-500 truncate">
+                                                <p class="text-gray-500 truncate text-md">
                                                     @php
                                                         $fileSize = number_format((float)($additionalDocumentation[$loop->index]->getSize() / 1024), 2, '.', '');
                                                     @endphp
@@ -2494,7 +2480,7 @@
 
                                             </div>
 
-                                            <div class="flex w-1/4 justify-center items-center">
+                                            <div class="flex items-center justify-center w-1/4">
 
                                                 <button type="button"
                                                         wire:click.prevent="removeFileFromUploadQue({{ $loop->index }})"
@@ -2559,9 +2545,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <h3 class="font-black text-5xl text-gray-900">
+                                <h3 class="text-5xl font-black text-gray-900">
                                     Recovery Information
                                 </h3>
 
@@ -2694,15 +2680,15 @@
                         {{-- Application Signature Attestation --}}
                         <div class="{{ $currentStep != 7 ? 'hidden' : '' }} flex flex-col w-full justify-center items-center mt-4">
 
-                            <h3 class="w-full text-2xl text-red-500 font-black text-center">
+                            <h3 class="w-full text-2xl font-black text-center text-red-500">
                                 * AUTHORIZATION OF HOUSING *
                             </h3>
 
-                            <h4 class="w-full text-xl text-gray-900 font-black text-center mt-2">
+                            <h4 class="w-full mt-2 text-xl font-black text-center text-gray-900">
                                 BY SIGNING BELOW:
                             </h4>
 
-                            <p class="w-13/4 text-md text-gray-900 text-justify font-black mt-2">
+                            <p class="mt-2 font-black text-justify text-gray-900 w-13/4 text-md">
                                 I AFFIRM ALL STATEMENTS I HAVE DISCLOSED ARE TRUTHFUL AND HONEST TO THE BEST OF MY RECOLLECTION AND KNOWLEDGE.
                             </p>
 
@@ -2712,7 +2698,7 @@
                         <div class="{{ $currentStep != 7 ? 'hidden' : '' }} flex w-full gap-2 mt-4">
 
                             {{-- Signature --}}
-                            <div class="w-1/2 min-h-28 mr-2 relative">
+                            <div class="relative w-1/2 mr-2 min-h-28">
                                 <label for="rentalApplicationSignature.signed" class="block text-lg font-black text-gray-700 text-end">Signature</label>
 
                                 <input wire:model="rentalApplicationSignature.signed"
@@ -2722,10 +2708,10 @@
                                         required
                                         autocomplete=""
                                         wire:click="clearMessageContent()"
-                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                        class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer">
                                 <div class="@error('rentalApplicationSignature.signed') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                     @if ($rentalApplicationSignature['signed'])
-                                        <div class="text-md font-black text-gray-900">
+                                        <div class="font-black text-gray-900 text-md">
                                             {{ $userSignature }}
                                         </div>
                                     @else
@@ -2740,7 +2726,7 @@
                             </div>
 
                             {{-- Date --}}
-                            <div class="w-1/2 min-h-28 relative">
+                            <div class="relative w-1/2 min-h-28">
                                 <label for="rentalApplicationSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
 
                                 <input wire:model="rentalApplicationSignature.date"
@@ -2749,10 +2735,10 @@
                                         id="rentalApplicationSignature.date"
                                         required
                                         autocomplete=""
-                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                        class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer">
                                 <div class="@error('rentalApplicationSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                     @if ($rentalApplicationSignature['date'])
-                                        <div class="text-md font-black text-gray-900">
+                                        <div class="font-black text-gray-900 text-md">
                                             {{ $today }}
                                         </div>
                                     @else
@@ -2787,9 +2773,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-center items-center w-full">
+                            <div class="flex items-center justify-center w-full">
 
-                                <h3 class="font-black text-4xl text-accent">
+                                <h3 class="text-4xl font-black text-accent">
                                     Client Release of Information Consent
                                 </h3>
 
@@ -2800,9 +2786,9 @@
                         {{-- NOTICE TO CLIENTS --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <p class="font-black text-lg text-gray-900">
+                                <p class="text-lg font-black text-gray-900">
                                     <span class="text-xl text-accent">Notice to Clients:</span> Pura Vida Sober Living house's housing specialist will be able to help
                                     you resolve issues you may have with the following items. Signing this form gives our professionals the right to share
                                     information with corresponding agensices on your behalf. If you decline to sign this form, your confidential information
@@ -2816,9 +2802,9 @@
                         {{-- CONSENT --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-center items-center w-full">
+                            <div class="flex items-center justify-center w-full">
 
-                                <p class="font-black text-lg text-gray-900">
+                                <p class="text-lg font-black text-gray-900">
                                     <span class="text-xl text-accent">Consent:</span> I allow Pura Vida Sober Living <span class="text-accent">(PVSL)</span> LLC. housing specialist
                                     to use my confidential information to provide, and coordinate services, treatment, and benefits for me or for other purposes authorized
                                     by law. I allow <span class="text-accent">PVSL</span> and the below listed agencies, providers, or persons to use my confidential information and disclose it to each
@@ -2833,9 +2819,9 @@
                         <ul class="flex flex-col w-full gap-2">
 
                             {{-- Employment Security Department --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.employmentSecurityDepartment"
                                            type="checkbox"
                                            name="consentForm.employmentSecurityDepartment"
@@ -2843,10 +2829,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('consentForm.employmentSecurityDepartment') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['employmentSecurityDepartment'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -2865,9 +2851,9 @@
                             </li>
 
                             {{-- Social Security Administration --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.socialSecurityAdministration"
                                            type="checkbox"
                                            name="consentForm.socialSecurityAdministration"
@@ -2875,10 +2861,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.socialSecurityAdministration') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['socialSecurityAdministration'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -2897,9 +2883,9 @@
                             </li>
 
                             {{-- Department of Corrections --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.departmentOfCorrections"
                                            type="checkbox"
                                            name="consentForm.departmentOfCorrections"
@@ -2907,10 +2893,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.departmentOfCorrections') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['departmentOfCorrections'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -2929,9 +2915,9 @@
                             </li>
 
                             {{-- Child Support Enforcement --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.childSupportEnforcement"
                                            type="checkbox"
                                            name="consentForm.childSupportEnforcement"
@@ -2939,10 +2925,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.childSupportEnforcement') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['childSupportEnforcement'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -2961,9 +2947,9 @@
                             </li>
 
                             {{-- Health Care Providers --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.healthCareProviders"
                                            type="checkbox"
                                            name="consentForm.healthCareProviders"
@@ -2971,10 +2957,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.healthCareProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['healthCareProviders'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -2993,9 +2979,9 @@
                             </li>
 
                             {{-- Mental Health Providers --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.mentalHealthProviders"
                                            type="checkbox"
                                            name="consentForm.mentalHealthProviders"
@@ -3003,10 +2989,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.mentalHealthProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['mentalHealthProviders'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3025,9 +3011,9 @@
                             </li>
 
                             {{-- Chemical Dependency Providers --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.chemicalDependencyProviders"
                                            type="checkbox"
                                            name="consentForm.chemicalDependencyProviders"
@@ -3035,10 +3021,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.chemicalDependencyProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['chemicalDependencyProviders'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3057,9 +3043,9 @@
                             </li>
 
                             {{-- Housing Program Providers --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.housingProgramProviders"
                                            type="checkbox"
                                            name="consentForm.housingProgramProviders"
@@ -3067,10 +3053,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.housingProgramProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['housingProgramProviders'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3089,9 +3075,9 @@
                             </li>
 
                             {{-- Department of Social Health Services --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.departmentOfSocialHealthServices"
                                            type="checkbox"
                                            name="consentForm.departmentOfSocialHealthServices"
@@ -3099,10 +3085,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.departmentOfSocialHealthServices') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['departmentOfSocialHealthServices'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3121,9 +3107,9 @@
                             </li>
 
                             {{-- Colleges and Education Providers --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.collegesAndEducationProviders"
                                            type="checkbox"
                                            name="consentForm.collegesAndEducationProviders"
@@ -3131,10 +3117,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.collegesAndEducationProviders') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['collegesAndEducationProviders'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3153,9 +3139,9 @@
                             </li>
 
                             {{-- Attached Lists --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.attachedLists"
                                            type="checkbox"
                                            name="consentForm.attachedLists"
@@ -3163,10 +3149,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.attachedLists') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['attachedLists'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3185,9 +3171,9 @@
                             </li>
 
                             {{-- Others --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentForm.others"
                                            type="checkbox"
                                            name="consentForm.others"
@@ -3195,10 +3181,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentForm.others') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentForm['others'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3217,14 +3203,14 @@
                             </li>
 
                             {{-- Select All Consent Form --}}
-                            <li class="flex justify-end items-center w-full">
+                            <li class="flex items-center justify-end w-full">
 
                                 <input wire:model="selectAllConsentForm"
                                     type="checkbox"
                                     name="selectAllConsentForm"
                                     id="selectAllConsentForm"
                                     wire:click="selectAllConsentForm()"
-                                    class="h-6 w-6 mr-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
+                                    class="z-10 w-6 h-6 mr-2 rounded-md shadow-lg text-accent text-accent_hover bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark" />
 
                                 <label for="selectAllConsentForm" class="block text-lg font-black text-red-500 text-end">CONSENT TO ALL</label>
 
@@ -3235,9 +3221,9 @@
                         {{-- ADDITIONAL CONSENT --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-center items-center w-full">
+                            <div class="flex items-center justify-center w-full">
 
-                                <p class="font-black text-lg text-gray-900">
+                                <p class="text-lg font-black text-gray-900">
                                     <span class="text-xl text-accent">Additional Consent:</span> If your confidential records include any of the following information, your
                                     must also complete this section to include these records. I allow <span class="text-accent">PVSL</span> to share the following records:
                                 </p>
@@ -3250,9 +3236,9 @@
                         <ul class="flex flex-col w-full gap-2">
 
                             {{-- Mental Health AC --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentFormAdditional.mentalHealthAC"
                                            type="checkbox"
                                            name="consentFormAdditional.mentalHealthAC"
@@ -3260,10 +3246,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentFormAdditional.mentalHealthAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentFormAdditional['mentalHealthAC'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3282,9 +3268,9 @@
                             </li>
 
                             {{-- HIV/AIDS and STD --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative cursor-pointer">
+                                <div class="relative w-1/12 mr-2 cursor-pointer min-h-28">
                                     <input wire:model="consentFormAdditional.hivStdAC"
                                            type="checkbox"
                                            name="consentFormAdditional.hivStdAC"
@@ -3292,10 +3278,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0">
                                     <div class="@error('consentFormAdditional.hivStdAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentFormAdditional['hivStdAC'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3314,9 +3300,9 @@
                             </li>
 
                             {{-- Attached Lists --}}
-                            <li class="flex justify-start items-center w-full">
+                            <li class="flex items-center justify-start w-full">
 
-                                <div class="w-1/12 min-h-28 mr-2 relative">
+                                <div class="relative w-1/12 mr-2 min-h-28">
                                     <input wire:model="consentFormAdditional.attachedListsAC"
                                            type="checkbox"
                                            name="consentFormAdditional.attachedListsAC"
@@ -3324,10 +3310,10 @@
                                            required
                                            wire:click="{{ $consentFormSignature['signed'] ? 'clearConsentFormSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer">
                                     <div class="@error('consentFormAdditional.attachedListsAC') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentFormAdditional['attachedListsAC'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3346,14 +3332,14 @@
                             </li>
 
                             {{-- Select All Additional Consent Form --}}
-                            <li class="flex justify-end items-center w-full">
+                            <li class="flex items-center justify-end w-full">
 
                                 <input wire:model="initialAllAdditionalConsentForm"
                                     type="checkbox"
                                     name="initialAllAdditionalConsentForm"
                                     id="initialAllAdditionalConsentForm"
                                     wire:click="selectAllAdditionalConsentForm()"
-                                    class="h-6 w-6 mr-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
+                                    class="z-10 w-6 h-6 mr-2 rounded-md shadow-lg text-accent text-accent_hover bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark" />
 
                                 <label for="initialAllAdditionalConsentForm" class="block text-lg font-black text-red-500 text-end">CONSENT TO ALL ADDITIONAL</label>
 
@@ -3364,9 +3350,9 @@
                         {{-- CONSENT DATE NOTICE --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-start items-center w-full">
+                            <div class="flex items-center justify-start w-full">
 
-                                <p class="font-black text-xl text-gray-900">
+                                <p class="text-xl font-black text-gray-900">
                                     This consent is valid from the date below.
                                 </p>
 
@@ -3377,9 +3363,9 @@
                         {{-- CONSENT WITHDRAWL NOTICE --}}
                         <div class="flex flex-col w-full">
 
-                            <div class="flex justify-center items-center w-full">
+                            <div class="flex items-center justify-center w-full">
 
-                                <p class="font-black text-lg text-gray-900">
+                                <p class="text-lg font-black text-gray-900">
                                     I may revoke or withdraw this consent at any time in writing, but that will not affect any information
                                     already shared. I understand that records shared under this consent may no longer be protected under
                                     the law set. A copy of this form is valid to give my permission to share records.
@@ -3390,7 +3376,7 @@
                             <div class="flex w-full gap-2 mt-4">
 
                                 {{-- Signature --}}
-                                <div class="w-1/2 min-h-28 mr-2 relative">
+                                <div class="relative w-1/2 mr-2 min-h-28">
                                     <label for="consentFormSignature.signed" class="block text-lg font-black text-gray-700 text-end">Signature</label>
 
                                     <input wire:model="consentFormSignature.signed"
@@ -3400,10 +3386,10 @@
                                            required
                                            autocomplete=""
                                            wire:click="signConsentForm()"
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer">
                                     <div class="@error('consentFormSignature.signed') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentFormSignature['signed'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                {{ $userSignature }}
                                             </div>
                                         @else
@@ -3418,7 +3404,7 @@
                                 </div>
 
                                 {{-- Date --}}
-                                <div class="w-1/2 min-h-28 relative">
+                                <div class="relative w-1/2 min-h-28">
                                     <label for="consentFormSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
 
                                     <input wire:model="consentFormSignature.date"
@@ -3427,10 +3413,10 @@
                                            id="consentFormSignature.date"
                                            required
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                           class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer">
                                     <div class="@error('consentFormSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($consentFormSignature['date'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $today }}
                                             </div>
                                         @else
@@ -3449,13 +3435,13 @@
                         </div>
 
                         {{-- NOTICE TO RECIPIENTS OF INFORMATION --}}
-                        <div class="flex flex-col w-full justify-center items-center mt-2 p-2 bg-input border-2 border-accent-dark">
+                        <div class="flex flex-col items-center justify-center w-full p-2 mt-2 border-2 bg-input border-accent-dark">
 
-                            <h3 class="font-black text-lg text-red-500 mb-3">
+                            <h3 class="mb-3 text-lg font-black text-red-500">
                                 NOTICE TO RECIPIENTS OF INFORMATION
                             </h3>
 
-                            <p class="font-black text-md text-red-500">
+                            <p class="font-black text-red-500 text-md">
                                 If you have received information related to drug or alcohol abuse by the client, you must include the following statement when further disclosing
                                 infomration as required by 42 CFR 2.32. This information has been disclosed to you from records protected by Federal confidentiality rules (42 CFR part 2).
                                 The Federal rules prohibit you from making any further disclosure of this information ujnless further disclosure is expressly permitted by the written
@@ -3483,9 +3469,9 @@
                         {{-- SECTION LABEL --}}
                         <div class="flex w-full">
 
-                            <div class="flex justify-center items-center w-full">
+                            <div class="flex items-center justify-center w-full">
 
-                                <h3 class="font-black text-4xl text-accent">
+                                <h3 class="text-4xl font-black text-accent">
                                     Rules &amp; Regulations
                                 </h3>
 
@@ -3494,9 +3480,9 @@
                         </div>
 
                         {{-- NOTICE TO APPLICANT --}}
-                        <div class="flex flex-col w-full justify-center items-center mt-2 p-2 bg-input border-2 border-accent-dark">
+                        <div class="flex flex-col items-center justify-center w-full p-2 mt-2 border-2 bg-input border-accent-dark">
 
-                            <p class="font-black text-lg text-gray-900 text-center">
+                            <p class="text-lg font-black text-center text-gray-900">
                                 All policy violatoins will be documented. Policy violations in direct contravention of DOC guidelins will be reported
                                 to the appropriate administration.
                             </p>
@@ -3511,13 +3497,13 @@
                             @endphp
 
                             {{-- 1 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule1" class="text-2xl font-black text-gray-700 mr-2">{{ $ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule1" class="mr-2 text-2xl font-black text-gray-700">{{ $ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         <span class="text-red-500">
                                             ANY physical contact, fight and/or verbal intimidation
@@ -3527,7 +3513,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule1"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule1"
@@ -3535,10 +3521,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule1') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule1'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3557,20 +3543,20 @@
                             </li>
 
                             {{-- 2 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule2" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule2" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         ANY theft or possession of another person's property may result in immediate eviction.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule2"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule2"
@@ -3578,10 +3564,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule2') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule2'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3600,13 +3586,13 @@
                             </li>
 
                             {{-- 3 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule3" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule3" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Do not eat or drink another individual's food. All personal food (i.e. items not considered part of the community
                                         pantry) must be initialed by the purchaser of that item.
@@ -3614,7 +3600,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule3"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule3"
@@ -3622,10 +3608,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule3') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule3'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3644,20 +3630,20 @@
                             </li>
 
                             {{-- 4 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule4" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule4" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         No one is allowed in another person's room unless you've been invited AND the other person is present in the room.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule4"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule4"
@@ -3665,10 +3651,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule4') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule4'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3687,13 +3673,13 @@
                             </li>
 
                             {{-- 5 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule5" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule5" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Always keep both front and back doors locked when exiting the premises. All entries must be kept locked after dark.
                                         All keys, entry codes, passwords, and other security media are the sole property of PVSL and are not to be shared,
@@ -3702,7 +3688,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule5"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule5"
@@ -3710,10 +3696,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule5') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule5'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3732,13 +3718,13 @@
                             </li>
 
                             {{-- 6 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule6" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule6" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         The member's room will remain locked at all times if not at the house. Members are financially responsible for personal padlocks
                                         and locking devices. Members are not allowed to install a locking door knob. All doors must be secured with exterior clasp when available.
@@ -3746,7 +3732,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule6"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule6"
@@ -3754,10 +3740,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule6') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule6'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3776,13 +3762,13 @@
                             </li>
 
                             {{-- 7 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule7" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule7" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Food and/or dishes are not allowed in your room. Rooms are to be kept clean and organized. All bedding must be washed
                                         weekly. All dirty or soiled laundry must be stored in an appropriate receptacle in the member's room.
@@ -3790,7 +3776,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule7"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule7"
@@ -3798,10 +3784,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule7') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule7'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3820,13 +3806,13 @@
                             </li>
 
                             {{-- 8 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule8" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule8" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         The member must participate in all house cleaning projects, procedures, tasks, and routines. This includes maintaining the cleanliness and safety
                                         of all common rooms including but not limeited to: living areas, bathrooms, garages and/or storage areas, house exteriors including driveways,
@@ -3835,7 +3821,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule8"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule8"
@@ -3843,10 +3829,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule8') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule8'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3865,13 +3851,13 @@
                             </li>
 
                             {{-- 9 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule9" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule9" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Dishes, silverware, and cooking implements must be wahed and put away immediately after use. The member is responsible for cleaning and
                                         sanitizing all food preparation services, before and after cooking. This includes, but is not limited to: cutting boards, countertops,
@@ -3880,7 +3866,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule9"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule9"
@@ -3888,10 +3874,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule9') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule9'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3910,20 +3896,20 @@
                             </li>
 
                             {{-- 10 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule10" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule10" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         The member is required to store food in clean, hygienic, sealable, pest-resistant (i.e. mice) containers.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule10"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule10"
@@ -3931,10 +3917,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule10') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule10'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -3953,15 +3939,15 @@
                             </li>
 
                             {{-- 11 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule11" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule11" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
-                                        <span class="text-red-500 text-2xl">
+                                        <span class="text-2xl text-red-500">
                                             Rent is due by the 5<sup>th</sup> of each month.
                                         </span>
                                         <span class="text-red-500">
@@ -3974,7 +3960,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule11"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule11"
@@ -3982,10 +3968,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule11') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule11'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4004,13 +3990,13 @@
                             </li>
 
                             {{-- 12 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule12" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule12" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Guests are permitted to stay no more than two nights in one week. Guests are NOT permitted to stay any consecutive nights. Nights must be "split up" during the week.
                                         Guests must sleep in the member's room. If the member is funded by the Department of Corrections, guests of any type are NOT permitted.
@@ -4018,7 +4004,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule12"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule12"
@@ -4026,10 +4012,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule12') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule12'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4048,15 +4034,15 @@
                             </li>
 
                             {{-- 13 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule13" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule13" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
-                                        <span class="text-red-500 text-xl">
+                                        <span class="text-xl text-red-500">
                                             UNUSUPERVISED GUESTS ARE NOT ALLOWED ON THE PREMISES AT ANY TIME.
                                         </span>
                                         If you are not present at the house with your guest, then your guest must vacate the premises immediately.
@@ -4064,7 +4050,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule13"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule13"
@@ -4072,10 +4058,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule13') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule13'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4094,20 +4080,20 @@
                             </li>
 
                             {{-- 14 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule14" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule14" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         If I am being couched, I may NOT have overnight Guests.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule14"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule14"
@@ -4115,10 +4101,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule14') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule14'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4137,13 +4123,13 @@
                             </li>
 
                             {{-- 15 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule15" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule15" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         No more than ONE Guest is allowed during any visit. All Guests must be approved by PVSL staff. PVSL is NOT responsible for the loss
                                         or damage of any Guest's property. Them member will be responsible for the loss or damage of any property caused by the Guest.
@@ -4151,7 +4137,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule15"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule15"
@@ -4159,10 +4145,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule15') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule15'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4181,13 +4167,13 @@
                             </li>
 
                             {{-- 16 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule16" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule16" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Visits are to be no longer than twelve consecutive hours (example, 6pm - 6am). Community spaces (defined as any space within a PVSL property other than the member's
                                         private room or bathroom) may NOT be used by the Guest unless the member is present.
@@ -4195,7 +4181,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule16"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule16"
@@ -4203,10 +4189,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule16') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule16'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4225,13 +4211,13 @@
                             </li>
 
                             {{-- 17 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule17" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule17" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         <span class="text-red-500">
                                             ANY refusal of a drug test may result in immediate eviction.
@@ -4240,7 +4226,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule17"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule17"
@@ -4248,10 +4234,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule17') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule17'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4270,13 +4256,13 @@
                             </li>
 
                             {{-- 18 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule18" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule18" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         <span class="text-red-500">
                                             ANY positive drug test may result in immediate eviction.
@@ -4285,7 +4271,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule18"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule18"
@@ -4293,10 +4279,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule18') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule18'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4315,20 +4301,20 @@
                             </li>
 
                             {{-- 19 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule19" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule19" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Personal items are not allowed in comminity spaces unless the member is present.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule19"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule19"
@@ -4336,10 +4322,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule19') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule19'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4358,13 +4344,13 @@
                             </li>
 
                             {{-- 20 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule20" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule20" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Guests are required to be clean and sober. If they are suspected to be under the influence, a random drug test can be requested for the member's guest at any time.
                                         If the guest is found to be under the influence of any substance, he/she will be asked to leave the premises and will not be permitted to return.
@@ -4372,7 +4358,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule20"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule20"
@@ -4380,10 +4366,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule20') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule20'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4402,13 +4388,13 @@
                             </li>
 
                             {{-- 21 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule21" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule21" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         If an individual's guest is found to be under the influence of any substance, the individual must submit to an immediate drutg test
                                         and may be subject to eviction.
@@ -4416,7 +4402,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule21"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule21"
@@ -4424,10 +4410,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule21') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule21'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4446,13 +4432,13 @@
                             </li>
 
                             {{-- 22 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule22" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule22" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         If the member is going to be absent from the House for more than two (2) consecutive days, they must notify the director
                                         or house manager 24 hours before leaving.
@@ -4460,7 +4446,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule22"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule22"
@@ -4468,10 +4454,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule22') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule22'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4490,13 +4476,13 @@
                             </li>
 
                             {{-- 23 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule23" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule23" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Any medically prescribed medications must be reported to the director and house manager. All personal medications will be kept in a locked
                                         receptable which the member must provide. Sharing or distributing personal medication is PROHIBITED and may result in eviction.
@@ -4504,7 +4490,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule23"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule23"
@@ -4512,10 +4498,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule23') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule23'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4534,20 +4520,20 @@
                             </li>
 
                             {{-- 24 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule24" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule24" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Any unlawful activity may result in immediate eviction.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule24"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule24"
@@ -4555,10 +4541,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule24') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule24'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4577,20 +4563,20 @@
                             </li>
 
                             {{-- 25 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule25" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule25" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Any disruptive behavior inside Pura Vida Sober Living or Revival General Contracting may result in immediate eviction from the program.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule25"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule25"
@@ -4598,10 +4584,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule25') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule25'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4620,20 +4606,20 @@
                             </li>
 
                             {{-- 26 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule26" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule26" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Absolutely NO sleeping on couches if you are not being couched.
                                     </p>
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule26"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule26"
@@ -4641,10 +4627,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule26') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule26'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4663,13 +4649,13 @@
                             </li>
 
                             {{-- 27 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule27" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule27" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         House members will NOT USE the following products: marijuana (with or without a prescription), spice, Kratom, alcohol-based Nyquil or Dayquil,
                                         or ANY over-the-counter <i>mind altering substance.</i>
@@ -4677,7 +4663,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule27"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule27"
@@ -4685,10 +4671,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule27') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule27'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4707,13 +4693,13 @@
                             </li>
 
                             {{-- 28 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule28" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule28" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Program members will be highly encouraged to take all of their belongings with them. Members will be given thirty (30) minutes
                                         to gather all belongings after being discharged from the program. The member will be supervised by PVSL staff and ALL items removed
@@ -4723,7 +4709,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule28"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule28"
@@ -4731,10 +4717,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule28') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule28'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4753,13 +4739,13 @@
                             </li>
 
                             {{-- 29 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule29" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule29" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         All house members are required to pay a
                                         <span class="text-red-500">
@@ -4770,7 +4756,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule29"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule29"
@@ -4778,10 +4764,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule29') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule29'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4800,13 +4786,13 @@
                             </li>
 
                             {{-- 30 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule30" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule30" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         Pura Vida Sober Living is not responsible for the acceptance, storage, transmission, redirection, or destruction of digital
                                         or physical mail. The member is encouraged to update personal address information as necessary, i.e., when entering the program,
@@ -4815,7 +4801,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule30"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule30"
@@ -4823,10 +4809,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule30') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule30'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4845,13 +4831,13 @@
                             </li>
 
                             {{-- 31 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule31" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule31" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         <span class="text-2xl">NO WEAPONS</span>
                                         of any type are allowed on PVSL property. Tools, implements, or any other item that could be used or defined as a weapon is NOT permitted.
@@ -4861,7 +4847,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule31"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule31"
@@ -4869,10 +4855,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule31') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule31'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4891,13 +4877,13 @@
                             </li>
 
                             {{-- 32 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule32" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule32" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         If the member is required to report address information to the Department of Corrections (D.O.C.), PVSL is obligated to inform
                                         D.O.C. and all relevant ancillary agencies when the member leaves the housing program including failure to follow PVSL substance
@@ -4906,7 +4892,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule32"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule32"
@@ -4914,10 +4900,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule32') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule32'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4936,13 +4922,13 @@
                             </li>
 
                             {{-- 33 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule33" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule33" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         All house members are required to pay a
                                         <span class="text-red-500">
@@ -4958,7 +4944,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule33"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule33"
@@ -4966,10 +4952,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule33') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule33'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -4988,13 +4974,13 @@
                             </li>
 
                             {{-- 34 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule34" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule34" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         The member will be subject to a 30-day progress review. This review is a continuum of observations and metrics to record the member's
                                         progress and participation in their own recovery. Non-compliance or failure to meet or exceed the criteria for the 30-day progrss review
@@ -5003,7 +4989,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule34"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule34"
@@ -5011,10 +4997,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule34') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule34'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -5033,13 +5019,13 @@
                             </li>
 
                             {{-- 35 GRAY TEXT ONLY --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="consentForm.rule35" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="consentForm.rule35" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         <span class="text-2xl">NO PETS</span>
                                         allowed on PVSL property without prior written consent from PVSL authority.
@@ -5047,7 +5033,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule35"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule35"
@@ -5055,10 +5041,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule35') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule35'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -5077,13 +5063,13 @@
                             </li>
 
                             {{-- 36 RED TEXT SPAN --}}
-                            <li class="flex justify-start items-center w-full mt-2">
+                            <li class="flex items-center justify-start w-full mt-2">
 
-                                <div class="flex justify-start items-start w-11/12">
+                                <div class="flex items-start justify-start w-11/12">
 
-                                    <label for="rulesAndRegulations.rule36" class="text-2xl font-black text-gray-700 mr-2">{{ ++$ruleCounter }}.</label>
+                                    <label for="rulesAndRegulations.rule36" class="mr-2 text-2xl font-black text-gray-700">{{ ++$ruleCounter }}.</label>
 
-                                    <p class="text-lg text-gray-900 font-black">
+                                    <p class="text-lg font-black text-gray-900">
                                         <span class="text-2xl">I understand:</span>
                                         <span class="text-red-500">
                                             My personal property, including but not limited to, my room, my vehicle, and all other material may be searched at any time by PVSL staff.
@@ -5092,7 +5078,7 @@
 
                                 </div>
 
-                                <div class="w-1/12 min-h-28 ml-2 relative cursor-pointer">
+                                <div class="relative w-1/12 ml-2 cursor-pointer min-h-28">
                                     <input wire:model="rulesAndRegulations.rule36"
                                            type="checkbox"
                                            name="rulesAndRegulations.rule36"
@@ -5100,10 +5086,10 @@
                                            required
                                            wire:click="{{ $rulesAndRegulationsSignature['signed'] ? 'clearRulesAndRegulationsSignature()' : '' }}"
                                            autocomplete=""
-                                           class="absolute inset-0 w-full h-full opacity-0 z-20">
+                                           class="absolute inset-0 z-20 w-full h-full opacity-0">
                                     <div class="@error('rulesAndRegulations.rule36') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                         @if ($rulesAndRegulations['rule36'])
-                                            <div class="text-md font-black text-gray-900">
+                                            <div class="font-black text-gray-900 text-md">
                                                 {{ $userInitials }}
                                             </div>
                                         @else
@@ -5122,16 +5108,16 @@
                             </li>
 
                             {{-- Select All Consent Form --}}
-                            <li class="flex justify-end items-center w-full mt-3">
+                            <li class="flex items-center justify-end w-full mt-3">
 
-                                <label for="selectAllRulesAndRegulations" class="block text-lg font-black text-red-500 text-end mr-2">INITIAL ALL</label>
+                                <label for="selectAllRulesAndRegulations" class="block mr-2 text-lg font-black text-red-500 text-end">INITIAL ALL</label>
 
                                 <input wire:model="selectAllRulesAndRegulations"
                                     type="checkbox"
                                     name="selectAllRulesAndRegulations"
                                     id="selectAllRulesAndRegulations"
                                     wire:click="selectAllRulesAndRegulations()"
-                                    class="h-6 w-6 ml-2 text-accent text-accent_hover shadow-lg bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark rounded-md z-10" />
+                                    class="z-10 w-6 h-6 ml-2 rounded-md shadow-lg text-accent text-accent_hover bg-input bg-input_hover focus:bg-white focus:ring-indigo-500 focus:border-indigo-500 border-1 border-accent-dark" />
 
                             </li>
 
@@ -5141,7 +5127,7 @@
                         <div class="flex w-full gap-2 mt-4">
 
                             {{-- Signature --}}
-                            <div class="w-1/2 min-h-28 mr-2 relative">
+                            <div class="relative w-1/2 mr-2 min-h-28">
                                 <label for="rulesAndRegulationsSignature.signed" class="block text-lg font-black text-gray-700 text-end">Signature</label>
 
                                 <input wire:model="rulesAndRegulationsSignature.signed"
@@ -5151,10 +5137,10 @@
                                         required
                                         autocomplete=""
                                         wire:click="signRulesAndRegulations()"
-                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                        class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer">
                                 <div class="@error('rulesAndRegulationsSignature.signed') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                     @if ($rulesAndRegulationsSignature['signed'])
-                                        <div class="text-md font-black text-gray-900">
+                                        <div class="font-black text-gray-900 text-md">
                                             {{ $userSignature }}
                                         </div>
                                     @else
@@ -5169,7 +5155,7 @@
                             </div>
 
                             {{-- Date --}}
-                            <div class="w-1/2 min-h-28 relative">
+                            <div class="relative w-1/2 min-h-28">
                                 <label for="rulesAndRegulationsSignature.date" class="block text-lg font-black text-gray-700 text-end">Date</label>
 
                                 <input wire:model="rulesAndRegulationsSignature.date"
@@ -5178,10 +5164,10 @@
                                         id="rulesAndRegulationsSignature.date"
                                         required
                                         autocomplete=""
-                                        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+                                        class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer">
                                 <div class="@error('rulesAndRegulationsSignature.date') is-invalid bg-input-error @enderror px-3 py-2 flex justify-center items-center w-full shadow-lg text-gray-900 bg-input border-1 border-accent-dark rounded-md z-10">
                                     @if ($rulesAndRegulationsSignature['date'])
-                                        <div class="text-md font-black text-gray-900">
+                                        <div class="font-black text-gray-900 text-md">
                                             {{ $today }}
                                         </div>
                                     @else
@@ -5211,7 +5197,7 @@
     <div class="{{ $previewActive || $previewIDFrontActive || $previewIDBackActive ? 'relative z-1' : 'sticky z-30' }}  bottom-0 left-0 right-0 flex flex-col justify-center max-w-screen-lg mx-auto align-middle rounded-b-md">
 
         <!-- Bottom Navigation 1 -->
-        <div class="relative flex flex-col justify-center w-full py-1 bg-white px-2">
+        <div class="relative flex flex-col justify-center w-full px-2 py-1 bg-white">
 
             @php
                 $progressBar = array();
@@ -5222,9 +5208,9 @@
             @endphp
 
             <!-- Progress Bar -->
-            <div class="flex items-center justify-end w-full mb-2 pt-2 border-t-2 border-gray-300">
+            <div class="flex items-center justify-end w-full pt-2 mb-2 border-t-2 border-gray-300">
                 <div class="relative mr-2 progress-bar-width">
-                    <div class="absolute bottom-0 right-0 h-2 text-xs leading-none text-center text-white border-gray-900 rounded-full top-px left-px bg-accent border-1 z-10" style="width: {{ $progressBarCompleted > 0 ? intval($progressBarCompleted / $totalSteps * 100) . '%' : '1%' }}"></div>
+                    <div class="absolute bottom-0 right-0 z-10 h-2 text-xs leading-none text-center text-white border-gray-900 rounded-full top-px left-px bg-accent border-1" style="width: {{ $progressBarCompleted > 0 ? intval($progressBarCompleted / $totalSteps * 100) . '%' : '1%' }}"></div>
                     <div class="rounded-full bg-form-progress-bar border-1 border-gray-300 text-xs leading-none h-2.5 text-center text-white relative z-0"></div>
                 </div>
                 <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($progressBarCompleted / $totalSteps * 100) }}%</div>
@@ -5233,8 +5219,8 @@
         </div>
 
         <!-- Bottom Navigation 2 -->
-        <div class="flex justify-between w-full p-2 shadow-lg bg-gray-600 rounded-b-md">
-            <div class="flex w-1/2 justify-start items-center">
+        <div class="flex justify-between w-full p-2 bg-gray-600 shadow-lg rounded-b-md">
+            <div class="flex items-center justify-start w-1/2">
 
                 <button type="button"
                         wire:click.prevent="prevStep"
@@ -5242,14 +5228,14 @@
                     <div wire:loading wire:target="prevStep">
                         <x-loading-blocks />
                     </div>
-                    <div class="flex items-center justify-between md:p-2 p-1 md:text-lg text-sm w-full md:font-bold font-normal text-white whitespace-nowrap" wire:loading.remove wire:target="prevStep">
+                    <div class="flex items-center justify-between w-full p-1 text-sm font-normal text-white md:p-2 md:text-lg md:font-bold whitespace-nowrap" wire:loading.remove wire:target="prevStep">
                         <img class="flex md:mr-2" src="/svg/angle-double-left.svg" alt="Previous Step">
                         Step {{ $currentStep - 1 < 0 ? 0 : $currentStep . ': ' . $stepTitles[$currentStep - 1 < 0 ? 0 : $currentStep - 1] }}
                     </div>
                 </button>
             </div>
 
-            <div class="flex w-1/2 justify-end items-center">
+            <div class="flex items-center justify-end w-1/2">
 
                 <button type="button"
                         wire:click.prevent="completeStep"
@@ -5257,7 +5243,7 @@
                     <div wire:loading wire:target="completeStep">
                         <x-loading-blocks />
                     </div>
-                    <div class="flex items-center justify-between md:p-2 p-1 md:text-lg text-sm w-full md:font-bold font-normal text-white whitespace-nowrap" wire:loading.remove wire:target="completeStep">
+                    <div class="flex items-center justify-between w-full p-1 text-sm font-normal text-white md:p-2 md:text-lg md:font-bold whitespace-nowrap" wire:loading.remove wire:target="completeStep">
                         Step {{ $currentStep + 2 . ': ' . $stepTitles[$currentStep + 1 < 11 ? $currentStep + 1 : 11] }}
                         <img class="flex md:ml-2" src="/svg/angle-double-right.svg" alt="Next Step">
                     </div>
@@ -5265,7 +5251,7 @@
 
                 <button wire:click.prevent="rentalAppFormSubmit"
                         class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <div class="flex items-center justify-between md:p-2 p-1 md:text-lg text-sm w-full md:font-bold font-normal text-white whitespace-nowrap">
+                    <div class="flex items-center justify-between w-full p-1 text-sm font-normal text-white md:p-2 md:text-lg md:font-bold whitespace-nowrap">
                         Submit Application
                     </div>
                 </button>

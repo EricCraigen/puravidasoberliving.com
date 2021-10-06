@@ -16,14 +16,14 @@ class CreateRentalApplicationsTable extends Migration
         Schema::create('rental_applications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('signature');
-            $table->date('date');
+            $table->string('signature')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-        
+
     }
 
     /**

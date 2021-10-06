@@ -11,8 +11,11 @@ class RentalApplication extends Model
 
     protected $fillable = [
         'user_id',
-        'signature',
-        'date',
     ];
-    
+
+    protected $attributes = [
+        'signature' => null,
+        'date' => null,
+    ];
+
 }
