@@ -19,6 +19,7 @@ class RentalApplicationPortal extends Component
     public $subSteps;
     public $guestId;
     public $isGuest;
+    // public $guestApplciationCount;
     public $stepTitles;
     public $user;
     public $userInitials;
@@ -242,6 +243,7 @@ class RentalApplicationPortal extends Component
 
     public function mount()
     {
+        // Session::regenerate();
         $this->subSteps = true;
         $this->user = Auth::user();
         $this->guestId = Session::getId();
@@ -282,9 +284,9 @@ class RentalApplicationPortal extends Component
         $this->clearConsentForm();
         $this->clearRulesAndRegulations();
 
-        $this->startApplicationAsGuest($this->user, $this->guestId);
+        // $this->startApplicationAsGuest($this->user, $this->guestId);
         // $this->startApplicationAsUserLoggedIn($this->user);
-        $this->startApplicationAsAdmin($this->user);
+        // $this->startApplicationAsAdmin($this->user);
         // $this->setIsAdmin();
 
         // dd($this->rentalApplication);
@@ -299,64 +301,37 @@ class RentalApplicationPortal extends Component
     {
         $this->subSteps = false;
         if (!$this->user) {
+            $this->first_or_create_guest_rental_application();
+        } else if ($this->user && $this->user['userType'] == 0) {
+            $this->setIsAdmin($this->user);
+        } else {
+            $this->first_or_create_user_rental_application($this->user);
+        }
+    }
+
+        private function first_or_create_guest_rental_application() 
+        {
             $this->isGuest = true;
             $this->rentalApplication = RentalApplication::firstOrCreate([
                 'session_id' => Session::getId(),
             ]);
         }
-        // ddd($this->rentalApplication);
-        // $rentalApplication = new \App\Models\RentalApplication([
-        //     // 'application_id' => 1,
-        //     'signature' => null,
-        //     'date' => now(),
-        //     'status' => 0,
-        // ]);
-        // $rentalApplication->save();
-        // if (!$this->isGuest) {
 
+        private function first_or_create_user_rental_application($user) 
+        {
+            $this->rentalApplication = RentalApplication::firstOrCreate([
+                'application_id' => $user->id,
+            ]);
+        }
 
-            // $personalInfo = new \App\Models\PersonalInformation([
-            //     'application_id' => $this->rentalApplication['id'],
-            //     'firstName' => null,
-            //     'middleInitial' => null,
-            //     'lastName' => null,
-            //     'dob' => null,
-            //     'ssn' => null,
-            //     'phone' => null,
-            // ]);
-            // $personalInfo->save();
-        // }
-    }
-
-    public function startApplicationAsGuest($user, $guestId)
-    {
-        if (!$user) {
-            if ($this->isGuest) {
-
-                // $this->rentalApplication = RentalApplication::where('guest_id', Session::getId())->whereNotNull('guest_id')->where('status', 0);
+        private function setIsAdmin($user)
+        {
+            if ($user && $user['userType'] == 0) {
+               $this->isAdmin = true;
+            } else {
+                $this->isAdmin = false;
             }
         }
-        // ddd($this->isGuest);
-    }
-
-    public function startApplicationAsUserLoggedIn($user)
-    {
-        if ($user && $user->userType == 1) {
-            $this->startRentalApplication();
-            $this->findOrCreateRentalApplication();
-        }
-    }
-
-    public function startApplicationAsAdmin($user)
-    {
-        if ($user && $user->userType == 0) {
-            User::where('id', $user->id)->update([
-                'session_id' => Session::getId(),
-            ]);
-
-            $this->setIsAdmin();
-        }
-    }
 
     public function completeStep()
     {
@@ -413,28 +388,19 @@ class RentalApplicationPortal extends Component
         $this->nextStep();
     }
 
-    public function findOrCreateRentalApplication()
-    {
-        if ($this->user) {
-            $this->rentalApplication = RentalApplication::firstOrCreate([
-                'user_id' => Auth::user()->id,
-            ]);
+        public function postPersonalInfo()
+        {
+            // $personalInfo = new \App\Models\PersonalInformation([
+            //     'application_id' => 1,
+            //     'firstName' => 'James',
+            //     'middleInitial' => 'D',
+            //     'lastName' => 'Halstead',
+            //     'dob' => date('1989-12-19'),
+            //     'ssn' => '432534325',
+            //     'phone' => '5094535234',
+            // ]);
+            // $personalInfo->save();
         }
-    }
-
-    public function postPersonalInfo()
-    {
-        // $personalInfo = new \App\Models\PersonalInformation([
-        //     'application_id' => 1,
-        //     'firstName' => 'James',
-        //     'middleInitial' => 'D',
-        //     'lastName' => 'Halstead',
-        //     'dob' => date('1989-12-19'),
-        //     'ssn' => '432534325',
-        //     'phone' => '5094535234',
-        // ]);
-        // $personalInfo->save();
-    }
 
         public function toggleCompletedTaskIcon()
         {
@@ -533,15 +499,6 @@ class RentalApplicationPortal extends Component
         {
             $this->isAdminEditing = true;
             $this->stepAdminIsEditing = $index;
-        }
-
-        private function setIsAdmin()
-        {
-            if ($this->user && $this->user['userType'] == 0) {
-               $this->isAdmin = true;
-            } else {
-                $this->isAdmin = false;
-            }
         }
 
         public function setUserInitials()

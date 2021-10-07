@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('postalCode', 255)->nullable();
             $table->string('email')->unique();
             $table->string('renter_status')->nullable();
-            $table->unsignedBigInteger('application_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             // $table->string('session_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

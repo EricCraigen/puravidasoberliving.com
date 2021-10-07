@@ -29,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'renter_status',
-        'application_id',
+        'user_id',
         // 'session_id',
     ];
 
@@ -41,7 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'state' => null,
         'postalCode' => null,
         'renter_status' => null,
-        'application_id' => null,
+        'user_id' => null,
         // 'session_id' => null,
     ];
 

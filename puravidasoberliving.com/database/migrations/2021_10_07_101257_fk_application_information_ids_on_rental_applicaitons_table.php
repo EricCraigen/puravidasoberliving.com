@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FkApplicationIdOnRentalApplications extends Migration
+class FkApplicationInformationIdsOnRentalApplicaitonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class FkApplicationIdOnRentalApplications extends Migration
      */
     public function up()
     {
-
-        Schema::table('users', function($table) {
-            $table->foreign('user_id')->references('id')->on('rental_applications');
-            // $table->foreign('session_id')->references('id')->on('sessions');
-        });
+        // Schema::table('personal_information', function($table) {
+        //     $table->foreign('personal_information_id')->references('id')->on('rental_applications');
+        //     // $table->foreign('session_id')->references('session_id')->on('personal_information');
+        // });
     }
 
     /**

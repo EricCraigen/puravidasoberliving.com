@@ -15,7 +15,8 @@ class CreateRentalApplicationsTable extends Migration
     {
         Schema::create('rental_applications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('application_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('personal_information_id')->nullable();
             $table->string('session_id')->unique()->nullable();
             // $table->foreignId('user_id')->nullable()->index();
             // $table->unsignedBigInteger('user_id');
@@ -23,6 +24,7 @@ class CreateRentalApplicationsTable extends Migration
             $table->string('signature')->nullable();
             $table->date('date')->nullable();
             $table->integer('status')->nullable();
+            // $table->integer('status')->nullable()->unique();
             $table->timestamps();
             $table->softDeletes();
 

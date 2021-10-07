@@ -12,20 +12,22 @@ class RentalApplication extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'application_id',
+        'user_id',
         'session_id',
         'signature',
         'date',
         'status',
+        'personal_information_id',
     ];
 
     protected $attributes = [
-        'application_id' => null,
+        'user_id' => null,
         'session_id' => null,
         'signature' => null,
         'date' => null,
         'deleted_at' => null,
         'status' => 0,
+        'personal_information_id' => 0,
     ];
 
 }
