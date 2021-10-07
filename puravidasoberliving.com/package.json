@@ -24,6 +24,7 @@
         "@alpinejs/intersect": "^3.2.4",
         "@alpinejs/persist": "^3.2.4",
         "@alpinejs/trap": "^3.2.4",
-        "@tailwindcss/aspect-ratio": "^0.2.1"
+        "@tailwindcss/aspect-ratio": "^0.2.1",
+        "@tailwindcss/typography": "^0.4.1"
     }
 }

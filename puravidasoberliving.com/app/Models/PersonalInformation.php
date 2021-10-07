@@ -19,6 +19,7 @@ class PersonalInformation extends Model
     ];
 
     protected $attributes = [
+        'application_id' => null,
         'firstName' => null,
         'middleInitial' => null,
         'lastName' => null,

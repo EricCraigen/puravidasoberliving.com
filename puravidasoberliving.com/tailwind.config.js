@@ -38,12 +38,13 @@ module.exports = {
     plugins: [
         require("@tailwindcss/forms"),
         require("@tailwindcss/aspect-ratio"),
+        require('@tailwindcss/typography'),
         plugin(function ({ addVariant, e }) {
             addVariant("first-of-type", ({ modifySelectors, separator }) => {
-              modifySelectors(({ className }) => {
-                return `.${e(`first-of-type${separator}${className}`)}:first-of-type`;
-              });
+                modifySelectors(({ className }) => {
+                    return `.${e(`first-of-type${separator}${className}`)}:first-of-type`;
+                });
             });
-          }),
+        }),
     ],
 };

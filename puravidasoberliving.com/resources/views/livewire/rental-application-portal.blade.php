@@ -1,9 +1,127 @@
 <div class="relative z-10 px-4 py-10 mx-auto max-w-7xl">
 
-    {{-- <div class="absolute inset-0 z-50 w-full h-full bg-gray-600 bg-opacity-60"></div> --}}
+    <!-- SubSteps Container -->
+    <div class="{{ $subSteps ? '' : 'hidden' }} bg-white max-w-screen-lg mx-auto mt-8 p-5 pb-0 rounded-md rounded-b-none shadow-lg relative overflow-hidden"
+         wire:click="{{ $navMessageContent != '' ? 'clearNavMessageContent()' : '' }}">
+
+         <!-- Top Navigation Heading -->
+        <div class="relative flex flex-col items-center justify-center pb-4 mb-4 border-b-2 border-gray-300 lg:flex-row lg:justify-between">
+            <a class="relative z-10 inline-flex sm:mb-4" href="/">
+                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
+            </a>
+            <div class="text-4xl font-black text-gray-900 sm:text-center">
+                Sober Housing Rental Application
+            </div>
+        </div>
+
+        <!-- SubStep PAGES -->
+        <div class="relative z-10 py-5 mx-1">
+
+            <!-- SUBSTEP isAdmin - Admin Application Panel -->
+            <div class="relative mt-12 {{ $isAdmin ? '' : 'hidden' }}">
+
+                <form id="subStepsForm" wire:submit.prevent="startRentalApplication" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                    @csrf
+
+                    <!-- Admin Application Panel -->
+                    <div class="w-3/4">
+
+                        <h2 class="text-base font-semibold tracking-wide uppercase text-accent">
+                            Administrator Panel
+                        </h2>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- SUBSTEP 1 - Application Attestation -->
+            <div class="relative mt-12 {{ !$isAdmin ? '' : 'hidden' }}">
+
+                <form id="subStepsForm" wire:submit.prevent="startRentalApplication" action="/apply-now" method="POST" class="relative z-10 flex flex-col gap-6">
+                    @csrf
+
+                    <!-- SubStep Heading -->
+                    <div class="w-3/4">
+
+                        <h2 class="text-base font-semibold tracking-wide uppercase text-accent">
+                            Sober Housing, Lifestyle Included
+                        </h2>
+
+                        <p class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl">
+                            What makes us different
+                        </p>
+
+                    </div>
+
+                    <!-- SubStep Text -->
+                    <div class="relative z-10 w-3/4">
+
+                        <p class="text-lg text-gray-900">
+                            Text about how PVSL is awesome. Nulla reprehenderit exercitation Lorem minim exercitation magna deserunt. Ut veniam ut occaecat exercitation id sit laboris culpa fugiat sunt reprehenderit laborum proident.
+                            Aliqua laboris id sit ullamco ex reprehenderit et qui.
+                        </p>
+
+                    </div>
+
+                    <!-- Convince to Login/Register -->
+                    <div class="relative z-10">
+
+                        <div class="mt-4 text-gray-900">
+
+                            <p class="w-3/4 text-lg">
+                                If you already have an acocunt created with PVSL you may
+                                <a class="text-accent text-accent_hover" href="#" Wire:click.prevent="startRentalApplication()">Start Your Journey Now!</a>
+                                If you do not have an account yet, here are a few reasons why creating might be a good
+                                idea before you start filling out this form.
+                            </p>
+
+                            <ul class="mt-4 text-2xl font-semibold text-center" role="list">
+
+                                <li class="mb-4">
+                                    It's super simple and fast!
+                                </li>
+
+                                <li class="mb-4">
+                                    If you decide to complete your application, your progress will be maintianed across devices.
+                                </li>
+
+                                <li class="mb-4">
+                                    After becoming a member of PVSL, you will utilize this account for a myriad of purposes related
+                                    to your journey.
+                                </li>
+
+                            </ul>
+
+                            <div class="flex justify-center w-full mt-4">
+
+                                <a class="text-3xl font-black text-accent text-accent_hover" href="{{ route('login') }}">START HERE TO ENJOY THESE BENEFITS</a>
+
+                            </div>
+
+                            <h3 class="mt-6 text-4xl font-bold">
+                                We’re here to help
+                            </h3>
+
+                            <p class="text-lg font-normal">
+                                Tincidunt integer commodo, cursus etiam aliquam neque, et. Consectetur pretium in volutpat, diam. Montes, magna cursus nulla feugiat dignissim id lobortis amet. Laoreet sem est phasellus eu proin massa, lectus. Diam rutrum posuere donec ultricies non morbi. Mi a platea auctor mi.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- Application Forms Container -->
-    <div class="{{ $currentStep != $totalSteps ? '' : 'hidden' }} bg-white max-w-screen-lg mx-auto mt-8 p-5 pb-0 rounded-md rounded-b-none shadow-lg relative overflow-hidden"
+    <div class="{{ $subSteps ? 'hidden' : '' }} bg-white max-w-screen-lg mx-auto mt-8 p-5 pb-0 rounded-md rounded-b-none shadow-lg relative overflow-hidden"
          wire:click="{{ $navMessageContent != '' ? 'clearNavMessageContent()' : '' }}">
 
         <!-- Top Navigation 1 -->
@@ -5194,10 +5312,10 @@
     </div>
 
     <!-- Bottom Navigation -->
-    <div class="{{ $previewActive || $previewIDFrontActive || $previewIDBackActive ? 'relative z-1' : 'sticky z-30' }}  bottom-0 left-0 right-0 flex flex-col justify-center max-w-screen-lg mx-auto align-middle rounded-b-md">
+    <div class="{{ $previewActive || $previewIDFrontActive || $previewIDBackActive ? 'relative z-1' : 'sticky z-30' }} bottom-0 left-0 right-0 flex flex-col justify-center max-w-screen-lg mx-auto align-middle rounded-b-md">
 
         <!-- Bottom Navigation 1 -->
-        <div class="relative flex flex-col justify-center w-full px-2 py-1 bg-white">
+        <div class="{{ $subSteps ? 'hidden' : '' }} relative flex flex-col justify-center w-full px-2 py-1 bg-white">
 
             @php
                 $progressBar = array();
@@ -5210,17 +5328,40 @@
             <!-- Progress Bar -->
             <div class="flex items-center justify-end w-full pt-2 mb-2 border-t-2 border-gray-300">
                 <div class="relative mr-2 progress-bar-width">
-                    <div class="absolute bottom-0 right-0 z-10 h-2 text-xs leading-none text-center text-white border-gray-900 rounded-full top-px left-px bg-accent border-1" style="width: {{ $progressBarCompleted > 0 ? intval($progressBarCompleted / $totalSteps * 100) . '%' : '1%' }}"></div>
+                    <div class="absolute bottom-0 right-0 z-10 h-2 text-xs leading-none text-center text-white border-gray-900 rounded-full top-px left-px bg-accent border-1" style="width: {{ $progressBarCompleted >= 0 ? intval(($progressBarCompleted + 1) / $totalSteps * 100) . '%' : '1%' }}"></div>
                     <div class="rounded-full bg-form-progress-bar border-1 border-gray-300 text-xs leading-none h-2.5 text-center text-white relative z-0"></div>
                 </div>
-                <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval($progressBarCompleted / $totalSteps * 100) }}%</div>
+                <div class="w-10 font-bold text-gray-900 text-md text-end">{{ intval(($progressBarCompleted + 1) / $totalSteps * 100) }}%</div>
             </div>
 
         </div>
 
         <!-- Bottom Navigation 2 -->
         <div class="flex justify-between w-full p-2 bg-gray-600 shadow-lg rounded-b-md">
-            <div class="flex items-center justify-start w-1/2">
+
+            <!-- Start Application Button -->
+            <div class="{{ $subSteps ? '' : 'hidden' }} flex items-center justify-end w-full">
+
+                <button type="button"
+                        wire:click.prevent="startRentalApplication"
+                        class="flex items-center justify-center w-auto font-medium text-white border border-transparent rounded-md shadow-md text-md bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+
+                    <div wire:loading wire:target="startRentalApplication">
+                        <x-loading-blocks />
+                    </div>
+
+                    <div class="flex items-center justify-between w-full p-1 text-sm font-normal text-white md:p-2 md:text-lg md:font-bold whitespace-nowrap" wire:loading.remove wire:target="startRentalApplication">
+                        Start Your Journey Now!
+                        <img class="flex md:ml-2" src="/svg/angle-double-right.svg" alt="Next Step">
+                    </div>
+
+                </button>
+
+            </div>
+
+            <!-- Previous Step Button -->
+            <div class="{{ $subSteps ? 'hidden' : '' }} flex items-center justify-start w-1/2">
 
                 <button type="button"
                         wire:click.prevent="prevStep"
@@ -5235,27 +5376,37 @@
                 </button>
             </div>
 
-            <div class="flex items-center justify-end w-1/2">
+            <!-- Next Step / Submit Application Buttons -->
+            <div class="{{ $subSteps ? 'hidden' : '' }} flex items-center justify-end w-1/2">
 
                 <button type="button"
                         wire:click.prevent="completeStep"
-                        class="{{ $currentStep < $totalSteps - 1 ? '' : 'hidden' }} {{ $currentStep == 9 && !$submitted ? 'hidden' : '' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        class="{{ $currentStep < $totalSteps - 1 ? '' : 'hidden' }} {{ $currentStep == 9 && !$submitted ? 'hidden' : '' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+
                     <div wire:loading wire:target="completeStep">
                         <x-loading-blocks />
                     </div>
+
                     <div class="flex items-center justify-between w-full p-1 text-sm font-normal text-white md:p-2 md:text-lg md:font-bold whitespace-nowrap" wire:loading.remove wire:target="completeStep">
                         Step {{ $currentStep + 2 . ': ' . $stepTitles[$currentStep + 1 < 11 ? $currentStep + 1 : 11] }}
                         <img class="flex md:ml-2" src="/svg/angle-double-right.svg" alt="Next Step">
                     </div>
+
                 </button>
 
                 <button wire:click.prevent="rentalAppFormSubmit"
-                        class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        class="{{ $currentStep == 9 && !$submitted ? '' : 'hidden' }} flex w-auto justify-center items-center border border-transparent rounded-md shadow-md text-md font-medium text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+
                     <div class="flex items-center justify-between w-full p-1 text-sm font-normal text-white md:p-2 md:text-lg md:font-bold whitespace-nowrap">
                         Submit Application
                     </div>
+
                 </button>
+
             </div>
+
         </div>
     </div>
 

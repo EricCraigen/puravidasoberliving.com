@@ -1,20 +1,22 @@
 <x-app-layout>
 
-    <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
 
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-center text-5xl font-extrabold text-gray-900" id="login-register-notification">
+            <h2 class="mt-6 text-5xl font-extrabold text-center text-gray-900" id="login-register-notification">
                 {{ __('Sign in to your account') }}
             </h2>
         </div>
 
-        <div class="box-container mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <x-login-card />
+
+        {{-- <div class="mt-8 box-container sm:mx-auto sm:w-full sm:max-w-md">
             <div class="box-item">
 
                 <div class="flip-box">
 
-                    <div class="flip-box-front flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden z-10" id="flip_box_front">
-                        <svg class="absolute left-28 -top-36 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                    <div class="relative z-10 px-4 py-8 overflow-hidden bg-white shadow flip-box-front flip-box-front-height sm:rounded-lg sm:px-10" id="flip_box_front">
+                        <svg class="absolute bottom-0 right-0 z-0 transform translate-x-1/2 left-28 -top-36 opacity-30" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                                 <defs>
                                   <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                     <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
@@ -22,31 +24,31 @@
                                 </defs>
                                 <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
                               </svg>
-                            <svg class="absolute right-0 bottom-0 -left-11 top-76 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                            <svg class="absolute bottom-0 right-0 z-0 transform -translate-x-1/2 -left-11 top-76 opacity-30" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                                 <defs>
                                     <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                     <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
                                     </pattern>
                                 </defs>
                                 <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
-                            </svg><div class="inner text-black">
+                            </svg><div class="text-black inner">
 
 
 
-                            <a class="inline-flex w-full justify-center relative z-10" href="/">
-                                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                            <a class="relative z-10 inline-flex justify-center w-full" href="/">
+                                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
                             </a>
 
-                            <form class="space-y-6 relative z-10" method="POST" action="{{ route('login') }}">
+                            <form class="relative z-10 space-y-6" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div>
                                     <label for="email" class="block text-lg font-black text-gray-700">
                                         {{ __('Email address') }}
                                     </label>
-                                    <div class="mt-1 relative z-10">
+                                    <div class="relative z-10 mt-1">
                                         <input id="email_login" type="email" name="email" :value="old('email')" required autocomplete="email" autofocus placeholder="youremail@aol.com" class="@error('email_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md relative z-10">
                                         @error('email_login')
-                                            <span class="invalid-feedback relative z-10" role="alert">
+                                            <span class="relative z-10 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -57,32 +59,32 @@
                                     <label for="password" class="block text-lg font-black text-gray-700">
                                         {{ __('Password') }}
                                     </label>
-                                    <div class="mt-1 relative z-10">
+                                    <div class="relative z-10 mt-1">
                                         <input id="password_login" type="password" name="password" required autocomplete="current-password" autofocus placeholder="DaP@ssword1" class="@error('password_login') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md relative z-10">
                                         @error('password_login')
-                                            <span class="invalid-feedback relative z-10" role="alert">
+                                            <span class="relative z-10 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="flex items-center justify-between relative z-10">
+                                <div class="relative z-10 flex items-center justify-between">
                                     <div x-data="{
                                             isChecked: $persist(false).as('remember_me_checker')
                                         }"
                                         class="flex items-center"
                                     >
-                                        <input @click="isChecked = ! isChecked" x-bind:checked="isChecked" id="remember-me" name="remember-me" type="checkbox"  class="h-4 w-4 text-accent text-accent_hover shadow-lg focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                                        <label  for="remember-me" class="ml-2 block text-md font-extrabold text-gray-900">
+                                        <input @click="isChecked = ! isChecked" x-bind:checked="isChecked" id="remember-me" name="remember-me" type="checkbox"  class="w-4 h-4 border-gray-300 rounded-md shadow-lg text-accent text-accent_hover focus:ring-indigo-500 focus:border-indigo-500">
+                                        <label  for="remember-me" class="block ml-2 font-extrabold text-gray-900 text-md">
                                             {{ __('Remember me') }}
                                         </label>
                                     </div>
 
 
-                                    <div class="text-sm relative z-10">
+                                    <div class="relative z-10 text-sm">
                                         @if (Route::has('password.request'))
-                                            <a href="{{ route('password.request') }}" class="text-md font-extrabold text-accent text-accent_hover">
+                                            <a href="{{ route('password.request') }}" class="font-extrabold text-md text-accent text-accent_hover">
                                                 {{ __('Forgot your password?') }}
                                             </a>
                                         @endif
@@ -90,28 +92,28 @@
                                 </div>
 
                                 <div class="relative z-10">
-                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-black text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <button type="submit" class="flex justify-center w-full px-4 py-2 text-lg font-black text-white border border-transparent rounded-md shadow-lg bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 
                                         {{ __('Sign in') }}
                                     </button>
                                 </div>
                             </form>
 
-                            <div class="mt-6 relative z-10">
+                            <div class="relative z-10 mt-6">
                                 <div class="relative">
                                     <div class="absolute inset-0 flex items-center">
                                         <div class="w-full border-t border-gray-300"></div>
                                     </div>
                                     <div class="relative flex justify-center text-sm">
-                                        <span class="px-2 my-4 bg-white text-gray-500">
+                                        <span class="px-2 my-4 text-gray-500 bg-white">
                                             {{ __('Or continue with') }}
                                         </span>
                                     </div>
                                 </div>
 
-                                <div class="mt-6 grid grid-cols-3 gap-3 relative z-10">
+                                <div class="relative z-10 grid grid-cols-3 gap-3 mt-6">
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
+                                        <a href="#" class="inline-flex justify-center w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-lg hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Facebook') }}
                                             </span>
@@ -122,7 +124,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
+                                        <a href="#"  class="inline-flex justify-center w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-lg hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Twitter') }}
                                             </span>
@@ -133,7 +135,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
+                                        <a href="#" class="inline-flex justify-center w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-lg hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with GitHub') }}
                                             </span>
@@ -147,9 +149,9 @@
 
                             </div>
 
-                            <div class="flex w-full items-center justify-center my-5 text-black relative z-10">
-                                <div class="switch-wrapper bg-white shadow-lg">
-                                    <div class="switch-content-wrapper text-black">
+                            <div class="relative z-10 flex items-center justify-center w-full my-5 text-black">
+                                <div class="bg-white shadow-lg switch-wrapper">
+                                    <div class="text-black switch-content-wrapper">
                                         <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label active">
                                                 {{ __('Login') }}
@@ -168,8 +170,8 @@
                         </div>
                     </div>
 
-                    <div class="flip-box-back flip-box-back-height flip-box-front-height bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden z-10" id="flip_box_back">
-                        <svg class="absolute left-28 top-4 right-0 bottom-0 transform translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                    <div class="relative z-10 px-4 py-8 overflow-hidden bg-white shadow flip-box-back flip-box-back-height flip-box-front-height sm:rounded-lg sm:px-10" id="flip_box_back">
+                        <svg class="absolute bottom-0 right-0 z-0 transform translate-x-1/2 left-28 top-4 opacity-30" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                             <defs>
                               <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                 <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
@@ -177,7 +179,7 @@
                             </defs>
                             <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
                           </svg>
-                        <svg class="absolute right-0 bottom-0 -left-11 top-105 transform -translate-x-1/2 opacity-30 z-0" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
+                        <svg class="absolute bottom-0 right-0 z-0 transform -translate-x-1/2 -left-11 top-105 opacity-30" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
                             <defs>
                                 <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                 <rect x="0" y="0" width="4" height="4" class="text-accent" fill="currentColor" />
@@ -186,24 +188,24 @@
                             <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
                         </svg>
 
-                        <div class="inner text-black relative z-10">
+                        <div class="relative z-10 text-black inner">
 
-                            <a class="inline-flex w-full justify-center relative z-10" href="/">
-                                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                            <a class="relative z-10 inline-flex justify-center w-full" href="/">
+                                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
                             </a>
 
-                            <form class="space-y-6 relative z-10" method="POST" action="{{ route('register') }}">
+                            <form class="relative z-10 space-y-6" method="POST" action="{{ route('register') }}">
                                 @csrf
-                                <div class="flex w-full gap-x-2 relative z-10">
+                                <div class="relative z-10 flex w-full gap-x-2">
 
                                     <div>
-                                        <label for="firstName" class="block text-lg font-black text-gray-700 relative z-10">
+                                        <label for="firstName" class="relative z-10 block text-lg font-black text-gray-700">
                                             {{ __('First Name') }}
                                         </label>
                                         <div class="mt-1">
                                             <input id="firstName" type="text" name="firstName" value="{{ old('firstName') }}" required autocomplete="given-name" autofocus placeholder="Issac" class="@error('firstName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                             @error('firstName')
-                                            <span class="invalid-feedback relative z-10" role="alert">
+                                            <span class="relative z-10 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -211,13 +213,13 @@
                                     </div>
 
                                     <div>
-                                        <label for="lastName" class="block text-lg font-black text-gray-700 relative z-10">
+                                        <label for="lastName" class="relative z-10 block text-lg font-black text-gray-700">
                                             {{ __('Last Name') }}
                                         </label>
-                                        <div class="mt-1 relative z-10">
+                                        <div class="relative z-10 mt-1">
                                             <input id="lastName" type="text" name="lastName" value="{{ old('lastName') }}" required autocomplete="family-name" autofocus placeholder="Newton" class="@error('lastName') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                             @error('lastName')
-                                            <span class="invalid-feedback relative z-10" role="alert">
+                                            <span class="relative z-10 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -226,13 +228,13 @@
                                 </div>
 
                                 <div>
-                                    <label for="email" class="block text-lg font-black text-gray-700 relative z-10">
+                                    <label for="email" class="relative z-10 block text-lg font-black text-gray-700">
                                         {{ __('Email') }}
                                     </label>
-                                    <div class="mt-1 relative z-10">
+                                    <div class="relative z-10 mt-1">
                                         <input id="email" type="text" name="email" value="{{ old('email') }}"  required autocomplete="email" autofocus placeholder="theNEWT@aol.com" class="@error('email') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                         @error('email')
-                                            <span class="invalid-feedback relative z-10" role="alert">
+                                            <span class="relative z-10 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -240,13 +242,13 @@
                                 </div>
 
                                 <div>
-                                    <label for="password" class="block text-lg font-black text-gray-700 relative z-10">
+                                    <label for="password" class="relative z-10 block text-lg font-black text-gray-700">
                                         {{ __('Password') }}
                                     </label>
-                                    <div class="mt-1 relative z-10">
+                                    <div class="relative z-10 mt-1">
                                         <input id="password" type="password" name="password" value="{{ old('password') }}"  required autocomplete="password" autofocus placeholder="DaP@ssword1" class="@error('password') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                         @error('password')
-                                            <span class="invalid-feedback relative z-10" role="alert">
+                                            <span class="relative z-10 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -254,41 +256,41 @@
                                 </div>
 
                                 <div>
-                                    <label for="password_confirmation" class="block text-lg font-black text-gray-700 relative z-10">
+                                    <label for="password_confirmation" class="relative z-10 block text-lg font-black text-gray-700">
                                         {{ __('Confirm Password') }}
                                     </label>
-                                    <div class="mt-1 relative z-10">
+                                    <div class="relative z-10 mt-1">
                                         <input id="password_confirmation" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" required autofocus class="@error('password_confirmation') is-invalid @enderror px-3 py-2 block w-full shadow-lg text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                         @error('password_confirmation')
-                                            <span class="invalid-feedback relative z-10" role="alert">
+                                            <span class="relative z-10 invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="flex items-center justify-center mt-4 relative z-10">
-                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-black text-white bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 relative z-10">
+                                <div class="relative z-10 flex items-center justify-center mt-4">
+                                    <button type="submit" class="relative z-10 flex justify-center w-full px-4 py-2 text-lg font-black text-white border border-transparent rounded-md shadow-lg bg-accent bg-accent_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
                             </form>
 
-                            <div class="mt-6 relative z-10">
+                            <div class="relative z-10 mt-6">
                                 <div class="relative z-10">
                                     <div class="absolute inset-0 flex items-center">
                                         <div class="w-full border-t border-gray-300"></div>
                                     </div>
                                     <div class="relative flex justify-center text-sm">
-                                        <span class="px-2 my-4 bg-white text-gray-500">
+                                        <span class="px-2 my-4 text-gray-500 bg-white">
                                             {{ __('Or continue with') }}
                                         </span>
                                     </div>
                                 </div>
 
-                                <div class="mt-6 grid grid-cols-3 gap-3 relative z-10">
+                                <div class="relative z-10 grid grid-cols-3 gap-3 mt-6">
                                     <div class="relative z-10">
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50">
+                                        <a href="#" class="inline-flex justify-center w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-lg hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Facebook') }}
                                             </span>
@@ -299,7 +301,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#"  class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50 relative z-10">
+                                        <a href="#"  class="relative z-10 inline-flex justify-center w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-lg hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with Twitter') }}
                                             </span>
@@ -310,7 +312,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-lg bg-white hover:bg-gray-50 relative z-10">
+                                        <a href="#" class="relative z-10 inline-flex justify-center w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-lg hover:bg-gray-50">
                                             <span class="sr-only">
                                                 {{ __('Sign in with GitHub') }}
                                             </span>
@@ -323,9 +325,9 @@
                                 </div>
                             </div>
 
-                            <div class="flex w-full items-center justify-center my-5 text-black relative z-10">
-                                <div class="switch-wrapper bg-white">
-                                    <div class="switch-content-wrapper text-black">
+                            <div class="relative z-10 flex items-center justify-center w-full my-5 text-black">
+                                <div class="bg-white switch-wrapper">
+                                    <div class="text-black switch-content-wrapper">
                                         <div x-data class="switch-label-wrapper" x-on:click="loginFormAnimation()">
                                             <p class="switch-label active">
                                                 {{ __('Login') }}
@@ -345,7 +347,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 

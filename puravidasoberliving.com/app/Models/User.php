@@ -28,8 +28,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'postalCode',
         'email',
         'password',
-        'renterStatus',
-        'applicationId',
+        'renter_status',
+        'application_id',
+        // 'session_id',
     ];
 
     protected $attributes = [
@@ -39,6 +40,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'city' => null,
         'state' => null,
         'postalCode' => null,
+        'renter_status' => null,
+        'application_id' => null,
+        // 'session_id' => null,
     ];
 
     /**

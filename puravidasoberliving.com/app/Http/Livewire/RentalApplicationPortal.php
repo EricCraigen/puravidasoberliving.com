@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PersonalInformation;
 use App\Models\RentalApplication;
+use Illuminate\Support\Facades\Session;
 
 class RentalApplicationPortal extends Component
 {
 
     use WithFileUploads;
 
+    public $subSteps;
+    public $guestId;
+    public $isGuest;
     public $stepTitles;
     public $user;
     public $userInitials;
@@ -26,7 +30,6 @@ class RentalApplicationPortal extends Component
     public $isAdminEditing;
     public $stepAdminIsEditing;
     public $stepStatuses;
-    public $currentStep;
     public $totalSteps;
     public $submitted;
     public $today;
@@ -51,9 +54,7 @@ class RentalApplicationPortal extends Component
     public $rentalApplicationSignature;
     public $messageContent;
     public $navMessageContent;
-    public $success;
     public $agreeToPolicies;
-    public $newMessage;
     public $us_state_abbrevs_names;
     public $relationalStatuses;
     public $reasonsForLeaving;
@@ -63,6 +64,9 @@ class RentalApplicationPortal extends Component
     public $photoIdCardBack;
     public $additionalDocumentation;
     protected $rules;
+
+    // public $newMessage;
+    // public $success;
 
     protected $messages =
     [
@@ -238,7 +242,11 @@ class RentalApplicationPortal extends Component
 
     public function mount()
     {
+        $this->subSteps = true;
         $this->user = Auth::user();
+        $this->guestId = Session::getId();
+        $this->isGuest = false;
+        // $this->isGuest = RentalApplication::where('guest_id', $this->guestId)->whereNotNull('guest_id')->exists();
         $this->userInitials = '';
         $this->userSignature = '';
         $this->selectAllConsentForm = false;
@@ -256,36 +264,98 @@ class RentalApplicationPortal extends Component
         $this->fileToPreview = '';
         $this->additionalDocumentation = [];
         $this->today = Carbon::now()->format('Y-m-d');
-        $this->setIsAdmin();
-        if ($this->user) {
-            $this->rentalApplication = RentalApplication::firstOrCreate([
-                'user_id' => Auth::user()->id,
-            ]);
-            $this->setUserInitials();
-            $this->setUserSignature();
-        }
+
         $this->clearStepTitles();
         $this->clearStepStatuses();
         $this->clearUsStateAbbrevsNames();
         $this->clearKinshipStatuses();
+        $this->clearReasonsForLeaving();
+        $this->clearIdentificationTypes();
+
         $this->clearPersonalInfo();
         $this->clearEmergencyContactInfo();
         $this->clearLegalInfo();
         $this->clearMedicalInfo();
         $this->clearFundingInfo();
-        $this->clearReasonsForLeaving();
         $this->clearIdentificationInfo();
-        $this->clearIdentificationTypes();
         $this->clearRecoveryInfo();
         $this->clearConsentForm();
         $this->clearRulesAndRegulations();
-        // $this->clearConsentFormSignature();
+
+        $this->startApplicationAsGuest($this->user, $this->guestId);
+        // $this->startApplicationAsUserLoggedIn($this->user);
+        $this->startApplicationAsAdmin($this->user);
+        // $this->setIsAdmin();
+
         // dd($this->rentalApplication);
     }
 
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
+    }
+
+    public function startRentalApplication()
+    {
+        $this->subSteps = false;
+        if (!$this->user) {
+            $this->isGuest = true;
+            $this->rentalApplication = RentalApplication::firstOrCreate([
+                'session_id' => Session::getId(),
+            ]);
+        }
+        // ddd($this->rentalApplication);
+        // $rentalApplication = new \App\Models\RentalApplication([
+        //     // 'application_id' => 1,
+        //     'signature' => null,
+        //     'date' => now(),
+        //     'status' => 0,
+        // ]);
+        // $rentalApplication->save();
+        // if (!$this->isGuest) {
+
+
+            // $personalInfo = new \App\Models\PersonalInformation([
+            //     'application_id' => $this->rentalApplication['id'],
+            //     'firstName' => null,
+            //     'middleInitial' => null,
+            //     'lastName' => null,
+            //     'dob' => null,
+            //     'ssn' => null,
+            //     'phone' => null,
+            // ]);
+            // $personalInfo->save();
+        // }
+    }
+
+    public function startApplicationAsGuest($user, $guestId)
+    {
+        if (!$user) {
+            if ($this->isGuest) {
+
+                // $this->rentalApplication = RentalApplication::where('guest_id', Session::getId())->whereNotNull('guest_id')->where('status', 0);
+            }
+        }
+        // ddd($this->isGuest);
+    }
+
+    public function startApplicationAsUserLoggedIn($user)
+    {
+        if ($user && $user->userType == 1) {
+            $this->startRentalApplication();
+            $this->findOrCreateRentalApplication();
+        }
+    }
+
+    public function startApplicationAsAdmin($user)
+    {
+        if ($user && $user->userType == 0) {
+            User::where('id', $user->id)->update([
+                'session_id' => Session::getId(),
+            ]);
+
+            $this->setIsAdmin();
+        }
     }
 
     public function completeStep()
@@ -341,6 +411,15 @@ class RentalApplicationPortal extends Component
             default;
         }
         $this->nextStep();
+    }
+
+    public function findOrCreateRentalApplication()
+    {
+        if ($this->user) {
+            $this->rentalApplication = RentalApplication::firstOrCreate([
+                'user_id' => Auth::user()->id,
+            ]);
+        }
     }
 
     public function postPersonalInfo()
@@ -1004,14 +1083,23 @@ class RentalApplicationPortal extends Component
     // personalInfo
     private function clearPersonalInfo()
     {
-        $this->personalInfoLoad = PersonalInformation::where("application_id", 1)->first()->get();
+
+        // $this->personalInfoLoad = PersonalInformation::where("application_id", 1)->first()->get();
+        // $this->personalInfo = array(
+        //     'firstName' => $this->personalInfoLoad[0]['firstName'],
+        //     'middleInitial' => $this->personalInfoLoad[0]['middleInitial'],
+        //     'lastName' => $this->personalInfoLoad[0]['lastName'],
+        //     'dateOfBirth' => $this->personalInfoLoad[0]['dateOfBirth'],
+        //     'socialNumber' => $this->personalInfoLoad[0]['socialNumber'],
+        //     'phone' => $this->personalInfoLoad[0]['phone'],
+        // );
         $this->personalInfo = array(
-            'firstName' => $this->personalInfoLoad[0]['firstName'],
-            'middleInitial' => $this->personalInfoLoad[0]['middleInitial'],
-            'lastName' => $this->personalInfoLoad[0]['lastName'],
-            'dateOfBirth' => $this->personalInfoLoad[0]['dateOfBirth'],
-            'socialNumber' => $this->personalInfoLoad[0]['socialNumber'],
-            'phone' => $this->personalInfoLoad[0]['phone'],
+            'firstName' => '',
+            'middleInitial' => '',
+            'lastName' => '',
+            'dateOfBirth' => '',
+            'socialNumber' => '',
+            'phone' => '',
         );
     }
 

@@ -15,16 +15,16 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            RentalApplicationSeeder::class,
-            PersonalInformationSeeder::class,
-            EmergencyContactSeeder::class,
-            LeaglInformationSeeder::class,
-            MedicalInformationSeeder::class,
-            FundingInformationSeeder::class,
-            IdentificationInformationSeeder::class,
-            RecoveryInformationSeeder::class,
-            ConsentFormSeeder::class,
-            RulesAndRegulationsFormSeeder::class,
+            // RentalApplicationSeeder::class,
+            // PersonalInformationSeeder::class,
+            // EmergencyContactSeeder::class,
+            // LeaglInformationSeeder::class,
+            // MedicalInformationSeeder::class,
+            // FundingInformationSeeder::class,
+            // IdentificationInformationSeeder::class,
+            // RecoveryInformationSeeder::class,
+            // ConsentFormSeeder::class,
+            // RulesAndRegulationsFormSeeder::class,
         ]);
 
         \App\Models\User::factory(10)->create();

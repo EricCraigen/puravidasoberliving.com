@@ -15,7 +15,7 @@ class CreatePersonalInformationTable extends Migration
     {
         Schema::create('personal_information', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('application_id');
+            $table->unsignedBigInteger('application_id')->nullable();
             $table->string('firstName', 255)->nullable();
             $table->string('middleInitial', 1)->nullable();
             $table->string('lastName', 255)->nullable();

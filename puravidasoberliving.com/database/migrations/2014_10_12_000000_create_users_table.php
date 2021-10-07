@@ -15,7 +15,6 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->unsignedBigInteger('personalInfo_id');
             $table->integer('userType');
             $table->string('firstName', 255);
             $table->string('lastName', 255);
@@ -25,10 +24,15 @@ class CreateUsersTable extends Migration
             $table->string('state', 2)->nullable();
             $table->string('postalCode', 255)->nullable();
             $table->string('email')->unique();
+            $table->string('renter_status')->nullable();
+            $table->unsignedBigInteger('application_id')->nullable();
+            // $table->string('session_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            // $table->foreign('application_id')->references('id')->on('rental_applications');
 
         });
 
