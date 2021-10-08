@@ -14,12 +14,11 @@ class CreateRentalTeamsTable extends Migration
     public function up()
     {
         Schema::create('rental_teams', function (Blueprint $table) {
-            $table->bigIncrements('rental_team_code')->index();
-            $table->unsignedBigInteger('house_id');
+            $table->bigIncrements('id');
+            $table->integer('rental_team_id')->unsigned()->default(1);
+            $table->integer('house_id')->unsigned()->default(1);
             $table->string('name');
             $table->timestamps();
-
-            // $table->foreign('rental_team_code')->references('rental_team_code')->on('user_configs');
         });
     }
 

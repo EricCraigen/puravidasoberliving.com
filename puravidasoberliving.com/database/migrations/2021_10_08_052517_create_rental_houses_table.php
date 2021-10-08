@@ -14,16 +14,16 @@ class CreateRentalHousesTable extends Migration
     public function up()
     {
         Schema::create('rental_houses', function (Blueprint $table) {
-            $table->bigIncrements('house_id')->index();
+            $table->bigIncrements('id');
+            $table->integer('application_id')->unsigned()->default(1);
+            $table->integer('house_id')->unsigned()->default(1);
             $table->string('name');
             $table->string('street_address_1');
             $table->string('street_address_2');
             $table->string('city');
-            $table->unsignedBigInteger('state_code');
+            $table->integer('state_id')->unsigned()->default(1);
             $table->string('postal_code');
             $table->timestamps();
-
-            $table->foreign('state_code')->references('state_code')->on('state_codes');
         });
     }
 

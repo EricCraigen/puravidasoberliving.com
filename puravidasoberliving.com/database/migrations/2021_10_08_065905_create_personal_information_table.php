@@ -17,8 +17,6 @@ class CreatePersonalInformationTable extends Migration
             $table->bigIncrements('id')->index();
             $table->unsignedBigInteger('contact_id')->index();
             $table->timestamps();
-
-            $table->foreign('contact_id')->references('contact_id')->on('contacts');
         });
     }
 

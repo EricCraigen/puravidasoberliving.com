@@ -19,7 +19,7 @@ module.exports = {
         },
         extend: {
             colors: {
-
+                rose: colors.rose,
             },
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],

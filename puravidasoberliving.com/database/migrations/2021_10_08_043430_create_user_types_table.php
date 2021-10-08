@@ -14,11 +14,10 @@ class CreateUserTypesTable extends Migration
     public function up()
     {
         Schema::create('user_types', function (Blueprint $table) {
-            $table->bigIncrements('user_type_code')->index();
+            $table->bigIncrements('id');
+            $table->integer('user_type_id')->unsigned()->default(1);
             $table->string('name');
             $table->timestamps();
-
-            // $table->foreign('user_type_code')->references('user_type_code')->on('user_configs');
         });
     }
 

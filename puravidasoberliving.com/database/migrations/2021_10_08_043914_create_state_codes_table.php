@@ -14,11 +14,10 @@ class CreateStateCodesTable extends Migration
     public function up()
     {
         Schema::create('state_codes', function (Blueprint $table) {
-            $table->bigIncrements('state_code')->index();
+            $table->bigIncrements('id');
+            $table->integer('state_id')->unsigned()->default(1);
             $table->string('name');
             $table->timestamps();
-
-            // $table->foreign('state_code')->references('state_code')->on('user_configs');
         });
     }
 

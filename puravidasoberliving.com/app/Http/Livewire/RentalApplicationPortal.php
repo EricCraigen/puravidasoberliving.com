@@ -300,16 +300,18 @@ class RentalApplicationPortal extends Component
     public function startRentalApplication()
     {
         $this->subSteps = false;
-        if (!$this->user) {
-            $this->first_or_create_guest_rental_application();
-        } else if ($this->user && $this->user['userType'] == 0) {
-            $this->setIsAdmin($this->user);
-        } else {
-            $this->first_or_create_user_rental_application($this->user);
-        }
+        ddd($this->user);
+        // if (!$this->user) {
+        //     $this->first_or_create_guest_rental_application();
+        // }
+        // else if ($this->user && $this->user['userType'] == 0) {
+        //     $this->setIsAdmin($this->user);
+        // } else {
+        //     $this->first_or_create_user_rental_application($this->user);
+        // }
     }
 
-        private function first_or_create_guest_rental_application() 
+        private function first_or_create_guest_rental_application()
         {
             $this->isGuest = true;
             $this->rentalApplication = RentalApplication::firstOrCreate([
@@ -317,7 +319,7 @@ class RentalApplicationPortal extends Component
             ]);
         }
 
-        private function first_or_create_user_rental_application($user) 
+        private function first_or_create_user_rental_application($user)
         {
             $this->rentalApplication = RentalApplication::firstOrCreate([
                 'application_id' => $user->id,

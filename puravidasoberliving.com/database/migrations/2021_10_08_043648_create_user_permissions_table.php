@@ -14,12 +14,11 @@ class CreateUserPermissionsTable extends Migration
     public function up()
     {
         Schema::create('user_permissions', function (Blueprint $table) {
-            $table->bigIncrements('user_permission_code')->index();
+            $table->bigIncrements('id');
+            $table->integer('user_permission_id')->unsigned()->default(1);
             $table->string('name');
             $table->integer('permission_level');
             $table->timestamps();
-
-            // $table->foreign('user_permissoin_code')->references('user_permissoin_code')->on('user_configs');
         });
     }
 

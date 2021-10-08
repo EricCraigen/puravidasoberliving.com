@@ -14,9 +14,10 @@ class CreateRentalApplicationsTable extends Migration
     public function up()
     {
         Schema::create('rental_applications', function (Blueprint $table) {
-            $table->bigIncrements('application_id')->index();
-            $table->unsignedBigInteger('user_id')->index()->nullable();
-            $table->unsignedBigInteger('personal_info_id')->index()->nullable();
+            $table->bigIncrements('id');
+            $table->integer('application_id')->unsigned()->default(1);
+            $table->integer('user_id')->unsigned()->default(1);
+            $table->integer('personal_info_id')->unsigned()->default(1);
             $table->string('session_id')->unique()->index();
             $table->timestamps();
         });

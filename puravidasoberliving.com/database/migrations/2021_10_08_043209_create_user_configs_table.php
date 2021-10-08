@@ -14,18 +14,15 @@ class CreateUserConfigsTable extends Migration
     public function up()
     {
         Schema::create('user_configs', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_config_id')->index();
-            $table->unsignedBigInteger('user_type_code');
-            $table->unsignedBigInteger('user_permission_code');
-            $table->unsignedBigInteger('country_code');
-            $table->unsignedBigInteger('state_code');
-            $table->unsignedBigInteger('rental_team_code');
-            $table->unsignedBigInteger('theme_code');
+            $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned()->default(1);
+            $table->integer('user_type_id')->unsigned()->default(1);
+            $table->integer('user_permission_id')->unsigned()->default(1);
+            $table->integer('country_id')->unsigned()->default(1);
+            $table->integer('state_id')->unsigned()->default(1);
+            $table->integer('rental_team_id')->unsigned()->default(1);
+            $table->integer('theme_id')->unsigned()->default(1);
             $table->timestamps();
-
-            $table->foreign('user_config_id')->references('id')->on('users');
-            // $table->foreign('user_type_code')->references('user_type_code')->on('user_types');
-            // $table->foreign('user_type_code')->references('user_type_code')->on('user_type_codes');
         });
     }
 

@@ -14,7 +14,8 @@ class CreateApplicationThemesTable extends Migration
     public function up()
     {
         Schema::create('application_themes', function (Blueprint $table) {
-            $table->bigIncrements('theme_code')->index();
+            $table->bigIncrements('id');
+            $table->integer('theme_id')->unsigned()->default(1);
             $table->string('name');
             $table->string('base_color');
             $table->string('accent_color');

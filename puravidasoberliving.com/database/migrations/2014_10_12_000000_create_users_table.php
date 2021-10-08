@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned()->default(1);
             $table->string('email')->unique();
             $table->string('user_name')->unique();
             $table->string('password');
@@ -26,12 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('city', 255)->nullable();
             $table->string('postalCode', 255)->nullable();
             $table->timestamp('email_verified_at')->nullable();
-
             $table->rememberToken();
             $table->timestamps();
-
-            // $table->foreign('application_id')->references('id')->on('rental_applications');
-
         });
 
     }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Forward_Facing_App\StaticPagesController;
 use App\Http\Controllers\Forward_Facing_App\RentalApplicationController;
 use App\Http\Controllers\Forward_Facing_App\ContactPageController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,27 +45,18 @@ Route::prefix('/')->group(function () {
     )->name('contact');
 });
 
-Route::prefix('/application')->group(function () {
+Route::prefix('/dashboard')->group(function () {
 
     Route::get(
-        '/step-one',
-        [RentalApplicationController::class, 'getRentalApplicationStepOne']
-    )->name('application.step-one');
+        '/',
+        [DashboardController::class, 'getDashboardHome']
+    )->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::get(
-        '/step-two',
-        [RentalApplicationController::class, 'getRentalApplicationStepTwo']
-    )->name('application.step-two');
+        '/user-management',
+        [DashboardController::class, 'getUserManagement']
+    )->middleware(['auth', 'verified'])->name('dashboard.user-management');
 
-    Route::get(
-        '/step-three',
-        [RentalApplicationController::class, 'getRentalApplicationStepThree']
-    )->name('application.step-three');
 });
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
