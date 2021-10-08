@@ -18,31 +18,23 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'userType',
-        'firstName',
-        'lastName',
-        'streetAddress1',
-        'streetAddress2',
-        'city',
-        'state',
-        'postalCode',
         'email',
+        'user_name',
         'password',
-        'renter_status',
-        'user_id',
-        // 'session_id',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'street_address_1',
+        'street_address_2',
+        'city',
+        'postalCode'
     ];
 
     protected $attributes = [
-        'userType' => 1,
-        'streetAddress1' => null,
-        'streetAddress2' => null,
+        'street_address_1' => null,
+        'street_address_2' => null,
         'city' => null,
-        'state' => null,
         'postalCode' => null,
-        'renter_status' => null,
-        'user_id' => null,
-        // 'session_id' => null,
     ];
 
     /**

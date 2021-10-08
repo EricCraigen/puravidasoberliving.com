@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('email')->unique();
-            $table->string('user_name')->unique();
-            $table->string('password');
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->bigIncrements('contact_id')->index();
             $table->string('first_name', 255)->nullable();
             $table->string('middle_name', 255)->nullable();
             $table->string('last_name', 255)->nullable();
@@ -25,15 +22,10 @@ class CreateUsersTable extends Migration
             $table->string('street_address_2', 500)->nullable();
             $table->string('city', 255)->nullable();
             $table->string('postalCode', 255)->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-
-            $table->rememberToken();
+            $table->date('date_of_birth')->nullable();
+            $table->string('phone', 30)->nullable();
             $table->timestamps();
-
-            // $table->foreign('application_id')->references('id')->on('rental_applications');
-
         });
-
     }
 
     /**
@@ -43,6 +35,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('contacts');
     }
 }
