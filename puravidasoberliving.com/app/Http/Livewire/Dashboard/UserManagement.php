@@ -10,4 +10,4 @@ class UserManagement extends Component
     {
         return view('livewire.dashboard.user-management');
     }
-}
+} 

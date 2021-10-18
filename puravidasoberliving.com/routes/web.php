@@ -22,7 +22,7 @@ Route::prefix('/')->group(function () {
     Route::get(
         '/',
         [StaticPagesController::class, 'getWelcomePage']
-    )->name('welcome');
+    )->name('welcome'); 
 
     Route::get(
         '/mission',
